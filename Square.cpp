@@ -3,8 +3,8 @@
 	#include "Square.h"
 
 	Square::Square(int number) : number(number) {
-		setColumn();
 		setRow();
+		setColumn();
 		setColor();
 	}
 
@@ -19,10 +19,15 @@
 	}
 
 	void Square::setColumn() {
-		column = number / 8 + 1;
+		column = (number % BOARD_WIDTH);
 	}
 
 	void Square::setRow() {
-		row = number % 8;
+		row = number / 8;
+	}
+
+	void Square::setPiece(uint64_t _piece, uint64_t _color) {
+		piece = _piece;
+		color = _color;
 	}
 #endif

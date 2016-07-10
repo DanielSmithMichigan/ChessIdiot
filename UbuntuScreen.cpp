@@ -3,6 +3,8 @@
 	#include "UbuntuScreen.h"
 
 	UbuntuScreen::UbuntuScreen() {
+		color["RED"] = "1";
+		color["BLUE"] = "2";
 		color["BLACK"] = "16";
 		color["WHITE"] = "255";
 	}

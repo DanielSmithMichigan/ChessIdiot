@@ -11,21 +11,21 @@
 
 	class Board {
 		private:
-			uint64_t WhitePawns;
-			uint64_t WhiteRooks;
-			uint64_t WhiteKnights;
-			uint64_t WhiteBishops;
-			uint64_t WhiteQueens;
-			uint64_t WhiteKings;
-			uint64_t BlackPawns;
-			uint64_t BlackRooks;
-			uint64_t BlackKnights;
-			uint64_t BlackBishops;
-			uint64_t BlackQueens;
-			uint64_t BlackKings;
-			uint64_t OccupiedSpace;
-			uint64_t WhitePieces;
-			uint64_t BlackPieces;
+			uint64_t WhitePawns = 0;
+			uint64_t WhiteRooks = 0;
+			uint64_t WhiteKnights = 0;
+			uint64_t WhiteBishops = 0;
+			uint64_t WhiteQueens = 0;
+			uint64_t WhiteKings = 0;
+			uint64_t BlackPawns = 0;
+			uint64_t BlackRooks = 0;
+			uint64_t BlackKnights = 0;
+			uint64_t BlackBishops = 0;
+			uint64_t BlackQueens = 0;
+			uint64_t BlackKings = 0;
+			uint64_t OccupiedSpace = 0;
+			uint64_t WhitePieces = 0;
+			uint64_t BlackPieces = 0;
 		public:
 			Board();
 			~Board();

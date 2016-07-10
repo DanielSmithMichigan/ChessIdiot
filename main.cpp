@@ -8,6 +8,7 @@ int main(int argc, char** argv )
 {
     shared_ptr<Board> board(new Board());
 	unique_ptr<TerminalDisplay> terminalDisplay (new TerminalDisplay(new UbuntuScreen(), board));
-    cout << "Finished!!" << endl;
+	terminalDisplay->draw();
+    std::cin.get(); 
     return 0;
 }

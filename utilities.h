@@ -1,6 +1,4 @@
-#ifndef Utilities_cpp
-#define Utilities_cpp
-	bool even(int i) {
-		return i % 2 == 0;
-	}
+#ifndef Utilities_h
+#define Utilities_h
+	bool even(int i);
 #endif
