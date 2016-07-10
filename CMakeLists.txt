@@ -6,6 +6,9 @@ add_executable(
 	main
 	main.cpp
 	Board.cpp
-	Piece.cpp
+	Square.cpp
+	TerminalDisplay.cpp
+	Screen.cpp
+	UbuntuScreen.cpp
 	)
 target_link_libraries( main )

@@ -1,6 +1,6 @@
 #ifndef Board_h
 #define Board_h
-	#include "Piece.h"
+	#include "Square.h"
 	#include "globals.h"
 	#include <stdint.h>
 	#include <iostream>
@@ -11,7 +11,6 @@
 
 	class Board {
 		private:
-			vector<unique_ptr<Piece>> Pieces;
 			uint64_t WhitePawns;
 			uint64_t WhiteRooks;
 			uint64_t WhiteKnights;
@@ -33,5 +32,6 @@
 			void place(uint8_t color, uint8_t type, uint64_t location);
 			uint64_t& getPieceBoard(uint8_t color, uint8_t type);
 			uint64_t& getColorBoard(uint8_t color);
+			vector<unique_ptr<Square>> squares;
 	};
 #endif

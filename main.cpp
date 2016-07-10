@@ -1,10 +1,13 @@
 #include <iostream>
 #include "Board.h"
+#include "TerminalDisplay.h"
+#include "UbuntuScreen.h"
 using namespace std;
 
 int main(int argc, char** argv )
 {
-    Board *b = new Board();
+    shared_ptr<Board> board(new Board());
+	unique_ptr<TerminalDisplay> terminalDisplay (new TerminalDisplay(new UbuntuScreen(), board));
     cout << "Finished!!" << endl;
     return 0;
 }

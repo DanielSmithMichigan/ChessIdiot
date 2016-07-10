@@ -3,6 +3,7 @@
 	#include "Board.h"
 
 	Board::Board() {
+		squares.resize(BOARD_SIZE);
 		WhitePawns = 0;
 		WhiteRooks = 0;
 		WhiteKnights = 0;
@@ -36,14 +37,15 @@
 		place(WHITE, BISHOP, 58);
 		place(WHITE, QUEEN, 59);
 		place(WHITE, KING, 60);
+		for (int i = 0; i < BOARD_SIZE; i++) {
+			squares[i] = unique_ptr<Square>(new Square(i));
+		}
 	}
 
 	Board::~Board() {
-
 	}
 
 	void Board::place(uint8_t color, uint8_t type, uint64_t location) {
-		// Pieces[location] = unique_ptr<Piece>(new Piece(type, color));
 		getPieceBoard(color, type) |= (uint64_t)1 << location;
 		getColorBoard(color) |= (uint64_t)1 << location;
 		OccupiedSpace |= (uint64_t)1 << location;

@@ -8,4 +8,5 @@
 	#define BISHOP 3
 	#define QUEEN 4
 	#define KING 5
+	#define BOARD_SIZE 64
 #endif
