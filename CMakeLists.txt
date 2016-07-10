@@ -10,5 +10,6 @@ add_executable(
 	TerminalDisplay.cpp
 	Screen.cpp
 	UbuntuScreen.cpp
+	utilities.cpp
 	)
 target_link_libraries( main )
