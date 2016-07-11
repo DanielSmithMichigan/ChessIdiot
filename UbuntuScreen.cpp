@@ -4,8 +4,10 @@
 
 	UbuntuScreen::UbuntuScreen() {
 		color["RED"] = "1";
-		color["BLUE"] = "2";
+		color["BLUE"] = "6";
+		color["GREEN"] = "2";
 		color["BLACK"] = "16";
+		color["GRAY"] = "237";
 		color["WHITE"] = "255";
 	}
 

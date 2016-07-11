@@ -2,8 +2,9 @@
 #define TerminalDisplay_cpp
 	#include "TerminalDisplay.h"
 
-	TerminalDisplay::TerminalDisplay(Screen *screenInput, shared_ptr<Board> board) 
-		: board(move(board)) {
+	TerminalDisplay::TerminalDisplay(Screen *screenInput, shared_ptr<Board> board, shared_ptr<UserSession> userSession) 
+		: board(move(board)),
+		  userSession(move(userSession)) {
 		screen.reset(screenInput);
 	}
 
@@ -24,7 +25,7 @@
 		for (int x = 0; x < SQUARE_WIDTH; x++) {
 			for (int y = 0; y < SQUARE_HEIGHT; y++) {
 				screen->gotoxy(x + getSquareXOffset(squareNum, column) + 1, y + getSquareYOffset(squareNum, row) + 1);
-				screen->write(getCharacterForLocation(x, y, squareNum), getForegroundColorForLocation(x, y, squareNum), board->squares[squareNum]->backgroundColor);
+				screen->write(getCharacterForLocation(x, y, squareNum), getForegroundColorForLocation(x, y, squareNum), getBackgroundColorForLocation(x, y, squareNum));
 			}
 		}
 	}
@@ -80,6 +81,13 @@
 				return "BLUE";
 		}
 		throw "Unrecognized Color";
+	}
+
+	string TerminalDisplay::getBackgroundColorForLocation(int x, int y, int squareNum) {
+		if (userSession->isSelected(squareNum)) {
+			return "GRAY";
+		}
+		return board->squares[squareNum]->backgroundColor;
 	}
 
 	int TerminalDisplay::getSquareXOffset(int squareNum, int column) {
