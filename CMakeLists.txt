@@ -6,6 +6,7 @@ include_directories(${CURSES_INCLUDE_DIR})
 add_executable(
 	main
 	Board.cpp
+	Input.cpp
 	Screen.cpp
 	Square.cpp
 	TerminalDisplay.cpp

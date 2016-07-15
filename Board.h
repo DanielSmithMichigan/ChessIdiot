@@ -29,7 +29,9 @@
 		public:
 			Board();
 			~Board();
+			void reset();
 			void place(uint8_t color, uint8_t type, uint64_t location);
+			void removeIndicatorColors();
 			uint64_t& getPieceBoard(uint8_t color, uint8_t type);
 			uint64_t& getColorBoard(uint8_t color);
 			vector<unique_ptr<Square>> squares;

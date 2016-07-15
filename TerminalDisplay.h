@@ -24,6 +24,7 @@
 			string getForegroundColorForLocation(int x, int y, int squareNum);
 			string getBackgroundColorForLocation(int x, int y, int squareNum);
 			void drawMargin();
+			void begin();
 			TerminalDisplay(Screen *screenInput, shared_ptr<Board> board, shared_ptr<UserSession> userSession);
 			~TerminalDisplay();
 	};

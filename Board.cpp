@@ -7,7 +7,14 @@
 		for (int i = 0; i < BOARD_SIZE; i++) {
 			squares[i] = unique_ptr<Square>(new Square(i));
 		}
-		for (int i = 0; i < 8; i++) {
+		reset();
+	}
+
+	Board::~Board() {
+	}
+
+	void Board::reset() {
+		for (int i = 0; i < BOARD_WIDTH; i++) {
 			place(WHITE, PAWN, i + 48);
 			place(BLACK, PAWN, i + 8);
 		}
@@ -29,7 +36,10 @@
 		place(WHITE, KING, 60);
 	}
 
-	Board::~Board() {
+	void Board::removeIndicatorColors() {
+		for(int i = 0; i < BOARD_SIZE; i++) {
+			squares[i]->resetColors();
+		}
 	}
 
 	void Board::place(uint8_t color, uint8_t type, uint64_t location) {

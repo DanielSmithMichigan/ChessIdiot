@@ -11,6 +11,13 @@
 	TerminalDisplay::~TerminalDisplay() {
 	}
 
+	void TerminalDisplay::begin() {
+		while(true) {
+			draw();
+			userSession->waitForInput();
+		}
+	}
+
 	void TerminalDisplay::draw() {
 		screen->clear();
 		for (int i = 0; i < BOARD_SIZE; i++) {
@@ -84,9 +91,6 @@
 	}
 
 	string TerminalDisplay::getBackgroundColorForLocation(int x, int y, int squareNum) {
-		if (userSession->isSelected(squareNum)) {
-			return "GRAY";
-		}
 		return board->squares[squareNum]->backgroundColor;
 	}
 

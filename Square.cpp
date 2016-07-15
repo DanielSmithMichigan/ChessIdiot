@@ -6,16 +6,17 @@
 		setRow();
 		setColumn();
 		setColor();
+		resetColors();
 	}
 
 	Square::~Square() {
 	}
 
 	void Square::setColor() {
-		foregroundColor = even(row) ?
+		defaultForegroundColor = even(row) ?
 			even(column) ? "BLACK" : "WHITE"
 			: even(column) ? "WHITE" : "BLACK";
-		backgroundColor = foregroundColor == "WHITE" ? "BLACK" : "WHITE";
+		defaultBackgroundColor = defaultForegroundColor == "WHITE" ? "BLACK" : "WHITE";
 	}
 
 	void Square::setColumn() {
@@ -29,5 +30,14 @@
 	void Square::setPiece(uint64_t _piece, uint64_t _color) {
 		piece = _piece;
 		color = _color;
+	}
+
+	void Square::resetColors() {
+		foregroundColor = defaultForegroundColor;
+		backgroundColor = defaultBackgroundColor;
+	}
+
+	void Square::select() {
+		backgroundColor = "GREEN";
 	}
 #endif

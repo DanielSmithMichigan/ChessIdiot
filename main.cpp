@@ -8,13 +8,10 @@ using namespace std;
 
 int main(int argc, char** argv )
 {
-	initscr();
-	refresh();
-	shared_ptr<UserSession> userSession(new UserSession());
     shared_ptr<Board> board(new Board());
+	shared_ptr<UserSession> userSession(new UserSession(board));
 	unique_ptr<TerminalDisplay> terminalDisplay (new TerminalDisplay(new UbuntuScreen(), board, userSession));
 	terminalDisplay->draw();
-	userSession->waitForInput();
-	endwin();
+	terminalDisplay->begin();
     return 0;
 }

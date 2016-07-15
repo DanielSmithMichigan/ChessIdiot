@@ -4,21 +4,29 @@
 	#include <iostream>
 	#include <string>
 	#include "utilities.h"
-	#include <ncurses.h>
+	#include <termios.h>
+	#include "Input.h"
+	#include <memory>
+	#include "globals.h"
+	#include "Board.h"
 
 	using namespace std;
 
 	class UserSession {
 		private:
+			unique_ptr<Input> userInput;
+			shared_ptr<Board> board;
+			string input;
+			bool active;
 			int x;
 			int y;
-			string input;
 		public:
-			bool isSelected(int location);
 			void waitForInput();
 			void useInput();
 			void reset();
-			UserSession();
+			void normalize();
+			void selectSquare();
+			UserSession(shared_ptr<Board> board);
 			~UserSession();
 	};
 #endif

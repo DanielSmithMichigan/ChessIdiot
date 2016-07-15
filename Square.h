@@ -19,8 +19,12 @@
 			uint64_t piece = EMPTY_SPACE;
 			uint64_t color;
 			string foregroundColor;
+			string defaultForegroundColor;
 			string backgroundColor;
+			string defaultBackgroundColor;
 			void setPiece(uint64_t piece, uint64_t color);
+			void resetColors();
+			void select();
 			Square(int number);
 			~Square();
 	};
