@@ -38,7 +38,7 @@
 
 	void Board::removeIndicatorColors() {
 		for(int i = 0; i < BOARD_SIZE; i++) {
-			squares[i]->resetColors();
+			squares[i]->resetFeatures();
 		}
 	}
 

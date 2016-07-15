@@ -12,6 +12,7 @@
 			void setColor();
 			void setColumn();
 			void setRow();
+			bool active = false;
 		public:
 			int number;
 			int column;
@@ -23,8 +24,9 @@
 			string backgroundColor;
 			string defaultBackgroundColor;
 			void setPiece(uint64_t piece, uint64_t color);
-			void resetColors();
+			void resetFeatures();
 			void select();
+			bool hasPiece();
 			Square(int number);
 			~Square();
 	};

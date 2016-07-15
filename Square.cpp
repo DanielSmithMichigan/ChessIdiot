@@ -6,7 +6,7 @@
 		setRow();
 		setColumn();
 		setColor();
-		resetColors();
+		resetFeatures();
 	}
 
 	Square::~Square() {
@@ -32,12 +32,21 @@
 		color = _color;
 	}
 
-	void Square::resetColors() {
+	void Square::resetFeatures() {
 		foregroundColor = defaultForegroundColor;
 		backgroundColor = defaultBackgroundColor;
+		active = false;
 	}
 
 	void Square::select() {
+		if (piece == EMPTY_SPACE) {
+			return;
+		}
 		backgroundColor = "GREEN";
+		active = true;
+	}
+
+	bool Square::hasPiece() {
+		return piece != EMPTY_SPACE;
 	}
 #endif

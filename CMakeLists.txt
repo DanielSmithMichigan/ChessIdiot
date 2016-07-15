@@ -7,6 +7,8 @@ add_executable(
 	main
 	Board.cpp
 	Input.cpp
+	MoveGenerator.cpp
+	RookMoveGenerator.cpp
 	Screen.cpp
 	Square.cpp
 	TerminalDisplay.cpp
