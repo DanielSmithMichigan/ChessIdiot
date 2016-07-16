@@ -6,11 +6,13 @@
 	#include <iostream>
 	#include <memory>
 	#include <vector>
+	#include "RookMoveGenerator.h"
 
 	using namespace std;
 
 	class Board {
 		private:
+			unique_ptr<RookMoveGenerator> rookMoveGenerator;
 			uint64_t WhitePawns = 0;
 			uint64_t WhiteRooks = 0;
 			uint64_t WhiteKnights = 0;
@@ -30,10 +32,12 @@
 			Board();
 			~Board();
 			void reset();
-			void place(uint8_t color, uint8_t type, uint64_t location);
+			void place(uint8_t color, uint8_t type, int x, int y);
 			void removeIndicatorColors();
+			void highlightAllMatches(uint8_t bitboard);
 			uint64_t& getPieceBoard(uint8_t color, uint8_t type);
 			uint64_t& getColorBoard(uint8_t color);
-			vector<unique_ptr<Square>> squares;
+			void highlightMovesAt(int x, int y);
+			vector<vector<unique_ptr<Square>>> squares;
 	};
 #endif

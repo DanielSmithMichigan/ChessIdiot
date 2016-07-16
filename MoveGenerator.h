@@ -14,12 +14,13 @@
 			bool canMoveEast = false;
 			bool canMoveSouth = false;
 			bool canMoveWest = false;
-			uint8_t potentialMoveSets[64];
+			uint8_t potentialMoveSets[8][8];
 			void generatePotentialMoveSets();
 			uint8_t generateEastMoves(int x, int y);
 			uint8_t generateWestMoves(int x, int y);
 			uint8_t generateNorthMoves(int x, int y);
 			uint8_t generateSouthMoves(int x, int y);
+			uint8_t movesAt(int x, int y);
 			MoveGenerator();
 			~MoveGenerator();
 	};

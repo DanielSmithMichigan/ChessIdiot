@@ -3,9 +3,15 @@
 	#include "Board.h"
 
 	Board::Board() {
-		squares.resize(BOARD_SIZE);
-		for (int i = 0; i < BOARD_SIZE; i++) {
-			squares[i] = unique_ptr<Square>(new Square(i));
+		rookMoveGenerator.reset(new RookMoveGenerator());
+		squares.resize(BOARD_WIDTH);
+		for (int i = 0; i < BOARD_WIDTH; i++) {
+			squares[i].resize(BOARD_WIDTH);
+		}
+		for (int x = 0; x < BOARD_WIDTH; x++) {
+			for(int y = 0; y < BOARD_WIDTH; y++) {
+				squares[x][y] = unique_ptr<Square>(new Square(x, y));
+			}
 		}
 		reset();
 	}
@@ -14,39 +20,41 @@
 	}
 
 	void Board::reset() {
-		for (int i = 0; i < BOARD_WIDTH; i++) {
-			place(WHITE, PAWN, i + 48);
-			place(BLACK, PAWN, i + 8);
+		for (int x = 0; x < BOARD_WIDTH; x++) {
+			place(WHITE, PAWN, x, 6);
+			place(BLACK, PAWN, x, 1);
 		}
-		place(BLACK, ROOK, 7);
-		place(BLACK, ROOK, 0);
-		place(BLACK, KNIGHT, 6);
-		place(BLACK, KNIGHT, 1);
-		place(BLACK, BISHOP, 5);
-		place(BLACK, BISHOP, 2);
-		place(BLACK, KING, 4);
-		place(BLACK, QUEEN, 3);
-		place(WHITE, ROOK, 63);
-		place(WHITE, ROOK, 56);
-		place(WHITE, KNIGHT, 62);
-		place(WHITE, KNIGHT, 57);
-		place(WHITE, BISHOP, 61);
-		place(WHITE, BISHOP, 58);
-		place(WHITE, QUEEN, 59);
-		place(WHITE, KING, 60);
+		place(BLACK, ROOK, 7, 0);
+		place(WHITE, ROOK, 7, 7);
+		place(BLACK, ROOK, 0, 0);
+		place(WHITE, ROOK, 0, 7);
+		place(BLACK, KNIGHT, 6, 0);
+		place(WHITE, KNIGHT, 6, 7);
+		place(BLACK, KNIGHT, 1, 0);
+		place(WHITE, KNIGHT, 1, 7);
+		place(BLACK, BISHOP, 5, 0);
+		place(WHITE, BISHOP, 5, 7);
+		place(BLACK, BISHOP, 2, 0);
+		place(WHITE, BISHOP, 2, 7);
+		place(BLACK, KING, 4, 0);
+		place(WHITE, KING, 4, 7);
+		place(BLACK, QUEEN, 3, 0);
+		place(WHITE, QUEEN, 3, 7);
 	}
 
 	void Board::removeIndicatorColors() {
-		for(int i = 0; i < BOARD_SIZE; i++) {
-			squares[i]->resetFeatures();
+		for(int x = 0; x < BOARD_WIDTH; x++) {
+			for (int y = 0; y < BOARD_WIDTH; y++) {
+				squares[x][y]->resetFeatures();
+			}
 		}
 	}
 
-	void Board::place(uint8_t color, uint8_t type, uint64_t location) {
-		getPieceBoard(color, type) |= (uint64_t)1 << location;
-		getColorBoard(color) |= (uint64_t)1 << location;
-		OccupiedSpace |= (uint64_t)1 << location;
-		squares[location]->setPiece(type, color);
+	void Board::place(uint8_t color, uint8_t type, int x, int y) {
+		getPieceBoard(color, type) |= (uint64_t)1 << xyToInt(x, y);
+		getColorBoard(color) |= (uint64_t)1 << xyToInt(x, y);
+		OccupiedSpace |= (uint64_t)1 << xyToInt(x, y);
+		squares[x][y]->setPiece(type, color);
 	}
 
 	uint64_t& Board::getPieceBoard(uint8_t color, uint8_t type) {
@@ -70,5 +78,24 @@
 
 	uint64_t& Board::getColorBoard(uint8_t color) {
 		return color == BLACK ? BlackPieces : WhitePieces;
+	}
+
+	void Board::highlightAllMatches(uint8_t bitboard) {
+		for (int x = 0; x < BOARD_WIDTH; x++) {
+			for(int y = 0; y < BOARD_WIDTH; y++) {
+				squares[x][y]->highlightIfMatches(bitboard);
+			}
+		}
+	}
+
+	void Board::highlightMovesAt(int x, int y) {
+		uint8_t piece = squares[x][y]->piece;
+		uint8_t moveBoard;
+		switch(piece) {
+			case ROOK:
+				moveBoard = rookMoveGenerator->movesAt(x, y);
+			break;
+		}
+		highlightAllMatches(moveBoard);
 	}
 #endif

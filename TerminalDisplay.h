@@ -17,12 +17,12 @@
 			shared_ptr<UserSession> userSession;
 		public:
 			void draw();
-			void drawSquare(int squareNum);
-			int getSquareXOffset(int squareNum, int column);
-			int getSquareYOffset(int squareNum, int row);
-			string getCharacterForLocation(int x, int y, int squareNum);
-			string getForegroundColorForLocation(int x, int y, int squareNum);
-			string getBackgroundColorForLocation(int x, int y, int squareNum);
+			void drawSquare(int x, int y);
+			int getSquareXOffset(int x, int y);
+			int getSquareYOffset(int x, int y);
+			string getCharacterForLocation(int column, int row, int x, int y);
+			string getForegroundColorForLocation(int x, int y);
+			string getBackgroundColorForLocation(int x, int y);
 			void drawMargin();
 			void begin();
 			TerminalDisplay(Screen *screenInput, shared_ptr<Board> board, shared_ptr<UserSession> userSession);

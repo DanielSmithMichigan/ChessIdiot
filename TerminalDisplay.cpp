@@ -20,19 +20,19 @@
 
 	void TerminalDisplay::draw() {
 		screen->clear();
-		for (int i = 0; i < BOARD_SIZE; i++) {
-			drawSquare(i);
+		for (int x = 0; x < BOARD_WIDTH; x++) {
+			for (int y = 0; y < BOARD_WIDTH; y++) {
+				drawSquare(x, y);
+			}
 		}
 		drawMargin();
 	}
 
-	void TerminalDisplay::drawSquare(int squareNum) {
-		int column = board->squares[squareNum]->column;
-		int row = board->squares[squareNum]->row;
-		for (int x = 0; x < SQUARE_WIDTH; x++) {
-			for (int y = 0; y < SQUARE_HEIGHT; y++) {
-				screen->gotoxy(x + getSquareXOffset(squareNum, column) + 1, y + getSquareYOffset(squareNum, row) + 1);
-				screen->write(getCharacterForLocation(x, y, squareNum), getForegroundColorForLocation(x, y, squareNum), getBackgroundColorForLocation(x, y, squareNum));
+	void TerminalDisplay::drawSquare(int x, int y) {
+		for (int column = 0; column < SQUARE_WIDTH; column++) {
+			for (int row = 0; row < SQUARE_HEIGHT; row++) {
+				screen->gotoxy(column + getSquareXOffset(x, y) + 1, row + getSquareYOffset(x, y) + 1);
+				screen->write(getCharacterForLocation(column, row, x, y), getForegroundColorForLocation(x, y), getBackgroundColorForLocation(x, y));
 			}
 		}
 	}
@@ -56,10 +56,10 @@
 		}
 	}
 
-	string TerminalDisplay::getCharacterForLocation(int x, int y, int squareNum) {
-		if (x == SQUARE_CENTER_X
-			&& y == SQUARE_CENTER_Y) {
-			switch(board->squares[squareNum]->piece) {
+	string TerminalDisplay::getCharacterForLocation(int row, int column, int x, int y) {
+		if (column == SQUARE_CENTER_Y
+			&& row == SQUARE_CENTER_X) {
+			switch(board->squares[x][y]->piece) {
 				case PAWN:
 					return "P";
 				case ROOK:
@@ -77,11 +77,11 @@
 		return " ";
 	}
 
-	string TerminalDisplay::getForegroundColorForLocation(int x, int y, int squareNum) {
-		if (board->squares[squareNum]->piece == EMPTY_SPACE) {
+	string TerminalDisplay::getForegroundColorForLocation(int x, int y) {
+		if (board->squares[x][y]->piece == EMPTY_SPACE) {
 			return "WHITE";
 		}
-		switch(board->squares[squareNum]->color) {
+		switch(board->squares[x][y]->color) {
 			case WHITE:
 				return "RED";
 			case BLACK:
@@ -90,15 +90,15 @@
 		throw "Unrecognized Color";
 	}
 
-	string TerminalDisplay::getBackgroundColorForLocation(int x, int y, int squareNum) {
-		return board->squares[squareNum]->backgroundColor;
+	string TerminalDisplay::getBackgroundColorForLocation(int x, int y) {
+		return board->squares[x][y]->backgroundColor;
 	}
 
-	int TerminalDisplay::getSquareXOffset(int squareNum, int column) {
-		return (column * SQUARE_WIDTH) + MARGIN_HORIZONTAL;
+	int TerminalDisplay::getSquareXOffset(int x, int y) {
+		return (x * SQUARE_WIDTH) + MARGIN_HORIZONTAL;
 	}
 
-	int TerminalDisplay::getSquareYOffset(int squareNum, int row) {
-		return (row * SQUARE_HEIGHT) + MARGIN_VERTICAL;
+	int TerminalDisplay::getSquareYOffset(int x, int y) {
+		return (y * SQUARE_HEIGHT) + MARGIN_VERTICAL;
 	}
 #endif

@@ -25,9 +25,13 @@
 				if (canMoveWest) {
 					moveSet |= generateWestMoves(x, y);
 				}
-				potentialMoveSets[xyToInt(x, y)] = moveSet;
+				potentialMoveSets[x][y] = moveSet;
 			}
 		}
+	}
+
+	uint8_t MoveGenerator::movesAt(int x, int y) {
+		return potentialMoveSets[x][y];
 	}
 
 	uint8_t MoveGenerator::generateEastMoves(int x, int y) {

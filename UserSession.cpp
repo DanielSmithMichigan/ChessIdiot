@@ -31,7 +31,7 @@
 	void UserSession::selectSquare() {
 		int location = xyToInt(x, y);
 		board->removeIndicatorColors();
-		board->squares[location]->select();
+		board->highlightMovesAt(x, y);
 	}
 
 	void UserSession::normalize() {

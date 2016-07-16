@@ -7,6 +7,7 @@
 		color["BLUE"] = "6";
 		color["GREEN"] = "2";
 		color["BLACK"] = "16";
+		color["PURPLE"] = "89";
 		color["GRAY"] = "237";
 		color["WHITE"] = "255";
 	}
