@@ -60,7 +60,7 @@
 
 	void Square::highlightIfMatches(uint8_t bitboard) {
 		if (matches(bitboard)) {
-			select();
+			highlight();
 		}
 	}
 #endif

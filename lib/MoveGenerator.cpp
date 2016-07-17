@@ -12,19 +12,25 @@
 	void MoveGenerator::generatePotentialMoveSets() {
 		for(int x = 0; x < BOARD_WIDTH; x++) {
 			for (int y = 0; y < BOARD_WIDTH; y++) {
-				uint8_t moveSet = 0;
+				uint64_t moveSet = 0;
+				cout << (float)moveSet << endl;
 				if (canMoveNorth) {
 					moveSet |= generateNorthMoves(x, y);
 				}
+				cout << (float)moveSet << endl;
 				if (canMoveSouth) {
 					moveSet |= generateSouthMoves(x, y);
 				}
+				cout << (float)moveSet << endl;
 				if (canMoveEast) {
 					moveSet |= generateEastMoves(x, y);
 				}
+				cout << (float)moveSet << endl;
 				if (canMoveWest) {
 					moveSet |= generateWestMoves(x, y);
 				}
+				cout << (float)moveSet << endl;
+				throw "ASDDSA";
 				potentialMoveSets[x][y] = moveSet;
 			}
 		}
