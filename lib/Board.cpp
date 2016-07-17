@@ -50,14 +50,14 @@
 		}
 	}
 
-	void Board::place(uint8_t color, uint8_t type, int x, int y) {
+	void Board::place(uint64_t color, uint64_t type, int x, int y) {
 		getPieceBoard(color, type) |= (uint64_t)1 << xyToInt(x, y);
 		getColorBoard(color) |= (uint64_t)1 << xyToInt(x, y);
 		OccupiedSpace |= (uint64_t)1 << xyToInt(x, y);
 		squares[x][y]->setPiece(type, color);
 	}
 
-	uint64_t& Board::getPieceBoard(uint8_t color, uint8_t type) {
+	uint64_t& Board::getPieceBoard(uint64_t color, uint64_t type) {
 		switch(type) {
 			case PAWN: 
 				return color == BLACK ? BlackPawns : WhitePawns;
@@ -76,11 +76,11 @@
 	}
 
 
-	uint64_t& Board::getColorBoard(uint8_t color) {
+	uint64_t& Board::getColorBoard(uint64_t color) {
 		return color == BLACK ? BlackPieces : WhitePieces;
 	}
 
-	void Board::highlightAllMatches(uint8_t bitboard) {
+	void Board::highlightAllMatches(uint64_t bitboard) {
 		for (int x = 0; x < BOARD_WIDTH; x++) {
 			for(int y = 0; y < BOARD_WIDTH; y++) {
 				squares[x][y]->highlightIfMatches(bitboard);
@@ -89,8 +89,8 @@
 	}
 
 	void Board::highlightMovesAt(int x, int y) {
-		uint8_t piece = squares[x][y]->piece;
-		uint8_t moveBoard;
+		uint64_t piece = squares[x][y]->piece;
+		uint64_t moveBoard;
 		switch(piece) {
 			case ROOK:
 				moveBoard = rookMoveGenerator->movesAt(x, y);

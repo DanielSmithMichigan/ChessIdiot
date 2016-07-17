@@ -54,11 +54,11 @@
 		return piece != EMPTY_SPACE;
 	}
 
-	bool Square::matches(uint8_t bitboard) {
+	bool Square::matches(uint64_t bitboard) {
 		return (identityBoard & bitboard) > 0;
 	}
 
-	void Square::highlightIfMatches(uint8_t bitboard) {
+	void Square::highlightIfMatches(uint64_t bitboard) {
 		if (matches(bitboard)) {
 			highlight();
 		}

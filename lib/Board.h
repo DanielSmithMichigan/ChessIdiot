@@ -32,11 +32,11 @@
 			Board();
 			~Board();
 			void reset();
-			void place(uint8_t color, uint8_t type, int x, int y);
+			void place(uint64_t color, uint64_t type, int x, int y);
 			void removeIndicatorColors();
-			void highlightAllMatches(uint8_t bitboard);
-			uint64_t& getPieceBoard(uint8_t color, uint8_t type);
-			uint64_t& getColorBoard(uint8_t color);
+			void highlightAllMatches(uint64_t bitboard);
+			uint64_t& getPieceBoard(uint64_t color, uint64_t type);
+			uint64_t& getColorBoard(uint64_t color);
 			void highlightMovesAt(int x, int y);
 			vector<vector<unique_ptr<Square>>> squares;
 	};
