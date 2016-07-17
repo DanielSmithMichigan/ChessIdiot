@@ -24,7 +24,7 @@
 	}
 
 	void Square::setNumber() {
-		number = x * 8 + y;
+		number = xyToInt(x, y);
 	}
 
 	void Square::setPiece(uint64_t _piece, uint64_t _color) {

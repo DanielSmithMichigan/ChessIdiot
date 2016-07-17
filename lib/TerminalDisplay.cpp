@@ -13,7 +13,7 @@
 
 	void TerminalDisplay::begin() {
 		while(true) {
-			// draw();
+			draw();
 			userSession->waitForInput();
 		}
 	}

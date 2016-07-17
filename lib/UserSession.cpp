@@ -29,7 +29,6 @@
 	}
 
 	void UserSession::selectSquare() {
-		int location = xyToInt(x, y);
 		board->removeIndicatorColors();
 		board->highlightMovesAt(x, y);
 	}

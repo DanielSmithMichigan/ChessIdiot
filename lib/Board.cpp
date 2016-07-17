@@ -95,6 +95,9 @@
 			case ROOK:
 				moveBoard = rookMoveGenerator->movesAt(x, y);
 			break;
+			default:
+				moveBoard = 0;
+			break;
 		}
 		highlightAllMatches(moveBoard);
 	}

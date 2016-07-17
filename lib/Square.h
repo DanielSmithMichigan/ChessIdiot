@@ -15,8 +15,8 @@
 			bool matches(uint64_t bitboard);
 			uint64_t identityBoard;
 			bool active = false;
-			int number;
 		public:
+			int number;
 			int x;
 			int y;
 			uint64_t piece = EMPTY_SPACE;
