@@ -4,6 +4,7 @@
 
 	Board::Board() {
 		rookMoveGenerator.reset(new RookMoveGenerator());
+		knightMoveGenerator.reset(new KnightMoveGenerator());
 		squares.resize(BOARD_WIDTH);
 		for (int i = 0; i < BOARD_WIDTH; i++) {
 			squares[i].resize(BOARD_WIDTH);
@@ -94,6 +95,9 @@
 		switch(piece) {
 			case ROOK:
 				moveBoard = rookMoveGenerator->movesAt(x, y);
+			break;
+			case KNIGHT:
+				moveBoard = knightMoveGenerator->movesAt(x, y);
 			break;
 			default:
 				moveBoard = 0;

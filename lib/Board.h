@@ -7,12 +7,14 @@
 	#include <memory>
 	#include <vector>
 	#include "RookMoveGenerator.h"
+	#include "KnightMoveGenerator.h"
 
 	using namespace std;
 
 	class Board {
 		private:
 			unique_ptr<RookMoveGenerator> rookMoveGenerator;
+			unique_ptr<KnightMoveGenerator> knightMoveGenerator;
 			uint64_t WhitePawns = 0;
 			uint64_t WhiteRooks = 0;
 			uint64_t WhiteKnights = 0;
