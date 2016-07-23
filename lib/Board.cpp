@@ -56,9 +56,16 @@
 	}
 
 	void Board::place(uint64_t color, uint64_t type, int x, int y) {
-		pieceBoards[color][type] |= (uint64_t)1 << xyToInt(x, y);
-		colorBoards[color] |= (uint64_t)1 << xyToInt(x, y);
-		occupiedSpace |= (uint64_t)1 << xyToInt(x, y);
+		pieceBoards[color][type] |= identityBoardFromXy(x, y);
+		colorBoards[color] |= identityBoardFromXy(x, y);
+		occupiedSpace |= identityBoardFromXy(x, y);
+		squares[x][y]->setPiece(type, color);
+	}
+
+	void Board::remove(uint64_t color, uint64_t type, int x, int y) {
+		pieceBoards[color][type] &= identityBoardFromXy(x, y);
+		colorBoards[color] |= identityBoardFromXy(x, y);
+		occupiedSpace |= identityBoardFromXy(x, y);
 		squares[x][y]->setPiece(type, color);
 	}
 

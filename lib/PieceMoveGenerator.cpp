@@ -49,7 +49,7 @@
 	uint64_t PieceMoveGenerator::generateEastSlide(int x, int y) {
 		uint64_t outputBoard = 0;
 		while(++x < BOARD_WIDTH) {
-			outputBoard |= boardFromXy(x, y);
+			outputBoard |= identityBoardFromXy(x, y);
 		}
 		return outputBoard;
 	}
@@ -57,7 +57,7 @@
 	uint64_t PieceMoveGenerator::generateNorthEastSlide(int x, int y) {
 		uint64_t outputBoard = 0;
 		while(--y >= 0 && ++x < BOARD_WIDTH) {
-			outputBoard |= boardFromXy(x, y);
+			outputBoard |= identityBoardFromXy(x, y);
 		}
 		return outputBoard;
 	}
@@ -65,7 +65,7 @@
 	uint64_t PieceMoveGenerator::generateNorthSlide(int x, int y) {
 		uint64_t outputBoard = 0;
 		while(--y >= 0) {
-			outputBoard |= boardFromXy(x, y);
+			outputBoard |= identityBoardFromXy(x, y);
 		}
 		return outputBoard;
 	}
@@ -73,7 +73,7 @@
 	uint64_t PieceMoveGenerator::generateNorthWestSlide(int x, int y) {
 		uint64_t outputBoard = 0;
 		while(--y >= 0 && --x >= 0) {
-			outputBoard |= boardFromXy(x, y);
+			outputBoard |= identityBoardFromXy(x, y);
 		}
 		return outputBoard;
 	}
@@ -81,7 +81,7 @@
 	uint64_t PieceMoveGenerator::generateWestSlide(int x, int y) {
 		uint64_t outputBoard = 0;
 		while(--x >= 0) {
-			outputBoard |= boardFromXy(x, y);
+			outputBoard |= identityBoardFromXy(x, y);
 		}
 		return outputBoard;
 	}
@@ -89,7 +89,7 @@
 	uint64_t PieceMoveGenerator::generateSouthWestSlide(int x, int y) {
 		uint64_t outputBoard = 0;
 		while(--x >= 0 && ++y < BOARD_WIDTH) {
-			outputBoard |= boardFromXy(x, y);
+			outputBoard |= identityBoardFromXy(x, y);
 		}
 		return outputBoard;
 	}
@@ -97,7 +97,7 @@
 	uint64_t PieceMoveGenerator::generateSouthSlide(int x, int y) {
 		uint64_t outputBoard = 0;
 		while(++y < BOARD_WIDTH) {
-			outputBoard |= boardFromXy(x, y);
+			outputBoard |= identityBoardFromXy(x, y);
 		}
 		return outputBoard;
 	}
@@ -105,7 +105,7 @@
 	uint64_t PieceMoveGenerator::generateSouthEastSlide(int x, int y) {
 		uint64_t outputBoard = 0;
 		while(++y < BOARD_WIDTH && ++x < BOARD_WIDTH) {
-			outputBoard |= boardFromXy(x, y);
+			outputBoard |= identityBoardFromXy(x, y);
 		}
 		return outputBoard;
 	}

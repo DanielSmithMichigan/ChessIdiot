@@ -10,7 +10,7 @@
 	uint64_t boardFromNumber(int i) {
 		return (uint64_t)1 << i;
 	}
-	uint64_t boardFromXy(int x, int y) {
+	uint64_t identityBoardFromXy(int x, int y) {
 		return boardFromNumber(xyToInt(x, y));
 	}
 #endif

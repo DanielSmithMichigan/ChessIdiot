@@ -19,6 +19,7 @@
 			Board();
 			~Board();
 			void place(uint64_t color, uint64_t type, int x, int y);
+			void remove(uint64_t color, uint64_t type, int x, int y);
 			void removeIndicatorColors();
 			void highlightAllMatches(uint64_t bitboard);
 			uint64_t getPieceAtSquare(int x, int y);

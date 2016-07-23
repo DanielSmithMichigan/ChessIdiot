@@ -31,7 +31,7 @@
 				int testY = y + addToY;
 				if (isValidKnightMove(addToX, addToY)
 					&& onBoard(testX, testY)) {
-					moveSet |= boardFromXy(testX, testY);
+					moveSet |= identityBoardFromXy(testX, testY);
 				}
 			}
 		}

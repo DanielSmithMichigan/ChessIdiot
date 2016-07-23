@@ -4,5 +4,5 @@
 	bool even(int i);
 	int xyToInt(int x, int y);
 	uint64_t boardFromNumber(int i);
-	uint64_t boardFromXy(int x, int y);
+	uint64_t identityBoardFromXy(int x, int y);
 #endif
