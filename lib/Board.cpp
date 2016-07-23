@@ -3,8 +3,6 @@
 	#include "Board.h"
 
 	Board::Board() {
-		rookMoveGenerator.reset(new RookMoveGenerator());
-		knightMoveGenerator.reset(new KnightMoveGenerator());
 		squares.resize(BOARD_WIDTH);
 		for (int i = 0; i < BOARD_WIDTH; i++) {
 			squares[i].resize(BOARD_WIDTH);
@@ -14,13 +12,19 @@
 				squares[x][y] = unique_ptr<Square>(new Square(x, y));
 			}
 		}
-		reset();
+		for (int i = 0; i < 2; i++) {
+			colorBoards[i] = 0;
+			for (int j = 0; j < 6; j++) {
+				pieceBoards[i][j] = 0;
+			}
+		}
+		initialize();
 	}
 
 	Board::~Board() {
 	}
 
-	void Board::reset() {
+	void Board::initialize() {
 		for (int x = 0; x < BOARD_WIDTH; x++) {
 			place(WHITE, PAWN, x, 6);
 			place(BLACK, PAWN, x, 1);
@@ -52,33 +56,10 @@
 	}
 
 	void Board::place(uint64_t color, uint64_t type, int x, int y) {
-		getPieceBoard(color, type) |= (uint64_t)1 << xyToInt(x, y);
-		getColorBoard(color) |= (uint64_t)1 << xyToInt(x, y);
-		OccupiedSpace |= (uint64_t)1 << xyToInt(x, y);
+		pieceBoards[color][type] |= (uint64_t)1 << xyToInt(x, y);
+		colorBoards[color] |= (uint64_t)1 << xyToInt(x, y);
+		occupiedSpace |= (uint64_t)1 << xyToInt(x, y);
 		squares[x][y]->setPiece(type, color);
-	}
-
-	uint64_t& Board::getPieceBoard(uint64_t color, uint64_t type) {
-		switch(type) {
-			case PAWN: 
-				return color == BLACK ? BlackPawns : WhitePawns;
-			case ROOK: 
-				return color == BLACK ? BlackRooks : WhiteRooks;
-			case KNIGHT: 
-				return color == BLACK ? BlackKnights : WhiteKnights;
-			case BISHOP: 
-				return color == BLACK ? BlackBishops : WhiteBishops;
-			case QUEEN: 
-				return color == BLACK ? BlackQueens : WhiteQueens;
-			case KING: 
-				return color == BLACK ? BlackKings : WhiteKings;
-		}
-		throw "UncaughtException";
-	}
-
-
-	uint64_t& Board::getColorBoard(uint64_t color) {
-		return color == BLACK ? BlackPieces : WhitePieces;
 	}
 
 	void Board::highlightAllMatches(uint64_t bitboard) {
@@ -89,20 +70,7 @@
 		}
 	}
 
-	void Board::highlightMovesAt(int x, int y) {
-		uint64_t piece = squares[x][y]->piece;
-		uint64_t moveBoard;
-		switch(piece) {
-			case ROOK:
-				moveBoard = rookMoveGenerator->movesAt(x, y);
-			break;
-			case KNIGHT:
-				moveBoard = knightMoveGenerator->movesAt(x, y);
-			break;
-			default:
-				moveBoard = 0;
-			break;
-		}
-		highlightAllMatches(moveBoard);
+	uint64_t Board::getPieceAtSquare(int x, int y) {
+		return squares[x][y]->piece;
 	}
 #endif

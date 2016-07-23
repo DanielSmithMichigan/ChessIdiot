@@ -4,24 +4,23 @@
 	#include <iostream>
 	#include "utilities.h"
 	#include "globals.h"
+	#include <memory>
+	#include "Board.h"
+	#include "RookMoveGenerator.h"
+	#include "KnightMoveGenerator.h"
+	#include "BishopMoveGenerator.h"
+	#include "QueenMoveGenerator.h"
+	
 
 	using namespace std;
 
 	class MoveGenerator {
 		private:
+			shared_ptr<Board> board;
+			vector<unique_ptr<PieceMoveGenerator>> pieceMoveGenerators;
 		public:
-			bool canMoveNorth = false;
-			bool canMoveEast = false;
-			bool canMoveSouth = false;
-			bool canMoveWest = false;
-			uint64_t potentialMoveSets[8][8];
-			void generatePotentialMoveSets();
-			uint64_t generateEastMoves(int x, int y);
-			uint64_t generateWestMoves(int x, int y);
-			uint64_t generateNorthMoves(int x, int y);
-			uint64_t generateSouthMoves(int x, int y);
-			uint64_t movesAt(int x, int y);
-			MoveGenerator();
+			uint64_t getMovesForPieceAt(int x, int y);
+			MoveGenerator(shared_ptr<Board> board);
 			~MoveGenerator();
 	};
 #endif

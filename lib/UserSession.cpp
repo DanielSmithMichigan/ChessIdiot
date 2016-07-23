@@ -30,7 +30,6 @@
 
 	void UserSession::selectSquare() {
 		board->removeIndicatorColors();
-		board->highlightMovesAt(x, y);
 	}
 
 	void UserSession::normalize() {
