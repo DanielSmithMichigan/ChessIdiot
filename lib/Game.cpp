@@ -2,7 +2,9 @@
 #define Game_cpp
 	#include "Game.h"
 
-	Game::Game(shared_ptr<Board> board) : board(move(board)) {
+	Game::Game(shared_ptr<Board> board, UserCommand *userCommandInput) 
+	: board(move(board)) {
+	  	userCommand.reset(userCommandInput);
 	}
 
 	Game::~Game() {

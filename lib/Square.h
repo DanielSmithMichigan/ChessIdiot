@@ -20,7 +20,7 @@
 			int x;
 			int y;
 			uint64_t piece = EMPTY_SPACE;
-			uint64_t color;
+			uint64_t color = EMPTY_SPACE;
 			string foregroundColor;
 			string defaultForegroundColor;
 			string backgroundColor;

@@ -66,7 +66,14 @@
 		pieceBoards[color][type] &= inverseIdentityBoardFromXy(x, y);
 		colorBoards[color] &= inverseIdentityBoardFromXy(x, y);
 		occupiedSpace &= inverseIdentityBoardFromXy(x, y);
-		squares[x][y]->setPiece(type, color);
+		squares[x][y]->setPiece(EMPTY_SPACE, EMPTY_SPACE);
+	}
+
+	void Board::move(int xBefore, int yBefore, int xAfter, int yAfter) {
+		uint64_t color = squares[xBefore][yBefore]->color;
+		uint64_t type = squares[xBefore][yBefore]->piece;
+		remove(color, type, xBefore, yBefore);
+		place(color, type, xAfter, yAfter);
 	}
 
 	void Board::highlightAllMatches(uint64_t bitboard) {

@@ -2,20 +2,12 @@
 #define TerminalDisplay_cpp
 	#include "TerminalDisplay.h"
 
-	TerminalDisplay::TerminalDisplay(Screen *screenInput, shared_ptr<Board> board, shared_ptr<UserSession> userSession) 
-		: board(move(board)),
-		  userSession(move(userSession)) {
+	TerminalDisplay::TerminalDisplay(Screen *screenInput, shared_ptr<Board> board) 
+		: board(move(board)) {
 		screen.reset(screenInput);
 	}
 
 	TerminalDisplay::~TerminalDisplay() {
-	}
-
-	void TerminalDisplay::begin() {
-		while(true) {
-			draw();
-			userSession->waitForInput();
-		}
 	}
 
 	void TerminalDisplay::draw() {
