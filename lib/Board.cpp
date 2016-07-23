@@ -63,9 +63,9 @@
 	}
 
 	void Board::remove(uint64_t color, uint64_t type, int x, int y) {
-		pieceBoards[color][type] &= identityBoardFromXy(x, y);
-		colorBoards[color] |= identityBoardFromXy(x, y);
-		occupiedSpace |= identityBoardFromXy(x, y);
+		pieceBoards[color][type] &= inverseIdentityBoardFromXy(x, y);
+		colorBoards[color] &= inverseIdentityBoardFromXy(x, y);
+		occupiedSpace &= inverseIdentityBoardFromXy(x, y);
 		squares[x][y]->setPiece(type, color);
 	}
 
