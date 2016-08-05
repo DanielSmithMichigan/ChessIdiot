@@ -39,7 +39,6 @@
 		}
 		drawMargin();
 		refresh();
-		getch();
 	}
 
 	void TerminalDisplay::drawSquare(int x, int y) {

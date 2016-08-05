@@ -1,18 +1,16 @@
 #ifndef UserCommand_h
 #define UserCommand_h
-	#include <stdint.h>
 	#include <iostream>
 	#include <string>
 	#include "utilities.h"
-	#include <termios.h>
-	#include <memory>
 	#include "globals.h"
+	#include <ncurses.h>
 
 	using namespace std;
 
 	class UserCommand {
 		private:
-			string input;
+			char input;
 			bool active;
 			int x;
 			int y;

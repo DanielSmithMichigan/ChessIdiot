@@ -8,6 +8,7 @@
 	#include <vector>
 	#include "Board.h"
 	#include "UserCommand.h"
+	#include "TerminalDisplay.h"
 
 	using namespace std;
 
@@ -15,8 +16,10 @@
 		private:
 			shared_ptr<Board> board;
 			unique_ptr<UserCommand> userCommand;
+			shared_ptr<TerminalDisplay> terminalDisplay;
 		public:
-			Game(shared_ptr<Board> board, UserCommand *userCommandInput);
+			Game(shared_ptr<Board> board, UserCommand *userCommandInput, shared_ptr<TerminalDisplay> terminalDisplay);
 			~Game();
+			void begin();
 	};
 #endif

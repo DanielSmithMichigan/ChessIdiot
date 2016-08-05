@@ -9,21 +9,21 @@
 	}
 
 	void UserCommand::get() {
-		cin >> input;
+		input = getch();
     	useInput();
     	normalize();
 	}
 
 	void UserCommand::useInput() {
-		if (input == "W") {
+		if (input == 'W') {
 			y--;
-		} else if (input == "A") {
+		} else if (input == 'A') {
 			x--;
-		} else if (input == "S") {
+		} else if (input == 'S') {
 			y++;
-		} else if (input == "D") {
+		} else if (input == 'D') {
 			x++;
-		} else if (input == "E") {
+		} else if (input == 'E') {
 			// selectSquare();
 			// Return selectedSquare
 		}
