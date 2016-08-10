@@ -2,10 +2,10 @@
 #define Game_cpp
 	#include "Game.h"
 
-	Game::Game(shared_ptr<Board> board, UserCommand *userCommandInput, shared_ptr<TerminalDisplay> terminalDisplay) 
+	Game::Game(shared_ptr<Board> board, shared_ptr<SelectedSquare> selectedSquare, shared_ptr<TerminalDisplay> terminalDisplay) 
 	: board(move(board)),
-	terminalDisplay(move(terminalDisplay)) {
-	  	userCommand.reset(userCommandInput);
+	terminalDisplay(move(terminalDisplay)),
+	selectedSquare(move(selectedSquare)) {
 	}
 
 	Game::~Game() {
@@ -13,7 +13,7 @@
 
 	void Game::begin() {
 		terminalDisplay->draw();
-		userCommand->get();
+		selectedSquare->get();
 
 	}
 #endif

@@ -76,6 +76,10 @@
 		place(color, type, xAfter, yAfter);
 	}
 
+	void Board::highlightAllMatches(int x, int y) {
+		highlightAllMatches(identityBoardFromXy(x, y));
+	}
+
 	void Board::highlightAllMatches(uint64_t bitboard) {
 		for (int x = 0; x < BOARD_WIDTH; x++) {
 			for(int y = 0; y < BOARD_WIDTH; y++) {
