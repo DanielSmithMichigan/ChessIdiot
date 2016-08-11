@@ -19,4 +19,6 @@
 	#define SQUARE_CENTER_Y 1
 	#define MARGIN_HORIZONTAL 5
 	#define MARGIN_VERTICAL 3
+	#define HIGHLIGHT 0
+	#define SELECT 1
 #endif

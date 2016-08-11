@@ -35,19 +35,19 @@
 	void Square::resetFeatures() {
 		foregroundColor = defaultForegroundColor;
 		backgroundColor = defaultBackgroundColor;
-		active = false;
+		selected = false;
+		highlighted = false;
 	}
 
 	void Square::select() {
 		if (piece == EMPTY_SPACE) {
 			return;
 		}
-		backgroundColor = "GREEN";
-		active = true;
+		selected = true;
 	}
 
 	void Square::highlight() {
-		backgroundColor = "PURPLE";
+		highlighted = true;
 	}
 
 	bool Square::hasPiece() {
@@ -58,9 +58,16 @@
 		return (identityBoard & bitboard) > 0;
 	}
 
-	void Square::highlightIfMatches(uint64_t bitboard) {
+	void Square::doIfMatches(uint64_t bitboard, int action) {
 		if (matches(bitboard)) {
-			highlight();
+			switch(action) {
+				case HIGHLIGHT:
+					highlight();
+				break;
+				case SELECT:
+					select();
+				break;
+			}
 		}
 	}
 #endif

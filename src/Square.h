@@ -14,7 +14,6 @@
 			void setIdentityBoard();
 			bool matches(uint64_t bitboard);
 			uint64_t identityBoard;
-			bool active = false;
 		public:
 			int number;
 			int x;
@@ -28,9 +27,11 @@
 			void setPiece(uint64_t piece, uint64_t color);
 			void resetFeatures();
 			void select();
-			void highlightIfMatches(uint64_t bitboard);
+			void doIfMatches(uint64_t bitboard, int action);
 			void highlight();
 			bool hasPiece();
+			bool selected = false;
+			bool highlighted = false;
 			Square(int x, int y);
 			~Square();
 	};

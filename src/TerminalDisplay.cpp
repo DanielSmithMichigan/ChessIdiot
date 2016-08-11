@@ -110,7 +110,16 @@
 	}
 
 	int TerminalDisplay::getBackgroundColorForLocation(int x, int y) {
-		return board->squares[x][y]->backgroundColor == "WHITE" ? COLOR_WHITE : COLOR_BLACK;
+		if (board->squares[x][y]->highlighted) {
+			return COLOR_MAGENTA;
+		}
+		if (board->squares[x][y]->selected) {
+			return COLOR_GREEN;
+		}
+		if (board->squares[x][y]->backgroundColor == "WHITE") {
+			return COLOR_WHITE;
+		}
+		return COLOR_BLACK;
 	}
 
 	int TerminalDisplay::getSquareXOffset(int x, int y) {

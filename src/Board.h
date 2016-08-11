@@ -22,8 +22,8 @@
 			void remove(uint64_t color, uint64_t type, int x, int y);
 			void move(int xBefore, int yBefore, int xAfter, int yAfter);
 			void removeIndicatorColors();
-			void highlightAllMatches(int x, int y);
-			void highlightAllMatches(uint64_t bitboard);
+			void doForAllMatches(int x, int y, int action);
+			void doForAllMatches(uint64_t bitboard, int action);
 			uint64_t getPieceAtSquare(int x, int y);
 			vector<vector<unique_ptr<Square>>> squares;
 	};

@@ -27,6 +27,7 @@
 			void reset();
 			void normalize();
 			void display();
+			void resetBoard();
 			SelectedSquare(shared_ptr<Board> board, shared_ptr<TerminalDisplay> terminalDisplay);
 			~SelectedSquare();
 	};

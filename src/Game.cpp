@@ -12,8 +12,18 @@
 	}
 
 	void Game::begin() {
-		terminalDisplay->draw();
 		selectedSquare->get();
+		getch();
+		selectedSquare->get();
+		getch();
+		selectedSquare->get();
+		getch();
+		selectedSquare->get();
+		getch();
+		selectedSquare->get();
+		getch();
+		selectedSquare->get();
+		getch();
 
 	}
 #endif

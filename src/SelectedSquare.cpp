@@ -12,16 +12,26 @@
 
 	void SelectedSquare::get() {
 		reset();
+		display();
 		while (!selected) {
 			getInput();
+			resetBoard();
 	    	useInput();
 	    	normalize();
 	    	display();
     	}
 	}
 
+	void SelectedSquare::resetBoard() {
+		board->removeIndicatorColors();
+	}
+
 	void SelectedSquare::display() {
-		board->highlightAllMatches(x, y);
+		if (selected) {
+			board->doForAllMatches(x, y, SELECT);
+		} else {
+			board->doForAllMatches(x, y, HIGHLIGHT);
+		}
     	terminalDisplay->draw();
 	}
 
@@ -43,7 +53,7 @@
 			case 'd':
 				x++;
 			return;
-			case 10:
+			case 'e':
 				selected = true;
 			return;
 		}
@@ -60,5 +70,6 @@
 		x = 0;
 		y = 0;
 		selected = false;
+		resetBoard();
 	}
 #endif

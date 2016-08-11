@@ -76,14 +76,14 @@
 		place(color, type, xAfter, yAfter);
 	}
 
-	void Board::highlightAllMatches(int x, int y) {
-		highlightAllMatches(identityBoardFromXy(x, y));
+	void Board::doForAllMatches(int x, int y, int action) {
+		doForAllMatches(identityBoardFromXy(x, y), action);
 	}
 
-	void Board::highlightAllMatches(uint64_t bitboard) {
+	void Board::doForAllMatches(uint64_t bitboard, int action) {
 		for (int x = 0; x < BOARD_WIDTH; x++) {
 			for(int y = 0; y < BOARD_WIDTH; y++) {
-				squares[x][y]->highlightIfMatches(bitboard);
+				squares[x][y]->doIfMatches(bitboard, action);
 			}
 		}
 	}
