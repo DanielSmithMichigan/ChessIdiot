@@ -6,6 +6,10 @@
 
 	class BishopMoveGenerator : public PieceMoveGenerator{
 		private:
+			bool canSlideNorthEast = true;
+			bool canSlideNorthWest = true;
+			bool canSlideSouthWest = true;
+			bool canSlideSouthEast = true;
 		public:
 			BishopMoveGenerator();
 			~BishopMoveGenerator();

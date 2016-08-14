@@ -3,11 +3,6 @@
 	#include "RookMoveGenerator.h"
 
 	RookMoveGenerator::RookMoveGenerator() {
-		canSlideEast = true;
-		canSlideNorth = true;
-		canSlideWest = true;
-		canSlideSouth = true;
-		generate();
 	}
 
 	RookMoveGenerator::~RookMoveGenerator() {

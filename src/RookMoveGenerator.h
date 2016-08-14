@@ -6,6 +6,10 @@
 
 	class RookMoveGenerator : public PieceMoveGenerator{
 		private:
+			bool canSlideEast = true;
+			bool canSlideNorth = true;
+			bool canSlideWest = true;
+			bool canSlideSouth = true;
 		public:
 			RookMoveGenerator();
 			~RookMoveGenerator();

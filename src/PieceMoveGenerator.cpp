@@ -3,6 +3,7 @@
 	#include "PieceMoveGenerator.h"
 
 	PieceMoveGenerator::PieceMoveGenerator() {
+		generate();
 	}
 
 	PieceMoveGenerator::~PieceMoveGenerator() {

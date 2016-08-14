@@ -7,11 +7,8 @@
 
 	class KnightMoveGenerator : public PieceMoveGenerator{
 		private:
-			uint64_t generateKnightMovesAtLocation(int x, int y);
-			bool onBoard(int x, int y);
-			bool isValidKnightMove(int x, int y);
+			bool canMoveAsKnight = true;
 		public:
-			void generatePotentialMoveSets();
 			KnightMoveGenerator();
 			~KnightMoveGenerator();
 	};
