@@ -7,7 +7,7 @@
 		canSlideNorthWest = true;
 		canSlideSouthWest = true;
 		canSlideSouthEast = true;
-		generatePotentialMoveSets();
+		generate();
 	}
 
 	BishopMoveGenerator::~BishopMoveGenerator() {

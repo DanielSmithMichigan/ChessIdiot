@@ -9,41 +9,28 @@
 
 	}
 
-	void PieceMoveGenerator::generatePotentialMoveSets() {
+	void PieceMoveGenerator::generate() {
 		for(int x = 0; x < BOARD_WIDTH; x++) {
 			for (int y = 0; y < BOARD_WIDTH; y++) {
-				uint64_t moveSet = 0;
-				if (canSlideNorth) {
-					moveSet |= generateNorthSlide(x, y);
-				}
-				if (canSlideNorthWest) {
-					moveSet |= generateNorthWestSlide(x, y);
-				}
-				if (canSlideWest) {
-					moveSet |= generateWestSlide(x, y);
-				}
-				if (canSlideSouthWest) {
-					moveSet |= generateSouthWestSlide(x, y);
-				}
-				if (canSlideSouth) {
-					moveSet |= generateSouthSlide(x, y);
-				}
-				if (canSlideSouthEast) {
-					moveSet |= generateSouthEastSlide(x, y);
-				}
-				if (canSlideEast) {
-					moveSet |= generateEastSlide(x, y);
-				}
-				if (canSlideNorthEast) {
-					moveSet |= generateNorthEastSlide(x, y);
-				}
-				potentialMoveSets[x][y] = moveSet;
+				moveBoards[x][y][NORTH] = generateNorthSlide(x, y);
+				moveBoards[x][y][NORTHEAST] = generateNorthEastSlide(x, y);
+				moveBoards[x][y][EAST] = generateEastSlide(x, y);
+				moveBoards[x][y][SOUTHEAST] = generateSouthEastSlide(x, y);
+				moveBoards[x][y][SOUTH] = generateSouthSlide(x, y);
+				moveBoards[x][y][SOUTHWEST] = generateSouthWestSlide(x, y);
+				moveBoards[x][y][WEST] = generateWestSlide(x, y);
+				moveBoards[x][y][NORTHWEST] = generateNorthWestSlide(x, y);
+				moveBoards[x][y][KNIGHT] = generateKnightMoves(x, y);
+				moveBoards[x][y][PAWNATTACKWHITE] = generatePawnAttackMoves(x, y, WHITE);
+				moveBoards[x][y][PAWNATTACKBLACK] = generatePawnAttackMoves(x, y, BLACK);
+				moveBoards[x][y][PAWNFORWARDWHITE] = generatePawnForwardMoves(x, y, WHITE);
+				moveBoards[x][y][PAWNFORWARDBLACK] = generatePawnForwardMoves(x, y, BLACK);
 			}
 		}
 	}
 
 	uint64_t PieceMoveGenerator::movesAt(int x, int y) {
-		return potentialMoveSets[x][y];
+		return moveBoards[x][y];
 	}
 
 	uint64_t PieceMoveGenerator::generateEastSlide(int x, int y) {
@@ -108,5 +95,62 @@
 			outputBoard |= identityBoardFromXy(x, y);
 		}
 		return outputBoard;
+	}
+
+	uint64_t PieceMoveGenerator::generateKnightMoves(int x, int y) {
+		int potentialKnightMoves[] = {-2, -1, 1, 2};
+		int potentialKnightMovesSize = (sizeof(potentialKnightMoves)/sizeof(*potentialKnightMoves));
+		uint64_t moveSet = 0;
+		for (int i = 0; i < potentialKnightMovesSize; i++) {
+			int xModifier = potentialKnightMoves[i];
+			int potentialX = x + xModifier;
+			for (int j = 0; j < potentialKnightMovesSize; j++) {
+				int yModifier = potentialKnightMoves[j];
+				int potentialY = y + yModifier;
+				if (isValidKnightMove(xModifier, yModifier)
+					&& onBoard(potentialX, potentialY)) {
+					moveSet |= identityBoardFromXy(potentialX, potentialY);
+				}
+			}
+		}
+		return moveSet;
+	}
+
+	uint64_t PieceMoveGenerator::generatePawnAttackMoves(int x, int y, int color) {
+		int yModifier = -1;
+		if (color == BLACK) {
+			yModifier = 1;
+		}
+		uint64_t moveSet = 0;
+		int potentialPawnAttackMoves[] = {-1, 1};
+		int potentialPawnAttackMovesSize = (sizeof(potentialPawnAttackMoves)/sizeof(*potentialPawnAttackMoves));
+		for (int i = 0; i < potentialPawnAttackMovesSize; i++) {
+			int xModifier = potentialPawnAttackMoves[i];
+			int potentialX = x + xModifier;
+			int potentialY = y + yModifier;
+			if (onBoard(potentialX, potentialY)) {
+				moveSet |= identityBoardFromXy(potentialX, potentialY);
+			}
+		}
+		return moveSet;
+	}
+
+	uint64_t PieceMoveGenerator::generatePawnForwardMoves(int x, int y, int color) {
+		int yModifier = -1;
+		if (color == BLACK) {
+			yModifier = 1;
+		}
+		return identityBoardFromXy(x, y + yModifier);
+	}
+
+	bool PieceMoveGenerator::isValidKnightMove(int x, int y) {
+		return abs(x) != abs(y);
+	}
+
+	bool PieceMoveGenerator::onBoard(int x, int y) {
+		return x < BOARD_WIDTH 
+				&& x >= 0
+				&& y < BOARD_WIDTH
+				&& y >= 0;
 	}
 #endif

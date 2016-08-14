@@ -21,4 +21,17 @@
 	#define MARGIN_VERTICAL 3
 	#define HIGHLIGHT 0
 	#define SELECT 1
+	#define NORTH 0
+	#define NORTHEAST 1
+	#define EAST 2
+	#define SOUTHEAST 3
+	#define SOUTH 4
+	#define SOUTHWEST 5
+	#define WEST 6
+	#define NORTHWEST 7
+	#define KNIGHTMOVES 8
+	#define PAWNATTACKWHITE 9
+	#define PAWNATTACKBLACK 10
+	#define PAWNFORWARDWHITE 11
+	#define PAWNFORWARDBLACK 12
 #endif

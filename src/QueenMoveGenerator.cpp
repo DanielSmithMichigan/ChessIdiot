@@ -11,7 +11,7 @@
 		canSlideSouthWest = true;
 		canSlideSouth = true;
 		canSlideSouthEast = true;
-		generatePotentialMoveSets();
+		generate();
 	}
 
 	QueenMoveGenerator::~QueenMoveGenerator() {

@@ -7,7 +7,7 @@
 		canSlideNorth = true;
 		canSlideWest = true;
 		canSlideSouth = true;
-		generatePotentialMoveSets();
+		generate();
 	}
 
 	RookMoveGenerator::~RookMoveGenerator() {
