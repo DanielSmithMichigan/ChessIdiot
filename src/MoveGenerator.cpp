@@ -4,10 +4,10 @@
 
 	MoveGenerator::MoveGenerator(shared_ptr<Board> board) : board(move(board)) {
 		pieceMoveGenerators.resize(6);
-		pieceMoveGenerators[ROOK].reset(new RookMoveGenerator());
-		pieceMoveGenerators[KNIGHT].reset(new KnightMoveGenerator());
-		pieceMoveGenerators[BISHOP].reset(new BishopMoveGenerator());
-		pieceMoveGenerators[QUEEN].reset(new QueenMoveGenerator());
+		pieceMoveGenerators[ROOK].reset(new RookMoveGenerator(board));
+		pieceMoveGenerators[KNIGHT].reset(new KnightMoveGenerator(board));
+		pieceMoveGenerators[BISHOP].reset(new BishopMoveGenerator(board));
+		pieceMoveGenerators[QUEEN].reset(new QueenMoveGenerator(board));
 	}
 
 	MoveGenerator::~MoveGenerator() {

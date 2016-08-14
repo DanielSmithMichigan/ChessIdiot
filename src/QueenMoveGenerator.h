@@ -15,7 +15,7 @@
 			bool canSlideSouth = true;
 			bool canSlideSouthEast = true;
 		public:
-			QueenMoveGenerator();
+			QueenMoveGenerator(shared_ptr<Board> board);
 			~QueenMoveGenerator();
 	};
 #endif

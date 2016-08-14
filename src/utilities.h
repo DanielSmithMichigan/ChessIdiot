@@ -6,4 +6,5 @@
 	uint64_t boardFromNumber(int i);
 	uint64_t identityBoardFromXy(int x, int y);
 	uint64_t inverseIdentityBoardFromXy(int x, int y);
+	uint64_t opposingColor(uint64_t color);
 #endif

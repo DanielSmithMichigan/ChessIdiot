@@ -2,7 +2,8 @@
 #define PieceMoveGenerator_cpp
 	#include "PieceMoveGenerator.h"
 
-	PieceMoveGenerator::PieceMoveGenerator() {
+	PieceMoveGenerator::PieceMoveGenerator(shared_ptr<Board> board) :
+	board(move(board)) {
 		generate();
 	}
 
@@ -13,21 +14,29 @@
 	void PieceMoveGenerator::generate() {
 		for(int x = 0; x < BOARD_WIDTH; x++) {
 			for (int y = 0; y < BOARD_WIDTH; y++) {
-				moveBoards[x][y][NORTH] = generateNorthSlide(x, y);
-				moveBoards[x][y][NORTHEAST] = generateNorthEastSlide(x, y);
-				moveBoards[x][y][EAST] = generateEastSlide(x, y);
-				moveBoards[x][y][SOUTHEAST] = generateSouthEastSlide(x, y);
-				moveBoards[x][y][SOUTH] = generateSouthSlide(x, y);
-				moveBoards[x][y][SOUTHWEST] = generateSouthWestSlide(x, y);
-				moveBoards[x][y][WEST] = generateWestSlide(x, y);
-				moveBoards[x][y][NORTHWEST] = generateNorthWestSlide(x, y);
-				moveBoards[x][y][KNIGHT] = generateKnightMoves(x, y);
-				moveBoards[x][y][PAWNATTACKWHITE] = generatePawnAttackMoves(x, y, WHITE);
-				moveBoards[x][y][PAWNATTACKBLACK] = generatePawnAttackMoves(x, y, BLACK);
-				moveBoards[x][y][PAWNFORWARDWHITE] = generatePawnForwardMoves(x, y, WHITE);
-				moveBoards[x][y][PAWNFORWARDBLACK] = generatePawnForwardMoves(x, y, BLACK);
+				generateMoveBoards(x, y);
 			}
 		}
+	}
+
+	void PieceMoveGenerator::generateMoveLists(int x, int y) {
+		moveLists[x][y][NORTH] = generateNorthSlide(int x, int y);
+	}
+
+	void PieceMoveGenerator::generateMoveBoards(int x, int y) {
+		moveBoards[x][y][NORTH] = generateNorthSlide(x, y);
+		moveBoards[x][y][NORTHEAST] = generateNorthEastSlide(x, y);
+		moveBoards[x][y][EAST] = generateEastSlide(x, y);
+		moveBoards[x][y][SOUTHEAST] = generateSouthEastSlide(x, y);
+		moveBoards[x][y][SOUTH] = generateSouthSlide(x, y);
+		moveBoards[x][y][SOUTHWEST] = generateSouthWestSlide(x, y);
+		moveBoards[x][y][WEST] = generateWestSlide(x, y);
+		moveBoards[x][y][NORTHWEST] = generateNorthWestSlide(x, y);
+		moveBoards[x][y][KNIGHT] = generateKnightMoves(x, y);
+		moveBoards[x][y][PAWNATTACKWHITE] = generatePawnAttackMoves(x, y, WHITE);
+		moveBoards[x][y][PAWNATTACKBLACK] = generatePawnAttackMoves(x, y, BLACK);
+		moveBoards[x][y][PAWNFORWARDWHITE] = generatePawnForwardMoves(x, y, WHITE);
+		moveBoards[x][y][PAWNFORWARDBLACK] = generatePawnForwardMoves(x, y, BLACK);
 	}
 
 	uint64_t PieceMoveGenerator::movesAt(int x, int y) {
@@ -50,7 +59,7 @@
 		return outputBoard;
 	}
 
-	uint64_t PieceMoveGenerator::generateNorthSlide(int x, int y) {
+	list<Move> &PieceMoveGenerator::generateNorthSlide(int x, int y) {
 		uint64_t outputBoard = 0;
 		while(--y >= 0) {
 			outputBoard |= identityBoardFromXy(x, y);

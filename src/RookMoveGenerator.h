@@ -11,7 +11,7 @@
 			bool canSlideWest = true;
 			bool canSlideSouth = true;
 		public:
-			RookMoveGenerator();
+			RookMoveGenerator(shared_ptr<Board> board);
 			~RookMoveGenerator();
 	};
 #endif

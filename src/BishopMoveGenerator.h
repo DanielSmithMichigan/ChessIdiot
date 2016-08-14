@@ -11,7 +11,7 @@
 			bool canSlideSouthWest = true;
 			bool canSlideSouthEast = true;
 		public:
-			BishopMoveGenerator();
+			BishopMoveGenerator(shared_ptr<Board> board);
 			~BishopMoveGenerator();
 	};
 #endif
