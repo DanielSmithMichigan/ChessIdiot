@@ -18,13 +18,13 @@
 			int number;
 			int x;
 			int y;
-			uint64_t piece = EMPTY_SPACE;
-			uint64_t color = EMPTY_SPACE;
+			int piece = EMPTY_SPACE;
+			int color = EMPTY_SPACE;
 			string foregroundColor;
 			string defaultForegroundColor;
 			string backgroundColor;
 			string defaultBackgroundColor;
-			void setPiece(uint64_t piece, uint64_t color);
+			void setPiece(int piece, int color);
 			void resetFeatures();
 			void select();
 			void doIfMatches(uint64_t bitboard, int action);

@@ -21,6 +21,9 @@
 	#define MARGIN_VERTICAL 3
 	#define HIGHLIGHT 0
 	#define SELECT 1
+	#define NO_DIRECTION -1
+	#define MOVE_LENGTH 9
+	#define MOVE_TYPES 13
 	#define NORTH 0
 	#define NORTHEAST 1
 	#define EAST 2

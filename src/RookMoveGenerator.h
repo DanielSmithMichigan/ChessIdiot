@@ -1,10 +1,10 @@
 #ifndef RookMoveGenerator_h
 #define RookMoveGenerator_h
-	#include "PieceMoveGenerator.h"
+	#include "MoveGeneratorPieceMoveGenerator.h"
 
 	using namespace std;
 
-	class RookMoveGenerator : public PieceMoveGenerator{
+	class RookMoveGenerator : public MoveGenerator{
 		private:
 			bool canSlideEast = true;
 			bool canSlideNorth = true;

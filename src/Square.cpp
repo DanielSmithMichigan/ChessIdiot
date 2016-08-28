@@ -27,7 +27,7 @@
 		number = xyToInt(x, y);
 	}
 
-	void Square::setPiece(uint64_t _piece, uint64_t _color) {
+	void Square::setPiece(int _piece, int _color) {
 		piece = _piece;
 		color = _color;
 	}

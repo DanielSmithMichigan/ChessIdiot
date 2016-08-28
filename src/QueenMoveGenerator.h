@@ -1,10 +1,10 @@
 #ifndef QueenMoveGenerator_h
 #define QueenMoveGenerator_h
-	#include "PieceMoveGenerator.h"
+	#include "MoveGenerator.h"
 
 	using namespace std;
 
-	class QueenMoveGenerator : public PieceMoveGenerator{
+	class QueenMoveGenerator : public MoveGenerator{
 		private:
 			bool canSlideEast = true;
 			bool canSlideNorthEast = true;

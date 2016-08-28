@@ -2,7 +2,7 @@
 #define QueenMoveGenerator_cpp
 	#include "QueenMoveGenerator.h"
 
-	QueenMoveGenerator::QueenMoveGenerator(shared_ptr<Board> board) : PieceMoveGenerator(board) {
+	QueenMoveGenerator::QueenMoveGenerator(shared_ptr<Board> board) : MoveGenerator(board) {
 	}
 
 	QueenMoveGenerator::~QueenMoveGenerator() {

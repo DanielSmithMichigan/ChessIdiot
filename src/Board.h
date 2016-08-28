@@ -18,13 +18,13 @@
 			uint64_t occupiedSpace = 0;
 			uint64_t pieceBoards[2][6];
 			uint64_t colorBoards[2];
-			void place(uint64_t color, uint64_t type, int x, int y);
-			void remove(uint64_t color, uint64_t type, int x, int y);
+			void place(int color, int type, int x, int y);
+			void remove(int color, int type, int x, int y);
 			void move(int xBefore, int yBefore, int xAfter, int yAfter);
 			void removeIndicatorColors();
 			void doForAllMatches(int x, int y, int action);
 			void doForAllMatches(uint64_t bitboard, int action);
-			uint64_t getPieceAtSquare(int x, int y);
+			int getPieceAtSquare(int x, int y);
 			vector<vector<unique_ptr<Square>>> squares;
 	};
 #endif

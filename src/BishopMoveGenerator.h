@@ -1,10 +1,10 @@
 #ifndef BishopMoveGenerator_h
 #define BishopMoveGenerator_h
-	#include "PieceMoveGenerator.h"
+	#include "MoveGenerator.h"
 
 	using namespace std;
 
-	class BishopMoveGenerator : public PieceMoveGenerator{
+	class BishopMoveGenerator : public MoveGenerator{
 		private:
 			bool canSlideNorthEast = true;
 			bool canSlideNorthWest = true;

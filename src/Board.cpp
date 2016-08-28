@@ -55,14 +55,14 @@
 		}
 	}
 
-	void Board::place(uint64_t color, uint64_t type, int x, int y) {
+	void Board::place(int color, int type, int x, int y) {
 		pieceBoards[color][type] |= identityBoardFromXy(x, y);
 		colorBoards[color] |= identityBoardFromXy(x, y);
 		occupiedSpace |= identityBoardFromXy(x, y);
 		squares[x][y]->setPiece(type, color);
 	}
 
-	void Board::remove(uint64_t color, uint64_t type, int x, int y) {
+	void Board::remove(int color, int type, int x, int y) {
 		pieceBoards[color][type] &= inverseIdentityBoardFromXy(x, y);
 		colorBoards[color] &= inverseIdentityBoardFromXy(x, y);
 		occupiedSpace &= inverseIdentityBoardFromXy(x, y);
@@ -70,8 +70,8 @@
 	}
 
 	void Board::move(int xBefore, int yBefore, int xAfter, int yAfter) {
-		uint64_t color = squares[xBefore][yBefore]->color;
-		uint64_t type = squares[xBefore][yBefore]->piece;
+		int color = squares[xBefore][yBefore]->color;
+		int type = squares[xBefore][yBefore]->piece;
 		remove(color, type, xBefore, yBefore);
 		place(color, type, xAfter, yAfter);
 	}
@@ -88,7 +88,7 @@
 		}
 	}
 
-	uint64_t Board::getPieceAtSquare(int x, int y) {
+	int Board::getPieceAtSquare(int x, int y) {
 		return squares[x][y]->piece;
 	}
 #endif

@@ -16,6 +16,9 @@
 	uint64_t inverseIdentityBoardFromXy(int x, int y) {
 		return ~boardFromNumber(xyToInt(x, y));
 	}
+	uint64_t identityBoardFromMove(uint32_t move) {
+		return identityBoardFromXy(X2(move), Y2(move));
+	}
 	uint64_t opposingColor(uint64_t color) {
 		return 1 - color;
 	}

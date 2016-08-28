@@ -2,25 +2,26 @@
 #define MoveGenerator_h
 	#include <stdint.h>
 	#include <iostream>
+	#include <list>
+	#include <vector>
 	#include "utilities.h"
 	#include "globals.h"
-	#include <memory>
+	#include "Move.h"
 	#include "Board.h"
-	#include "RookMoveGenerator.h"
-	#include "KnightMoveGenerator.h"
-	#include "BishopMoveGenerator.h"
-	#include "QueenMoveGenerator.h"
-	
+	#include "MoveCache.h"
 
 	using namespace std;
 
 	class MoveGenerator {
 		private:
+		protected:
 			shared_ptr<Board> board;
-			vector<unique_ptr<PieceMoveGenerator>> pieceMoveGenerators;
+			unique_ptr<MoveCache> moveCache;
+			vector<vector<vector<uint64_t>>> moveBoards;
+			vector<vector<vector<list<Move>>>> moveLists;
 		public:
-			uint64_t getMovesForPieceAt(int x, int y);
 			MoveGenerator(shared_ptr<Board> board);
 			~MoveGenerator();
+			uint64_t generateSlideMoves(int x, int y, int direction);
 	};
 #endif
