@@ -3,92 +3,50 @@
 	#include "Board.h"
 
 	Board::Board() {
-		squares.resize(BOARD_WIDTH);
-		for (int i = 0; i < BOARD_WIDTH; i++) {
-			squares[i].resize(BOARD_WIDTH);
-		}
-		for (int x = 0; x < BOARD_WIDTH; x++) {
-			for(int y = 0; y < BOARD_WIDTH; y++) {
-				squares[x][y] = unique_ptr<Square>(new Square(x, y));
-			}
-		}
-		for (int i = 0; i < 2; i++) {
-			colorBoards[i] = 0;
-			for (int j = 0; j < 6; j++) {
-				pieceBoards[i][j] = 0;
-			}
-		}
-		initialize();
+		initializeEmptyBoard();
+		initializePieces();
+		initializeFirstMove();
 	}
 
 	Board::~Board() {
 	}
 
-	void Board::initialize() {
+	void Board::initializePieces() {
 		for (int x = 0; x < BOARD_WIDTH; x++) {
-			place(WHITE, PAWN, x, 6);
-			place(BLACK, PAWN, x, 1);
+			place(WHITE_PAWN, x + ROWS(1));
+			place(BLACK_PAWN, x + ROWS(5));
 		}
-		place(BLACK, ROOK, 7, 0);
-		place(WHITE, ROOK, 7, 7);
-		place(BLACK, ROOK, 0, 0);
-		place(WHITE, ROOK, 0, 7);
-		place(BLACK, KNIGHT, 6, 0);
-		place(WHITE, KNIGHT, 6, 7);
-		place(BLACK, KNIGHT, 1, 0);
-		place(WHITE, KNIGHT, 1, 7);
-		place(BLACK, BISHOP, 5, 0);
-		place(WHITE, BISHOP, 5, 7);
-		place(BLACK, BISHOP, 2, 0);
-		place(WHITE, BISHOP, 2, 7);
-		place(BLACK, KING, 4, 0);
-		place(WHITE, KING, 4, 7);
-		place(BLACK, QUEEN, 3, 0);
-		place(WHITE, QUEEN, 3, 7);
+		place(BLACK_ROOK, 7);
+		place(BLACK_ROOK, 0);
+		place(BLACK_KNIGHT, 6);
+		place(BLACK_KNIGHT, 1);
+		place(BLACK_BISHOP, 5);
+		place(BLACK_BISHOP, 2);
+		place(BLACK_QUEEN, 3);
+		place(BLACK_KING, 4);
+		place(WHITE_ROOK, ROWS(7));
+		place(WHITE_ROOK, ROWS(7) + 7);
+		place(WHITE_KNIGHT, ROWS(7) + 6);
+		place(WHITE_KNIGHT, ROWS(7) + 6);
+		place(WHITE_BISHOP, ROWS(7) + 5);
+		place(WHITE_BISHOP, ROWS(7) + 2);
+		place(WHITE_QUEEN, ROWS(7) + 3);
+		place(WHITE_KING, ROWS(7) + 4);
 	}
 
-	void Board::removeIndicatorColors() {
-		for(int x = 0; x < BOARD_WIDTH; x++) {
-			for (int y = 0; y < BOARD_WIDTH; y++) {
-				squares[x][y]->resetFeatures();
-			}
+	void Board::initializeEmptyBoard() {
+		for (int i = 0; i < BOARD_SIZE; i++) {
+			squares[i] = EMPTY_SPACE;
 		}
 	}
 
-	void Board::place(int color, int type, int x, int y) {
-		pieceBoards[color][type] |= identityBoardFromXy(x, y);
-		colorBoards[color] |= identityBoardFromXy(x, y);
-		occupiedSpace |= identityBoardFromXy(x, y);
-		squares[x][y]->setPiece(type, color);
-	}
-
-	void Board::remove(int color, int type, int x, int y) {
-		pieceBoards[color][type] &= inverseIdentityBoardFromXy(x, y);
-		colorBoards[color] &= inverseIdentityBoardFromXy(x, y);
-		occupiedSpace &= inverseIdentityBoardFromXy(x, y);
-		squares[x][y]->setPiece(EMPTY_SPACE, EMPTY_SPACE);
-	}
-
-	void Board::move(int xBefore, int yBefore, int xAfter, int yAfter) {
-		int color = squares[xBefore][yBefore]->color;
-		int type = squares[xBefore][yBefore]->piece;
-		remove(color, type, xBefore, yBefore);
-		place(color, type, xAfter, yAfter);
-	}
-
-	void Board::doForAllMatches(int x, int y, int action) {
-		doForAllMatches(identityBoardFromXy(x, y), action);
-	}
-
-	void Board::doForAllMatches(uint64_t bitboard, int action) {
-		for (int x = 0; x < BOARD_WIDTH; x++) {
-			for(int y = 0; y < BOARD_WIDTH; y++) {
-				squares[x][y]->doIfMatches(bitboard, action);
-			}
+	void Board::initializeFirstMove() {
+		for (int i = 0; i < BOARD_SIZE; i++) {
+			firstMove[i] = 1;
 		}
 	}
 
-	int Board::getPieceAtSquare(int x, int y) {
-		return squares[x][y]->piece;
+	void Board::place(int piece, int location) {
+		squares[location] = piece;
 	}
 #endif

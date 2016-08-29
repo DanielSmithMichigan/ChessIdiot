@@ -120,13 +120,6 @@
 		return abs(x) != abs(y);
 	}
 
-	bool MoveCache::onBoard(int x, int y) {
-		return x < BOARD_WIDTH 
-				&& x >= 0
-				&& y < BOARD_WIDTH
-				&& y >= 0;
-	}
-
 	int MoveCache::getXModifier(int eastWest) {
 		switch (eastWest) {
 			case EAST:

@@ -1,40 +1,33 @@
 #ifndef Globals_h
 #define Globals_h
-	#define BLACK 0
-	#define WHITE 1
-	#define EMPTY_SPACE 0
-	#define PAWN 1
-	#define ROOK 2
-	#define KNIGHT 3
-	#define BISHOP 4
-	#define QUEEN 5
-	#define KING 6
-	#define BOARD_SIZE 64
+	#define MOVE_STACK_LIMIT 512
+	#define MAX_DEPTH 24
+	#define BOARD_SIZE 128
 	#define BOARD_WIDTH 8
-	#define SQUARE_WIDTH 5
-	#define SQUARE_HEIGHT 3
-	#define BOARD_SCREEN_WIDTH BOARD_SIZE * SQUARE_WIDTH / BOARD_WIDTH
-	#define BOARD_SCREEN_HEIGHT BOARD_SIZE * SQUARE_HEIGHT / BOARD_WIDTH
-	#define SQUARE_CENTER_X 2
-	#define SQUARE_CENTER_Y 1
-	#define MARGIN_HORIZONTAL 5
-	#define MARGIN_VERTICAL 3
-	#define HIGHLIGHT 0
-	#define SELECT 1
-	#define NO_DIRECTION -1
-	#define MOVE_LENGTH 9
-	#define MOVE_TYPES 13
-	#define NORTH 0
-	#define NORTHEAST 1
-	#define EAST 2
-	#define SOUTHEAST 3
-	#define SOUTH 4
-	#define SOUTHWEST 5
-	#define WEST 6
-	#define NORTHWEST 7
-	#define KNIGHTMOVES 8
-	#define PAWNATTACKWHITE 9
-	#define PAWNATTACKBLACK 10
-	#define PAWNFORWARDWHITE 11
-	#define PAWNFORWARDBLACK 12
+	#define ROWS(numColumns) (numColumns * 16)
+	#define ON_BOARD(i) (!(i & 0x88))
+	#define NOT_ON_BOARD(i) (i & 0x88)
+	#define NORTH ROWS(1)
+	#define NORTH_EAST 1 + ROWS(1)
+	#define EAST 1
+	#define SOUTH_EAST 1 + ROWS(-1)
+	#define SOUTH ROWS(-1)
+	#define SOUTH_WEST -1 + ROWS(-1)
+	#define WEST -1
+	#define NORTH_WEST -1 + ROWS(1)
+	#define EMPTY_SPACE 0
+	#define WHITE_PAWN 1
+	#define WHITE_ROOK 2
+	#define WHITE_KNIGHT 3
+	#define WHITE_BISHOP 4
+	#define WHITE_QUEEN 5
+	#define WHITE_KING 6
+	#define BLACK_PAWN 7
+	#define BLACK_ROOK 8
+	#define BLACK_KNIGHT 9
+	#define BLACK_BISHOP 10
+	#define BLACK_QUEEN 11
+	#define BLACK_KING 12
+	#define GET_COLOR(i) (i > 6 ? "BLACK" : "WHITE")
+	#define BLANK 0
 #endif

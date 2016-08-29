@@ -2,33 +2,34 @@
 #define MoveGenerator_cpp
 	#include "MoveGenerator.h"
 
-	MoveGenerator::MoveGenerator(shared_ptr<Board> board) :
-	board(move(board)) {
-		moveCache.reset(new MoveCache());
+	//FULL_MOVE(from,to,captured,enPassant,firstMove,promotedPiece,castle)
+
+	MoveGenerator::MoveGenerator(shared_ptr<Board> board, shared_ptr<MoveStack> moveStack) :
+	board(move(board)),	moveStack(move(moveStack)) {
 	}
 
 	MoveGenerator::~MoveGenerator() {
 
 	}
 
-	uint64_t MoveGenerator::generateSlideMoves(int x, int y, int direction) {
-		uint64_t moveBoard = moveCache->moveBoards[x][y][direction];
-		int color = board->squares[x][y]->color;
-		if ((board->occupiedSpace & moveBoard) == 0) {
-			return moveBoard;
-		}
+	void MoveGenerator::generateMoves(int location) {
 
-		bool endOnNext = false;
-		for (list<Move>::iterator i = moveCache->moveLists[x][y][direction].begin(); i != moveCache->moveLists[x][y][direction].end(); i++) {
-			if (endOnNext || board->squares[(*i).x2][(*i).y2]->piece != EMPTY_SPACE) {
-				if (endOnNext || board->squares[(*i).x2][(*i).y2]->color == board->squares[x][y]->color) {
-					moveBoard &= ~moveCache->moveBoards[(*i).x2][(*i).y2][direction];
-					return moveBoard;
-				} else {
-					endOnNext = true;
+	}
+
+	void MoveGenerator::generateSlideMove(int from, int delta) {
+		int to = from;
+		while (ON_BOARD(to += delta)) {
+			if (board->squares != EMPTY_SPACE) {
+				if (GET_COLOR(board->squares[to]) != GET_COLOR(board->squares[from])) {
+					generateMove(from, to);
 				}
+				break;
 			}
+			generateMove(from, to);
 		}
-		return moveBoard;
+	}
+
+	void MoveGenerator::generateMove(int from, int to) {
+		moveStack->push(MOVE(from, to, board->squares[to], BLANK, board->firstMove[from], BLANK, BLANK));
 	}
 #endif

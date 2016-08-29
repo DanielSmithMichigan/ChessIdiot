@@ -6,9 +6,9 @@
 	#include <vector>
 	#include "utilities.h"
 	#include "globals.h"
+	#include "MoveStack.h"
 	#include "Move.h"
 	#include "Board.h"
-	#include "MoveCache.h"
 
 	using namespace std;
 
@@ -16,12 +16,12 @@
 		private:
 		protected:
 			shared_ptr<Board> board;
-			unique_ptr<MoveCache> moveCache;
-			vector<vector<vector<uint64_t>>> moveBoards;
-			vector<vector<vector<list<Move>>>> moveLists;
+			shared_ptr<MoveStack> moveStack;
 		public:
-			MoveGenerator(shared_ptr<Board> board);
+			MoveGenerator(shared_ptr<Board> board, shared_ptr<MoveStack>);
 			~MoveGenerator();
-			uint64_t generateSlideMoves(int x, int y, int direction);
+			void generateMoves(int location);
+			void generateSlideMove(int from, int delta);
+			void generateMove(int from, int to);
 	};
 #endif
