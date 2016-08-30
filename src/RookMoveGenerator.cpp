@@ -1,8 +1,9 @@
 #ifndef RookMoveGenerator_cpp
 #define RookMoveGenerator_cpp
-	#include "MoveGenerator.h"
+	#include "RookMoveGenerator.h"
 
-	RookMoveGenerator::RookMoveGenerator(shared_ptr<Board> board) : MoveGenerator(board) {
+	RookMoveGenerator::RookMoveGenerator(shared_ptr<Board> board, shared_ptr<MoveStack> moveStack) 
+		: SlideMoveGenerator(board, moveStack) {
 	}
 
 	RookMoveGenerator::~RookMoveGenerator() {

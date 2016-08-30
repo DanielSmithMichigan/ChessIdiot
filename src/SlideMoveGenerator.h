@@ -1,18 +1,10 @@
-#ifndef MoveGenerator_h
-#define MoveGenerator_h
-	#include <stdint.h>
-	#include <iostream>
-	#include <list>
-	#include <vector>
-	#include "utilities.h"
-	#include "globals.h"
-	#include "MoveStack.h"
-	#include "Move.h"
-	#include "Board.h"
+#ifndef SlideMoveGenerator_h
+#define SlideMoveGenerator_h
+	#include "MoveGenerator.h"
 
 	using namespace std;
 
-	class MoveGenerator {
+	class SlideMoveGenerator : public MoveGenerator{
 		private:
 			bool canMoveNorth = false;
 			bool canMoveNorthEast = false;
@@ -23,12 +15,12 @@
 			bool canMoveWest = false;
 			bool canMoveNorthWest = false;
 		protected:
-		public:
 			shared_ptr<Board> board;
 			shared_ptr<MoveStack> moveStack;
-			MoveGenerator(shared_ptr<Board> board, shared_ptr<MoveStack>);
-			~MoveGenerator();
+		public:
+			SlideMoveGenerator(shared_ptr<Board> board, shared_ptr<MoveStack>);
+			~SlideMoveGenerator();
 			void generateMoves(int from);
-			void generateMove(int from, int to);
+			void generateSlideMove(int from, int delta);
 	};
 #endif
