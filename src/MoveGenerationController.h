@@ -1,15 +1,13 @@
 #ifndef MoveGenerationController_h
 #define MoveGenerationController_h
-	#include <stdint.h>
-	#include <iostream>
-	#include "utilities.h"
-	#include "globals.h"
-	#include <memory>
 	#include "Board.h"
+	#include "PawnMoveGenerator.h"
 	#include "RookMoveGenerator.h"
 	#include "KnightMoveGenerator.h"
 	#include "BishopMoveGenerator.h"
 	#include "QueenMoveGenerator.h"
+	#include "KingMoveGenerator.h"
+	#include "MoveStack.h"
 	
 
 	using namespace std;
@@ -17,10 +15,10 @@
 	class MoveGenerationController {
 		private:
 			shared_ptr<Board> board;
-			vector<unique_ptr<PieceMoveGenerator>> pieceMoveGenerators;
+			shared_ptr<MoveStack> moveStack;
+			vector<unique_ptr<MoveGenerator>> moveGenerators;
 		public:
-			uint64_t getMovesForPieceAt(int x, int y);
-			MoveGenerationController(shared_ptr<Board> board);
+			MoveGenerationController(shared_ptr<Board> board, shared_ptr<MoveStack> moveStack);
 			~MoveGenerationController();
 	};
 #endif
