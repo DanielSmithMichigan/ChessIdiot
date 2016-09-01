@@ -5,12 +5,12 @@
 
 	class MoveStack {
 		private:
-			uint32_t stack[MOVE_STACK_LIMIT];
 			int depthLimits[MAX_DEPTH];
 			int top = 0;
 			int currentDepth = 0;
 		protected:
 		public:
+			uint32_t stack[MOVE_STACK_LIMIT];
 			void push(uint32_t move);
 			void increaseDepth();
 			void decreaseDepth();

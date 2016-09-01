@@ -16,9 +16,15 @@
 		private:
 			shared_ptr<Board> board;
 			shared_ptr<MoveStack> moveStack;
-			vector<unique_ptr<MoveGenerator>> moveGenerators;
+			shared_ptr<RookMoveGenerator> rookMoveGenerator;
+			shared_ptr<KnightMoveGenerator> knightMoveGenerator;
+			shared_ptr<BishopMoveGenerator> bishopMoveGenerator;
+			shared_ptr<QueenMoveGenerator> queenMoveGenerator;
+			shared_ptr<PawnMoveGenerator> pawnMoveGenerator;
+			shared_ptr<KingMoveGenerator> kingMoveGenerator;
 		public:
 			MoveGenerationController(shared_ptr<Board> board, shared_ptr<MoveStack> moveStack);
 			~MoveGenerationController();
+			void generateMovesAt(int from);
 	};
 #endif

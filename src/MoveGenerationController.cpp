@@ -5,17 +5,27 @@
 	MoveGenerationController::MoveGenerationController(shared_ptr<Board> board, shared_ptr<MoveStack> moveStack) :
 		board(move(board)),
 		moveStack(move(moveStack)) {
-		moveGenerators.resize(6);
-		moveGenerators[WHITE_ROOK].reset(new RookMoveGenerator(board, moveStack));
-		moveGenerators[WHITE_KNIGHT].reset(new KnightMoveGenerator(board, moveStack));
-		moveGenerators[WHITE_BISHOP].reset(new BishopMoveGenerator(board, moveStack));
-		moveGenerators[WHITE_QUEEN].reset(new QueenMoveGenerator(board, moveStack));
-		moveGenerators[WHITE_PAWN].reset(new PawnMoveGenerator(board, moveStack));
-		moveGenerators[WHITE_KING].reset(new KingMoveGenerator(board, moveStack));
+		rookMoveGenerator.reset(new RookMoveGenerator(board, moveStack));
+		knightMoveGenerator.reset(new KnightMoveGenerator(board, moveStack));
+		bishopMoveGenerator.reset(new BishopMoveGenerator(board, moveStack));
+		queenMoveGenerator.reset(new QueenMoveGenerator(board, moveStack));
+		pawnMoveGenerator.reset(new PawnMoveGenerator(board, moveStack));
+		kingMoveGenerator.reset(new KingMoveGenerator(board, moveStack));
 	}
 
 	MoveGenerationController::~MoveGenerationController() {
 
+	}
+
+	void MoveGenerationController::generateMovesAt(int from) {
+		int pieceAtLocation = board->squares[from];
+		switch(pieceAtLocation) {
+			case WHITE_KING:
+			case BLACK_KING:
+				kingMoveGenerator->generateMoves(from);
+			case EMPTY_SPACE:
+				break;
+		}
 	}
 
 #endif
