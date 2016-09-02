@@ -2,7 +2,8 @@
 #define KnightMoveGenerator_cpp
 	#include "KnightMoveGenerator.h"
 
-	KnightMoveGenerator::KnightMoveGenerator(shared_ptr<Board> board, shared_ptr<MoveStack> moveStack) : MoveGenerator(board, moveStack) {
+	KnightMoveGenerator::KnightMoveGenerator(shared_ptr<Board> board, shared_ptr<MoveStack> moveStack) 
+		: MoveGenerator(board, moveStack) {
 	}
 
 	KnightMoveGenerator::~KnightMoveGenerator() {

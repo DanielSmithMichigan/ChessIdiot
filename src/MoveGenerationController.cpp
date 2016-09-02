@@ -3,8 +3,8 @@
 	#include "MoveGenerationController.h"
 
 	MoveGenerationController::MoveGenerationController(shared_ptr<Board> board, shared_ptr<MoveStack> moveStack) :
-		board(move(board)),
-		moveStack(move(moveStack)) {
+		board(board),
+		moveStack(moveStack) {
 		rookMoveGenerator.reset(new RookMoveGenerator(board, moveStack));
 		knightMoveGenerator.reset(new KnightMoveGenerator(board, moveStack));
 		bishopMoveGenerator.reset(new BishopMoveGenerator(board, moveStack));

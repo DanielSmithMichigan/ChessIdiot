@@ -5,8 +5,8 @@
 	//FULL_MOVE(from,to,captured,enPassant,firstMove,promotedPiece,castle)
 
 	MoveGenerator::MoveGenerator(shared_ptr<Board> board, shared_ptr<MoveStack> moveStack) :
-		board(move(board)),
-		moveStack(move(moveStack)) {
+		board(board),
+		moveStack(moveStack) {
 	}
 
 	MoveGenerator::~MoveGenerator() {
