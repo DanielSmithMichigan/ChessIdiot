@@ -1,5 +1,7 @@
 	#include "../src/MoveGenerationController.h"
 	#include "gtest/gtest.h"
+	#include "gmock/gmock.h"
+	#include <algorithm>
 
 	using namespace std;
 

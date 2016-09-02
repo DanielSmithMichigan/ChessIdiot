@@ -26,7 +26,12 @@
 	TEST_F(MoveGenerationControllerTest, RunFirstTest) {
 		board->squares[0] = WHITE_KING;
 		moveGenerationController->generateMovesAt(0);
-		// for(int i = 0; i < 10; i++) {
-		// 	cout << "MoveStackEntry: " << i << " IS " << moveStack->stack[i] << endl;
-		// }
+		EXPECT_EQ(moveStack->top, 3);
+		sort(moveStack->stack, moveStack->stack + 3);
+		EXPECT_EQ(FROM(moveStack->stack[0]), 0);
+		EXPECT_EQ(FROM(moveStack->stack[1]), 0);
+		EXPECT_EQ(FROM(moveStack->stack[2]), 0);
+		EXPECT_EQ(TO(moveStack->stack[0]), 1);
+		EXPECT_EQ(TO(moveStack->stack[1]), 16);
+		EXPECT_EQ(TO(moveStack->stack[2]), 17);
 	}
