@@ -3,6 +3,9 @@
 	#include "MoveStack.h"
 
 	MoveStack::MoveStack() {
+		for(int i = 0; i < MAX_DEPTH; i++) {
+			stack[i] = 0;
+		}
 	}
 
 	MoveStack::~MoveStack() {

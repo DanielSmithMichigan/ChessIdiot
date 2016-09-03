@@ -23,7 +23,7 @@
 		copy(begin(newBoardArray), end(newBoardArray), begin(board->squares));
 	}
 
-	TEST_F(MoveGenerationControllerTest, KingInCorner) {
+	TEST_F(MoveGenerationControllerTest, TopLeft) {
 		board->squares[0] = WHITE_KING;
 		moveGenerationController->generateMovesAt(0);
 		EXPECT_EQ(moveStack->top, 3);
@@ -34,6 +34,45 @@
 		EXPECT_EQ(TO(moveStack->stack[0]), 1);
 		EXPECT_EQ(TO(moveStack->stack[1]), 16);
 		EXPECT_EQ(TO(moveStack->stack[2]), 17);
+	}
+
+	TEST_F(MoveGenerationControllerTest, TopRight) {
+		board->squares[7] = WHITE_KING;
+		moveGenerationController->generateMovesAt(7);
+		EXPECT_EQ(moveStack->top, 3);
+		sort(moveStack->stack, moveStack->stack + 3);
+		EXPECT_EQ(FROM(moveStack->stack[0]), 7);
+		EXPECT_EQ(FROM(moveStack->stack[1]), 7);
+		EXPECT_EQ(FROM(moveStack->stack[2]), 7);
+		EXPECT_EQ(TO(moveStack->stack[0]), 6);
+		EXPECT_EQ(TO(moveStack->stack[1]), 22);
+		EXPECT_EQ(TO(moveStack->stack[2]), 23);
+	}
+
+	TEST_F(MoveGenerationControllerTest, BottomRight) {
+		board->squares[119] = WHITE_KING;
+		moveGenerationController->generateMovesAt(119);
+		EXPECT_EQ(moveStack->top, 3);
+		sort(moveStack->stack, moveStack->stack + 3);
+		EXPECT_EQ(FROM(moveStack->stack[0]), 119);
+		EXPECT_EQ(FROM(moveStack->stack[1]), 119);
+		EXPECT_EQ(FROM(moveStack->stack[2]), 119);
+		EXPECT_EQ(TO(moveStack->stack[0]), 102);
+		EXPECT_EQ(TO(moveStack->stack[1]), 103);
+		EXPECT_EQ(TO(moveStack->stack[2]), 118);
+	}
+
+	TEST_F(MoveGenerationControllerTest, BottomLeft) {
+		board->squares[112] = WHITE_KING;
+		moveGenerationController->generateMovesAt(112);
+		EXPECT_EQ(moveStack->top, 3);
+		sort(moveStack->stack, moveStack->stack + 3);
+		EXPECT_EQ(FROM(moveStack->stack[0]), 112);
+		EXPECT_EQ(FROM(moveStack->stack[1]), 112);
+		EXPECT_EQ(FROM(moveStack->stack[2]), 112);
+		EXPECT_EQ(TO(moveStack->stack[0]), 96);
+		EXPECT_EQ(TO(moveStack->stack[1]), 97);
+		EXPECT_EQ(TO(moveStack->stack[2]), 113);
 	}
 
 	TEST_F(MoveGenerationControllerTest, KingInMiddle) {
