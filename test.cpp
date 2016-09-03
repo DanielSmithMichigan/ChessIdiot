@@ -1,4 +1,5 @@
-#include "test/MoveGenerationController.h"
+#include "test/KingMoveGenerator.h"
+#include "test/KnightMoveGenerator.h"
 using namespace std;
 
 int main(int argc, char** argv )

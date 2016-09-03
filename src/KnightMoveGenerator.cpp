@@ -15,7 +15,7 @@
 			if (ON_BOARD(to) 
 				&& (board->squares[to] == EMPTY_SPACE
 					|| GET_COLOR(board->squares[from]) != GET_COLOR(board->squares[to]))) {
-				generateMove(from, knightMoves[i]);
+				generateMove(from, to);
 			}
 		}
 	}

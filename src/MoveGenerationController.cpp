@@ -23,6 +23,15 @@
 			case WHITE_KING:
 			case BLACK_KING:
 				kingMoveGenerator->generateMoves(from);
+				break;
+			case WHITE_KNIGHT:
+			case BLACK_KNIGHT:
+				knightMoveGenerator->generateMoves(from);
+				break;
+			case WHITE_BISHOP:
+			case BLACK_BISHOP:
+				bishopMoveGenerator->generateMoves(from);
+				break;
 			case EMPTY_SPACE:
 				break;
 		}

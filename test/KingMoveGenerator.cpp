@@ -1,15 +1,15 @@
-	#include "MoveGenerationController.h"
+	#include "KingMoveGenerator.h"
 
-	MoveGenerationControllerTest::MoveGenerationControllerTest() {
+	KingMoveGenerationControllerTest::KingMoveGenerationControllerTest() {
 		moveStack = make_shared<MoveStack>();
 		board = make_shared<Board>();
 		moveGenerationController.reset(new MoveGenerationController(board, moveStack));
 	}
 
-	MoveGenerationControllerTest::~MoveGenerationControllerTest() {
+	KingMoveGenerationControllerTest::~KingMoveGenerationControllerTest() {
 	}
 
-	void MoveGenerationControllerTest::SetUp() {
+	void KingMoveGenerationControllerTest::SetUp() {
 		int newBoardArray[] = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -23,7 +23,34 @@
 		copy(begin(newBoardArray), end(newBoardArray), begin(board->squares));
 	}
 
-	TEST_F(MoveGenerationControllerTest, TopLeft) {
+	TEST_F(KingMoveGenerationControllerTest, WillTakeBlackPiece) {
+		board->squares[0] = WHITE_KING;
+		board->squares[1] = BLACK_KNIGHT;
+		moveGenerationController->generateMovesAt(0);
+		EXPECT_EQ(moveStack->top, 3);
+		sort(moveStack->stack, moveStack->stack + 3, sortByFrom);
+		EXPECT_EQ(FROM(moveStack->stack[0]), 0);
+		EXPECT_EQ(FROM(moveStack->stack[1]), 0);
+		EXPECT_EQ(FROM(moveStack->stack[2]), 0);
+		sort(moveStack->stack, moveStack->stack + 3, sortByTo);
+		EXPECT_EQ(TO(moveStack->stack[0]), 1);
+		EXPECT_EQ(TO(moveStack->stack[1]), 16);
+		EXPECT_EQ(TO(moveStack->stack[2]), 17);
+	}
+
+	TEST_F(KingMoveGenerationControllerTest, WillNotTakeWhitePiece) {
+		board->squares[0] = WHITE_KING;
+		board->squares[1] = WHITE_KNIGHT;
+		moveGenerationController->generateMovesAt(0);
+		EXPECT_EQ(moveStack->top, 2);
+		sort(moveStack->stack, moveStack->stack + 2);
+		EXPECT_EQ(FROM(moveStack->stack[0]), 0);
+		EXPECT_EQ(FROM(moveStack->stack[1]), 0);
+		EXPECT_EQ(TO(moveStack->stack[0]), 16);
+		EXPECT_EQ(TO(moveStack->stack[1]), 17);
+	}
+
+	TEST_F(KingMoveGenerationControllerTest, TopLeft) {
 		board->squares[0] = WHITE_KING;
 		moveGenerationController->generateMovesAt(0);
 		EXPECT_EQ(moveStack->top, 3);
@@ -36,7 +63,7 @@
 		EXPECT_EQ(TO(moveStack->stack[2]), 17);
 	}
 
-	TEST_F(MoveGenerationControllerTest, TopRight) {
+	TEST_F(KingMoveGenerationControllerTest, TopRight) {
 		board->squares[7] = WHITE_KING;
 		moveGenerationController->generateMovesAt(7);
 		EXPECT_EQ(moveStack->top, 3);
@@ -49,7 +76,7 @@
 		EXPECT_EQ(TO(moveStack->stack[2]), 23);
 	}
 
-	TEST_F(MoveGenerationControllerTest, BottomRight) {
+	TEST_F(KingMoveGenerationControllerTest, BottomRight) {
 		board->squares[119] = WHITE_KING;
 		moveGenerationController->generateMovesAt(119);
 		EXPECT_EQ(moveStack->top, 3);
@@ -62,7 +89,7 @@
 		EXPECT_EQ(TO(moveStack->stack[2]), 118);
 	}
 
-	TEST_F(MoveGenerationControllerTest, BottomLeft) {
+	TEST_F(KingMoveGenerationControllerTest, BottomLeft) {
 		board->squares[112] = WHITE_KING;
 		moveGenerationController->generateMovesAt(112);
 		EXPECT_EQ(moveStack->top, 3);
@@ -75,7 +102,7 @@
 		EXPECT_EQ(TO(moveStack->stack[2]), 113);
 	}
 
-	TEST_F(MoveGenerationControllerTest, KingInMiddle) {
+	TEST_F(KingMoveGenerationControllerTest, KingInMiddle) {
 		board->squares[17] = WHITE_KING;
 		moveGenerationController->generateMovesAt(17);
 		EXPECT_EQ(moveStack->top, 8);

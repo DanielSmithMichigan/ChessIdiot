@@ -6,6 +6,10 @@
 
 	class SlideMoveGenerator : public MoveGenerator{
 		private:
+		protected:
+			shared_ptr<Board> board;
+			shared_ptr<MoveStack> moveStack;
+		public:
 			bool canMoveNorth = false;
 			bool canMoveNorthEast = false;
 			bool canMoveEast = false;
@@ -14,10 +18,6 @@
 			bool canMoveSouthWest = false;
 			bool canMoveWest = false;
 			bool canMoveNorthWest = false;
-		protected:
-			shared_ptr<Board> board;
-			shared_ptr<MoveStack> moveStack;
-		public:
 			SlideMoveGenerator(shared_ptr<Board> board, shared_ptr<MoveStack>);
 			~SlideMoveGenerator();
 			void generateMoves(int from);

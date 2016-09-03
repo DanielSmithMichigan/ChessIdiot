@@ -42,7 +42,7 @@
 
 	void SlideMoveGenerator::generateSlideMove(int from, int delta) {
 		int to = from;
-		while (ON_BOARD(to += delta)) {
+		while ((to += delta) && ON_BOARD(to)) {
 			if (board->squares != EMPTY_SPACE) {
 				if (GET_COLOR(board->squares[to]) != GET_COLOR(board->squares[from])) {
 					generateMove(from, to);
