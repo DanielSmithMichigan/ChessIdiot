@@ -5,7 +5,9 @@
 	//FULL_MOVE(from,to,captured,enPassant,firstMove,promotedPiece,castle)
 
 	SlideMoveGenerator::SlideMoveGenerator(shared_ptr<Board> board, shared_ptr<MoveStack> moveStack) 
-		: MoveGenerator(board, moveStack) {
+		: board(board),
+		  moveStack(moveStack),
+		  MoveGenerator(board, moveStack) {
 	}
 
 	SlideMoveGenerator::~SlideMoveGenerator() {
@@ -42,14 +44,16 @@
 
 	void SlideMoveGenerator::generateSlideMove(int from, int delta) {
 		int to = from;
-		while ((to += delta) && ON_BOARD(to)) {
-			if (board->squares != EMPTY_SPACE) {
+		to += delta;
+		while (ON_BOARD(to)) {
+			if (board->squares[to] != EMPTY_SPACE) {
 				if (GET_COLOR(board->squares[to]) != GET_COLOR(board->squares[from])) {
 					generateMove(from, to);
 				}
 				break;
 			}
 			generateMove(from, to);
+			to += delta;
 		}
 	}
 #endif

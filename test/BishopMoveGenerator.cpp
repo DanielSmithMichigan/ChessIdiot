@@ -58,10 +58,10 @@
 
 	TEST_F(BishopMoveGeneratorTest, WillNotTakeWhitePiece) {
 		board->squares[51] = WHITE_BISHOP;
-		board->squares[102] = WHITE_KNIGHT;
+		board->squares[68] = WHITE_KNIGHT;
 		moveGenerationController->generateMovesAt(51);
-		EXPECT_EQ(moveStack->top, 11);
-		sort(moveStack->stack, moveStack->stack + 11);
+		EXPECT_EQ(moveStack->top, 9);
+		sort(moveStack->stack, moveStack->stack + 9);
 		EXPECT_EQ(FROM(moveStack->stack[0]), 51);
 		EXPECT_EQ(FROM(moveStack->stack[1]), 51);
 		EXPECT_EQ(FROM(moveStack->stack[2]), 51);
@@ -71,8 +71,6 @@
 		EXPECT_EQ(FROM(moveStack->stack[6]), 51);
 		EXPECT_EQ(FROM(moveStack->stack[7]), 51);
 		EXPECT_EQ(FROM(moveStack->stack[8]), 51);
-		EXPECT_EQ(FROM(moveStack->stack[9]), 51);
-		EXPECT_EQ(FROM(moveStack->stack[10]), 51);
 		EXPECT_EQ(TO(moveStack->stack[0]), 0);
 		EXPECT_EQ(TO(moveStack->stack[1]), 6);
 		EXPECT_EQ(TO(moveStack->stack[2]), 17);
@@ -80,18 +78,16 @@
 		EXPECT_EQ(TO(moveStack->stack[4]), 34);
 		EXPECT_EQ(TO(moveStack->stack[5]), 36);
 		EXPECT_EQ(TO(moveStack->stack[6]), 66);
-		EXPECT_EQ(TO(moveStack->stack[7]), 68);
-		EXPECT_EQ(TO(moveStack->stack[8]), 81);
-		EXPECT_EQ(TO(moveStack->stack[9]), 85);
-		EXPECT_EQ(TO(moveStack->stack[10]), 96);
+		EXPECT_EQ(TO(moveStack->stack[7]), 81);
+		EXPECT_EQ(TO(moveStack->stack[8]), 96);
 	}
 
 	TEST_F(BishopMoveGeneratorTest, WillTakeBlackPiece) {
 		board->squares[51] = WHITE_BISHOP;
-		board->squares[102] = BLACK_KNIGHT;
+		board->squares[68] = BLACK_KNIGHT;
 		moveGenerationController->generateMovesAt(51);
-		EXPECT_EQ(moveStack->top, 11);
-		sort(moveStack->stack, moveStack->stack + 11);
+		EXPECT_EQ(moveStack->top, 10);
+		sort(moveStack->stack, moveStack->stack + 10, sortByFrom);
 		EXPECT_EQ(FROM(moveStack->stack[0]), 51);
 		EXPECT_EQ(FROM(moveStack->stack[1]), 51);
 		EXPECT_EQ(FROM(moveStack->stack[2]), 51);
@@ -102,7 +98,7 @@
 		EXPECT_EQ(FROM(moveStack->stack[7]), 51);
 		EXPECT_EQ(FROM(moveStack->stack[8]), 51);
 		EXPECT_EQ(FROM(moveStack->stack[9]), 51);
-		EXPECT_EQ(FROM(moveStack->stack[10]), 51);
+		sort(moveStack->stack, moveStack->stack + 10, sortByTo);
 		EXPECT_EQ(TO(moveStack->stack[0]), 0);
 		EXPECT_EQ(TO(moveStack->stack[1]), 6);
 		EXPECT_EQ(TO(moveStack->stack[2]), 17);
@@ -112,6 +108,5 @@
 		EXPECT_EQ(TO(moveStack->stack[6]), 66);
 		EXPECT_EQ(TO(moveStack->stack[7]), 68);
 		EXPECT_EQ(TO(moveStack->stack[8]), 81);
-		EXPECT_EQ(TO(moveStack->stack[9]), 85);
-		EXPECT_EQ(TO(moveStack->stack[10]), 96);
+		EXPECT_EQ(TO(moveStack->stack[9]), 96);
 	}
