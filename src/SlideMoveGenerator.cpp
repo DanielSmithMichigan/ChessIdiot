@@ -5,9 +5,7 @@
 	//FULL_MOVE(from,to,captured,enPassant,firstMove,promotedPiece,castle)
 
 	SlideMoveGenerator::SlideMoveGenerator(shared_ptr<Board> board, shared_ptr<MoveStack> moveStack) 
-		: board(board),
-		  moveStack(moveStack),
-		  MoveGenerator(board, moveStack) {
+		: MoveGenerator(board, moveStack) {
 	}
 
 	SlideMoveGenerator::~SlideMoveGenerator() {
