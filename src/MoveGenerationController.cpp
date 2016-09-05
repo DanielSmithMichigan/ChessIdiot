@@ -9,7 +9,9 @@
 		knightMoveGenerator.reset(new KnightMoveGenerator(board, moveStack));
 		bishopMoveGenerator.reset(new BishopMoveGenerator(board, moveStack));
 		queenMoveGenerator.reset(new QueenMoveGenerator(board, moveStack));
-		pawnMoveGenerator.reset(new PawnMoveGenerator(board, moveStack));
+		whitePawnMoveGenerator.reset(new PawnMoveGenerator(board, moveStack));
+		blackPawnMoveGenerator.reset(new PawnMoveGenerator(board, moveStack));
+		blackPawnMoveGenerator->direction = -1;
 		kingMoveGenerator.reset(new KingMoveGenerator(board, moveStack));
 	}
 
@@ -39,6 +41,12 @@
 			case WHITE_ROOK:
 			case BLACK_ROOK:
 				rookMoveGenerator->generateMoves(from);
+				break;
+			case WHITE_PAWN:
+				whitePawnMoveGenerator->generateMoves(from);
+				break;
+			case BLACK_PAWN:
+				blackPawnMoveGenerator->generateMoves(from);
 				break;
 			case EMPTY_SPACE:
 				break;

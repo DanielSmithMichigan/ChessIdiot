@@ -5,9 +5,8 @@
 	using namespace std;
 
 	class PawnMoveGenerator : public MoveGenerator{
-		private:
-			int knightMoves[8] = {ROWS(2) + 1, ROWS(2) - 1, ROWS(1) + 2, ROWS(1) - 2, ROWS(-1) + 2, ROWS(-1) - 2, ROWS(-2) + 1, ROWS(-2) - 1};
 		public:
+			int direction = 1;
 			PawnMoveGenerator(shared_ptr<Board> board, shared_ptr<MoveStack> moveStack);
 			~PawnMoveGenerator();
 			void generateMoves(int from);

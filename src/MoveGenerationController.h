@@ -20,7 +20,8 @@
 			shared_ptr<KnightMoveGenerator> knightMoveGenerator;
 			shared_ptr<BishopMoveGenerator> bishopMoveGenerator;
 			shared_ptr<QueenMoveGenerator> queenMoveGenerator;
-			shared_ptr<PawnMoveGenerator> pawnMoveGenerator;
+			shared_ptr<PawnMoveGenerator> whitePawnMoveGenerator;
+			shared_ptr<PawnMoveGenerator> blackPawnMoveGenerator;
 			shared_ptr<KingMoveGenerator> kingMoveGenerator;
 		public:
 			MoveGenerationController(shared_ptr<Board> board, shared_ptr<MoveStack> moveStack);
