@@ -9,20 +9,6 @@
 	BishopMoveGeneratorTest::~BishopMoveGeneratorTest() {
 	}
 
-	void BishopMoveGeneratorTest::SetUp() {
-		int newBoardArray[] = {
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-		};
-		copy(begin(newBoardArray), end(newBoardArray), begin(board->squares));
-	}
-
 	TEST_F(BishopMoveGeneratorTest, BishopInMiddle) {
 		board->squares[51] = WHITE_BISHOP;
 		moveGenerationController->generateMovesAt(51);

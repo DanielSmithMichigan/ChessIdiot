@@ -1,4 +1,5 @@
 	#include "../src/MoveGenerationController.h"
+	#include "TestMoveStack.h"
 	#include "gtest/gtest.h"
 	#include "gmock/gmock.h"
 	#include "testUtilities.h"
@@ -6,12 +7,12 @@
 
 	using namespace std;
 
-	class KingMoveGenerationControllerTest : public ::testing::Test{
+	class RookMoveGeneratorTest : public ::testing::Test{
 		private:
 		public:
 			shared_ptr<MoveGenerationController> moveGenerationController;
 			shared_ptr<Board> board;
-			shared_ptr<MoveStack> moveStack;
-			KingMoveGenerationControllerTest();
-			~KingMoveGenerationControllerTest();
+			shared_ptr<TestMoveStack> moveStack;
+			RookMoveGeneratorTest();
+			~RookMoveGeneratorTest();
 	};

@@ -9,20 +9,6 @@
 	KnightMoveGeneratorTest::~KnightMoveGeneratorTest() {
 	}
 
-	void KnightMoveGeneratorTest::SetUp() {
-		int newBoardArray[] = {
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-		};
-		copy(begin(newBoardArray), end(newBoardArray), begin(board->squares));
-	}
-
 	TEST_F(KnightMoveGeneratorTest, Middle) {
 		board->squares[51] = WHITE_KNIGHT;
 		moveGenerationController->generateMovesAt(51);

@@ -4,7 +4,6 @@
 
 	Board::Board() {
 		initializeEmptyBoard();
-		initializePieces();
 		initializeFirstMove();
 	}
 

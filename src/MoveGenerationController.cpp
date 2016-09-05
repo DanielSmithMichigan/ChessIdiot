@@ -32,6 +32,14 @@
 			case BLACK_BISHOP:
 				bishopMoveGenerator->generateMoves(from);
 				break;
+			case WHITE_QUEEN:
+			case BLACK_QUEEN:
+				queenMoveGenerator->generateMoves(from);
+				break;
+			case WHITE_ROOK:
+			case BLACK_ROOK:
+				rookMoveGenerator->generateMoves(from);
+				break;
 			case EMPTY_SPACE:
 				break;
 		}

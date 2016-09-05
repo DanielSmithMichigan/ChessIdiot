@@ -9,20 +9,6 @@
 	KingMoveGenerationControllerTest::~KingMoveGenerationControllerTest() {
 	}
 
-	void KingMoveGenerationControllerTest::SetUp() {
-		int newBoardArray[] = {
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-		};
-		copy(begin(newBoardArray), end(newBoardArray), begin(board->squares));
-	}
-
 	TEST_F(KingMoveGenerationControllerTest, WillTakeBlackPiece) {
 		board->squares[0] = WHITE_KING;
 		board->squares[1] = BLACK_KNIGHT;

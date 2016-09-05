@@ -14,5 +14,4 @@
 			shared_ptr<MoveStack> moveStack;
 			KnightMoveGeneratorTest();
 			~KnightMoveGeneratorTest();
-			void SetUp();
 	};

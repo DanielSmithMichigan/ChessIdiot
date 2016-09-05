@@ -14,5 +14,4 @@
 			shared_ptr<MoveStack> moveStack;
 			BishopMoveGeneratorTest();
 			~BishopMoveGeneratorTest();
-			void SetUp();
 	};
