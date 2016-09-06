@@ -48,7 +48,7 @@
 
 	void Board::initializeEnPassant() {
 		for (int i = 0; i < BOARD_SIZE; i++) {
-			enPassant[i] = true;
+			enPassant[i] = false;
 		}
 	}
 

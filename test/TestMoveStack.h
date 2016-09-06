@@ -9,6 +9,8 @@
 	class TestMoveStack : public MoveStack {
 		public:
 			bool matches(int board[]);
+			int countBoardMoves(int board[]);
+			void displayAsBoard();
 			TestMoveStack();
 			~TestMoveStack();
 	};
