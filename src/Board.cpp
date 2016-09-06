@@ -5,6 +5,7 @@
 	Board::Board() {
 		initializeEmptyBoard();
 		initializeFirstMove();
+		initializeEnPassant();
 	}
 
 	Board::~Board() {
@@ -41,7 +42,13 @@
 
 	void Board::initializeFirstMove() {
 		for (int i = 0; i < BOARD_SIZE; i++) {
-			firstMove[i] = 1;
+			firstMove[i] = true;
+		}
+	}
+
+	void Board::initializeEnPassant() {
+		for (int i = 0; i < BOARD_SIZE; i++) {
+			enPassant[i] = true;
 		}
 	}
 
