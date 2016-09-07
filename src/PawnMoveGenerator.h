@@ -10,5 +10,6 @@
 			PawnMoveGenerator(shared_ptr<Board> board, shared_ptr<MoveStack> moveStack);
 			~PawnMoveGenerator();
 			void generateMoves(int from);
+			void testAndGenerateMove(int from, int to, int piece);
 	};
 #endif

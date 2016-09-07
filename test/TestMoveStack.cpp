@@ -13,8 +13,8 @@
 	int TestMoveStack::countBoardMoves(int board[]) {
 		int moveCount = 0;
 		for (int i = 0; i < BOARD_SIZE; i++) {
-			if (board[i] == 1) {
-				moveCount++;
+			if (board[i]) {
+				moveCount += board[i];
 			}
 		}
 		return moveCount;
@@ -50,12 +50,12 @@
 		}
 		for (int i = 0; i < top; i++) {
 			int to = TO(stack[i]);
-			if (board[to] != 1) {
+			if (board[to] <= 0) {
 				cout << "MOVE EXISTS AT: " << to << endl;
 				displayAsBoard();
 				return false;
 			}
-			board[to] = 0;
+			board[to]--;
 		}
 		for (int i = 0; i < BOARD_SIZE; i++) {
 			if (board[i] == 1) {

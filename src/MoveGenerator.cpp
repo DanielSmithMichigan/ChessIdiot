@@ -13,7 +13,7 @@
 
 	}
 
-	void MoveGenerator::generateMove(int from, int to) {
-		moveStack->push(MOVE(from, to, board->squares[to], BLANK, board->firstMove[from], BLANK, BLANK));
+	void MoveGenerator::generateMove(int from, int to, int promotedPiece) {
+		moveStack->push(MOVE(from, to, board->squares[to], BLANK, board->firstMove[from], promotedPiece, BLANK));
 	}
 #endif

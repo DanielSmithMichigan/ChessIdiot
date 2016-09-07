@@ -115,6 +115,39 @@
 		EXPECT_TRUE(moveStack->matches(expectedBoard));
 	}
 
+	TEST_F(PawnMoveGeneratorTest, WhitePromotion) {
+		board->firstMove[19] = false;
+		board->squares[19] = WHITE_PAWN;
+		board->squares[2] = BLACK_ROOK;
+		board->squares[4] = BLACK_ROOK;
+		moveGenerationController->generateMovesAt(19);
+		sort(moveStack->stack, moveStack->stack + 12, sortByPromotion);
+		sort(moveStack->stack, moveStack->stack + 12, sortByTo);
+		EXPECT_EQ(PROMOTEDPIECE(moveStack->stack[0]), WHITE_KNIGHT);
+		EXPECT_EQ(PROMOTEDPIECE(moveStack->stack[1]), WHITE_BISHOP);
+		EXPECT_EQ(PROMOTEDPIECE(moveStack->stack[2]), WHITE_ROOK);
+		EXPECT_EQ(PROMOTEDPIECE(moveStack->stack[3]), WHITE_QUEEN);
+		EXPECT_EQ(PROMOTEDPIECE(moveStack->stack[4]), WHITE_KNIGHT);
+		EXPECT_EQ(PROMOTEDPIECE(moveStack->stack[5]), WHITE_BISHOP);
+		EXPECT_EQ(PROMOTEDPIECE(moveStack->stack[6]), WHITE_ROOK);
+		EXPECT_EQ(PROMOTEDPIECE(moveStack->stack[7]), WHITE_QUEEN);
+		EXPECT_EQ(PROMOTEDPIECE(moveStack->stack[8]), WHITE_KNIGHT);
+		EXPECT_EQ(PROMOTEDPIECE(moveStack->stack[9]), WHITE_BISHOP);
+		EXPECT_EQ(PROMOTEDPIECE(moveStack->stack[10]), WHITE_ROOK);
+		EXPECT_EQ(PROMOTEDPIECE(moveStack->stack[11]), WHITE_QUEEN);
+		int expectedBoard[] = {
+			0, 0, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+		};
+		EXPECT_TRUE(moveStack->matches(expectedBoard));
+	}
+
 
 	TEST_F(PawnMoveGeneratorTest, BlackPawnFirstMove) {
 		board->squares[17] = BLACK_PAWN;
@@ -217,6 +250,39 @@
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+		};
+		EXPECT_TRUE(moveStack->matches(expectedBoard));
+	}
+
+	TEST_F(PawnMoveGeneratorTest, BlackPromotion) {
+		board->firstMove[99] = false;
+		board->squares[99] = BLACK_PAWN;
+		board->squares[114] = WHITE_ROOK;
+		board->squares[116] = WHITE_ROOK;
+		moveGenerationController->generateMovesAt(99);
+		sort(moveStack->stack, moveStack->stack + 12, sortByPromotion);
+		sort(moveStack->stack, moveStack->stack + 12, sortByTo);
+		EXPECT_EQ(PROMOTEDPIECE(moveStack->stack[0]), BLACK_KNIGHT);
+		EXPECT_EQ(PROMOTEDPIECE(moveStack->stack[1]), BLACK_BISHOP);
+		EXPECT_EQ(PROMOTEDPIECE(moveStack->stack[2]), BLACK_ROOK);
+		EXPECT_EQ(PROMOTEDPIECE(moveStack->stack[3]), BLACK_QUEEN);
+		EXPECT_EQ(PROMOTEDPIECE(moveStack->stack[4]), BLACK_KNIGHT);
+		EXPECT_EQ(PROMOTEDPIECE(moveStack->stack[5]), BLACK_BISHOP);
+		EXPECT_EQ(PROMOTEDPIECE(moveStack->stack[6]), BLACK_ROOK);
+		EXPECT_EQ(PROMOTEDPIECE(moveStack->stack[7]), BLACK_QUEEN);
+		EXPECT_EQ(PROMOTEDPIECE(moveStack->stack[8]), BLACK_KNIGHT);
+		EXPECT_EQ(PROMOTEDPIECE(moveStack->stack[9]), BLACK_BISHOP);
+		EXPECT_EQ(PROMOTEDPIECE(moveStack->stack[10]), BLACK_ROOK);
+		EXPECT_EQ(PROMOTEDPIECE(moveStack->stack[11]), BLACK_QUEEN);
+		int expectedBoard[] = {
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 		};
 		EXPECT_TRUE(moveStack->matches(expectedBoard));
 	}

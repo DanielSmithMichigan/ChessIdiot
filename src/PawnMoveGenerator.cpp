@@ -11,11 +11,13 @@
 
 	// Yes this function is pretty big, but since this is move generation, I want to save function calls.
 	void PawnMoveGenerator::generateMoves(int from) {
+		int thisPawn = board->squares[from];
+
 		// Move Forward
 		int oneSquareUp = from + ROWS(direction);
 		if (board->squares[oneSquareUp] == EMPTY_SPACE
 			&& ON_BOARD(board->squares[oneSquareUp])) {
-			generateMove(from, oneSquareUp);
+			testAndGenerateMove(from, oneSquareUp, thisPawn);
 
 			// Move Forward Twice
 			int twoSquaresUp = from + ROWS(2 * direction);
@@ -26,13 +28,12 @@
 		}
 
 		// Attack Right
-		int thisPawn = board->squares[from];
 		int thisPawnColor = GET_COLOR(thisPawn);
 		int attackRight = from + 1 + ROWS(direction);
 		int squareAttackedRight = board->squares[attackRight];
 		if (squareAttackedRight != EMPTY_SPACE
 				&& thisPawnColor != GET_COLOR(squareAttackedRight)) {
-			generateMove(from, attackRight);
+			testAndGenerateMove(from, attackRight, thisPawn);
 		}
 
 
@@ -50,7 +51,7 @@
 		int squareAttackedLeft = board->squares[attackLeft];
 		if (squareAttackedLeft != EMPTY_SPACE
 				&& thisPawnColor != GET_COLOR(squareAttackedLeft)) {
-			generateMove(from, attackLeft);
+			testAndGenerateMove(from, attackLeft, thisPawn);
 		}
 
 		// En Passant Left
@@ -60,6 +61,24 @@
 				&& thisPawnColor != GET_COLOR(squareEnPassantLeft)
 				&& board->enPassant[enPassantLeft]) {
 			generateMove(from, enPassantLeft + ROWS(direction));
+		}
+	}
+
+	void PawnMoveGenerator::testAndGenerateMove(int from, int to, int piece) {
+		if (FIRST_RANK(to) || LAST_RANK(to)) {
+			if (piece == BLACK_PAWN) {
+				generateMove(from, to, BLACK_KNIGHT);
+				generateMove(from, to, BLACK_BISHOP);
+				generateMove(from, to, BLACK_QUEEN);
+				generateMove(from, to, BLACK_ROOK);
+			} else {
+				generateMove(from, to, WHITE_KNIGHT);
+				generateMove(from, to, WHITE_BISHOP);
+				generateMove(from, to, WHITE_QUEEN);
+				generateMove(from, to, WHITE_ROOK);
+			}
+		} else {
+			generateMove(from, to);
 		}
 	}
 #endif

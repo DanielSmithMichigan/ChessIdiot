@@ -29,6 +29,6 @@
 			MoveGenerator(shared_ptr<Board> board, shared_ptr<MoveStack>);
 			~MoveGenerator();
 			void generateMoves(int from);
-			void generateMove(int from, int to);
+			void generateMove(int from, int to, int promotedPiece = BLANK);
 	};
 #endif

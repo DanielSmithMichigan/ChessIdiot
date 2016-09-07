@@ -17,20 +17,22 @@
 	#define NORTH_WEST -1 + ROWS(1)
 	#define EMPTY_SPACE 0
 	#define WHITE_PAWN 1
-	#define WHITE_ROOK 2
-	#define WHITE_KNIGHT 3
-	#define WHITE_BISHOP 4
+	#define WHITE_KNIGHT 2
+	#define WHITE_BISHOP 3
+	#define WHITE_ROOK 4
 	#define WHITE_QUEEN 5
 	#define WHITE_KING 6
 	#define BLACK_PAWN 7
-	#define BLACK_ROOK 8
-	#define BLACK_KNIGHT 9
-	#define BLACK_BISHOP 10
+	#define BLACK_KNIGHT 8
+	#define BLACK_BISHOP 9
+	#define BLACK_ROOK 10
 	#define BLACK_QUEEN 11
 	#define BLACK_KING 12
 	#define BLACK 1
 	#define WHITE -1
 	#define GET_COLOR(i) (i > 6 ? BLACK : WHITE)
 	#define IS_PAWN(i) (i == WHITE_PAWN || i == BLACK_PAWN)
+	#define FIRST_RANK(i) (i < 8)
+	#define LAST_RANK(i) (i > 111)
 	#define BLANK 0
 #endif

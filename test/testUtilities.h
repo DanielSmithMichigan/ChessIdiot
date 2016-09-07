@@ -4,4 +4,5 @@
 
 	bool sortByFrom (int i,int j);
 	bool sortByTo (int i,int j);
+	bool sortByPromotion (int i, int j);
 #endif
