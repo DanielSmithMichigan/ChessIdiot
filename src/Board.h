@@ -17,6 +17,7 @@
 		public:
 			Board();
 			~Board();
+			int turn;
 			int squares[BOARD_SIZE];
 			bool firstMove[BOARD_SIZE];
 			bool enPassant[BOARD_SIZE];

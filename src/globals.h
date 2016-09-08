@@ -35,4 +35,20 @@
 	#define FIRST_RANK(i) (i < 8)
 	#define LAST_RANK(i) (i > 111)
 	#define BLANK 0
+	#define KNIGHT_MOVE_1 ROWS(2) + 1
+	#define KNIGHT_MOVE_2 ROWS(2) - 1
+	#define KNIGHT_MOVE_3 ROWS(1) + 2
+	#define KNIGHT_MOVE_4 ROWS(1) - 2
+	#define KNIGHT_MOVE_5 ROWS(-1) + 2
+	#define KNIGHT_MOVE_6 ROWS(-1) - 2
+	#define KNIGHT_MOVE_7 ROWS(-2) + 1
+	#define KNIGHT_MOVE_8 ROWS(-2) - 1
+	#define KING_MOVE_1 ROWS(1)
+	#define KING_MOVE_2 ROWS(1) + 1
+	#define KING_MOVE_3 1
+	#define KING_MOVE_4 ROWS(-1) + 1
+	#define KING_MOVE_5 ROWS(-1)
+	#define KING_MOVE_6 ROWS(-1) - 1
+	#define KING_MOVE_7 -1
+	#define KING_MOVE_8 ROWS(1) - 1
 #endif
