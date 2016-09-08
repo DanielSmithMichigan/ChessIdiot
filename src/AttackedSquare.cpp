@@ -56,8 +56,7 @@
 
 	bool AttackedSquare::attackedBySlidingPiece(int from, int delta, int otherAttackingPiece) {
 		int attackingQueen = board->turn == WHITE ? WHITE_QUEEN : BLACK_QUEEN;
-		int to = from;
-		to += delta;
+		int to = from + delta;
 		while (ON_BOARD(to)) {
 			if (board->squares[to] == EMPTY_SPACE) {
 				to += delta;
