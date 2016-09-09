@@ -28,8 +28,8 @@
 
 	bool AttackedSquare::attackedByPawn(int location) {
 		int attackingPawn = board->turn == WHITE ? WHITE_PAWN : BLACK_PAWN;
-		int attackMove1 = (board->turn == WHITE ? ROWS(1) : ROWS(-1)) + 1;
-		int attackMove2 = (board->turn == WHITE ? ROWS(1) : ROWS(-1)) - 1;
+		int attackMove1 = ROWS(GET_OPPOSING_DIRECTION(board->turn)) + 1 + location;
+		int attackMove2 = ROWS(GET_OPPOSING_DIRECTION(board->turn)) - 1 + location;
 		return board->squares[attackMove1] == attackingPawn
 			|| board->squares[attackMove2] == attackingPawn;
 	}
@@ -47,7 +47,7 @@
 	bool AttackedSquare::attackedByKing(int location) {
 		int attackingKing = board->turn == WHITE ? WHITE_KING : BLACK_KING;
 		for (int i = 0; i < 8; i++) {
-			if (board->squares[knightMoves[i] + location] == attackingKing) {
+			if (board->squares[kingMoves[i] + location] == attackingKing) {
 				return true;
 			}
 		}

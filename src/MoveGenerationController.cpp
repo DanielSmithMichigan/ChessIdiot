@@ -10,8 +10,9 @@
 		bishopMoveGenerator.reset(new BishopMoveGenerator(board, moveStack));
 		queenMoveGenerator.reset(new QueenMoveGenerator(board, moveStack));
 		whitePawnMoveGenerator.reset(new PawnMoveGenerator(board, moveStack));
-		whitePawnMoveGenerator->direction = -1;
+		whitePawnMoveGenerator->direction = GET_DIRECTION(WHITE);
 		blackPawnMoveGenerator.reset(new PawnMoveGenerator(board, moveStack));
+		blackPawnMoveGenerator->direction = GET_DIRECTION(BLACK);
 		kingMoveGenerator.reset(new KingMoveGenerator(board, moveStack));
 	}
 

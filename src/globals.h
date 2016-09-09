@@ -30,6 +30,8 @@
 	#define BLACK_KING 12
 	#define BLACK 1
 	#define WHITE -1
+	#define GET_DIRECTION(color) (color == WHITE ? -1 : 1)
+	#define GET_OPPOSING_DIRECTION(color) (color == WHITE ? 1 : -1)
 	#define GET_COLOR(i) (i > 6 ? BLACK : WHITE)
 	#define IS_PAWN(i) (i == WHITE_PAWN || i == BLACK_PAWN)
 	#define FIRST_RANK(i) (i < 8)
