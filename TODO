@@ -1,4 +1,2 @@
 Castling
-Remove moves which put king in check
-Remove EnPassant on move directly after en passant is used
-Remove firstMove on first move
+Perform and undo enPassant

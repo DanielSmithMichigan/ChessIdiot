@@ -2,8 +2,8 @@
 #define PawnMoveGenerator_cpp
 	#include "PawnMoveGenerator.h"
 
-	PawnMoveGenerator::PawnMoveGenerator(shared_ptr<Board> board, shared_ptr<MoveStack> moveStack) 
-		: MoveGenerator(board, moveStack) {
+	PawnMoveGenerator::PawnMoveGenerator(shared_ptr<Board> board, shared_ptr<MoveStack> moveStack, shared_ptr<AttackedSquare> attackedSquare) 
+		: MoveGenerator(board, moveStack, attackedSquare) {
 	}
 
 	PawnMoveGenerator::~PawnMoveGenerator() {

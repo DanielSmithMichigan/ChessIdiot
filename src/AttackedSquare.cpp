@@ -63,14 +63,14 @@
 			} else if (board->squares[to] == attackingQueen || board->squares[to] == otherAttackingPiece) {
 				return true;
 			} else {
-				return false;;
+				return false;
 			}
 		}
 		return false;
 	}
 
 	bool AttackedSquare::kingInCheck(int color) {
-		int kingLocation = color == WHITE ? board->blackKingLocation : board->whiteKingLocation;
+		int kingLocation = color == WHITE ? board->whiteKingLocation : board->blackKingLocation;
 		return check(kingLocation);
 	}
 

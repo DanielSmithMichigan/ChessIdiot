@@ -23,8 +23,8 @@
 			~Board();
 			int turn;
 			int squares[BOARD_SIZE];
-			bool firstMove[BOARD_SIZE];
-			bool enPassant[BOARD_SIZE];
+			int firstMove[BOARD_SIZE];
+			int enPassant[BOARD_SIZE];
 			int blackKingLocation = 0;
 			int whiteKingLocation = 0;
 			void place(int piece, int location);

@@ -2,18 +2,18 @@
 #define MoveGenerationController_cpp
 	#include "MoveGenerationController.h"
 
-	MoveGenerationController::MoveGenerationController(shared_ptr<Board> board, shared_ptr<MoveStack> moveStack) :
+	MoveGenerationController::MoveGenerationController(shared_ptr<Board> board, shared_ptr<MoveStack> moveStack, shared_ptr<AttackedSquare> attackedSquare) :
 		board(board),
 		moveStack(moveStack) {
-		rookMoveGenerator.reset(new RookMoveGenerator(board, moveStack));
-		knightMoveGenerator.reset(new KnightMoveGenerator(board, moveStack));
-		bishopMoveGenerator.reset(new BishopMoveGenerator(board, moveStack));
-		queenMoveGenerator.reset(new QueenMoveGenerator(board, moveStack));
-		whitePawnMoveGenerator.reset(new PawnMoveGenerator(board, moveStack));
+		rookMoveGenerator.reset(new RookMoveGenerator(board, moveStack, attackedSquare));
+		knightMoveGenerator.reset(new KnightMoveGenerator(board, moveStack, attackedSquare));
+		bishopMoveGenerator.reset(new BishopMoveGenerator(board, moveStack, attackedSquare));
+		queenMoveGenerator.reset(new QueenMoveGenerator(board, moveStack, attackedSquare));
+		whitePawnMoveGenerator.reset(new PawnMoveGenerator(board, moveStack, attackedSquare));
 		whitePawnMoveGenerator->direction = GET_DIRECTION(WHITE);
-		blackPawnMoveGenerator.reset(new PawnMoveGenerator(board, moveStack));
+		blackPawnMoveGenerator.reset(new PawnMoveGenerator(board, moveStack, attackedSquare));
 		blackPawnMoveGenerator->direction = GET_DIRECTION(BLACK);
-		kingMoveGenerator.reset(new KingMoveGenerator(board, moveStack));
+		kingMoveGenerator.reset(new KingMoveGenerator(board, moveStack, attackedSquare));
 	}
 
 	MoveGenerationController::~MoveGenerationController() {

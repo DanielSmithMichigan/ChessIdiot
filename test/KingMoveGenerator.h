@@ -12,6 +12,7 @@
 			shared_ptr<MoveGenerationController> moveGenerationController;
 			shared_ptr<Board> board;
 			shared_ptr<MoveStack> moveStack;
+			shared_ptr<AttackedSquare> attackedSquare;
 			KingMoveGenerationControllerTest();
 			~KingMoveGenerationControllerTest();
 	};

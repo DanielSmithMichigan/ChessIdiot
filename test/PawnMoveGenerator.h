@@ -13,6 +13,7 @@
 			shared_ptr<MoveGenerationController> moveGenerationController;
 			shared_ptr<Board> board;
 			shared_ptr<TestMoveStack> moveStack;
+			shared_ptr<AttackedSquare> attackedSquare;
 			PawnMoveGeneratorTest();
 			~PawnMoveGeneratorTest();
 	};

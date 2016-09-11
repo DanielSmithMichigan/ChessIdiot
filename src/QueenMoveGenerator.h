@@ -6,7 +6,7 @@
 
 	class QueenMoveGenerator : public SlideMoveGenerator{
 		public:
-			QueenMoveGenerator(shared_ptr<Board> board, shared_ptr<MoveStack> moveStack);
+			QueenMoveGenerator(shared_ptr<Board> board, shared_ptr<MoveStack> moveStack, shared_ptr<AttackedSquare> attackedSquare);
 			~QueenMoveGenerator();
 	};
 #endif

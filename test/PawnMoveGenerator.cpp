@@ -3,7 +3,8 @@
 	PawnMoveGeneratorTest::PawnMoveGeneratorTest() {
 		moveStack.reset(new TestMoveStack());
 		board.reset(new Board());
-		moveGenerationController.reset(new MoveGenerationController(board, moveStack));
+		attackedSquare.reset(new AttackedSquare(board));
+		moveGenerationController.reset(new MoveGenerationController(board, moveStack, attackedSquare));
 	}
 
 	PawnMoveGeneratorTest::~PawnMoveGeneratorTest() {
@@ -61,7 +62,7 @@
 
 	TEST_F(PawnMoveGeneratorTest, WhitePawnNotFirstMove) {
 		board->squares[96] = WHITE_PAWN;
-		board->firstMove[96] = false;
+		board->firstMove[96] = 0;
 		moveGenerationController->generateMovesAt(96);
 		int expectedBoard[] = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -95,12 +96,12 @@
 	}
 
 	TEST_F(PawnMoveGeneratorTest, WhitePawnEnPassant) {
-		board->firstMove[51] = false;
+		board->firstMove[51] = 0;
 		board->squares[51] = WHITE_PAWN;
 		board->squares[50] = BLACK_PAWN;
-		board->enPassant[50] = true;
+		board->enPassant[50] = 1;
 		board->squares[52] = BLACK_PAWN;
-		board->enPassant[52] = true;
+		board->enPassant[52] = 1;
 		moveGenerationController->generateMovesAt(51);
 		int expectedBoard[] = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -116,10 +117,10 @@
 	}
 
 	TEST_F(PawnMoveGeneratorTest, WhitePromotion) {
-		board->firstMove[19] = false;
+		board->firstMove[19] = 0;
 		board->squares[19] = WHITE_PAWN;
-		board->squares[2] = BLACK_ROOK;
-		board->squares[4] = BLACK_ROOK;
+		board->squares[2] = BLACK_KNIGHT;
+		board->squares[4] = BLACK_KNIGHT;
 		moveGenerationController->generateMovesAt(19);
 		sort(moveStack->stack, moveStack->stack + 12, sortByPromotion);
 		sort(moveStack->stack, moveStack->stack + 12, sortByTo);
@@ -200,7 +201,7 @@
 	}
 	TEST_F(PawnMoveGeneratorTest, BlackPawnNotFirstMove) {
 		board->squares[17] = BLACK_PAWN;
-		board->firstMove[17] = false;
+		board->firstMove[17] = 0;
 		moveGenerationController->generateMovesAt(17);
 		int expectedBoard[] = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -234,12 +235,12 @@
 	}
 
 	TEST_F(PawnMoveGeneratorTest, BlackEnPassant) {
-		board->firstMove[51] = false;
+		board->firstMove[51] = 0;
 		board->squares[51] = BLACK_PAWN;
 		board->squares[50] = WHITE_PAWN;
-		board->enPassant[50] = true;
+		board->enPassant[50] = 1;
 		board->squares[52] = WHITE_PAWN;
-		board->enPassant[52] = true;
+		board->enPassant[52] = 1;
 		moveGenerationController->generateMovesAt(51);
 		int expectedBoard[] = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -255,7 +256,7 @@
 	}
 
 	TEST_F(PawnMoveGeneratorTest, BlackPromotion) {
-		board->firstMove[99] = false;
+		board->firstMove[99] = 0;
 		board->squares[99] = BLACK_PAWN;
 		board->squares[114] = WHITE_ROOK;
 		board->squares[116] = WHITE_ROOK;

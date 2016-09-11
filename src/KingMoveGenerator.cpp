@@ -2,8 +2,8 @@
 #define KingMoveGenerator_cpp
 	#include "KingMoveGenerator.h"
 
-	KingMoveGenerator::KingMoveGenerator(shared_ptr<Board> board, shared_ptr<MoveStack> moveStack) 
-		: MoveGenerator(board, moveStack) {
+	KingMoveGenerator::KingMoveGenerator(shared_ptr<Board> board, shared_ptr<MoveStack> moveStack, shared_ptr<AttackedSquare> attackedSquare) 
+		: MoveGenerator(board, moveStack, attackedSquare) {
 	}
 
 	KingMoveGenerator::~KingMoveGenerator() {

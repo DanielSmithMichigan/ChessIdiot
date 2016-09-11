@@ -3,7 +3,8 @@
 	BishopMoveGeneratorTest::BishopMoveGeneratorTest() {
 		moveStack = make_shared<MoveStack>();
 		board = make_shared<Board>();
-		moveGenerationController.reset(new MoveGenerationController(board, moveStack));
+		attackedSquare.reset(new AttackedSquare(board));
+		moveGenerationController.reset(new MoveGenerationController(board, moveStack, attackedSquare));
 	}
 
 	BishopMoveGeneratorTest::~BishopMoveGeneratorTest() {

@@ -45,6 +45,7 @@
 	bool TestMoveStack::matches(int board[]) {
 		int moveCount = countBoardMoves(board);
 		if (top != moveCount) {
+			displayAsBoard();
 			cout << "MOVECOUNT MISMATCH. Top: " << top << " MoveCount: " << moveCount << endl;
 			return false;
 		}

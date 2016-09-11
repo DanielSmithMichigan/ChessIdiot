@@ -1,7 +1,5 @@
 #ifndef Globals_h
 #define Globals_h
-	#define MOVE_STACK_LIMIT 512
-	#define MAX_DEPTH 24
 	#define BOARD_SIZE 128
 	#define BOARD_WIDTH 8
 	#define ROWS(numColumns) (numColumns * 16)

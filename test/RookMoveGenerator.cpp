@@ -3,7 +3,8 @@
 	RookMoveGeneratorTest::RookMoveGeneratorTest() {
 		moveStack.reset(new TestMoveStack());
 		board.reset(new Board());
-		moveGenerationController.reset(new MoveGenerationController(board, moveStack));
+		attackedSquare.reset(new AttackedSquare(board));
+		moveGenerationController.reset(new MoveGenerationController(board, moveStack, attackedSquare));
 	}
 
 	RookMoveGeneratorTest::~RookMoveGeneratorTest() {

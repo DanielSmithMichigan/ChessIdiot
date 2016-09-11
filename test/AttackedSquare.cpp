@@ -8,6 +8,13 @@
 	AttackedSquareTest::~AttackedSquareTest() {
 	}
 
+	TEST_F(AttackedSquareTest, WillNotAttackThroughPieces) {
+		board->turn = WHITE;
+		board->squares[16] = WHITE_ROOK;
+		board->squares[19] = BLACK_ROOK;
+		ASSERT_FALSE(attackedSquare->check(20));
+	}
+
 	TEST_F(AttackedSquareTest, EastRook) {
 		board->turn = WHITE;
 		board->squares[51] = WHITE_ROOK;

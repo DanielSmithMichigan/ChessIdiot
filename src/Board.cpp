@@ -55,10 +55,10 @@
 
 	void Board::place(int piece, int to) {
 		squares[to] = piece;
-		if (squares[to] == BLACK_KING) {
+		if (piece == BLACK_KING) {
 			blackKingLocation = to;
 		} 
-		if (squares[to] == WHITE_KING) {
+		if (piece == WHITE_KING) {
 			whiteKingLocation = to;
 		}
 	}
@@ -84,7 +84,7 @@
 		int to = TO(move);
 		place(squares[from], to);
 		remove(from);
-		firstMove[to] = false;
+		firstMove[to] = 0;
 		movesPlayed.push_back(move);
 	}
 

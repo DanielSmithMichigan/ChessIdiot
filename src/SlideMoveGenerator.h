@@ -15,7 +15,7 @@
 			bool canMoveSouthWest = false;
 			bool canMoveWest = false;
 			bool canMoveNorthWest = false;
-			SlideMoveGenerator(shared_ptr<Board> board, shared_ptr<MoveStack>);
+			SlideMoveGenerator(shared_ptr<Board> board, shared_ptr<MoveStack>, shared_ptr<AttackedSquare> attackedSquare);
 			~SlideMoveGenerator();
 			void generateMoves(int from);
 			void generateSlideMove(int from, int delta);

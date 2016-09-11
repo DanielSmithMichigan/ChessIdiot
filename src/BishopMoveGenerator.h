@@ -6,7 +6,7 @@
 
 	class BishopMoveGenerator : public SlideMoveGenerator{
 		public:
-			BishopMoveGenerator(shared_ptr<Board> board, shared_ptr<MoveStack> moveStack);
+			BishopMoveGenerator(shared_ptr<Board> board, shared_ptr<MoveStack> moveStack, shared_ptr<AttackedSquare> attackedSquare);
 			~BishopMoveGenerator();
 	};
 #endif
