@@ -7,6 +7,7 @@
 	#include "utilities.h"
 	#include "globals.h"
 	#include "MoveStack.h"
+	#include "AttackedSquare.h"
 	#include "Move.h"
 	#include "Board.h"
 
@@ -26,9 +27,11 @@
 		public:
 			shared_ptr<Board> board;
 			shared_ptr<MoveStack> moveStack;
-			MoveGenerator(shared_ptr<Board> board, shared_ptr<MoveStack>);
+			shared_ptr<AttackedSquare> attackedSquare;
+			MoveGenerator(shared_ptr<Board> board, shared_ptr<MoveStack>, shared_ptr<AttackedSquare>);
 			~MoveGenerator();
 			void generateMoves(int from);
 			void generateMove(int from, int to, int promotedPiece = BLANK);
+			bool isLegal(uint32_t move);
 	};
 #endif

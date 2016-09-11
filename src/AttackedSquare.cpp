@@ -69,4 +69,9 @@
 		return false;
 	}
 
+	bool AttackedSquare::kingInCheck(int color) {
+		int kingLocation = color == WHITE ? board->blackKingLocation : board->whiteKingLocation;
+		return check(kingLocation);
+	}
+
 #endif

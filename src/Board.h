@@ -1,10 +1,13 @@
 #ifndef Board_h
 #define Board_h
 	#include "globals.h"
+	#include "Move.h"
 	#include <stdint.h>
 	#include <iostream>
 	#include <memory>
 	#include <vector>
+	
+	#define MAX_MOVES_PLAYED 128
 
 	using namespace std;
 
@@ -14,6 +17,7 @@
 			void initializePieces();
 			void initializeFirstMove();
 			void initializeEnPassant();
+			vector<uint32_t> movesPlayed;
 		public:
 			Board();
 			~Board();
@@ -21,8 +25,12 @@
 			int squares[BOARD_SIZE];
 			bool firstMove[BOARD_SIZE];
 			bool enPassant[BOARD_SIZE];
+			int blackKingLocation = 0;
+			int whiteKingLocation = 0;
 			void place(int piece, int location);
 			void remove(int location);
-			void move(int xBefore, int yBefore, int xAfter, int yAfter);
+			void doMove(uint32_t move);
+			void undoMove();
+			void changeTurn();
 	};
 #endif

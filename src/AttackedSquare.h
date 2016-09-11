@@ -17,5 +17,6 @@
 			bool attackedByKing(int location);
 			bool attackedByPawn(int location);
 			bool attackedBySlidingPiece(int from, int delta, int otherAttackingPiece);
+			bool kingInCheck(int color);
 	};
 #endif

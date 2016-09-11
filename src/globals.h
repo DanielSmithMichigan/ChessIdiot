@@ -30,6 +30,7 @@
 	#define BLACK_KING 12
 	#define BLACK 1
 	#define WHITE -1
+	#define GET_OPPOSING_COLOR(color) (color * -1)
 	#define GET_DIRECTION(color) (color == WHITE ? -1 : 1)
 	#define GET_OPPOSING_DIRECTION(color) (color == WHITE ? 1 : -1)
 	#define GET_COLOR(i) (i > 6 ? BLACK : WHITE)

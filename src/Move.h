@@ -5,4 +5,6 @@
 	#define FROM(m) ((m) & 0xFF)
 	#define TO(m) ((m>>8) & 0xFF)
 	#define PROMOTEDPIECE(m) ((m >> 22) & 0xF)
+	#define FIRST_MOVE(m) ((m >> 21) & 0x1)
+	#define CAPTURED_PIECE(m) ((m >> 16) & 0xF)
 #endif

@@ -6,6 +6,7 @@
 		initializeEmptyBoard();
 		initializeFirstMove();
 		initializeEnPassant();
+		movesPlayed.resize(MAX_MOVES_PLAYED);
 	}
 
 	Board::~Board() {
@@ -52,7 +53,42 @@
 		}
 	}
 
-	void Board::place(int piece, int location) {
-		squares[location] = piece;
+	void Board::place(int piece, int to) {
+		squares[to] = piece;
+		if (squares[to] == BLACK_KING) {
+			blackKingLocation = to;
+		} 
+		if (squares[to] == WHITE_KING) {
+			whiteKingLocation = to;
+		}
+	}
+
+	void Board::remove(int location) {
+		squares[location] = EMPTY_SPACE;
+	}
+
+	void Board::undoMove() {
+		uint32_t move = movesPlayed.back();
+		movesPlayed.pop_back();
+		changeTurn();
+		int from = FROM(move);
+		int to = TO(move);
+		firstMove[from] = FIRST_MOVE(move);
+		squares[from] = squares[to];
+		squares[to] = CAPTURED_PIECE(move);
+	}
+
+	void Board::doMove(uint32_t move) {
+		changeTurn();
+		int from = FROM(move);
+		int to = TO(move);
+		place(squares[from], to);
+		remove(from);
+		firstMove[to] = false;
+		movesPlayed.push_back(move);
+	}
+
+	void Board::changeTurn() {
+		turn = GET_OPPOSING_COLOR(turn);
 	}
 #endif
