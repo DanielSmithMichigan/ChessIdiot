@@ -28,11 +28,13 @@
 	#define BLACK_KING 12
 	#define BLACK 1
 	#define WHITE -1
+	#define SOMEWHERE_OFF_BOARD 59
 	#define GET_OPPOSING_COLOR(color) (color * -1)
 	#define GET_DIRECTION(color) (color == WHITE ? -1 : 1)
 	#define GET_OPPOSING_DIRECTION(color) (color == WHITE ? 1 : -1)
 	#define GET_COLOR(i) (i > 6 ? BLACK : WHITE)
 	#define IS_PAWN(i) (i == WHITE_PAWN || i == BLACK_PAWN)
+	#define GET_ROW(i) (i / 16)
 	#define FIRST_RANK(i) (i < 8)
 	#define LAST_RANK(i) (i > 111)
 	#define BLANK 0

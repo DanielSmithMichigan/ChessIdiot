@@ -41,9 +41,9 @@
 		int enPassantRight = from + 1;
 		int squareEnPassantRight = board->squares[enPassantRight];
 		if (squareEnPassantRight != EMPTY_SPACE
-				&& thisPawnColor != GET_COLOR(squareEnPassantRight)
-				&& board->enPassant[enPassantRight]) {
-			generateMove(from, enPassantRight + ROWS(direction));
+				&& (thisPawnColor != GET_COLOR(squareEnPassantRight)
+					|| board->enPassantTarget == attackRight)) {
+			generateMove(from, attackRight, BLANK, 1);
 		}
 
 		// Attack Left
@@ -51,16 +51,17 @@
 		int squareAttackedLeft = board->squares[attackLeft];
 		if (squareAttackedLeft != EMPTY_SPACE
 				&& thisPawnColor != GET_COLOR(squareAttackedLeft)) {
-			testAndGenerateMove(from, attackLeft, thisPawn);
+			testAndGenerateMove(from, attackLeft);
 		}
+
 
 		// En Passant Left
 		int enPassantLeft = from - 1;
 		int squareEnPassantLeft = board->squares[enPassantLeft];
 		if (squareEnPassantLeft != EMPTY_SPACE
-				&& thisPawnColor != GET_COLOR(squareEnPassantLeft)
-				&& board->enPassant[enPassantLeft]) {
-			generateMove(from, enPassantLeft + ROWS(direction));
+				&& (thisPawnColor != GET_COLOR(squareEnPassantLeft)
+					|| board->enPassantTarget == attackLeft)) {
+			generateMove(from, attackleft, BLANK, 1);
 		}
 	}
 

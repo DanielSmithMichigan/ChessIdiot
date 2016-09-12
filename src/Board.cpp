@@ -76,6 +76,35 @@
 		firstMove[from] = FIRST_MOVE(move);
 		squares[from] = squares[to];
 		squares[to] = CAPTURED_PIECE(move);
+		undoEnPassant(move);
+		checkAndSetEnPassantTarget();
+	}
+
+	void Board::undoEnPassant(uint32_t move) {
+		int to = TO(move);
+		int direction = GET_OPPOSING_DIRECTION(turn);
+		int pawnPosition = ROWS(direction) + to;
+		squares[pawnPosition] = turn == WHITE ? BLACK_PAWN : WHITE_PAWN;
+	}
+
+	void Board::checkAndSetEnPassantTarget() {
+		uint32_t lastMove = movesPlayed.back();
+		int to = TO(lastMove);
+		int pieceMoved = squares[to];
+		if (shouldSetEnPassantTarget(lastMove)) {
+			enPassantTarget = TO(lastMove) + ROWS(GET_OPPOSING_DIRECTION(pieceMoved));
+		} else {
+			enPassantTarget = SOMEWHERE_OFF_BOARD;
+		}
+	}
+
+	bool Board::shouldSetEnPassantTarget(uint32_t move) {
+		int to = TO(move);
+		int from = FROM(move);
+		int pieceMoved = squares[to];
+		return (pieceMoved == BLACK_PAWN
+			|| pieceMoved == WHITE_PAWN)
+			&& (abs(GET_ROW(from) - GET_ROW(to)) == 2);
 	}
 
 	void Board::doMove(uint32_t move) {
@@ -86,6 +115,7 @@
 		remove(from);
 		firstMove[to] = 0;
 		movesPlayed.push_back(move);
+		checkAndSetEnPassantTarget();
 	}
 
 	void Board::changeTurn() {
