@@ -95,18 +95,39 @@
 		EXPECT_TRUE(moveStack->matches(expectedBoard));
 	}
 
-	TEST_F(PawnMoveGeneratorTest, WhitePawnEnPassant) {
-		board->firstMove[51] = 0;
+	TEST_F(PawnMoveGeneratorTest, WhitePawnEnPassantRight) {
+		board->firstMove[51] = false;
+		uint32_t firstMove = MOVE(20, 52, BLANK, BLANK, 1, BLANK, BLANK);
 		board->squares[51] = WHITE_PAWN;
-		board->squares[50] = BLACK_PAWN;
-		board->enPassant[50] = 1;
+		board->squares[20] = BLACK_PAWN;
 		board->squares[52] = BLACK_PAWN;
-		board->enPassant[52] = 1;
+		board->doMove(firstMove);
 		moveGenerationController->generateMovesAt(51);
 		int expectedBoard[] = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-			0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+		};
+		EXPECT_TRUE(moveStack->matches(expectedBoard));
+	}
+
+	TEST_F(PawnMoveGeneratorTest, WhitePawnEnPassantLeft) {
+		board->firstMove[51] = false;
+		uint32_t firstMove = MOVE(18, 50, BLANK, BLANK, 1, BLANK, BLANK);
+		board->squares[51] = WHITE_PAWN;
+		board->squares[18] = BLACK_PAWN;
+		board->squares[52] = BLACK_PAWN;
+		board->doMove(firstMove);
+		moveGenerationController->generateMovesAt(51);
+		int expectedBoard[] = {
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -234,21 +255,42 @@
 		EXPECT_TRUE(moveStack->matches(expectedBoard));
 	}
 
-	TEST_F(PawnMoveGeneratorTest, BlackEnPassant) {
-		board->firstMove[51] = 0;
-		board->squares[51] = BLACK_PAWN;
-		board->squares[50] = WHITE_PAWN;
-		board->enPassant[50] = 1;
-		board->squares[52] = WHITE_PAWN;
-		board->enPassant[52] = 1;
-		moveGenerationController->generateMovesAt(51);
+	TEST_F(PawnMoveGeneratorTest, BlackEnPassantRight) {
+		uint32_t firstMove = MOVE(100, 68, BLANK, BLANK, 1, BLANK, BLANK);
+		board->firstMove[67] = 0;
+		board->squares[67] = BLACK_PAWN;
+		board->squares[66] = WHITE_PAWN;
+		board->squares[100] = WHITE_PAWN;
+		board->doMove(firstMove);
+		moveGenerationController->generateMovesAt(67);
 		int expectedBoard[] = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-			0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+		};
+		EXPECT_TRUE(moveStack->matches(expectedBoard));
+	}
+
+	TEST_F(PawnMoveGeneratorTest, BlackEnPassantLeft) {
+		uint32_t firstMove = MOVE(98, 66, BLANK, BLANK, 1, BLANK, BLANK);
+		board->firstMove[67] = 0;
+		board->squares[67] = BLACK_PAWN;
+		board->squares[98] = WHITE_PAWN;
+		board->squares[68] = WHITE_PAWN;
+		board->doMove(firstMove);
+		moveGenerationController->generateMovesAt(67);
+		int expectedBoard[] = {
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 		};

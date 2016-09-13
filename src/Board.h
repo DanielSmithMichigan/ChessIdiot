@@ -6,7 +6,6 @@
 	#include <iostream>
 	#include <memory>
 	#include <vector>
-	#include <math>
 	
 	#define MAX_MOVES_PLAYED 128
 
@@ -17,7 +16,6 @@
 			void initializeEmptyBoard();
 			void initializePieces();
 			void initializeFirstMove();
-			void initializeEnPassant();
 			vector<uint32_t> movesPlayed;
 		public:
 			Board();
@@ -32,9 +30,10 @@
 			void remove(int location);
 			void doMove(uint32_t move);
 			void undoMove();
-			void undoEnPassant(uint32_t move);
+			void checkAndUndoEnPassant(uint32_t move);
 			bool shouldSetEnPassantTarget(uint32_t move);
 			void checkAndSetEnPassantTarget();
+			void checkAndPerformEnPassant(uint32_t move);
 			void changeTurn();
 	};
 #endif

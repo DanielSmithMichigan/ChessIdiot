@@ -95,14 +95,17 @@
 	}
 
 	TEST_F(MoveGeneratorTest, EnPassantAndReset) {
+		uint32_t firstMove = MOVE(21, 53, BLANK, BLANK, 1, BLANK, BLANK);
 		board->place(WHITE_PAWN, 52);
-		board->place(BLACK_PAWN, 53);
-		board->enPassant[53] = true;
-		moveGenerationController->generateMovesAt(96);
+		board->place(BLACK_PAWN, 21);
+		board->place(BLACK_PAWN, 17);
+		board->turn = BLACK;
+		board->doMove(firstMove);
+		moveGenerationController->generateMovesAt(52);
 		int expectedBoard[] = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -110,31 +113,33 @@
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 		};
 		EXPECT_TRUE(moveStack->matches(expectedBoard));
-		uint32_t move = MOVE(96, (96 - ROWS(2)), BLANK, BLANK, 1, BLANK, BLANK);
-		board->doMove(move);
 		moveStack->reset();
-		moveGenerationController->generateMovesAt(96 - ROWS(2));
-		int newExpectedBoard[] = {
+		uint32_t secondMove = MOVE(52, 37, BLANK, 1, BLANK, BLANK, BLANK);
+		board->doMove(secondMove);
+		EXPECT_TRUE(board->squares[53] == EMPTY_SPACE);
+		moveGenerationController->generateMovesAt(17);
+		int secondExpectedBoard[] = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-			1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 		};
-		EXPECT_TRUE(moveStack->matches(newExpectedBoard));
-		board->undoMove();
+		EXPECT_TRUE(moveStack->matches(secondExpectedBoard));
 		moveStack->reset();
-		moveGenerationController->generateMovesAt(96);
+		uint32_t thirdMove = MOVE(17, 33, BLANK, 1, BLANK, BLANK, BLANK);
+		board->doMove(thirdMove);
+		moveGenerationController->generateMovesAt(37);
 		int thirdExpectedBoard[] = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-			1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-			1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 		};

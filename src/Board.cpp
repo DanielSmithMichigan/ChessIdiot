@@ -5,7 +5,6 @@
 	Board::Board() {
 		initializeEmptyBoard();
 		initializeFirstMove();
-		initializeEnPassant();
 		movesPlayed.resize(MAX_MOVES_PLAYED);
 	}
 
@@ -47,12 +46,6 @@
 		}
 	}
 
-	void Board::initializeEnPassant() {
-		for (int i = 0; i < BOARD_SIZE; i++) {
-			enPassant[i] = false;
-		}
-	}
-
 	void Board::place(int piece, int to) {
 		squares[to] = piece;
 		if (piece == BLACK_KING) {
@@ -76,15 +69,17 @@
 		firstMove[from] = FIRST_MOVE(move);
 		squares[from] = squares[to];
 		squares[to] = CAPTURED_PIECE(move);
-		undoEnPassant(move);
+		checkAndUndoEnPassant(move);
 		checkAndSetEnPassantTarget();
 	}
 
-	void Board::undoEnPassant(uint32_t move) {
-		int to = TO(move);
-		int direction = GET_OPPOSING_DIRECTION(turn);
-		int pawnPosition = ROWS(direction) + to;
-		squares[pawnPosition] = turn == WHITE ? BLACK_PAWN : WHITE_PAWN;
+	void Board::checkAndUndoEnPassant(uint32_t move) {
+		if (EN_PASSANT(move)) {
+			int to = TO(move);
+			int direction = GET_OPPOSING_DIRECTION(turn);
+			int pawnPosition = ROWS(direction) + to;
+			squares[pawnPosition] = turn == WHITE ? BLACK_PAWN : WHITE_PAWN;
+		}
 	}
 
 	void Board::checkAndSetEnPassantTarget() {
@@ -92,7 +87,7 @@
 		int to = TO(lastMove);
 		int pieceMoved = squares[to];
 		if (shouldSetEnPassantTarget(lastMove)) {
-			enPassantTarget = TO(lastMove) + ROWS(GET_OPPOSING_DIRECTION(pieceMoved));
+			enPassantTarget = TO(lastMove) + ROWS(GET_OPPOSING_DIRECTION(GET_COLOR(pieceMoved)));
 		} else {
 			enPassantTarget = SOMEWHERE_OFF_BOARD;
 		}
@@ -113,9 +108,19 @@
 		int to = TO(move);
 		place(squares[from], to);
 		remove(from);
+		checkAndPerformEnPassant(move);
 		firstMove[to] = 0;
 		movesPlayed.push_back(move);
 		checkAndSetEnPassantTarget();
+	}
+
+	void Board::checkAndPerformEnPassant(uint32_t move) {
+		if (EN_PASSANT(move)) {
+			int to = TO(move);
+			int direction = GET_OPPOSING_DIRECTION(GET_COLOR(squares[to]));
+			int enPassantSquare = to + ROWS(direction);
+			remove(enPassantSquare);
+		}
 	}
 
 	void Board::changeTurn() {
