@@ -10,6 +10,11 @@
 	}
 
 	void KingMoveGenerator::generateMoves(int from) {
+		generateAdjacentMoves(from);
+		generateCastle(from);
+	}
+
+	void KingMoveGenerator::generateAdjacentMoves(int from) {
 		for (int i = 0; i < KING_MOVES_SIZE; i++) {
 			int to = kingMoves[i] + from;
 			if (ON_BOARD(to) 
@@ -18,5 +23,60 @@
 				generateMove(from, to);
 			}
 		}
+	}
+
+	void KingMoveGenerator::generateCastle(int from) {
+		if (!board->firstMove[from]) {
+			return;
+		}
+		int kingColor = GET_COLOR(from);
+		int rookLeftPosition = kingColor == WHITE ? whiteCastleLeft : blackCastleLeft;
+		int rookRightPosition = kingColor == WHITE ? whiteCastleRight : blackCastleRight;
+		int rook = kingColor == WHITE ? WHITE_ROOK : BLACK_ROOK;
+		if (board->firstMove[rookRightPosition]
+				&& board->squares[rookRightPosition] == rook
+				&& !castleSquaresOccupied(from, EAST)
+				&& !castleSquaresAttacked(from, EAST)) {
+			generateMove(from, from + 2, BLANK, BLANK, 1);
+		}
+		if (board->firstMove[rookLeftPosition]
+				&& board->squares[rookLeftPosition] == rook
+				&& !castleSquaresOccupied(from, WEST)
+				&& !castleSquaresAttacked(from, WEST)) {
+			generateMove(from, from - 2, BLANK, BLANK, 1);
+		}
+	}
+
+	bool KingMoveGenerator::castleSquaresOccupied(int from, int eastWest) {
+		int kingColor = GET_COLOR(from);
+		int (&arrayOfSquares)[3] = getArrayOfSquares(from, eastWest);
+		for (int i = 0; i < 3; i++) {
+			int squareToCheck = arrayOfSquares[i];
+			if (squareToCheck == SOMEWHERE_OFF_BOARD) {
+				return false;
+			} else if (board->squares[squareToCheck] != EMPTY_SPACE) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	bool KingMoveGenerator::castleSquaresAttacked(int from, int eastWest) {
+		int (&arrayOfSquares)[3] = getArrayOfSquares(from, eastWest);
+		for (int i = 0; i < 3; i++) {
+			int squareToCheck = arrayOfSquares[i];
+			if (squareToCheck == SOMEWHERE_OFF_BOARD) {
+				return false;
+			} else if (attackedSquare->check(squareToCheck)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	int (&KingMoveGenerator::getArrayOfSquares(int from, int eastWest))[3] {
+		return GET_COLOR(from) == WHITE ?
+				eastWest == EAST ? whiteCastleSquaresEast : whiteCastleSquaresWest
+				: eastWest == EAST ? blackCastleSquaresEast : blackCastleSquaresWest;
 	}
 #endif

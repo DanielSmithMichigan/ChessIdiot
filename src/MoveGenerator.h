@@ -31,7 +31,7 @@
 			MoveGenerator(shared_ptr<Board> board, shared_ptr<MoveStack>, shared_ptr<AttackedSquare>);
 			~MoveGenerator();
 			void generateMoves(int from);
-			void generateMove(int from, int to, int promotedPiece = BLANK, int enPassant = BLANK);
+			void generateMove(int from, int to, int promotedPiece = BLANK, int enPassant = BLANK, int castle = BLANK);
 			bool isLegal(uint32_t move);
 	};
 #endif
