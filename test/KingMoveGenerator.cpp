@@ -205,3 +205,219 @@
 		};
 		EXPECT_TRUE(moveStack->matches(expectedBoard));
 	}
+
+	TEST_F(KingMoveGenerationControllerTest, 3rdSquareCannotBeOccupied) {
+		board->place(WHITE_ROOK, 112);
+		board->place(WHITE_KING, 116);
+		board->place(WHITE_ROOK, 119);
+		board->place(BLACK_BISHOP, 113);
+		moveGenerationController->generateMovesAt(116);
+		int expectedBoard[] = {
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0
+		};
+		EXPECT_TRUE(moveStack->matches(expectedBoard));
+	}
+
+	TEST_F(KingMoveGenerationControllerTest, 3rdSquareCanBeAttacked) {
+		board->place(WHITE_ROOK, 112);
+		board->place(WHITE_KING, 116);
+		board->place(WHITE_ROOK, 119);
+		board->place(BLACK_BISHOP, 96);
+		moveGenerationController->generateMovesAt(116);
+		int expectedBoard[] = {
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0
+		};
+		EXPECT_TRUE(moveStack->matches(expectedBoard));
+	}
+
+	TEST_F(KingMoveGenerationControllerTest, 2ndSquareCannotBeAttacked) {
+		board->place(WHITE_ROOK, 112);
+		board->place(WHITE_KING, 116);
+		board->place(WHITE_ROOK, 119);
+		board->place(BLACK_BISHOP, 97);
+		moveGenerationController->generateMovesAt(116);
+		int expectedBoard[] = {
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0
+		};
+		EXPECT_TRUE(moveStack->matches(expectedBoard));
+	}
+
+	TEST_F(KingMoveGenerationControllerTest, CastleBlack) {
+		board->turn = BLACK;
+		board->place(BLACK_ROOK, 0);
+		board->place(BLACK_KING, 4);
+		board->place(BLACK_ROOK, 7);
+		moveGenerationController->generateMovesAt(4);
+		int expectedBoard[] = {
+			0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+		};
+		EXPECT_TRUE(moveStack->matches(expectedBoard));
+	}
+
+	TEST_F(KingMoveGenerationControllerTest, BlackWillNotMoveThroughPiecesRight) {
+		board->turn = BLACK;
+		board->place(BLACK_ROOK, 0);
+		board->place(BLACK_KING, 4);
+		board->place(BLACK_ROOK, 7);
+		board->place(BLACK_BISHOP, 6);
+		moveGenerationController->generateMovesAt(4);
+		int expectedBoard[] = {
+			0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+		};
+		EXPECT_TRUE(moveStack->matches(expectedBoard));
+	}
+
+	TEST_F(KingMoveGenerationControllerTest, BlackWillNotMoveThroughPiecesLeft) {
+		board->turn = BLACK;
+		board->place(BLACK_ROOK, 0);
+		board->place(BLACK_KING, 4);
+		board->place(BLACK_ROOK, 7);
+		board->place(BLACK_BISHOP, 3);
+		moveGenerationController->generateMovesAt(4);
+		int expectedBoard[] = {
+			0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+		};
+		EXPECT_TRUE(moveStack->matches(expectedBoard));
+	}
+
+	TEST_F(KingMoveGenerationControllerTest, BlackWillNotMoveThroughCheck) {
+		board->turn = BLACK;
+		board->place(BLACK_ROOK, 0);
+		board->place(BLACK_KING, 4);
+		board->place(BLACK_ROOK, 7);
+		board->place(WHITE_KNIGHT, 36);
+		moveGenerationController->generateMovesAt(4);
+		int expectedBoard[] = {
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+		};
+		EXPECT_TRUE(moveStack->matches(expectedBoard));
+	}
+
+	TEST_F(KingMoveGenerationControllerTest, BlackWillNotCastleIfKingIsInCheck) {
+		board->turn = BLACK;
+		board->place(BLACK_ROOK, 0);
+		board->place(BLACK_KING, 4);
+		board->place(BLACK_ROOK, 7);
+		board->place(WHITE_KNIGHT, 18);
+		moveGenerationController->generateMovesAt(4);
+		int expectedBoard[] = {
+			0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+		};
+		EXPECT_TRUE(moveStack->matches(expectedBoard));
+	}
+
+	TEST_F(KingMoveGenerationControllerTest, Black3rdSquareCannotBeOccupied) {
+		board->turn = BLACK;
+		board->place(BLACK_ROOK, 0);
+		board->place(BLACK_KING, 4);
+		board->place(BLACK_ROOK, 7);
+		board->place(BLACK_BISHOP, 1);
+		moveGenerationController->generateMovesAt(4);
+		int expectedBoard[] = {
+			0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+		};
+		EXPECT_TRUE(moveStack->matches(expectedBoard));
+	}
+
+	TEST_F(KingMoveGenerationControllerTest, Black3rdSquareCanBeAttacked) {
+		board->turn = BLACK;
+		board->place(BLACK_ROOK, 0);
+		board->place(BLACK_KING, 4);
+		board->place(BLACK_ROOK, 7);
+		board->place(WHITE_BISHOP, 16);
+		moveGenerationController->generateMovesAt(4);
+		int expectedBoard[] = {
+			0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+		};
+		EXPECT_TRUE(moveStack->matches(expectedBoard));
+	}
+
+	TEST_F(KingMoveGenerationControllerTest, Black2ndSquareCannotBeAttacked) {
+		board->turn = BLACK;
+		board->place(BLACK_ROOK, 0);
+		board->place(BLACK_KING, 4);
+		board->place(BLACK_ROOK, 7);
+		board->place(WHITE_BISHOP, 17);
+		moveGenerationController->generateMovesAt(4);
+		int expectedBoard[] = {
+			0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+		};
+		EXPECT_TRUE(moveStack->matches(expectedBoard));
+	}
