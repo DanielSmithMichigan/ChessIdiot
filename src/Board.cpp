@@ -67,7 +67,7 @@
 		int from = FROM(move);
 		int to = TO(move);
 		firstMove[from] = FIRST_MOVE(move);
-		squares[from] = squares[to];
+		place(squares[to], from);
 		squares[to] = CAPTURED_PIECE(move);
 		checkAndUndoEnPassant(move);
 		checkAndSetEnPassantTarget();

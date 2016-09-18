@@ -8,10 +8,10 @@
 	class KingMoveGenerator : public MoveGenerator{
 		private:
 			int kingMoves[8] = {KING_MOVE_1, KING_MOVE_2, KING_MOVE_3, KING_MOVE_4, KING_MOVE_5, KING_MOVE_6, KING_MOVE_7, KING_MOVE_8};
-			int whiteCastleSquaresEast[3] = {117, 118, SOMEWHERE_OFF_BOARD};
-			int whiteCastleSquaresWest[3] = {115, 114, 113};
-			int blackCastleSquaresEast[3] = {4, 4, SOMEWHERE_OFF_BOARD};
-			int blackCastleSquaresWest[3] = {1, 2, 3};
+			int whiteCastleSquaresEast[2] = {117, 118};
+			int whiteCastleSquaresWest[2] = {114, 115};
+			int blackCastleSquaresEast[2] = {4, 5};
+			int blackCastleSquaresWest[2] = {2, 3};
 			int whiteCastleLeft = 112;
 			int whiteCastleRight = 119;
 			int blackCastleLeft = 0;
@@ -24,6 +24,6 @@
 			void generateCastle(int from);
 			bool castleSquaresOccupied(int from, int eastWest);
 			bool castleSquaresAttacked(int from, int eastWest);
-			int (&getArrayOfSquares(int from, int eastWest))[3];
+			int (&getArrayOfSquares(int from, int eastWest))[2];
 	};
 #endif

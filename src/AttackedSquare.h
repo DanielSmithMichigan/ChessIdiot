@@ -12,11 +12,12 @@
 		public:
 			AttackedSquare(shared_ptr<Board> board);
 			~AttackedSquare();
-			bool check(int location);
-			bool attackedByKnight(int location);
-			bool attackedByKing(int location);
-			bool attackedByPawn(int location);
-			bool attackedBySlidingPiece(int from, int delta, int otherAttackingPiece);
-			bool kingInCheck(int color);
+			bool check(int location, int attackedBy = BLANK);
+			bool attackedByKnight(int location, int attackedBy = BLANK);
+			bool attackedByKing(int location, int attackedBy = BLANK);
+			bool attackedByPawn(int location, int attackedBy = BLANK);
+			bool attackedBySlidingPiece(int from, int delta, int otherAttackingPiece, int attackedBy = BLANK);
+			bool kingInCheck(int kingColor = BLANK);
+			int defaultColor(int attackedBy);
 	};
 #endif

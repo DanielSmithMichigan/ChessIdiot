@@ -10,32 +10,32 @@
 
 	}
 
-	bool AttackedSquare::check(int location) {
-		int attackingBishop = board->turn == WHITE ? WHITE_BISHOP : BLACK_BISHOP;
-		int attackingRook = board->turn == WHITE ? WHITE_ROOK : BLACK_ROOK;
-		return attackedByKnight(location)
-			|| attackedByPawn(location)
-			|| attackedByKing(location)
-			|| attackedBySlidingPiece(location, NORTH, attackingRook)
-			|| attackedBySlidingPiece(location, NORTH_EAST, attackingBishop)
-			|| attackedBySlidingPiece(location, EAST, attackingRook)
-			|| attackedBySlidingPiece(location, SOUTH_EAST, attackingBishop)
-			|| attackedBySlidingPiece(location, SOUTH, attackingRook)
-			|| attackedBySlidingPiece(location, SOUTH_WEST, attackingBishop)
-			|| attackedBySlidingPiece(location, WEST, attackingRook)
-			|| attackedBySlidingPiece(location, NORTH_WEST, attackingBishop);
+	bool AttackedSquare::check(int location, int attackedBy) {
+		int attackingBishop = defaultColor(attackedBy) == WHITE ? WHITE_BISHOP : BLACK_BISHOP;
+		int attackingRook = defaultColor(attackedBy) == WHITE ? WHITE_ROOK : BLACK_ROOK;
+		return attackedByKnight(location, attackedBy)
+			|| attackedByPawn(location, attackedBy)
+			|| attackedByKing(location, attackedBy)
+			|| attackedBySlidingPiece(location, NORTH, attackingRook, attackedBy)
+			|| attackedBySlidingPiece(location, NORTH_EAST, attackingBishop, attackedBy)
+			|| attackedBySlidingPiece(location, EAST, attackingRook, attackedBy)
+			|| attackedBySlidingPiece(location, SOUTH_EAST, attackingBishop, attackedBy)
+			|| attackedBySlidingPiece(location, SOUTH, attackingRook, attackedBy)
+			|| attackedBySlidingPiece(location, SOUTH_WEST, attackingBishop, attackedBy)
+			|| attackedBySlidingPiece(location, WEST, attackingRook, attackedBy)
+			|| attackedBySlidingPiece(location, NORTH_WEST, attackingBishop, attackedBy);
 	}
 
-	bool AttackedSquare::attackedByPawn(int location) {
-		int attackingPawn = board->turn == WHITE ? WHITE_PAWN : BLACK_PAWN;
-		int attackMove1 = ROWS(GET_OPPOSING_DIRECTION(board->turn)) + 1 + location;
-		int attackMove2 = ROWS(GET_OPPOSING_DIRECTION(board->turn)) - 1 + location;
+	bool AttackedSquare::attackedByPawn(int location, int attackedBy) {
+		int attackingPawn = defaultColor(attackedBy) == WHITE ? WHITE_PAWN : BLACK_PAWN;
+		int attackMove1 = ROWS(GET_OPPOSING_DIRECTION(defaultColor(attackedBy))) + 1 + location;
+		int attackMove2 = ROWS(GET_OPPOSING_DIRECTION(defaultColor(attackedBy))) - 1 + location;
 		return board->squares[attackMove1] == attackingPawn
 			|| board->squares[attackMove2] == attackingPawn;
 	}
 
-	bool AttackedSquare::attackedByKnight(int location) {
-		int attackingKnight = board->turn == WHITE ? WHITE_KNIGHT : BLACK_KNIGHT;
+	bool AttackedSquare::attackedByKnight(int location, int attackedBy) {
+		int attackingKnight = defaultColor(attackedBy) == WHITE ? WHITE_KNIGHT : BLACK_KNIGHT;
 		for (int i = 0; i < 8; i++) {
 			if (board->squares[knightMoves[i] + location] == attackingKnight) {
 				return true;
@@ -44,8 +44,8 @@
 		return false;
 	}
 
-	bool AttackedSquare::attackedByKing(int location) {
-		int attackingKing = board->turn == WHITE ? WHITE_KING : BLACK_KING;
+	bool AttackedSquare::attackedByKing(int location, int attackedBy) {
+		int attackingKing = defaultColor(attackedBy) == WHITE ? WHITE_KING : BLACK_KING;
 		for (int i = 0; i < 8; i++) {
 			if (board->squares[kingMoves[i] + location] == attackingKing) {
 				return true;
@@ -54,8 +54,8 @@
 		return false;
 	}
 
-	bool AttackedSquare::attackedBySlidingPiece(int from, int delta, int otherAttackingPiece) {
-		int attackingQueen = board->turn == WHITE ? WHITE_QUEEN : BLACK_QUEEN;
+	bool AttackedSquare::attackedBySlidingPiece(int from, int delta, int otherAttackingPiece, int attackedBy) {
+		int attackingQueen = defaultColor(attackedBy) == WHITE ? WHITE_QUEEN : BLACK_QUEEN;
 		int to = from + delta;
 		while (ON_BOARD(to)) {
 			if (board->squares[to] == EMPTY_SPACE) {
@@ -69,9 +69,14 @@
 		return false;
 	}
 
-	bool AttackedSquare::kingInCheck(int color) {
-		int kingLocation = color == WHITE ? board->whiteKingLocation : board->blackKingLocation;
-		return check(kingLocation);
+	int AttackedSquare::defaultColor(int attackedBy) {
+		return attackedBy == BLANK ? board->turn : attackedBy;
+	}
+
+	bool AttackedSquare::kingInCheck(int kingColor) {
+		kingColor = defaultColor(kingColor);
+		int kingLocation = kingColor == WHITE ? board->whiteKingLocation : board->blackKingLocation;
+		return check(kingLocation, GET_OPPOSING_COLOR(kingColor));
 	}
 
 #endif

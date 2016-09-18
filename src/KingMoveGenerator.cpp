@@ -26,10 +26,11 @@
 	}
 
 	void KingMoveGenerator::generateCastle(int from) {
-		if (!board->firstMove[from]) {
+		if (!board->firstMove[from]
+			|| attackedSquare->kingInCheck()) {
 			return;
 		}
-		int kingColor = GET_COLOR(from);
+		int kingColor = GET_COLOR(board->squares[from]);
 		int rookLeftPosition = kingColor == WHITE ? whiteCastleLeft : blackCastleLeft;
 		int rookRightPosition = kingColor == WHITE ? whiteCastleRight : blackCastleRight;
 		int rook = kingColor == WHITE ? WHITE_ROOK : BLACK_ROOK;
@@ -48,9 +49,9 @@
 	}
 
 	bool KingMoveGenerator::castleSquaresOccupied(int from, int eastWest) {
-		int kingColor = GET_COLOR(from);
-		int (&arrayOfSquares)[3] = getArrayOfSquares(from, eastWest);
-		for (int i = 0; i < 3; i++) {
+		int kingColor = GET_COLOR(board->squares[from]);
+		int (&arrayOfSquares)[2] = getArrayOfSquares(from, eastWest);
+		for (int i = 0; i < 2; i++) {
 			int squareToCheck = arrayOfSquares[i];
 			if (squareToCheck == SOMEWHERE_OFF_BOARD) {
 				return false;
@@ -62,20 +63,20 @@
 	}
 
 	bool KingMoveGenerator::castleSquaresAttacked(int from, int eastWest) {
-		int (&arrayOfSquares)[3] = getArrayOfSquares(from, eastWest);
-		for (int i = 0; i < 3; i++) {
+		int (&arrayOfSquares)[2] = getArrayOfSquares(from, eastWest);
+		for (int i = 0; i < 2; i++) {
 			int squareToCheck = arrayOfSquares[i];
 			if (squareToCheck == SOMEWHERE_OFF_BOARD) {
 				return false;
-			} else if (attackedSquare->check(squareToCheck)) {
+			} else if (attackedSquare->check(squareToCheck, GET_OPPOSING_COLOR(board->turn))) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	int (&KingMoveGenerator::getArrayOfSquares(int from, int eastWest))[3] {
-		return GET_COLOR(from) == WHITE ?
+	int (&KingMoveGenerator::getArrayOfSquares(int from, int eastWest))[2] {
+		return GET_COLOR(board->squares[from]) == WHITE ?
 				eastWest == EAST ? whiteCastleSquaresEast : whiteCastleSquaresWest
 				: eastWest == EAST ? blackCastleSquaresEast : blackCastleSquaresWest;
 	}

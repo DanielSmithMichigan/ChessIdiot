@@ -20,7 +20,7 @@
 		public:
 			Board();
 			~Board();
-			int turn;
+			int turn = WHITE;
 			int squares[BOARD_SIZE];
 			int firstMove[BOARD_SIZE];
 			int enPassantTarget = SOMEWHERE_OFF_BOARD;
