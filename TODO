@@ -1,2 +1,2 @@
 Run against some chess move test suite
-Write castling tests for black pieces
+Do / Undo castle through board.cpp
