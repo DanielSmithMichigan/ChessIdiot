@@ -13,9 +13,7 @@
 
 	class Board {
 		private:
-			void initializeEmptyBoard();
 			void initializePieces();
-			void initializeFirstMove();
 			vector<uint32_t> movesPlayed;
 		public:
 			Board();
@@ -30,6 +28,8 @@
 			void remove(int location);
 			void doMove(uint32_t move);
 			void undoMove();
+			void initializeEmptyBoard();
+			void initializeFirstMove();
 			void checkAndUndoEnPassant(uint32_t move);
 			bool shouldSetEnPassantTarget(uint32_t move);
 			void checkAndSetEnPassantTarget();

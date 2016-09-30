@@ -12,6 +12,7 @@
 	// Yes this function is pretty big, but since this is move generation, I want to save function calls.
 	void PawnMoveGenerator::generateMoves(int from) {
 		int thisPawn = board->squares[from];
+		int thisPawnColor = GET_COLOR(thisPawn);
 
 		// Move Forward
 		int oneSquareUp = from + ROWS(direction);
@@ -21,14 +22,14 @@
 
 			// Move Forward Twice
 			int twoSquaresUp = from + ROWS(2 * direction);
-			if (board->firstMove[from]
+			int firstMoveRow = thisPawnColor == WHITE ? 6 : 1;
+			if (GET_ROW(from) == firstMoveRow
 				&& board->squares[twoSquaresUp] == EMPTY_SPACE) {
 				generateMove(from, twoSquaresUp);
 			}
 		}
 
 		// Attack Right
-		int thisPawnColor = GET_COLOR(thisPawn);
 		int attackRight = from + 1 + ROWS(direction);
 		int squareAttackedRight = board->squares[attackRight];
 		if (squareAttackedRight != EMPTY_SPACE
