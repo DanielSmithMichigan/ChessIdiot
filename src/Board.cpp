@@ -3,35 +3,18 @@
 	#include "Board.h"
 
 	Board::Board() {
-		initializeEmptyBoard();
-		initializeFirstMove();
 		movesPlayed.resize(MAX_MOVES_PLAYED);
+		empty();
 	}
 
 	Board::~Board() {
 	}
 
-	void Board::initializePieces() {
-		for (int x = 0; x < BOARD_WIDTH; x++) {
-			place(WHITE_PAWN, x + ROWS(1));
-			place(BLACK_PAWN, x + ROWS(5));
-		}
-		place(BLACK_ROOK, 7);
-		place(BLACK_ROOK, 0);
-		place(BLACK_KNIGHT, 6);
-		place(BLACK_KNIGHT, 1);
-		place(BLACK_BISHOP, 5);
-		place(BLACK_BISHOP, 2);
-		place(BLACK_QUEEN, 3);
-		place(BLACK_KING, 4);
-		place(WHITE_ROOK, ROWS(7));
-		place(WHITE_ROOK, ROWS(7) + 7);
-		place(WHITE_KNIGHT, ROWS(7) + 6);
-		place(WHITE_KNIGHT, ROWS(7) + 6);
-		place(WHITE_BISHOP, ROWS(7) + 5);
-		place(WHITE_BISHOP, ROWS(7) + 2);
-		place(WHITE_QUEEN, ROWS(7) + 3);
-		place(WHITE_KING, ROWS(7) + 4);
+	void Board::empty() {
+		initializeEmptyBoard();
+		initializeFirstMove();
+		turn = WHITE;
+		enPassantTarget = SOMEWHERE_OFF_BOARD;
 	}
 
 	void Board::initializeEmptyBoard() {

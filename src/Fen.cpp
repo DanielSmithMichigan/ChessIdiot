@@ -14,13 +14,13 @@
 		return token;
 	}
 
-	void Fen::tokenizeFen(string fenString) {
+	void Fen::import(string fenString) {
 		useBoardString(readToken(fenString));
-		setPlayerTurn(readToken(fenString));
-		setCastling(readToken(fenString));
-		setEnPassantTarget(readToken(fenString));
-		string halfMoveClock = readToken(fenString);
-		string fullMoveNumber = readToken(fenString);
+		// setPlayerTurn(readToken(fenString));
+		// setCastling(readToken(fenString));
+		// setEnPassantTarget(readToken(fenString));
+		// string halfMoveClock = readToken(fenString);
+		// string fullMoveNumber = readToken(fenString);
 	}
 
 	void Fen::setEnPassantTarget(string fenString) {
@@ -106,49 +106,56 @@
 	}
 
 	void Fen::useBoardString(string fenString) {
-		board->initializeEmptyBoard();
-		board->initializeFirstMove();
+		board->empty();
 		int x = 0, y = 0;
 		for(char& c : fenString) {
 			switch(c) {
 				case 'R':
-					board->squares[xyToInt(x, y)] = WHITE_ROOK;
+					board->place(WHITE_ROOK, xyToInt(x, y));
 					x++;
 				break;
 				case 'r':
-					board->squares[xyToInt(x, y)] = BLACK_ROOK;
+					board->place(BLACK_ROOK, xyToInt(x, y));
 					x++;
 				break;
 				case 'N':
-					board->squares[xyToInt(x, y)] = WHITE_KNIGHT;
+					board->place(WHITE_KNIGHT, xyToInt(x, y));
 					x++;
 				break;
 				case 'n':
-					board->squares[xyToInt(x, y)] = BLACK_KNIGHT;
+					board->place(BLACK_KNIGHT, xyToInt(x, y));
 					x++;
 				break;
 				case 'B':
-					board->squares[xyToInt(x, y)] = WHITE_BISHOP;
+					board->place(WHITE_BISHOP, xyToInt(x, y));
 					x++;
 				break;
 				case 'b':
-					board->squares[xyToInt(x, y)] = BLACK_BISHOP;
+					board->place(BLACK_BISHOP, xyToInt(x, y));
 					x++;
 				break;
 				case 'Q':
-					board->squares[xyToInt(x, y)] = WHITE_QUEEN;
+					board->place(WHITE_QUEEN, xyToInt(x, y));
 					x++;
 				break;
 				case 'q':
-					board->squares[xyToInt(x, y)] = BLACK_QUEEN;
+					board->place(BLACK_QUEEN, xyToInt(x, y));
 					x++;
 				break;
 				case 'K':
-					board->squares[xyToInt(x, y)] = WHITE_KING;
+					board->place(WHITE_KING, xyToInt(x, y));
 					x++;
 				break;
 				case 'k':
-					board->squares[xyToInt(x, y)] = BLACK_KING;
+					board->place(BLACK_KING, xyToInt(x, y));
+					x++;
+				break;
+				case 'P':
+					board->place(WHITE_PAWN, xyToInt(x, y));
+					x++;
+				break;
+				case 'p':
+					board->place(BLACK_PAWN, xyToInt(x, y));
 					x++;
 				break;
 				case '/':

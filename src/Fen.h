@@ -18,7 +18,7 @@
 			Fen(shared_ptr<Board> board);
 			~Fen();
 			string readToken(string &str);
-			void tokenizeFen(string fenString);
+			void import(string fenString);
 			void useBoardString(string boardString);
 			void setPlayerTurn(string playerTurn);
 			void setCastling(string castling);

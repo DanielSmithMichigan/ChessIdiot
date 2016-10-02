@@ -5,6 +5,9 @@
 		return i % 2 == 0;
 	}
 	int xyToInt(int x, int y) {
+		return ROWS(y) + x;
+	}
+	int xyToIntTestBoard(int x, int y) {
 		return (y * 8) + x;
 	}
 	uint64_t boardFromNumber(int i) {

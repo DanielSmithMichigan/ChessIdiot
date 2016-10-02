@@ -18,16 +18,17 @@
 		public:
 			Board();
 			~Board();
-			int turn = WHITE;
+			int turn;
 			int squares[BOARD_SIZE];
 			int firstMove[BOARD_SIZE];
-			int enPassantTarget = SOMEWHERE_OFF_BOARD;
+			int enPassantTarget;
 			int blackKingLocation = 0;
 			int whiteKingLocation = 0;
 			void place(int piece, int location);
 			void remove(int location);
 			void doMove(uint32_t move);
 			void undoMove();
+			void empty();
 			void initializeEmptyBoard();
 			void initializeFirstMove();
 			void checkAndUndoEnPassant(uint32_t move);
