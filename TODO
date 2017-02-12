@@ -1,2 +1,2 @@
 Run against some chess move test suite
-Do / Undo castle through board.cpp
+Implement full move / half move clock

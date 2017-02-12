@@ -19,6 +19,8 @@
 			Board();
 			~Board();
 			int turn;
+			int fullMoveClock;
+			int halfMoveClock;
 			int squares[BOARD_SIZE];
 			int firstMove[BOARD_SIZE];
 			int enPassantTarget;

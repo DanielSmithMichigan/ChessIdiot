@@ -16,6 +16,8 @@
 		turn = WHITE;
 		initialEnPassantTarget = SOMEWHERE_OFF_BOARD;
 		enPassantTarget = SOMEWHERE_OFF_BOARD;
+		fullMoveClock = 0;
+		halfMoveClock = 0;
 	}
 
 	void Board::initializeEmptyBoard() {

@@ -20,8 +20,8 @@
 		setPlayerTurn(readToken(fenString));
 		setCastling(readToken(fenString));
 		setEnPassantTarget(readToken(fenString));
-		// string halfMoveClock = readToken(fenString);
-		// string fullMoveNumber = readToken(fenString);
+		// board->halfMoveClock = (int) readToken(fenString);
+		// board->fullMoveClock = (int) readToken(fenString);
 	}
 
 	void Fen::setEnPassantTarget(string fenString) {
