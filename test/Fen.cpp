@@ -213,8 +213,63 @@
 	}
 
 
-	TEST_F(FenTest, ExportBoard) {
+	TEST_F(FenTest, BlackToMove) {
 		string imp = "4k3/8/8/4pP2/8/8/8/4K3 b KQkq f4 0 0";
+		fen->import(imp);
+		ASSERT_EQ(fen->exportBoard(), imp);
+	}
+
+
+	TEST_F(FenTest, WhiteToMove) {
+		string imp = "4k3/8/8/4pP2/8/8/8/4K3 w KQkq f4 0 0";
+		fen->import(imp);
+		ASSERT_EQ(fen->exportBoard(), imp);
+	}
+
+	TEST_F(FenTest, PiecePositionsSpaceReplacement) {
+		string imp = "8/7p/6pp/5ppp/4pppp/3ppppp/2pppppp/1ppppppp b KQkq f4 0 0";
+		fen->import(imp);
+		ASSERT_EQ(fen->exportBoard(), imp);
+	}
+
+	TEST_F(FenTest, CastlingBoth) {
+		string imp = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+		fen->import(imp);
+		ASSERT_EQ(fen->exportBoard(), imp);
+	}
+
+	TEST_F(FenTest, CastlingWhite) {
+		string imp = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQ - 0 1";
+		fen->import(imp);
+		ASSERT_EQ(fen->exportBoard(), imp);
+	}
+
+	TEST_F(FenTest, CastlingBlack) {
+		string imp = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w kq - 0 1";
+		fen->import(imp);
+		ASSERT_EQ(fen->exportBoard(), imp);
+	}
+
+	TEST_F(FenTest, CastlingNeither) {
+		string imp = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - 0 1";
+		fen->import(imp);
+		ASSERT_EQ(fen->exportBoard(), imp);
+	}
+
+	TEST_F(FenTest, enPassantTargetLowerLeft) {
+		string imp = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - a1 0 1";
+		fen->import(imp);
+		ASSERT_EQ(fen->exportBoard(), imp);
+	}
+
+	TEST_F(FenTest, enPassantTargetUpperRight) {
+		string imp = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - h8 0 1";
+		fen->import(imp);
+		ASSERT_EQ(fen->exportBoard(), imp);
+	}
+
+	TEST_F(FenTest, Clocks) {
+		string imp = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - h8 1 0";
 		fen->import(imp);
 		ASSERT_EQ(fen->exportBoard(), imp);
 	}

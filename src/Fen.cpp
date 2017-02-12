@@ -20,12 +20,14 @@
 		setPlayerTurn(readToken(fenString));
 		setCastling(readToken(fenString));
 		setEnPassantTarget(readToken(fenString));
-		// board->halfMoveClock = (int) readToken(fenString);
-		// board->fullMoveClock = (int) readToken(fenString);
+		board->halfMoveClock = boost::lexical_cast<int>(readToken(fenString));
+		board->fullMoveClock = boost::lexical_cast<int>(readToken(fenString));
 	}
 
 	void Fen::setEnPassantTarget(string fenString) {
-		int location = boardCoordToInt(fenString);
+		int location = fenString == "-" ?
+			SOMEWHERE_OFF_BOARD
+			: boardCoordToInt(fenString);
 		board->enPassantTarget = location;
 		board->initialEnPassantTarget = location;
 	}
@@ -250,14 +252,9 @@
 	}
 
 	void Fen::replaceSpacesWithNumbers(string &boardString) {
-		boardString = regex_replace(boardString, std::regex("EEEEEEEE"), "8");
-		boardString = regex_replace(boardString, std::regex("EEEEEEE"), "7");
-		boardString = regex_replace(boardString, std::regex("EEEEEE"), "6");
-		boardString = regex_replace(boardString, std::regex("EEEEE"), "5");
-		boardString = regex_replace(boardString, std::regex("EEEE"), "4");
-		boardString = regex_replace(boardString, std::regex("EEE"), "3");
-		boardString = regex_replace(boardString, std::regex("EE"), "2");
-		boardString = regex_replace(boardString, std::regex("E"), "1");
+		for (int i = 8; i >= 1; i--) {
+			boardString = regex_replace(boardString, regex(string(i, 'E')), to_string(i));
+		}
 	}
 
 	string Fen::getPlayerTurn() {
@@ -296,7 +293,7 @@
 	string Fen::intToBoardCoord(int location) {
 		int row = GET_ROW(location);
 		string letters[8] = {"a", "b", "c", "d", "e", "f", "g", "h"};
-		return "" + letters[location - ROWS(row)] + to_string(row);
+		return "" + letters[location - ROWS(row)] + to_string((7 - row) + 1);
 	}
 
 	string Fen::getEnPassantTarget() {
