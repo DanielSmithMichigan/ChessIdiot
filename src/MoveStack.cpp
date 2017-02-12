@@ -25,6 +25,15 @@
 		depthLimits[currentDepth] = top++;
 	}
 
+	uint32_t MoveStack::pop() {
+		if (top <= 0) {
+			return 0;
+		}
+		top--;
+		depthLimits[currentDepth] = top;
+		return stack[top];
+	}
+
 	void MoveStack::increaseDepth() {
 		depthLimits[top] = depthLimits[currentDepth] + 1;
 		currentDepth++;

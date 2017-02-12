@@ -27,5 +27,6 @@
 			MoveGenerationController(shared_ptr<Board> board, shared_ptr<MoveStack> moveStack, shared_ptr<AttackedSquare> attackedSquare);
 			~MoveGenerationController();
 			void generateMovesAt(int from);
+			void generateAllMoves();
 	};
 #endif

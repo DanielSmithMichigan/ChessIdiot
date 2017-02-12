@@ -312,4 +312,12 @@
 			+ " " + to_string(board->halfMoveClock)
 			+ " " + to_string(board->fullMoveClock);
 	}
+
+	string Fen::exportLegacyBoard() {
+		return "" 
+			+ getBoardSquares()
+			+ " " + getPlayerTurn()
+			+ " " + getCastling()
+			+ " " + getEnPassantTarget();
+	}
 #endif

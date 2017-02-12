@@ -54,4 +54,14 @@
 		}
 	}
 
+	void MoveGenerationController::generateAllMoves() {
+		for (int i = 0; i < BOARD_SIZE; i++) {
+			if (ON_BOARD(i)
+				&& board->squares[i] != EMPTY_SPACE
+				&& GET_COLOR(board->squares[i]) == board->turn) {
+				generateMovesAt(i);
+			}
+		}
+	}
+
 #endif

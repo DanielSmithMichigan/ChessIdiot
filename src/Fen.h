@@ -37,5 +37,6 @@
 			string getCastling();
 			string intToBoardCoord(int location);
 			string getEnPassantTarget();
+			string exportLegacyBoard();
 	};
 #endif

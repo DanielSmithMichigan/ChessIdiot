@@ -14,6 +14,7 @@
 			int top = 0;
 			uint32_t stack[MOVE_STACK_LIMIT];
 			void push(uint32_t move);
+			uint32_t pop();
 			void reset();
 			void increaseDepth();
 			void decreaseDepth();
