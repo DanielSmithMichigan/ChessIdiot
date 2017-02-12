@@ -146,3 +146,19 @@
 		};
 		EXPECT_TRUE(moveStack->matches(expectedBoard));
 	}
+
+	TEST_F(FenTest, WhitePawnEnPassantRight) {
+		fen->import("4k3/8/8/3Pp3/8/8/8/4K3 w KQkq e6");
+		moveGenerationController->generateMovesAt(51);
+		int expectedBoard[] = {
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+		};
+		EXPECT_TRUE(moveStack->matches(expectedBoard));
+	}

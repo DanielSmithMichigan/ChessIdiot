@@ -14,6 +14,7 @@
 		initializeEmptyBoard();
 		initializeFirstMove();
 		turn = WHITE;
+		initialEnPassantTarget = SOMEWHERE_OFF_BOARD;
 		enPassantTarget = SOMEWHERE_OFF_BOARD;
 	}
 
@@ -69,7 +70,9 @@
 		uint32_t lastMove = movesPlayed.back();
 		int to = TO(lastMove);
 		int pieceMoved = squares[to];
-		if (shouldSetEnPassantTarget(lastMove)) {
+		if (!lastMove) {
+			enPassantTarget = initialEnPassantTarget;
+		} else if (shouldSetEnPassantTarget(lastMove)) {
 			enPassantTarget = TO(lastMove) + ROWS(GET_OPPOSING_DIRECTION(GET_COLOR(pieceMoved)));
 		} else {
 			enPassantTarget = SOMEWHERE_OFF_BOARD;

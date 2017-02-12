@@ -19,39 +19,49 @@
 		useBoardString(readToken(fenString));
 		setPlayerTurn(readToken(fenString));
 		setCastling(readToken(fenString));
-		// setEnPassantTarget(readToken(fenString));
+		setEnPassantTarget(readToken(fenString));
 		// string halfMoveClock = readToken(fenString);
 		// string fullMoveNumber = readToken(fenString);
 	}
 
 	void Fen::setEnPassantTarget(string fenString) {
-		board->enPassantTarget = boardCoordToInt(fenString);
+		int location = boardCoordToInt(fenString);
+		board->enPassantTarget = location;
+		board->initialEnPassantTarget = location;
 	}
 
 	int Fen::boardCoordToInt(string boardCoord) {
 		int location = 0;
 		for(char& c : boardCoord) {
 			switch(c) {
+				case 'a':
 				case 'A':
 				break;
+				case 'b':
 				case 'B':
 					location += 1;
 				break;
+				case 'c':
 				case 'C':
 					location += 2;
 				break;
+				case 'd':
 				case 'D':
 					location += 3;
 				break;
+				case 'e':
 				case 'E':
 					location += 4;
 				break;
+				case 'f':
 				case 'F':
 					location += 5;
 				break;
+				case 'g':
 				case 'G':
 					location += 6;
 				break;
+				case 'h':
 				case 'H':
 					location += 7;
 				break;
@@ -63,7 +73,8 @@
 				case '6':
 				case '7':
 				case '8':
-					location += ROWS(c - '1');
+					int numericChar = '8' - c;
+					location += ROWS(numericChar);
 				break;
 			}
 		}
