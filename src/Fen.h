@@ -1,6 +1,7 @@
 #ifndef Fen_h
 #define Fen_h
 	#include <string>
+	#include <regex>
 	#include <memory>
 	#include "Board.h"
 	#include "utilities.h"
@@ -22,10 +23,17 @@
 			~Fen();
 			string readToken(string &str);
 			void import(string fenString);
+			string exportBoard();
 			void useBoardString(string boardString);
 			void setPlayerTurn(string playerTurn);
 			void setCastling(string castling);
 			void setEnPassantTarget(string enPassantTarget);
 			int boardCoordToInt(string boardCoord);
+			string getBoardSquares();
+			void replaceSpacesWithNumbers(string &boardString);
+			string getPlayerTurn();
+			string getCastling();
+			string intToBoardCoord(int location);
+			string getEnPassantTarget();
 	};
 #endif

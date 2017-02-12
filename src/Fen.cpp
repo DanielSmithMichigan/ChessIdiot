@@ -193,4 +193,126 @@
 			}
 		}
 	}
+
+	string Fen::getBoardSquares() {
+		string allBoardSquares;
+		for (int y = 0; y < BOARD_WIDTH; y++) {
+			if (y) {
+				allBoardSquares += "/";
+			}
+			for (int x = 0; x < BOARD_WIDTH; x++) {
+				switch(board->squares[ROWS(y) + x]) {
+					case BLACK_ROOK:
+						allBoardSquares += "r";
+					break;
+					case WHITE_ROOK:
+						allBoardSquares += "R";
+					break;
+					case BLACK_KNIGHT:
+						allBoardSquares += "n";
+					break;
+					case WHITE_KNIGHT:
+						allBoardSquares += "N";
+					break;
+					case BLACK_BISHOP:
+						allBoardSquares += "b";
+					break;
+					case WHITE_BISHOP:
+						allBoardSquares += "B";
+					break;
+					case BLACK_KING:
+						allBoardSquares += "k";
+					break;
+					case WHITE_KING:
+						allBoardSquares += "K";
+					break;
+					case BLACK_QUEEN:
+						allBoardSquares += "q";
+					break;
+					case WHITE_QUEEN:
+						allBoardSquares += "Q";
+					break;
+					case BLACK_PAWN:
+						allBoardSquares += "p";
+					break;
+					case WHITE_PAWN:
+						allBoardSquares += "P";
+					break;
+					case EMPTY_SPACE:
+					default:
+						allBoardSquares += "E";
+					break;
+				}
+			}
+		}
+		replaceSpacesWithNumbers(allBoardSquares);
+		return allBoardSquares;
+	}
+
+	void Fen::replaceSpacesWithNumbers(string &boardString) {
+		boardString = regex_replace(boardString, std::regex("EEEEEEEE"), "8");
+		boardString = regex_replace(boardString, std::regex("EEEEEEE"), "7");
+		boardString = regex_replace(boardString, std::regex("EEEEEE"), "6");
+		boardString = regex_replace(boardString, std::regex("EEEEE"), "5");
+		boardString = regex_replace(boardString, std::regex("EEEE"), "4");
+		boardString = regex_replace(boardString, std::regex("EEE"), "3");
+		boardString = regex_replace(boardString, std::regex("EE"), "2");
+		boardString = regex_replace(boardString, std::regex("E"), "1");
+	}
+
+	string Fen::getPlayerTurn() {
+		switch(board->turn) {
+			case BLACK:
+				return "b";
+			default:
+				return "w";
+		}
+	}
+
+	string Fen::getCastling() {
+		string output = "";
+		if (board->firstMove[WHITE_KING_POS]
+			&& board->firstMove[WHITE_ROOK_RIGHT]) {
+			output += "K";
+		}
+		if (board->firstMove[WHITE_KING_POS]
+			&& board->firstMove[WHITE_ROOK_LEFT]) {
+			output += "Q";
+		}
+		if (board->firstMove[BLACK_KING_POS]
+			&& board->firstMove[BLACK_ROOK_RIGHT]) {
+			output += "k";
+		}
+		if (board->firstMove[BLACK_KING_POS]
+			&& board->firstMove[BLACK_ROOK_LEFT]) {
+			output += "q";
+		}
+		if (output == "") {
+			return "-";
+		}
+		return output;
+	}
+
+	string Fen::intToBoardCoord(int location) {
+		int row = GET_ROW(location);
+		string letters[8] = {"a", "b", "c", "d", "e", "f", "g", "h"};
+		return "" + letters[location - ROWS(row)] + to_string(row);
+	}
+
+	string Fen::getEnPassantTarget() {
+		if (board->enPassantTarget == SOMEWHERE_OFF_BOARD) {
+			return "-";
+		}
+		return intToBoardCoord(board->enPassantTarget);
+	}
+
+	string Fen::exportBoard() {
+		return "" 
+			+ getBoardSquares()
+			+ " " + getPlayerTurn()
+			+ " " + getCastling()
+			+ " " + getEnPassantTarget()
+			+ " " + to_string(board->halfMoveClock)
+			+ " " + to_string(board->fullMoveClock);
+	}
 #endif

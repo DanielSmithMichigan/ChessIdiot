@@ -211,3 +211,10 @@
 		};
 		EXPECT_TRUE(moveStack->matches(expectedBoard));
 	}
+
+
+	TEST_F(FenTest, ExportBoard) {
+		string imp = "4k3/8/8/4pP2/8/8/8/4K3 b KQkq f4 0 0";
+		fen->import(imp);
+		ASSERT_EQ(fen->exportBoard(), imp);
+	}
