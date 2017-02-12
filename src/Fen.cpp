@@ -9,6 +9,7 @@
 	}
 
 	string Fen::readToken(string &str) {
+		boost::trim_left(str);
 		string token = str.substr(0, str.find(" "));
 		str.erase(0, str.find(" "));
 		return token;
@@ -16,7 +17,7 @@
 
 	void Fen::import(string fenString) {
 		useBoardString(readToken(fenString));
-		// setPlayerTurn(readToken(fenString));
+		setPlayerTurn(readToken(fenString));
 		// setCastling(readToken(fenString));
 		// setEnPassantTarget(readToken(fenString));
 		// string halfMoveClock = readToken(fenString);

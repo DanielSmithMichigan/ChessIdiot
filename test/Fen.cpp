@@ -37,3 +37,13 @@
 		};
 		ASSERT_TRUE(board->matches(expectedBoard));
 	}
+
+	TEST_F(FenTest, WillSetWhitesTurn) {
+		fen->import("rnbqkbnr/pppppppp/1p4p1/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -");
+		ASSERT_EQ(board->turn, WHITE);
+	}
+
+	TEST_F(FenTest, WillSetBlacksTurn) {
+		fen->import("rnbqkbnr/pppppppp/1p4p1/8/8/8/PPPPPPPP/RNBQKBNR b KQkq -");
+		ASSERT_EQ(board->turn, BLACK);
+	}

@@ -4,6 +4,7 @@
 	#include <memory>
 	#include "Board.h"
 	#include "utilities.h"
+	#include <boost/algorithm/string/trim.hpp>
 	#define BLACK_ROOK_LEFT 0
 	#define BLACK_ROOK_RIGHT 7
 	#define WHITE_ROOK_LEFT ROWS(7)
