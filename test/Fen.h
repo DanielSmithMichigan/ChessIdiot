@@ -1,4 +1,6 @@
+	#include "../src/MoveGenerationController.h"
 	#include "../src/Fen.h"
+	#include "TestMoveStack.h"
 	#include "TestBoard.h"
 	#include "gtest/gtest.h"
 	#include "gmock/gmock.h"
@@ -12,6 +14,9 @@
 		public:
 			shared_ptr<Fen> fen;
 			shared_ptr<TestBoard> board;
+			shared_ptr<MoveGenerationController> moveGenerationController;
+			shared_ptr<TestMoveStack> moveStack;
+			shared_ptr<AttackedSquare> attackedSquare;
 			FenTest();
 			~FenTest();
 	};

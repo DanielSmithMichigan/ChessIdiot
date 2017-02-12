@@ -18,7 +18,7 @@
 	void Fen::import(string fenString) {
 		useBoardString(readToken(fenString));
 		setPlayerTurn(readToken(fenString));
-		// setCastling(readToken(fenString));
+		setCastling(readToken(fenString));
 		// setEnPassantTarget(readToken(fenString));
 		// string halfMoveClock = readToken(fenString);
 		// string fullMoveNumber = readToken(fenString);
@@ -86,21 +86,27 @@
 	void Fen::setCastling(string fenString) {
 		board->firstMove[WHITE_ROOK_LEFT] = false;
 		board->firstMove[WHITE_ROOK_RIGHT] = false;
+		board->firstMove[WHITE_KING_POS] = false;
 		board->firstMove[BLACK_ROOK_LEFT] = false;
 		board->firstMove[BLACK_ROOK_RIGHT] = false;
+		board->firstMove[BLACK_KING_POS] = false;
 		for(char& c: fenString) {
 			switch(c) {
 				case 'K':
 					board->firstMove[WHITE_ROOK_RIGHT] = true;
+					board->firstMove[WHITE_KING_POS] = true;
 				break;
 				case 'Q':
 					board->firstMove[WHITE_ROOK_LEFT] = true;
+					board->firstMove[WHITE_KING_POS] = true;
 				break;
 				case 'k':
 					board->firstMove[BLACK_ROOK_RIGHT] = true;
+					board->firstMove[BLACK_KING_POS] = true;
 				break;
 				case 'q':
 					board->firstMove[BLACK_ROOK_LEFT] = true;
+					board->firstMove[BLACK_KING_POS] = true;
 				break;
 			}
 		}

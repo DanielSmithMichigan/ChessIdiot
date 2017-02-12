@@ -7,8 +7,10 @@
 	#include <boost/algorithm/string/trim.hpp>
 	#define BLACK_ROOK_LEFT 0
 	#define BLACK_ROOK_RIGHT 7
+	#define BLACK_KING_POS 4
 	#define WHITE_ROOK_LEFT ROWS(7)
 	#define WHITE_ROOK_RIGHT ROWS(7) + 7
+	#define WHITE_KING_POS 116
 
 	using namespace std;
 
