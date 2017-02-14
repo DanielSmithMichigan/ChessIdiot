@@ -54,6 +54,7 @@
 		int to = TO(move);
 		firstMove[from] = FIRST_MOVE(move);
 		place(squares[to], from);
+		// We need to properly set first move of the captured piece.
 		squares[to] = CAPTURED_PIECE(move);
 		checkAndUndoEnPassant(move);
 		checkAndUndoCastle(move);
@@ -118,19 +119,23 @@
 			int to = TO(move);
 			switch(to) {
 				case BLACK_KING_CASTLE_LEFT:
-					place(BLACK_ROOK_CASTLE_LEFT, BLACK_ROOK);
+					firstMove[BLACK_ROOK_CASTLE_LEFT] = false;
+					place(BLACK_ROOK, BLACK_ROOK_CASTLE_LEFT);
 					remove(BLACK_ROOK_LEFT);
 				break;
 				case BLACK_KING_CASTLE_RIGHT:
-					place(BLACK_ROOK_CASTLE_RIGHT, BLACK_ROOK);
+					firstMove[BLACK_ROOK_CASTLE_RIGHT] = false;
+					place(BLACK_ROOK, BLACK_ROOK_CASTLE_RIGHT);
 					remove(BLACK_ROOK_RIGHT);
 				break;
 				case WHITE_KING_CASTLE_LEFT:
-					place(WHITE_ROOK_CASTLE_LEFT, WHITE_ROOK);
+					firstMove[WHITE_ROOK_CASTLE_LEFT] = false;
+					place(WHITE_ROOK, WHITE_ROOK_CASTLE_LEFT);
 					remove(WHITE_ROOK_LEFT);
 				break;
 				case WHITE_KING_CASTLE_RIGHT:
-					place(WHITE_ROOK_CASTLE_RIGHT, WHITE_ROOK);
+					firstMove[WHITE_ROOK_CASTLE_RIGHT] = false;
+					place(WHITE_ROOK, WHITE_ROOK_CASTLE_RIGHT);
 					remove(WHITE_ROOK_RIGHT);
 				break;
 			}
@@ -142,19 +147,23 @@
 			int to = TO(move);
 			switch(to) {
 				case BLACK_KING_CASTLE_LEFT:
-					place(BLACK_ROOK_LEFT, BLACK_ROOK);
+					firstMove[BLACK_ROOK_LEFT] = true;
+					place(BLACK_ROOK, BLACK_ROOK_LEFT);
 					remove(BLACK_ROOK_CASTLE_LEFT);
 				break;
 				case BLACK_KING_CASTLE_RIGHT:
-					place(BLACK_ROOK_RIGHT, BLACK_ROOK);
+					firstMove[BLACK_ROOK_RIGHT] = true;
+					place(BLACK_ROOK, BLACK_ROOK_RIGHT);
 					remove(BLACK_ROOK_CASTLE_RIGHT);
 				break;
 				case WHITE_KING_CASTLE_LEFT:
-					place(WHITE_ROOK_LEFT, WHITE_ROOK);
+					firstMove[WHITE_ROOK_LEFT] = true;
+					place(WHITE_ROOK, WHITE_ROOK_LEFT);
 					remove(WHITE_ROOK_CASTLE_LEFT);
 				break;
 				case WHITE_KING_CASTLE_RIGHT:
-					place(WHITE_ROOK_RIGHT, WHITE_ROOK);
+					firstMove[WHITE_ROOK_RIGHT] = true;
+					place(WHITE_ROOK, WHITE_ROOK_RIGHT);
 					remove(WHITE_ROOK_CASTLE_RIGHT);
 				break;
 			}
