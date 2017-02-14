@@ -22,4 +22,5 @@
 			shared_ptr<AttackedSquare> attackedSquare;
 			Reconciliation();
 			~Reconciliation();
+			void executeTestFile(string filename);
 	};
