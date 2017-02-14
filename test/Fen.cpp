@@ -214,20 +214,20 @@
 
 
 	TEST_F(FenTest, BlackToMove) {
-		string imp = "4k3/8/8/4pP2/8/8/8/4K3 b KQkq f4 0 0";
+		string imp = "4k3/8/8/4pP2/8/8/8/4K3 b - f4 0 0";
 		fen->import(imp);
 		ASSERT_EQ(fen->exportBoard(), imp);
 	}
 
 
 	TEST_F(FenTest, WhiteToMove) {
-		string imp = "4k3/8/8/4pP2/8/8/8/4K3 w KQkq f4 0 0";
+		string imp = "4k3/8/8/4pP2/8/8/8/4K3 w - f4 0 0";
 		fen->import(imp);
 		ASSERT_EQ(fen->exportBoard(), imp);
 	}
 
 	TEST_F(FenTest, PiecePositionsSpaceReplacement) {
-		string imp = "8/7p/6pp/5ppp/4pppp/3ppppp/2pppppp/1ppppppp b KQkq f4 0 0";
+		string imp = "8/7p/6pp/5ppp/4pppp/3ppppp/2pppppp/1ppppppp b - f4 0 0";
 		fen->import(imp);
 		ASSERT_EQ(fen->exportBoard(), imp);
 	}

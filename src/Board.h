@@ -38,6 +38,8 @@
 			bool shouldSetEnPassantTarget(uint32_t move);
 			void checkAndSetEnPassantTarget();
 			void checkAndPerformEnPassant(uint32_t move);
+			void checkAndPerformCastle(uint32_t move);
+			void checkAndUndoCastle(uint32_t move);
 			void changeTurn();
 	};
 #endif

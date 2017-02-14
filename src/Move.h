@@ -8,4 +8,5 @@
 	#define EN_PASSANT(m) ((m >> 20) & 0x1)
 	#define FIRST_MOVE(m) ((m >> 21) & 0x1)
 	#define PROMOTEDPIECE(m) ((m >> 22) & 0xF)
+	#define CASTLE(m) ((m >> 26) & 0x1)
 #endif

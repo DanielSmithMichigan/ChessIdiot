@@ -26,10 +26,8 @@
 		while (currentMove = moveStack->pop()) {
 			board->doMove(currentMove);
 			myFens.push_back(fen->exportLegacyBoard());
-			cout << fen->exportLegacyBoard() << endl;
 			board->undoMove();
 		}
-		cout << "@@@@@@@@@@@@@@@" << endl;
 		assertStringVectorMatch(comparisonFens, myFens);
 	}
 

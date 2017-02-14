@@ -38,7 +38,7 @@
 				&& board->squares[rookRightPosition] == rook
 				&& !castleSquaresOccupied(from, EAST)
 				&& !castleSquaresAttacked(from, EAST)) {
-			generateMove(from, from + 2, BLANK, BLANK, 1);
+		    generateMove(from, from + 2, BLANK, BLANK, 1);
 		}
 		if (board->firstMove[rookLeftPosition]
 				&& board->squares[rookLeftPosition] == rook

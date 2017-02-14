@@ -11,9 +11,6 @@
 			a.pop_back();
 			vector<string>::iterator it;
 			it = find (b.begin(), b.end(), aElement);
-			if (it == b.end()) {
-				cout << aElement << endl;
-			}
 			ASSERT_NE(it, b.end());
 			b.erase(it);
 		}

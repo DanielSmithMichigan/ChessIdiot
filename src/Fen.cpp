@@ -269,19 +269,27 @@
 	string Fen::getCastling() {
 		string output = "";
 		if (board->firstMove[WHITE_KING_POS]
-			&& board->firstMove[WHITE_ROOK_RIGHT]) {
+			&& board->squares[WHITE_KING_POS] == WHITE_KING
+			&& board->firstMove[WHITE_ROOK_RIGHT]
+			&& board->squares[WHITE_ROOK_RIGHT] == WHITE_ROOK) {
 			output += "K";
 		}
 		if (board->firstMove[WHITE_KING_POS]
-			&& board->firstMove[WHITE_ROOK_LEFT]) {
+			&& board->squares[WHITE_KING_POS] == WHITE_KING
+			&& board->firstMove[WHITE_ROOK_LEFT]
+			&& board->squares[WHITE_ROOK_LEFT] == WHITE_ROOK) {
 			output += "Q";
 		}
 		if (board->firstMove[BLACK_KING_POS]
-			&& board->firstMove[BLACK_ROOK_RIGHT]) {
+			&& board->squares[BLACK_KING_POS] == BLACK_KING
+			&& board->firstMove[BLACK_ROOK_RIGHT]
+			&& board->squares[BLACK_ROOK_RIGHT] == BLACK_ROOK) {
 			output += "k";
 		}
 		if (board->firstMove[BLACK_KING_POS]
-			&& board->firstMove[BLACK_ROOK_LEFT]) {
+			&& board->squares[BLACK_KING_POS] == BLACK_KING
+			&& board->firstMove[BLACK_ROOK_LEFT]
+			&& board->squares[BLACK_ROOK_LEFT] == BLACK_ROOK) {
 			output += "q";
 		}
 		if (output == "") {

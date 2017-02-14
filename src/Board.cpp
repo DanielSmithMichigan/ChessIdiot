@@ -56,6 +56,7 @@
 		place(squares[to], from);
 		squares[to] = CAPTURED_PIECE(move);
 		checkAndUndoEnPassant(move);
+		checkAndUndoCastle(move);
 		checkAndSetEnPassantTarget();
 	}
 
@@ -97,6 +98,7 @@
 		place(squares[from], to);
 		remove(from);
 		checkAndPerformEnPassant(move);
+		checkAndPerformCastle(move);
 		firstMove[to] = 0;
 		movesPlayed.push_back(move);
 		checkAndSetEnPassantTarget();
@@ -110,6 +112,55 @@
 			remove(enPassantSquare);
 		}
 	}
+
+	void Board::checkAndPerformCastle(uint32_t move) {
+		if (CASTLE(move)) {
+			int to = TO(move);
+			switch(to) {
+				case BLACK_KING_CASTLE_LEFT:
+					place(BLACK_ROOK_CASTLE_LEFT, BLACK_ROOK);
+					remove(BLACK_ROOK_LEFT);
+				break;
+				case BLACK_KING_CASTLE_RIGHT:
+					place(BLACK_ROOK_CASTLE_RIGHT, BLACK_ROOK);
+					remove(BLACK_ROOK_RIGHT);
+				break;
+				case WHITE_KING_CASTLE_LEFT:
+					place(WHITE_ROOK_CASTLE_LEFT, WHITE_ROOK);
+					remove(WHITE_ROOK_LEFT);
+				break;
+				case WHITE_KING_CASTLE_RIGHT:
+					place(WHITE_ROOK_CASTLE_RIGHT, WHITE_ROOK);
+					remove(WHITE_ROOK_RIGHT);
+				break;
+			}
+		}
+	}
+
+	void Board::checkAndUndoCastle(uint32_t move) {
+		if (CASTLE(move)) {
+			int to = TO(move);
+			switch(to) {
+				case BLACK_KING_CASTLE_LEFT:
+					place(BLACK_ROOK_LEFT, BLACK_ROOK);
+					remove(BLACK_ROOK_CASTLE_LEFT);
+				break;
+				case BLACK_KING_CASTLE_RIGHT:
+					place(BLACK_ROOK_RIGHT, BLACK_ROOK);
+					remove(BLACK_ROOK_CASTLE_RIGHT);
+				break;
+				case WHITE_KING_CASTLE_LEFT:
+					place(WHITE_ROOK_LEFT, WHITE_ROOK);
+					remove(WHITE_ROOK_CASTLE_LEFT);
+				break;
+				case WHITE_KING_CASTLE_RIGHT:
+					place(WHITE_ROOK_RIGHT, WHITE_ROOK);
+					remove(WHITE_ROOK_CASTLE_RIGHT);
+				break;
+			}
+		}
+	}
+
 
 	void Board::changeTurn() {
 		turn = GET_OPPOSING_COLOR(turn);
