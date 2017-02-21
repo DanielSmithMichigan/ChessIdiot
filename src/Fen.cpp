@@ -97,36 +97,38 @@
 	}
 
 	void Fen::setCastling(string fenString) {
-		board->firstMove[WHITE_ROOK_LEFT] = false;
-		board->firstMove[WHITE_ROOK_RIGHT] = false;
-		board->firstMove[WHITE_KING_POS] = false;
-		board->firstMove[BLACK_ROOK_LEFT] = false;
-		board->firstMove[BLACK_ROOK_RIGHT] = false;
-		board->firstMove[BLACK_KING_POS] = false;
+		board->initialBlackCanCastleRight = false;
+		board->initialBlackCanCastleLeft = false;
+		board->initialWhiteCanCastleRight = false;
+		board->initialWhiteCanCastleLeft = false;
+		board->blackCanCastleRight = false;
+		board->blackCanCastleLeft = false;
+		board->whiteCanCastleRight = false;
+		board->whiteCanCastleLeft = false;
 		for(char& c: fenString) {
 			switch(c) {
 				case 'K':
-					board->firstMove[WHITE_ROOK_RIGHT] = true;
-					board->firstMove[WHITE_KING_POS] = true;
+					board->whiteCanCastleRight = true;
+					board->initialWhiteCanCastleRight = true;
 				break;
 				case 'Q':
-					board->firstMove[WHITE_ROOK_LEFT] = true;
-					board->firstMove[WHITE_KING_POS] = true;
+					board->whiteCanCastleLeft = true;
+					board->initialWhiteCanCastleLeft = true;
 				break;
 				case 'k':
-					board->firstMove[BLACK_ROOK_RIGHT] = true;
-					board->firstMove[BLACK_KING_POS] = true;
+					board->blackCanCastleRight = true;
+					board->initialBlackCanCastleRight = true;
 				break;
 				case 'q':
-					board->firstMove[BLACK_ROOK_LEFT] = true;
-					board->firstMove[BLACK_KING_POS] = true;
+					board->blackCanCastleLeft = true;
+					board->initialBlackCanCastleLeft = true;
 				break;
 			}
 		}
 	}
 
 	void Fen::useBoardString(string fenString) {
-		board->empty();
+		board->reset();
 		int x = 0, y = 0;
 		for(char& c : fenString) {
 			switch(c) {
@@ -268,28 +270,16 @@
 
 	string Fen::getCastling() {
 		string output = "";
-		if (board->firstMove[WHITE_KING_POS]
-			&& board->squares[WHITE_KING_POS] == WHITE_KING
-			&& board->firstMove[WHITE_ROOK_RIGHT]
-			&& board->squares[WHITE_ROOK_RIGHT] == WHITE_ROOK) {
+		if (board->whiteCanCastleRight) {
 			output += "K";
 		}
-		if (board->firstMove[WHITE_KING_POS]
-			&& board->squares[WHITE_KING_POS] == WHITE_KING
-			&& board->firstMove[WHITE_ROOK_LEFT]
-			&& board->squares[WHITE_ROOK_LEFT] == WHITE_ROOK) {
+		if (board->whiteCanCastleLeft) {
 			output += "Q";
 		}
-		if (board->firstMove[BLACK_KING_POS]
-			&& board->squares[BLACK_KING_POS] == BLACK_KING
-			&& board->firstMove[BLACK_ROOK_RIGHT]
-			&& board->squares[BLACK_ROOK_RIGHT] == BLACK_ROOK) {
+		if (board->blackCanCastleRight) {
 			output += "k";
 		}
-		if (board->firstMove[BLACK_KING_POS]
-			&& board->squares[BLACK_KING_POS] == BLACK_KING
-			&& board->firstMove[BLACK_ROOK_LEFT]
-			&& board->squares[BLACK_ROOK_LEFT] == BLACK_ROOK) {
+		if (board->blackCanCastleLeft) {
 			output += "q";
 		}
 		if (output == "") {

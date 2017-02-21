@@ -22,8 +22,8 @@
 
 			// Move Forward Twice
 			int twoSquaresUp = from + ROWS(2 * direction);
-			int firstMoveRow = thisPawnColor == WHITE ? 6 : 1;
-			if (GET_ROW(from) == firstMoveRow
+			int doubleMoveRow = thisPawnColor == WHITE ? 6 : 1;
+			if (GET_ROW(from) == doubleMoveRow
 				&& board->squares[twoSquaresUp] == EMPTY_SPACE) {
 				generateMove(from, twoSquaresUp);
 			}

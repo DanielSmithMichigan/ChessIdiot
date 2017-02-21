@@ -2,8 +2,6 @@
 #define SlideMoveGenerator_cpp
 	#include "SlideMoveGenerator.h"
 
-	//FULL_MOVE(from,to,captured,enPassant,firstMove,promotedPiece,castle)
-
 	SlideMoveGenerator::SlideMoveGenerator(shared_ptr<Board> board, shared_ptr<MoveStack> moveStack, shared_ptr<AttackedSquare> attackedSquare) 
 		: MoveGenerator(board, moveStack, attackedSquare) {
 	}

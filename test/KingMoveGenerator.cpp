@@ -116,6 +116,8 @@
 		board->place(WHITE_ROOK, 112);
 		board->place(WHITE_KING, 116);
 		board->place(WHITE_ROOK, 119);
+		board->whiteCanCastleLeft = true;
+		board->whiteCanCastleRight = true;
 		moveGenerationController->generateMovesAt(116);
 		int expectedBoard[] = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -135,6 +137,8 @@
 		board->place(WHITE_KING, 116);
 		board->place(WHITE_ROOK, 119);
 		board->place(BLACK_KNIGHT, 117);
+		board->whiteCanCastleLeft = true;
+		board->whiteCanCastleRight = true;
 		moveGenerationController->generateMovesAt(116);
 		int expectedBoard[] = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -154,6 +158,8 @@
 		board->place(WHITE_KING, 116);
 		board->place(WHITE_ROOK, 119);
 		board->place(BLACK_KNIGHT, 115);
+		board->whiteCanCastleLeft = true;
+		board->whiteCanCastleRight = true;
 		moveGenerationController->generateMovesAt(116);
 		int expectedBoard[] = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -173,6 +179,8 @@
 		board->place(WHITE_KING, 116);
 		board->place(WHITE_ROOK, 119);
 		board->place(BLACK_KNIGHT, 84);
+		board->whiteCanCastleLeft = true;
+		board->whiteCanCastleRight = true;
 		moveGenerationController->generateMovesAt(116);
 		int expectedBoard[] = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -192,6 +200,8 @@
 		board->place(WHITE_KING, 116);
 		board->place(WHITE_ROOK, 119);
 		board->place(BLACK_KNIGHT, 98);
+		board->whiteCanCastleLeft = true;
+		board->whiteCanCastleRight = true;
 		moveGenerationController->generateMovesAt(116);
 		int expectedBoard[] = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -211,6 +221,8 @@
 		board->place(WHITE_KING, 116);
 		board->place(WHITE_ROOK, 119);
 		board->place(BLACK_BISHOP, 113);
+		board->whiteCanCastleLeft = true;
+		board->whiteCanCastleRight = true;
 		moveGenerationController->generateMovesAt(116);
 		int expectedBoard[] = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -230,6 +242,8 @@
 		board->place(WHITE_KING, 116);
 		board->place(WHITE_ROOK, 119);
 		board->place(BLACK_BISHOP, 96);
+		board->whiteCanCastleLeft = true;
+		board->whiteCanCastleRight = true;
 		moveGenerationController->generateMovesAt(116);
 		int expectedBoard[] = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -249,6 +263,8 @@
 		board->place(WHITE_KING, 116);
 		board->place(WHITE_ROOK, 119);
 		board->place(BLACK_BISHOP, 97);
+		board->whiteCanCastleLeft = true;
+		board->whiteCanCastleRight = true;
 		moveGenerationController->generateMovesAt(116);
 		int expectedBoard[] = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -268,6 +284,8 @@
 		board->place(BLACK_ROOK, 0);
 		board->place(BLACK_KING, 4);
 		board->place(BLACK_ROOK, 7);
+		board->blackCanCastleLeft = true;
+		board->blackCanCastleRight = true;
 		moveGenerationController->generateMovesAt(4);
 		int expectedBoard[] = {
 			0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -288,6 +306,8 @@
 		board->place(BLACK_KING, 4);
 		board->place(BLACK_ROOK, 7);
 		board->place(BLACK_BISHOP, 6);
+		board->blackCanCastleLeft = true;
+		board->blackCanCastleRight = true;
 		moveGenerationController->generateMovesAt(4);
 		int expectedBoard[] = {
 			0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -308,6 +328,8 @@
 		board->place(BLACK_KING, 4);
 		board->place(BLACK_ROOK, 7);
 		board->place(BLACK_BISHOP, 3);
+		board->blackCanCastleLeft = true;
+		board->blackCanCastleRight = true;
 		moveGenerationController->generateMovesAt(4);
 		int expectedBoard[] = {
 			0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -328,6 +350,8 @@
 		board->place(BLACK_KING, 4);
 		board->place(BLACK_ROOK, 7);
 		board->place(WHITE_KNIGHT, 36);
+		board->blackCanCastleLeft = true;
+		board->blackCanCastleRight = true;
 		moveGenerationController->generateMovesAt(4);
 		int expectedBoard[] = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -348,6 +372,8 @@
 		board->place(BLACK_KING, 4);
 		board->place(BLACK_ROOK, 7);
 		board->place(WHITE_KNIGHT, 18);
+		board->blackCanCastleLeft = true;
+		board->blackCanCastleRight = true;
 		moveGenerationController->generateMovesAt(4);
 		int expectedBoard[] = {
 			0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -368,6 +394,8 @@
 		board->place(BLACK_KING, 4);
 		board->place(BLACK_ROOK, 7);
 		board->place(BLACK_BISHOP, 1);
+		board->blackCanCastleLeft = true;
+		board->blackCanCastleRight = true;
 		moveGenerationController->generateMovesAt(4);
 		int expectedBoard[] = {
 			0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -388,6 +416,8 @@
 		board->place(BLACK_KING, 4);
 		board->place(BLACK_ROOK, 7);
 		board->place(WHITE_BISHOP, 16);
+		board->blackCanCastleLeft = true;
+		board->blackCanCastleRight = true;
 		moveGenerationController->generateMovesAt(4);
 		int expectedBoard[] = {
 			0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -408,6 +438,8 @@
 		board->place(BLACK_KING, 4);
 		board->place(BLACK_ROOK, 7);
 		board->place(WHITE_BISHOP, 17);
+		board->blackCanCastleLeft = true;
+		board->blackCanCastleRight = true;
 		moveGenerationController->generateMovesAt(4);
 		int expectedBoard[] = {
 			0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 

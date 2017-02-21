@@ -26,22 +26,18 @@
 	}
 
 	void KingMoveGenerator::generateCastle(int from) {
-		if (!board->firstMove[from]
-			|| attackedSquare->kingInCheck()) {
+		if (attackedSquare->kingInCheck()) {
 			return;
 		}
 		int kingColor = GET_COLOR(board->squares[from]);
-		int rookLeftPosition = kingColor == WHITE ? whiteCastleLeft : blackCastleLeft;
-		int rookRightPosition = kingColor == WHITE ? whiteCastleRight : blackCastleRight;
-		int rook = kingColor == WHITE ? WHITE_ROOK : BLACK_ROOK;
-		if (board->firstMove[rookRightPosition]
-				&& board->squares[rookRightPosition] == rook
+		bool canCastleRight = kingColor == WHITE ? board->whiteCanCastleLeft : board->blackCanCastleLeft;
+		bool canCastleLeft = kingColor == WHITE ? board->whiteCanCastleRight : board->blackCanCastleRight;
+		if (canCastleRight
 				&& !castleSquaresOccupied(from, EAST)
 				&& !castleSquaresAttacked(from, EAST)) {
 		    generateMove(from, from + 2, BLANK, BLANK, 1);
 		}
-		if (board->firstMove[rookLeftPosition]
-				&& board->squares[rookLeftPosition] == rook
+		if (canCastleLeft
 				&& !castleSquaresOccupied(from, WEST)
 				&& !castleSquaresAttacked(from, WEST)) {
 			generateMove(from, from - 2, BLANK, BLANK, 1);
