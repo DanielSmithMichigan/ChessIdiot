@@ -17,14 +17,19 @@
 		string fenStr;
 		getline(infile, fenStr);
 		fen->import(fenStr);
+		cout << "INITIAL: " << fen->exportLegacyBoard() << endl;
 		vector<string> comparisonFens, myFens;
+		cout << "THEIR MOVSE" << endl;
 		while (getline(infile, fenStr)) {
+			cout << "fenStr: " << fenStr << endl;
 			comparisonFens.push_back(fenStr);
 		}
 		moveGenerationController->generateAllMoves();
 		uint32_t currentMove;
+		cout << "MY MOVSE" << endl;
 		while (currentMove = moveStack->pop()) {
 			board->doMove(currentMove);
+			cout << "fenStr: " << fen->exportLegacyBoard() << endl;
 			myFens.push_back(fen->exportLegacyBoard());
 			board->undoMove();
 		}

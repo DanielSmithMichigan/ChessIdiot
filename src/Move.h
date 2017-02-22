@@ -7,8 +7,9 @@
 	#define EN_PASSANT(m) ((m >> 20) & 0x1)
 	#define PROMOTEDPIECE(m) ((m >> 21) & 0xF)
 	#define CASTLE(m) ((m >> 25) & 0x1)
-	#define BLACK_CASTLE_RIGHT_FLAG(m) ((m >> 26) & 0x1)
-	#define BLACK_CASTLE_LEFT_FLAG(m) ((m >> 27) & 0x1)
-	#define WHITE_CASTLE_RIGHT_FLAG(m) ((m >> 28) & 0x1)
-	#define WHITE_CASTLE_LEFT_FLAG(m) ((m >> 29) & 0x1)
+	#define BLACK_CASTLE_LEFT_FLAG(m) ((m >> 26) & 0x1)
+	#define BLACK_CASTLE_RIGHT_FLAG(m) ((m >> 27) & 0x1)
+	#define WHITE_CASTLE_LEFT_FLAG(m) ((m >> 28) & 0x1)
+	#define WHITE_CASTLE_RIGHT_FLAG(m) ((m >> 29) & 0x1)
 #endif
+

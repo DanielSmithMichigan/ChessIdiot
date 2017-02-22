@@ -30,17 +30,17 @@
 			return;
 		}
 		int kingColor = GET_COLOR(board->squares[from]);
-		bool canCastleRight = kingColor == WHITE ? board->whiteCanCastleLeft : board->blackCanCastleLeft;
-		bool canCastleLeft = kingColor == WHITE ? board->whiteCanCastleRight : board->blackCanCastleRight;
+		bool canCastleLeft = kingColor == WHITE ? board->whiteCanCastleLeft : board->blackCanCastleLeft;
+		bool canCastleRight = kingColor == WHITE ? board->whiteCanCastleRight : board->blackCanCastleRight;
 		if (canCastleRight
 				&& !castleSquaresOccupied(from, EAST)
 				&& !castleSquaresAttacked(from, EAST)) {
-		    generateMove(from, from + 2, BLANK, BLANK, 1);
+		    generateMove(from, from + 2, BLANK, BLANK, true);
 		}
 		if (canCastleLeft
 				&& !castleSquaresOccupied(from, WEST)
 				&& !castleSquaresAttacked(from, WEST)) {
-			generateMove(from, from - 2, BLANK, BLANK, 1);
+			generateMove(from, from - 2, BLANK, BLANK, true);
 		}
 	}
 

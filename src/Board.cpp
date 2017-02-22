@@ -16,10 +16,10 @@
 		enPassantTarget = SOMEWHERE_OFF_BOARD;
 		fullMoveClock = 0;
 		halfMoveClock = 0;
-		whiteCanCastleLeft = false;
-		whiteCanCastleRight = false;
-		blackCanCastleLeft = false;
-		blackCanCastleRight = false;
+		whiteCanCastleLeft = initialWhiteCanCastleLeft;
+		whiteCanCastleRight = initialWhiteCanCastleRight;
+		blackCanCastleLeft = initialBlackCanCastleLeft;
+		blackCanCastleRight = initialBlackCanCastleRight;
 	}
 
 	void Board::initializeEmptyBoard() {
@@ -50,7 +50,8 @@
 		remove(from);
 		checkAndPerformEnPassant(move);
 		checkAndPerformCastle(move);
-		adjustCastlingBooleans(move);
+		adjustCastlingBooleansFrom(move);
+		adjustCastlingBooleansTo(move);
 		movesPlayed.push_back(move);
 		checkAndSetEnPassantTarget();
 	}
@@ -112,7 +113,7 @@
 	}
 
 
-	void Board::adjustCastlingBooleans(uint32_t move) {
+	void Board::adjustCastlingBooleansFrom(uint32_t move) {
 		switch(FROM(move)) {
 			case BLACK_ROOK_RIGHT:
 				blackCanCastleRight = false;
@@ -152,8 +153,6 @@
 		}
 	}
 
-
-
 	void Board::checkAndPerformCastle(uint32_t move) {
 		if (CASTLE(move)) {
 			int to = TO(move);
@@ -183,6 +182,23 @@
 					place(WHITE_ROOK, WHITE_ROOK_CASTLE_RIGHT);
 				break;
 			}
+		}
+	}
+
+	void Board::adjustCastlingBooleansTo(uint32_t move) {
+		switch(TO(move)) {
+			case BLACK_ROOK_LEFT:
+				blackCanCastleLeft = false;
+			break;
+			case BLACK_ROOK_RIGHT:
+				blackCanCastleRight = false;
+			break;
+			case WHITE_ROOK_LEFT:
+				whiteCanCastleLeft = false;
+			break;
+			case WHITE_ROOK_RIGHT:
+				whiteCanCastleRight = false;
+			break;
 		}
 	}
 
