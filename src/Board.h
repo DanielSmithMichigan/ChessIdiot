@@ -50,6 +50,8 @@
 			void checkAndPerformEnPassant(uint32_t move);
 			void checkAndPerformCastle(uint32_t move);
 			void checkAndUndoCastle(uint32_t move);
+			void checkAndPerformPromotion(uint32_t move);
+			void checkAndUndoPromotion(uint32_t move);
 			void changeTurn();
 	};
 #endif

@@ -95,7 +95,7 @@
 	}
 
 	TEST_F(MoveGeneratorTest, EnPassantAndReset) {
-		uint32_t firstMove = MOVE(21, 53, BLANK, BLANK, 1, BLANK, BLANK, BLANK, BLANK, BLANK);
+		uint32_t firstMove = MOVE(21, 53, BLANK, 1, BLANK, BLANK, BLANK, BLANK, BLANK, BLANK);
 		board->place(WHITE_PAWN, 52);
 		board->place(BLACK_PAWN, 21);
 		board->place(BLACK_PAWN, 17);

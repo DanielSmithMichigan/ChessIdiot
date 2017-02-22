@@ -112,7 +112,7 @@
 	}
 
 	TEST_F(PawnMoveGeneratorTest, WhitePawnEnPassantRight) {
-		uint32_t firstMove = MOVE(20, 52, BLANK, BLANK, 1, BLANK, BLANK, BLANK, BLANK, BLANK);
+		uint32_t firstMove = MOVE(20, 52, BLANK, 1, BLANK, BLANK, BLANK, BLANK, BLANK, BLANK);
 		board->squares[51] = WHITE_PAWN;
 		board->squares[20] = BLACK_PAWN;
 		board->squares[52] = BLACK_PAWN;
@@ -132,7 +132,7 @@
 	}
 
 	TEST_F(PawnMoveGeneratorTest, WhitePawnEnPassantLeft) {
-		uint32_t firstMove = MOVE(18, 50, BLANK, BLANK, 1, BLANK, BLANK, BLANK, BLANK, BLANK);
+		uint32_t firstMove = MOVE(18, 50, BLANK, 1, BLANK, BLANK, BLANK, BLANK, BLANK, BLANK);
 		board->squares[51] = WHITE_PAWN;
 		board->squares[18] = BLACK_PAWN;
 		board->squares[52] = BLACK_PAWN;

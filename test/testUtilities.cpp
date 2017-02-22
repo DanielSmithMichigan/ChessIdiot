@@ -5,13 +5,16 @@
 	bool sortByTo (int i,int j) { return (TO(i)<TO(j)); }
 	bool sortByPromotion (int i,int j) { return (PROMOTEDPIECE(i)<PROMOTEDPIECE(j)); }
 
-	void assertStringVectorMatch(vector<string> a, vector<string> b) {
+	void assertStringVectorMatch(vector<string> &a, vector<string> &b) {
 		while (a.size()) {
 			string aElement = a.back();
 			a.pop_back();
 			vector<string>::iterator it;
 			it = find (b.begin(), b.end(), aElement);
-			ASSERT_NE(it, b.end());
+			if (it == b.end()) {
+				cout << "NF: " << aElement << endl;
+				ASSERT_NE(it, b.end());	
+			}
 			b.erase(it);
 		}
 		ASSERT_EQ(b.size(), 0);

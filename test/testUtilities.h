@@ -11,5 +11,5 @@
 	bool sortByFrom (int i,int j);
 	bool sortByTo (int i,int j);
 	bool sortByPromotion (int i, int j);
-	void assertStringVectorMatch (vector<string> a, vector<string> b);
+	void assertStringVectorMatch (vector<string> &a, vector<string> &b);
 #endif

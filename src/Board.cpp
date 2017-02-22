@@ -50,6 +50,7 @@
 		remove(from);
 		checkAndPerformEnPassant(move);
 		checkAndPerformCastle(move);
+		checkAndPerformPromotion(move);
 		adjustCastlingBooleansFrom(move);
 		adjustCastlingBooleansTo(move);
 		movesPlayed.push_back(move);
@@ -99,6 +100,7 @@
 		checkAndUndoEnPassant(move);
 		checkAndUndoCastle(move);
 		resetCastlingBooleans(move);
+		checkAndUndoPromotion(move);
 		checkAndSetEnPassantTarget();
 	}
 
@@ -111,6 +113,15 @@
 			remove(enPassantSquare);
 		}
 	}
+
+
+	void Board::checkAndPerformPromotion(uint32_t move) {
+		int promotedPiece = PROMOTEDPIECE(move);
+		if (promotedPiece) {
+			place(promotedPiece, TO(move));
+		}
+	}
+
 
 
 	void Board::adjustCastlingBooleansFrom(uint32_t move) {
@@ -223,6 +234,16 @@
 					place(WHITE_ROOK, WHITE_ROOK_RIGHT);
 				break;
 			}
+		}
+	}
+
+
+	void Board::checkAndUndoPromotion(uint32_t move) {
+		int promotedPiece = PROMOTEDPIECE(move);
+		if (promotedPiece) {
+			int color = GET_COLOR(promotedPiece);
+			int pawn = color == WHITE ? WHITE_PAWN : BLACK_PAWN;
+			place(pawn, FROM(move));
 		}
 	}
 
