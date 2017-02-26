@@ -116,7 +116,7 @@
 		moveStack->reset();
 		uint32_t secondMove = MOVE(52, 37, BLANK, 1, BLANK, BLANK, BLANK, BLANK, BLANK, BLANK);
 		board->doMove(secondMove);
-		EXPECT_TRUE(board->squares[53] == EMPTY_SPACE);
+		EXPECT_TRUE(board->getLocation(53) == EMPTY_SPACE);
 		moveGenerationController->generateMovesAt(17);
 		int secondExpectedBoard[] = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 

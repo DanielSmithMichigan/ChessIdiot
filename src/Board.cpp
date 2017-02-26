@@ -38,6 +38,14 @@
 		}
 	}
 
+	int Board::getLocation(int location) {
+		if (!ON_BOARD(location)) {
+			return EMPTY_SPACE;
+		}
+
+		return squares[location];
+	}
+
 	void Board::remove(int location) {
 		squares[location] = EMPTY_SPACE;
 	}

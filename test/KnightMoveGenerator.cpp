@@ -11,7 +11,7 @@
 	}
 
 	TEST_F(KnightMoveGeneratorTest, Middle) {
-		board->squares[51] = WHITE_KNIGHT;
+		board->place(WHITE_KNIGHT, 51);
 		moveGenerationController->generateMovesAt(51);
 		EXPECT_EQ(moveStack->top, 8);
 		sort(moveStack->stack, moveStack->stack + 8);
@@ -34,8 +34,8 @@
 	}
 
 	TEST_F(KnightMoveGeneratorTest, WillTakeBlackPiece) {
-		board->squares[51] = WHITE_KNIGHT;
-		board->squares[84] = BLACK_KNIGHT;
+		board->place(WHITE_KNIGHT, 51);
+		board->place(BLACK_KNIGHT, 84);
 		moveGenerationController->generateMovesAt(51);
 		EXPECT_EQ(moveStack->top, 8);
 		sort(moveStack->stack, moveStack->stack + 8, sortByFrom);
@@ -59,8 +59,8 @@
 	}
 
 	TEST_F(KnightMoveGeneratorTest, WillNotTakeWhitePiece) {
-		board->squares[51] = WHITE_KNIGHT;
-		board->squares[84] = WHITE_KNIGHT;
+		board->place(WHITE_KNIGHT, 51);
+		board->place(WHITE_KNIGHT, 84);
 		moveGenerationController->generateMovesAt(51);
 		EXPECT_EQ(moveStack->top, 7);
 		sort(moveStack->stack, moveStack->stack + 7);

@@ -11,7 +11,7 @@
 	}
 
 	TEST_F(BishopMoveGeneratorTest, BishopInMiddle) {
-		board->squares[51] = WHITE_BISHOP;
+		board->place(WHITE_BISHOP, 51);
 		moveGenerationController->generateMovesAt(51);
 		EXPECT_EQ(moveStack->top, 13);
 		sort(moveStack->stack, moveStack->stack + 13);
@@ -44,8 +44,8 @@
 	}
 
 	TEST_F(BishopMoveGeneratorTest, WillNotTakeWhitePiece) {
-		board->squares[51] = WHITE_BISHOP;
-		board->squares[68] = WHITE_KNIGHT;
+		board->place(WHITE_BISHOP, 51);
+		board->place(WHITE_KNIGHT, 68);
 		moveGenerationController->generateMovesAt(51);
 		EXPECT_EQ(moveStack->top, 9);
 		sort(moveStack->stack, moveStack->stack + 9);
@@ -70,8 +70,8 @@
 	}
 
 	TEST_F(BishopMoveGeneratorTest, WillTakeBlackPiece) {
-		board->squares[51] = WHITE_BISHOP;
-		board->squares[68] = BLACK_KNIGHT;
+		board->place(WHITE_BISHOP, 51);
+		board->place(BLACK_KNIGHT, 68);
 		moveGenerationController->generateMovesAt(51);
 		EXPECT_EQ(moveStack->top, 10);
 		sort(moveStack->stack, moveStack->stack + 10, sortByFrom);

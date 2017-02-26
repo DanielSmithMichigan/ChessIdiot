@@ -12,9 +12,10 @@
 	void KnightMoveGenerator::generateMoves(int from) {
 		for (int i = 0; i < KNIGHT_MOVES_SIZE; i++) {
 			int to = knightMoves[i] + from;
-			if (ON_BOARD(to) 
-				&& (board->squares[to] == EMPTY_SPACE
-					|| GET_COLOR(board->squares[from]) != GET_COLOR(board->squares[to]))) {
+			int pieceAtLocation = board->getLocation(to);
+			if (ON_BOARD(to)
+				&& (pieceAtLocation == EMPTY_SPACE
+					|| GET_COLOR(board->getLocation(from)) != GET_COLOR(pieceAtLocation))) {
 				generateMove(from, to);
 			}
 		}

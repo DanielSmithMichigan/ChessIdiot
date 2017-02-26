@@ -11,8 +11,8 @@
 	}
 
 	TEST_F(KingMoveGenerationControllerTest, WillTakeBlackPiece) {
-		board->squares[0] = WHITE_KING;
-		board->squares[1] = BLACK_KNIGHT;
+		board->place(WHITE_KING, 0);
+		board->place(BLACK_KNIGHT, 1);
 		moveGenerationController->generateMovesAt(0);
 		EXPECT_EQ(moveStack->top, 3);
 		sort(moveStack->stack, moveStack->stack + 3, sortByFrom);
@@ -26,8 +26,8 @@
 	}
 
 	TEST_F(KingMoveGenerationControllerTest, WillNotTakeWhitePiece) {
-		board->squares[0] = WHITE_KING;
-		board->squares[1] = WHITE_KNIGHT;
+		board->place(WHITE_KING, 0);
+		board->place(WHITE_KNIGHT, 1);
 		moveGenerationController->generateMovesAt(0);
 		EXPECT_EQ(moveStack->top, 2);
 		sort(moveStack->stack, moveStack->stack + 2);
@@ -38,7 +38,7 @@
 	}
 
 	TEST_F(KingMoveGenerationControllerTest, TopLeft) {
-		board->squares[0] = WHITE_KING;
+		board->place(WHITE_KING, 0);
 		moveGenerationController->generateMovesAt(0);
 		EXPECT_EQ(moveStack->top, 3);
 		sort(moveStack->stack, moveStack->stack + 3);
@@ -51,7 +51,7 @@
 	}
 
 	TEST_F(KingMoveGenerationControllerTest, TopRight) {
-		board->squares[7] = WHITE_KING;
+		board->place(WHITE_KING, 7);
 		moveGenerationController->generateMovesAt(7);
 		EXPECT_EQ(moveStack->top, 3);
 		sort(moveStack->stack, moveStack->stack + 3);
@@ -64,7 +64,7 @@
 	}
 
 	TEST_F(KingMoveGenerationControllerTest, BottomRight) {
-		board->squares[119] = WHITE_KING;
+		board->place(WHITE_KING, 119);
 		moveGenerationController->generateMovesAt(119);
 		EXPECT_EQ(moveStack->top, 3);
 		sort(moveStack->stack, moveStack->stack + 3);
@@ -77,7 +77,7 @@
 	}
 
 	TEST_F(KingMoveGenerationControllerTest, BottomLeft) {
-		board->squares[112] = WHITE_KING;
+		board->place(WHITE_KING, 112);
 		moveGenerationController->generateMovesAt(112);
 		EXPECT_EQ(moveStack->top, 3);
 		sort(moveStack->stack, moveStack->stack + 3);
@@ -90,7 +90,7 @@
 	}
 
 	TEST_F(KingMoveGenerationControllerTest, KingInMiddle) {
-		board->squares[17] = WHITE_KING;
+		board->place(WHITE_KING, 17);
 		moveGenerationController->generateMovesAt(17);
 		EXPECT_EQ(moveStack->top, 8);
 		sort(moveStack->stack, moveStack->stack + 8);

@@ -11,7 +11,7 @@
 	}
 
 	TEST_F(QueenMoveGeneratorTest, QueenInMiddle) {
-		board->squares[51] = WHITE_QUEEN;
+		board->place(WHITE_QUEEN, 51);
 		moveGenerationController->generateMovesAt(51);
 		int expectedBoard[] = {
 			1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -27,8 +27,8 @@
 	}
 
 	TEST_F(QueenMoveGeneratorTest, WillNotTakeWhitePiece) {
-		board->squares[51] = WHITE_QUEEN;
-		board->squares[85] = WHITE_KNIGHT;
+		board->place(WHITE_QUEEN, 51);
+		board->place(WHITE_KNIGHT, 85);
 		moveGenerationController->generateMovesAt(51);
 		int expectedBoard[] = {
 			1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -44,8 +44,8 @@
 	}
 
 	TEST_F(QueenMoveGeneratorTest, WillTakeBlackPiece) {
-		board->squares[51] = WHITE_QUEEN;
-		board->squares[85] = BLACK_KNIGHT;
+		board->place(WHITE_QUEEN, 51);
+		board->place(BLACK_KNIGHT, 85);
 		moveGenerationController->generateMovesAt(51);
 		int expectedBoard[] = {
 			1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 

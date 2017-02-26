@@ -11,7 +11,7 @@
 	}
 
 	TEST_F(PawnMoveGeneratorTest, WhitePawnDoubleLeft) {
-		board->squares[96] = WHITE_PAWN;
+		board->place(WHITE_PAWN, 96);
 		moveGenerationController->generateMovesAt(96);
 		int expectedBoard[] = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -27,7 +27,7 @@
 	}
 
 	TEST_F(PawnMoveGeneratorTest, WhitePawnDoubleRight) {
-		board->squares[103] = WHITE_PAWN;
+		board->place(WHITE_PAWN, 103);
 		moveGenerationController->generateMovesAt(103);
 		int expectedBoard[] = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -44,8 +44,8 @@
 
 
 	TEST_F(PawnMoveGeneratorTest, WhitePawnBlocked) {
-		board->squares[96] = WHITE_PAWN;
-		board->squares[80] = BLACK_PAWN;
+		board->place(WHITE_PAWN, 96);
+		board->place(BLACK_PAWN, 80);
 		moveGenerationController->generateMovesAt(96);
 		int expectedBoard[] = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -61,8 +61,8 @@
 	}
 
 	TEST_F(PawnMoveGeneratorTest, WhitePawnDoubleBlocked) {
-		board->squares[96] = WHITE_PAWN;
-		board->squares[64] = BLACK_PAWN;
+		board->place(WHITE_PAWN, 96);
+		board->place(BLACK_PAWN, 64);
 		moveGenerationController->generateMovesAt(96);
 		int expectedBoard[] = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -78,7 +78,7 @@
 	}
 
 	TEST_F(PawnMoveGeneratorTest, WhitePawnSingle) {
-		board->squares[80] = WHITE_PAWN;
+		board->place(WHITE_PAWN, 80);
 		moveGenerationController->generateMovesAt(80);
 		int expectedBoard[] = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -94,9 +94,9 @@
 	}
 
 	TEST_F(PawnMoveGeneratorTest, WhitePawnAttack) {
-		board->squares[97] = WHITE_PAWN;
-		board->squares[80] = BLACK_PAWN;
-		board->squares[82] = BLACK_PAWN;
+		board->place(WHITE_PAWN, 97);
+		board->place(BLACK_PAWN, 80);
+		board->place(BLACK_PAWN, 82);
 		moveGenerationController->generateMovesAt(97);
 		int expectedBoard[] = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -113,9 +113,9 @@
 
 	TEST_F(PawnMoveGeneratorTest, WhitePawnEnPassantRight) {
 		uint32_t firstMove = MOVE(20, 52, BLANK, 1, BLANK, BLANK, BLANK, BLANK, BLANK, BLANK);
-		board->squares[51] = WHITE_PAWN;
-		board->squares[20] = BLACK_PAWN;
-		board->squares[52] = BLACK_PAWN;
+		board->place(WHITE_PAWN, 51);
+		board->place(BLACK_PAWN, 20);
+		board->place(BLACK_PAWN, 52);
 		board->doMove(firstMove);
 		moveGenerationController->generateMovesAt(51);
 		int expectedBoard[] = {
@@ -133,9 +133,9 @@
 
 	TEST_F(PawnMoveGeneratorTest, WhitePawnEnPassantLeft) {
 		uint32_t firstMove = MOVE(18, 50, BLANK, 1, BLANK, BLANK, BLANK, BLANK, BLANK, BLANK);
-		board->squares[51] = WHITE_PAWN;
-		board->squares[18] = BLACK_PAWN;
-		board->squares[52] = BLACK_PAWN;
+		board->place(WHITE_PAWN, 51);
+		board->place(BLACK_PAWN, 18);
+		board->place(BLACK_PAWN, 52);
 		board->doMove(firstMove);
 		moveGenerationController->generateMovesAt(51);
 		int expectedBoard[] = {
@@ -152,9 +152,9 @@
 	}
 
 	TEST_F(PawnMoveGeneratorTest, WhitePromotion) {
-		board->squares[19] = WHITE_PAWN;
-		board->squares[2] = BLACK_KNIGHT;
-		board->squares[4] = BLACK_KNIGHT;
+		board->place(WHITE_PAWN, 19);
+		board->place(BLACK_KNIGHT, 2);
+		board->place(BLACK_KNIGHT, 4);
 		moveGenerationController->generateMovesAt(19);
 		sort(moveStack->stack, moveStack->stack + 12, sortByPromotion);
 		sort(moveStack->stack, moveStack->stack + 12, sortByTo);
@@ -185,7 +185,7 @@
 
 
 	TEST_F(PawnMoveGeneratorTest, BlackPawnDouble) {
-		board->squares[17] = BLACK_PAWN;
+		board->place(BLACK_PAWN, 17);
 		moveGenerationController->generateMovesAt(17);
 		int expectedBoard[] = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -201,8 +201,8 @@
 	}
 
 	TEST_F(PawnMoveGeneratorTest, BlackPawnDoubleBockedOne) {
-		board->squares[17] = BLACK_PAWN;
-		board->squares[33] = WHITE_PAWN;
+		board->place(BLACK_PAWN, 17);
+		board->place(WHITE_PAWN, 33);
 		moveGenerationController->generateMovesAt(17);
 		int expectedBoard[] = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -218,8 +218,8 @@
 	}
 
 	TEST_F(PawnMoveGeneratorTest, BlackPawnDoubleBockedTwo) {
-		board->squares[17] = BLACK_PAWN;
-		board->squares[49] = WHITE_PAWN;
+		board->place(BLACK_PAWN, 17);
+		board->place(WHITE_PAWN, 49);
 		moveGenerationController->generateMovesAt(17);
 		int expectedBoard[] = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -234,7 +234,7 @@
 		EXPECT_TRUE(moveStack->matches(expectedBoard));
 	}
 	TEST_F(PawnMoveGeneratorTest, BlackPawnNotDouble) {
-		board->squares[33] = BLACK_PAWN;
+		board->place(BLACK_PAWN, 33);
 		moveGenerationController->generateMovesAt(33);
 		int expectedBoard[] = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -250,9 +250,9 @@
 	}
 
 	TEST_F(PawnMoveGeneratorTest, BlackPawnAttack) {
-		board->squares[17] = BLACK_PAWN;
-		board->squares[32] = WHITE_PAWN;
-		board->squares[34] = WHITE_PAWN;
+		board->place(BLACK_PAWN, 17);
+		board->place(WHITE_PAWN, 32);
+		board->place(WHITE_PAWN, 34);
 		moveGenerationController->generateMovesAt(17);
 		int expectedBoard[] = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -269,9 +269,9 @@
 
 	TEST_F(PawnMoveGeneratorTest, BlackEnPassantRight) {
 		uint32_t firstMove = MOVE(100, 68, BLANK, BLANK, 1, BLANK, BLANK, BLANK, BLANK, BLANK);
-		board->squares[67] = BLACK_PAWN;
-		board->squares[66] = WHITE_PAWN;
-		board->squares[100] = WHITE_PAWN;
+		board->place(BLACK_PAWN, 67);
+		board->place(WHITE_PAWN, 66);
+		board->place(WHITE_PAWN, 100);
 		board->doMove(firstMove);
 		moveGenerationController->generateMovesAt(67);
 		int expectedBoard[] = {
@@ -289,9 +289,9 @@
 
 	TEST_F(PawnMoveGeneratorTest, BlackEnPassantLeft) {
 		uint32_t firstMove = MOVE(98, 66, BLANK, BLANK, 1, BLANK, BLANK, BLANK, BLANK, BLANK);
-		board->squares[67] = BLACK_PAWN;
-		board->squares[98] = WHITE_PAWN;
-		board->squares[68] = WHITE_PAWN;
+		board->place(BLACK_PAWN, 67);
+		board->place(WHITE_PAWN, 98);
+		board->place(WHITE_PAWN, 68);
 		board->doMove(firstMove);
 		moveGenerationController->generateMovesAt(67);
 		int expectedBoard[] = {
@@ -308,9 +308,9 @@
 	}
 
 	TEST_F(PawnMoveGeneratorTest, BlackPromotion) {
-		board->squares[99] = BLACK_PAWN;
-		board->squares[114] = WHITE_ROOK;
-		board->squares[116] = WHITE_ROOK;
+		board->place(BLACK_PAWN, 99);
+		board->place(WHITE_ROOK, 114);
+		board->place(WHITE_ROOK, 116);
 		moveGenerationController->generateMovesAt(99);
 		sort(moveStack->stack, moveStack->stack + 12, sortByPromotion);
 		sort(moveStack->stack, moveStack->stack + 12, sortByTo);

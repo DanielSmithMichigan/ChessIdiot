@@ -18,28 +18,32 @@
 			depthLimits[i] = 0;
 		}
 		top = 0;
+		currentDepth = 0;
 	}
 
 	void MoveStack::push(uint32_t move) {
-		stack[top] = move;
-		depthLimits[currentDepth] = top++;
+		stack[top++] = move;
 	}
 
 	uint32_t MoveStack::pop() {
-		if (top <= 0) {
+		if (top <= getDepthBottom()) {
 			return 0;
 		}
-		top--;
-		depthLimits[currentDepth] = top;
-		return stack[top];
+		return stack[--top];
 	}
 
 	void MoveStack::increaseDepth() {
-		depthLimits[top] = depthLimits[currentDepth] + 1;
 		currentDepth++;
+		depthLimits[currentDepth] = top;
 	}
 	void MoveStack::decreaseDepth() {
 		currentDepth--;
 		top = depthLimits[currentDepth];
+	}
+	int MoveStack::getDepthBottom() {
+		if (currentDepth == 0) {
+			return 0;
+		}
+		return depthLimits[currentDepth - 1];
 	}
 #endif

@@ -15,11 +15,13 @@
 	}
 
 	void KingMoveGenerator::generateAdjacentMoves(int from) {
+		int myKingColor = GET_COLOR(board->getLocation(from));
 		for (int i = 0; i < KING_MOVES_SIZE; i++) {
 			int to = kingMoves[i] + from;
-			if (ON_BOARD(to) 
-				&& (board->squares[to] == EMPTY_SPACE
-					|| GET_COLOR(board->squares[from]) != GET_COLOR(board->squares[to]))) {
+			int pieceAtLocation = board->getLocation(to);
+			if (ON_BOARD(to)
+				&& (pieceAtLocation == EMPTY_SPACE
+					|| myKingColor != GET_COLOR(pieceAtLocation))) {
 				generateMove(from, to);
 			}
 		}
@@ -29,7 +31,7 @@
 		if (attackedSquare->kingInCheck()) {
 			return;
 		}
-		int kingColor = GET_COLOR(board->squares[from]);
+		int kingColor = GET_COLOR(board->getLocation(from));
 		bool canCastleLeft = kingColor == WHITE ? board->whiteCanCastleLeft : board->blackCanCastleLeft;
 		bool canCastleRight = kingColor == WHITE ? board->whiteCanCastleRight : board->blackCanCastleRight;
 		if (canCastleRight
@@ -45,13 +47,13 @@
 	}
 
 	bool KingMoveGenerator::castleSquaresOccupied(int from, int eastWest) {
-		int kingColor = GET_COLOR(board->squares[from]);
+		int kingColor = GET_COLOR(board->getLocation(from));
 		int (&arrayOfSquares)[3] = getArrayOfOccupiedSquares(from, eastWest);
 		for (int i = 0; i < 3; i++) {
 			int squareToCheck = arrayOfSquares[i];
 			if (squareToCheck == SOMEWHERE_OFF_BOARD) {
 				return false;
-			} else if (board->squares[squareToCheck] != EMPTY_SPACE) {
+			} else if (board->getLocation(squareToCheck) != EMPTY_SPACE) {
 				return true;
 			}
 		}
@@ -70,13 +72,13 @@
 	}
 
 	int (&KingMoveGenerator::getArrayOfOccupiedSquares(int from, int eastWest))[3] {
-		return GET_COLOR(board->squares[from]) == WHITE ?
+		return GET_COLOR(board->getLocation(from)) == WHITE ?
 				eastWest == EAST ? whiteCastleSquaresOccupiedEast : whiteCastleSquaresOccupiedWest
 				: eastWest == EAST ? blackCastleSquaresOccupiedEast : blackCastleSquaresOccupiedWest;
 	}
 
 	int (&KingMoveGenerator::getArrayOfAttackedSquares(int from, int eastWest))[2] {
-		return GET_COLOR(board->squares[from]) == WHITE ?
+		return GET_COLOR(board->getLocation(from)) == WHITE ?
 				eastWest == EAST ? whiteCastleSquaresAttackedEast : whiteCastleSquaresAttackedWest
 				: eastWest == EAST ? blackCastleSquaresAttackedEast : blackCastleSquaresAttackedWest;
 	}

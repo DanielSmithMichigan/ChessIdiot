@@ -15,13 +15,14 @@
 		private:
 			void initializePieces();
 			vector<uint32_t> movesPlayed;
+		protected:
+			int squares[BOARD_SIZE];
 		public:
 			Board();
 			~Board();
 			int turn;
 			int fullMoveClock;
 			int halfMoveClock;
-			int squares[BOARD_SIZE];
 			int enPassantTarget;
 			int initialEnPassantTarget;
 			int blackKingLocation = 0;
@@ -53,5 +54,6 @@
 			void checkAndPerformPromotion(uint32_t move);
 			void checkAndUndoPromotion(uint32_t move);
 			void changeTurn();
+			int getLocation(int location);
 	};
 #endif

@@ -13,7 +13,7 @@
 	}
 
 	void MoveGenerator::generateMove(int from, int to, int promotedPiece, bool enPassant, bool castle) {
-		uint32_t move = MOVE(from, to, board->squares[to], enPassant, promotedPiece, castle, board->blackCanCastleLeft, board->blackCanCastleRight, board->whiteCanCastleLeft, board->whiteCanCastleRight);
+		uint32_t move = MOVE(from, to, board->getLocation(to), enPassant, promotedPiece, castle, board->blackCanCastleLeft, board->blackCanCastleRight, board->whiteCanCastleLeft, board->whiteCanCastleRight);
 		if (isLegal(move)) {
 			moveStack->push(move);
 		}

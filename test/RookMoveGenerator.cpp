@@ -11,7 +11,7 @@
 	}
 
 	TEST_F(RookMoveGeneratorTest, RookInMiddle) {
-		board->squares[51] = WHITE_ROOK;
+		board->place(WHITE_ROOK, 51);
 		moveGenerationController->generateMovesAt(51);
 		int expectedBoard[] = {
 			0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -27,8 +27,8 @@
 	}
 
 	TEST_F(RookMoveGeneratorTest, WillNotTakeWhitePiece) {
-		board->squares[51] = WHITE_ROOK;
-		board->squares[53] = WHITE_ROOK;
+		board->place(WHITE_ROOK, 51);
+		board->place(WHITE_ROOK, 53);
 		moveGenerationController->generateMovesAt(51);
 		int expectedBoard[] = {
 			0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -44,8 +44,8 @@
 	}
 
 	TEST_F(RookMoveGeneratorTest, WillTakeBlackPiece) {
-		board->squares[51] = WHITE_ROOK;
-		board->squares[53] = BLACK_ROOK;
+		board->place(WHITE_ROOK, 51);
+		board->place(BLACK_ROOK, 53);
 		moveGenerationController->generateMovesAt(51);
 		int expectedBoard[] = {
 			0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 

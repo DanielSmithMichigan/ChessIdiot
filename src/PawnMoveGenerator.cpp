@@ -11,27 +11,27 @@
 
 	// Yes this function is pretty big, but since this is move generation, I want to save function calls.
 	void PawnMoveGenerator::generateMoves(int from) {
-		int thisPawn = board->squares[from];
+		int thisPawn = board->getLocation(from);
 		int thisPawnColor = GET_COLOR(thisPawn);
 
 		// Move Forward
 		int oneSquareUp = from + ROWS(direction);
-		if (board->squares[oneSquareUp] == EMPTY_SPACE
-			&& ON_BOARD(board->squares[oneSquareUp])) {
+		if (board->getLocation(oneSquareUp) == EMPTY_SPACE
+			&& ON_BOARD(oneSquareUp)) {
 			testAndGenerateMove(from, oneSquareUp, thisPawn);
 
 			// Move Forward Twice
 			int twoSquaresUp = from + ROWS(2 * direction);
 			int doubleMoveRow = thisPawnColor == WHITE ? 6 : 1;
 			if (GET_ROW(from) == doubleMoveRow
-				&& board->squares[twoSquaresUp] == EMPTY_SPACE) {
+				&& board->getLocation(twoSquaresUp) == EMPTY_SPACE) {
 				generateMove(from, twoSquaresUp);
 			}
 		}
 
 		// Attack Right
 		int attackRight = from + 1 + ROWS(direction);
-		int squareAttackedRight = board->squares[attackRight];
+		int squareAttackedRight = board->getLocation(attackRight);
 		if (squareAttackedRight != EMPTY_SPACE
 				&& thisPawnColor != GET_COLOR(squareAttackedRight)) {
 			testAndGenerateMove(from, attackRight, thisPawn);
@@ -40,7 +40,7 @@
 
 		// En Passant Right
 		int enPassantRight = from + 1;
-		int squareEnPassantRight = board->squares[enPassantRight];
+		int squareEnPassantRight = board->getLocation(enPassantRight);
 		if (squareEnPassantRight != EMPTY_SPACE
 				&& thisPawnColor != GET_COLOR(squareEnPassantRight)
 					&& board->enPassantTarget == attackRight) {
@@ -49,7 +49,7 @@
 
 		// Attack Left
 		int attackLeft = from - 1 + ROWS(direction);
-		int squareAttackedLeft = board->squares[attackLeft];
+		int squareAttackedLeft = board->getLocation(attackLeft);
 		if (squareAttackedLeft != EMPTY_SPACE
 				&& thisPawnColor != GET_COLOR(squareAttackedLeft)) {
 			testAndGenerateMove(from, attackLeft, thisPawn);
@@ -58,7 +58,7 @@
 
 		// En Passant Left
 		int enPassantLeft = from - 1;
-		int squareEnPassantLeft = board->squares[enPassantLeft];
+		int squareEnPassantLeft = board->getLocation(enPassantLeft);
 		if (squareEnPassantLeft != EMPTY_SPACE
 				&& thisPawnColor != GET_COLOR(squareEnPassantLeft)
 					&& board->enPassantTarget == attackLeft) {
