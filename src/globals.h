@@ -26,6 +26,8 @@
 	#define BLACK_ROOK 10
 	#define BLACK_QUEEN 11
 	#define BLACK_KING 12
+	#define CHECKMATE 1000
+	#define STALEMATE 0
 	#define BLACK 1
 	#define WHITE -1
 	#define SOMEWHERE_OFF_BOARD 59
