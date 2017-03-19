@@ -7,14 +7,14 @@
 
 	using namespace std;
 
-	class BoardValue {
+	class PositionEvaluator {
 		private:
 			shared_ptr<Board> board;
 			shared_ptr<AttackedSquare> attackedSquare;
 		public:
-			BoardValue(shared_ptr<Board> board, shared_ptr<AttackedSquare> attackedSquare);
-			~BoardValue();
-			int get(bool legalMovesExist);
-			int sumOfPieces();
+			PositionEvaluator(shared_ptr<Board> board, shared_ptr<AttackedSquare> attackedSquare);
+			~PositionEvaluator();
+			int terminalPositionValue();
+			int piecesValue();
 	};
 #endif

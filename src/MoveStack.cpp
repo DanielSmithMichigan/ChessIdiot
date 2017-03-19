@@ -23,13 +23,19 @@
 
 	void MoveStack::push(uint32_t move) {
 		stack[top++] = move;
+		depthLimits[currentDepth] = top;
+	}
+
+	int MoveStack::getMovesRemaining() {
+		return top - getDepthBottom();
 	}
 
 	uint32_t MoveStack::pop() {
 		if (top <= getDepthBottom()) {
 			return 0;
 		}
-		return stack[--top];
+		depthLimits[currentDepth] = --top;
+		return stack[top];
 	}
 
 	void MoveStack::increaseDepth() {

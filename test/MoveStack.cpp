@@ -103,3 +103,75 @@
 		ASSERT_EQ(moveStack->pop(), 0);
 	}
 
+	TEST_F(MoveStackTest, CanHandleReturningToDepth) {
+		moveStack->push(1);
+		moveStack->push(2);
+		moveStack->push(3);
+		moveStack->increaseDepth();
+		moveStack->decreaseDepth();
+		ASSERT_EQ(moveStack->pop(), 3);
+		ASSERT_EQ(moveStack->pop(), 2);
+		ASSERT_EQ(moveStack->pop(), 1);
+	}
+
+
+	TEST_F(MoveStackTest, CanHandleReturningToMultipleDepths) {
+		moveStack->push(1);
+		moveStack->push(2);
+		moveStack->push(3);
+		moveStack->increaseDepth();
+		moveStack->push(4);
+		moveStack->push(5);
+		moveStack->push(6);
+		moveStack->increaseDepth();
+		moveStack->push(7);
+		moveStack->push(8);
+		moveStack->push(9);
+		ASSERT_EQ(moveStack->pop(), 9);
+		ASSERT_EQ(moveStack->pop(), 8);
+		ASSERT_EQ(moveStack->pop(), 7);
+		moveStack->decreaseDepth();
+		ASSERT_EQ(moveStack->pop(), 6);
+		ASSERT_EQ(moveStack->pop(), 5);
+		ASSERT_EQ(moveStack->pop(), 4);
+		moveStack->decreaseDepth();
+		ASSERT_EQ(moveStack->pop(), 3);
+		ASSERT_EQ(moveStack->pop(), 2);
+		ASSERT_EQ(moveStack->pop(), 1);
+		moveStack->decreaseDepth();
+	}
+
+
+	TEST_F(MoveStackTest, CanHandleReturningToMultipleDepthsTwo) {
+		moveStack->push(1);
+		moveStack->push(2);
+		moveStack->push(3);
+		moveStack->increaseDepth();
+		moveStack->push(4);
+		moveStack->push(5);
+		moveStack->push(6);
+		moveStack->increaseDepth();
+		moveStack->push(7);
+		moveStack->push(8);
+		moveStack->push(9);
+		ASSERT_EQ(moveStack->pop(), 9);
+		ASSERT_EQ(moveStack->pop(), 8);
+		ASSERT_EQ(moveStack->pop(), 7);
+		moveStack->decreaseDepth();
+		moveStack->increaseDepth();
+		moveStack->push(10);
+		moveStack->push(11);
+		moveStack->push(12);
+		ASSERT_EQ(moveStack->pop(), 12);
+		ASSERT_EQ(moveStack->pop(), 11);
+		ASSERT_EQ(moveStack->pop(), 10);
+		moveStack->decreaseDepth();
+		ASSERT_EQ(moveStack->pop(), 6);
+		ASSERT_EQ(moveStack->pop(), 5);
+		ASSERT_EQ(moveStack->pop(), 4);
+		moveStack->decreaseDepth();
+		ASSERT_EQ(moveStack->pop(), 3);
+		ASSERT_EQ(moveStack->pop(), 2);
+		ASSERT_EQ(moveStack->pop(), 1);
+		moveStack->decreaseDepth();
+	}

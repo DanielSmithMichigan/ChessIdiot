@@ -19,4 +19,9 @@
 		}
 		ASSERT_EQ(b.size(), 0);
 	}
+
+	void printMove(uint32_t move) {
+		cout << "FROM: " << FROM(move) << endl;
+		cout << "TO: " << TO(move) << endl;
+	}
 #endif

@@ -4,7 +4,9 @@
 
 	MoveGenerationController::MoveGenerationController(shared_ptr<Board> board, shared_ptr<MoveStack> moveStack, shared_ptr<AttackedSquare> attackedSquare) :
 		board(board),
-		moveStack(moveStack) {
+		moveStack(moveStack),
+		attackedSquare(attackedSquare) {
+		positionEvaluator.reset(new PositionEvaluator(board, attackedSquare));
 		rookMoveGenerator.reset(new RookMoveGenerator(board, moveStack, attackedSquare));
 		knightMoveGenerator.reset(new KnightMoveGenerator(board, moveStack, attackedSquare));
 		bishopMoveGenerator.reset(new BishopMoveGenerator(board, moveStack, attackedSquare));
@@ -62,6 +64,40 @@
 				generateMovesAt(i);
 			}
 		}
+	}
+
+	int MoveGenerationController::alphaBeta(int alpha, int beta, int depthRemaining, uint32_t &bestMove, uint32_t &firstMove, bool highestDepth) {
+		if (depthRemaining == 0) {
+			return positionEvaluator->piecesValue();
+		}
+		int score;
+		uint32_t currentMove;
+		generateAllMoves();
+		bool movesFound = moveStack->getMovesRemaining() > 0;
+		if (!movesFound) {
+			return positionEvaluator->terminalPositionValue();
+		}
+		while(uint32_t currentMove = moveStack->pop()) {
+			if (highestDepth) {
+				firstMove = currentMove;
+			}
+			board->doMove(currentMove);
+			moveStack->increaseDepth();
+			int score = -alphaBeta(-beta, -alpha, depthRemaining - 1, bestMove, firstMove, false);
+			moveStack->decreaseDepth();
+			board->undoMove();
+			if (score >= beta) {
+				return beta; 
+			} else if (score > alpha) {
+				alpha = score;
+				if (highestDepth) {
+					bestMove = firstMove;
+				}
+			}
+		}
+
+		return alpha;
+
 	}
 
 #endif

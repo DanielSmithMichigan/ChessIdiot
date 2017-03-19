@@ -8,13 +8,18 @@
 	#include "QueenMoveGenerator.h"
 	#include "KingMoveGenerator.h"
 	#include "MoveStack.h"
+	#include "PositionEvaluator.h"
 	
 
 	using namespace std;
 
+	static uint32_t __DEFAULT_VAL = 0;
+
 	class MoveGenerationController {
 		private:
+			shared_ptr<AttackedSquare> attackedSquare;
 			shared_ptr<Board> board;
+			shared_ptr<PositionEvaluator> positionEvaluator;
 			shared_ptr<MoveStack> moveStack;
 			shared_ptr<RookMoveGenerator> rookMoveGenerator;
 			shared_ptr<KnightMoveGenerator> knightMoveGenerator;
@@ -26,7 +31,9 @@
 		public:
 			MoveGenerationController(shared_ptr<Board> board, shared_ptr<MoveStack> moveStack, shared_ptr<AttackedSquare> attackedSquare);
 			~MoveGenerationController();
+			int alphaBeta(int alpha, int beta, int depthRemaining, uint32_t &bestMove, uint32_t &firstMove = __DEFAULT_VAL, bool highestDepth = true);
 			void generateMovesAt(int from);
 			void generateAllMoves();
+			int maximizeFor = WHITE;
 	};
 #endif

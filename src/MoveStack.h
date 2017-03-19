@@ -2,8 +2,11 @@
 #define MoveStack_h
 	#include "globals.h"
 	#include <stdint.h>
+	#include <iostream>
 	#define MOVE_STACK_LIMIT 512
 	#define DEPTH_LIMIT 24
+
+	using namespace std;
 
 	class MoveStack {
 		private:
@@ -19,6 +22,7 @@
 			void increaseDepth();
 			void decreaseDepth();
 			int getDepthBottom();
+			int getMovesRemaining();
 			MoveStack();
 			~MoveStack();
 	};
