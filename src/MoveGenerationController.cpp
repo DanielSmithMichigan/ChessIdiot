@@ -16,6 +16,7 @@
 		blackPawnMoveGenerator.reset(new PawnMoveGenerator(board, moveStack, attackedSquare));
 		blackPawnMoveGenerator->direction = GET_DIRECTION(BLACK);
 		kingMoveGenerator.reset(new KingMoveGenerator(board, moveStack, attackedSquare));
+		fen.reset(new Fen(board));
 	}
 
 	MoveGenerationController::~MoveGenerationController() {
@@ -66,33 +67,46 @@
 		}
 	}
 
-	int MoveGenerationController::alphaBeta(int alpha, int beta, int depthRemaining, uint32_t &bestMove, uint32_t &firstMove, bool highestDepth) {
-		if (depthRemaining == 0) {
-			return positionEvaluator->piecesValue();
-		}
-		int score;
-		uint32_t currentMove;
+	uint32_t MoveGenerationController::getBestMove(int depth) {
 		generateAllMoves();
 		bool movesFound = moveStack->getMovesRemaining() > 0;
 		if (!movesFound) {
+			return 0;
+		}
+		int bestScore = INT32_MIN;
+		int bestMove = 0;
+		while(uint32_t currentMove = moveStack->pop()) {
+			board->doMove(currentMove);
+			moveStack->increaseDepth();
+			int score = -alphaBeta(INT16_MIN + 1, INT16_MAX, depth - 1);
+			moveStack->decreaseDepth();
+			board->undoMove();
+			if (score > bestScore) {
+				bestScore = score;
+				bestMove = currentMove;
+			} 
+		}
+		return bestMove;
+	}
+
+	int MoveGenerationController::alphaBeta(int alpha, int beta, int depthRemaining) {
+		if (depthRemaining == 0) {
+			return positionEvaluator->piecesValue();
+		}
+		generateAllMoves();
+		if (moveStack->getMovesRemaining() == 0) {
 			return positionEvaluator->terminalPositionValue();
 		}
 		while(uint32_t currentMove = moveStack->pop()) {
-			if (highestDepth) {
-				firstMove = currentMove;
-			}
 			board->doMove(currentMove);
 			moveStack->increaseDepth();
-			int score = -alphaBeta(-beta, -alpha, depthRemaining - 1, bestMove, firstMove, false);
+			int score = -alphaBeta(-beta, -alpha, depthRemaining - 1);
 			moveStack->decreaseDepth();
 			board->undoMove();
 			if (score >= beta) {
 				return beta; 
 			} else if (score > alpha) {
 				alpha = score;
-				if (highestDepth) {
-					bestMove = firstMove;
-				}
 			}
 		}
 

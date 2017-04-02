@@ -9,11 +9,10 @@
 	#include "KingMoveGenerator.h"
 	#include "MoveStack.h"
 	#include "PositionEvaluator.h"
+	#include "Fen.h"
 	
 
 	using namespace std;
-
-	static uint32_t __DEFAULT_VAL = 0;
 
 	class MoveGenerationController {
 		private:
@@ -28,10 +27,12 @@
 			shared_ptr<PawnMoveGenerator> whitePawnMoveGenerator;
 			shared_ptr<PawnMoveGenerator> blackPawnMoveGenerator;
 			shared_ptr<KingMoveGenerator> kingMoveGenerator;
+			shared_ptr<Fen> fen;
 		public:
 			MoveGenerationController(shared_ptr<Board> board, shared_ptr<MoveStack> moveStack, shared_ptr<AttackedSquare> attackedSquare);
 			~MoveGenerationController();
-			int alphaBeta(int alpha, int beta, int depthRemaining, uint32_t &bestMove, uint32_t &firstMove = __DEFAULT_VAL, bool highestDepth = true);
+			uint32_t getBestMove(int depth);
+			int alphaBeta(int alpha, int beta, int depthRemaining);
 			void generateMovesAt(int from);
 			void generateAllMoves();
 			int maximizeFor = WHITE;
