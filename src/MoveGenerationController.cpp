@@ -65,6 +65,7 @@
 				generateMovesAt(i);
 			}
 		}
+		moveStack->sortCurrentDepth();
 	}
 
 	uint32_t MoveGenerationController::getBestMove(int depth) {

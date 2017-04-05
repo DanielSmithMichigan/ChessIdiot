@@ -2,7 +2,7 @@
 
 	FenTest::FenTest() {
 		board.reset(new TestBoard());
-		moveStack.reset(new TestMoveStack());
+		moveStack.reset(new TestMoveStack(board));
 		attackedSquare.reset(new AttackedSquare(board));
 		moveGenerationController.reset(new MoveGenerationController(board, moveStack, attackedSquare));
 		fen.reset(new Fen(board));

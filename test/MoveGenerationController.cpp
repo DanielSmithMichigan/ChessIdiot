@@ -1,8 +1,8 @@
 	#include "MoveGenerationController.h"
 
 	MoveGenerationControllerTest::MoveGenerationControllerTest() {
-		moveStack.reset(new MoveStack());
 		board.reset(new Board());
+		moveStack.reset(new MoveStack(board));
 		attackedSquare.reset(new AttackedSquare(board));
 		moveGenerationController.reset(new MoveGenerationController(board, moveStack, attackedSquare));
 		fen.reset(new Fen(board));
@@ -52,3 +52,10 @@
 		ASSERT_EQ(FROM(bestMove), 116);
 		ASSERT_EQ(TO(bestMove), 20);
 	}
+
+	// TEST_F(MoveGenerationControllerTest, SolveChessPuzzleThree) {
+	// 	fen->import("r1b1k2r/ppppnppp/2n2q2/2b5/3NP3/2P1B3/PP3PPP/RN1QKB1R w KQkq - 0 1");
+	// 	int bestMove = moveGenerationController->getBestMove(5);
+	// 	ASSERT_EQ(FROM(bestMove), 67);
+	// 	ASSERT_EQ(TO(bestMove), 49);
+	// }

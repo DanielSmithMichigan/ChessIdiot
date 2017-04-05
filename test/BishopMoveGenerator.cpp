@@ -1,8 +1,8 @@
 	#include "BishopMoveGenerator.h"
 
 	BishopMoveGeneratorTest::BishopMoveGeneratorTest() {
-		moveStack = make_shared<MoveStack>();
 		board = make_shared<Board>();
+		moveStack.reset(new MoveStack(board));
 		attackedSquare.reset(new AttackedSquare(board));
 		moveGenerationController.reset(new MoveGenerationController(board, moveStack, attackedSquare));
 	}

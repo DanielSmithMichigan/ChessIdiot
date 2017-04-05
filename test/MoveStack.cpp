@@ -1,7 +1,8 @@
 	#include "MoveStack.h"
 
 	MoveStackTest::MoveStackTest() {
-		moveStack.reset(new MoveStack());
+		board.reset(new Board());
+		moveStack.reset(new MoveStack(board));
 	}
 
 	MoveStackTest::~MoveStackTest() {
@@ -175,3 +176,97 @@
 		ASSERT_EQ(moveStack->pop(), 1);
 		moveStack->decreaseDepth();
 	}
+
+	TEST_F(MoveStackTest, WillSortCaptureMovesFirst) {
+		board->place(WHITE_PAWN, 0);
+		int nonCaptureMove = MOVE(0, 1, 0, 0, 0, 0, 0, 0, 0, 0);
+		int captureMove = MOVE(0, 1, WHITE_ROOK, 0, 0, 0, 0, 0, 0, 0);
+		moveStack->push(captureMove);
+		moveStack->push(nonCaptureMove);
+		moveStack->sortCurrentDepth();
+		ASSERT_EQ(moveStack->pop(), captureMove);
+		ASSERT_EQ(moveStack->pop(), nonCaptureMove);
+		moveStack->push(nonCaptureMove);
+		moveStack->push(captureMove);
+		moveStack->sortCurrentDepth();
+		ASSERT_EQ(moveStack->pop(), captureMove);
+		ASSERT_EQ(moveStack->pop(), nonCaptureMove);
+	}
+
+	TEST_F(MoveStackTest, WillSortCaptureMovesBasedOnVictimValue) {
+		board->place(WHITE_PAWN, 0);
+		int badCapture = MOVE(0, 1, WHITE_PAWN, 0, 0, 0, 0, 0, 0, 0);
+		int goodCapture = MOVE(0, 1, WHITE_QUEEN, 0, 0, 0, 0, 0, 0, 0);
+		moveStack->push(badCapture);
+		moveStack->push(goodCapture);
+		moveStack->sortCurrentDepth();
+		ASSERT_EQ(moveStack->pop(), goodCapture);
+		ASSERT_EQ(moveStack->pop(), badCapture);
+		moveStack->push(goodCapture);
+		moveStack->push(badCapture);
+		moveStack->sortCurrentDepth();
+		ASSERT_EQ(moveStack->pop(), goodCapture);
+		ASSERT_EQ(moveStack->pop(), badCapture);
+	}
+
+	TEST_F(MoveStackTest, WillSortCaptureMovesBasedOnAttackerValue) {
+		board->place(WHITE_PAWN, 0);
+		board->place(WHITE_QUEEN, 1);
+		int badCapture = MOVE(1, 2, WHITE_PAWN, 0, 0, 0, 0, 0, 0, 0);
+		int goodCapture = MOVE(0, 1, WHITE_PAWN, 0, 0, 0, 0, 0, 0, 0);
+		moveStack->push(badCapture);
+		moveStack->push(goodCapture);
+		moveStack->sortCurrentDepth();
+		ASSERT_EQ(moveStack->pop(), goodCapture);
+		ASSERT_EQ(moveStack->pop(), badCapture);
+		moveStack->push(goodCapture);
+		moveStack->push(badCapture);
+		moveStack->sortCurrentDepth();
+		ASSERT_EQ(moveStack->pop(), goodCapture);
+		ASSERT_EQ(moveStack->pop(), badCapture);
+	}
+
+	TEST_F(MoveStackTest, WillPrioritizeVictimValue) {
+		board->place(WHITE_PAWN, 0);
+		board->place(WHITE_QUEEN, 1);
+		int highVictimLowAttacker = MOVE(1, 2, WHITE_QUEEN, 0, 0, 0, 0, 0, 0, 0);
+		int lowVictimLowAttacker = MOVE(0, 2, WHITE_PAWN, 0, 0, 0, 0, 0, 0, 0);
+		int highVictimHighAttacker = MOVE(1, 2, WHITE_QUEEN, 0, 0, 0, 0, 0, 0, 0);
+		int lowVictimHighAttacker = MOVE(0, 2, WHITE_PAWN, 0, 0, 0, 0, 0, 0, 0);
+		moveStack->push(highVictimLowAttacker);
+		moveStack->push(lowVictimLowAttacker);
+		moveStack->push(highVictimHighAttacker);
+		moveStack->push(lowVictimHighAttacker);
+		moveStack->sortCurrentDepth();
+		ASSERT_EQ(moveStack->pop(), highVictimLowAttacker);
+		ASSERT_EQ(moveStack->pop(), highVictimHighAttacker);
+		ASSERT_EQ(moveStack->pop(), lowVictimLowAttacker);
+		ASSERT_EQ(moveStack->pop(), lowVictimHighAttacker);
+		moveStack->push(lowVictimHighAttacker);
+		moveStack->push(highVictimHighAttacker);
+		moveStack->push(lowVictimLowAttacker);
+		moveStack->push(highVictimLowAttacker);
+		moveStack->sortCurrentDepth();
+		ASSERT_EQ(moveStack->pop(), highVictimLowAttacker);
+		ASSERT_EQ(moveStack->pop(), highVictimHighAttacker);
+		ASSERT_EQ(moveStack->pop(), lowVictimLowAttacker);
+		ASSERT_EQ(moveStack->pop(), lowVictimHighAttacker);
+	}
+
+	TEST_F(MoveStackTest, willOnlySortCurrentDepth) {
+		board->place(WHITE_PAWN, 0);
+		int nonCaptureMove = MOVE(0, 1, 0, 0, 0, 0, 0, 0, 0, 0);
+		int captureMove = MOVE(0, 1, WHITE_ROOK, 0, 0, 0, 0, 0, 0, 0);
+		moveStack->push(captureMove);
+		moveStack->push(nonCaptureMove);
+		moveStack->increaseDepth();
+		moveStack->push(captureMove);
+		moveStack->push(nonCaptureMove);
+		moveStack->sortCurrentDepth();
+		ASSERT_EQ(moveStack->pop(), captureMove);
+		ASSERT_EQ(moveStack->pop(), nonCaptureMove);
+		moveStack->decreaseDepth();
+		ASSERT_EQ(moveStack->pop(), nonCaptureMove);
+		ASSERT_EQ(moveStack->pop(), captureMove);
+	}
+

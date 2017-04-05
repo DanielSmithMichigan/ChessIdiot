@@ -2,7 +2,12 @@
 #define MoveStack_cpp
 	#include "MoveStack.h"
 
-	MoveStack::MoveStack() {
+	bool sortByMVVLVA(MoveValue *moveValue, uint32_t a, uint32_t b) {
+		return moveValue->getValue(a) < moveValue->getValue(b);
+	}
+
+	MoveStack::MoveStack(shared_ptr<Board> board) {
+		moveValue.reset(new MoveValue(board));
 		reset();
 	}
 
@@ -38,14 +43,25 @@
 		return stack[top];
 	}
 
+	void MoveStack::sortCurrentDepth() {
+		sort(stack+getDepthBottom(), 
+			 stack+top, 
+			 bind(&sortByMVVLVA, 
+			 	  moveValue.get(),
+			 	  placeholders::_1,
+			 	  placeholders::_2));
+	}
+
 	void MoveStack::increaseDepth() {
 		currentDepth++;
 		depthLimits[currentDepth] = top;
 	}
+
 	void MoveStack::decreaseDepth() {
 		currentDepth--;
 		top = depthLimits[currentDepth];
 	}
+
 	int MoveStack::getDepthBottom() {
 		if (currentDepth == 0) {
 			return 0;

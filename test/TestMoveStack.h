@@ -11,7 +11,7 @@
 			bool matches(int board[]);
 			int countBoardMoves(int board[]);
 			void displayAsBoard();
-			TestMoveStack();
+			TestMoveStack(shared_ptr<Board> board);
 			~TestMoveStack();
 	};
 #endif

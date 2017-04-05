@@ -1,8 +1,12 @@
 #ifndef MoveStack_h
 #define MoveStack_h
 	#include "globals.h"
+	#include "Board.h"
+	#include "MoveValue.h"
 	#include <stdint.h>
 	#include <iostream>
+	#include <memory>
+	#include <algorithm>
 	#define MOVE_STACK_LIMIT 512
 	#define DEPTH_LIMIT 24
 
@@ -10,6 +14,7 @@
 
 	class MoveStack {
 		private:
+			shared_ptr<MoveValue> moveValue;
 			int depthLimits[DEPTH_LIMIT];
 			int currentDepth;
 		protected:
@@ -23,7 +28,9 @@
 			void decreaseDepth();
 			int getDepthBottom();
 			int getMovesRemaining();
-			MoveStack();
+			void sortCurrentDepth();
+			MoveStack(shared_ptr<Board> board);
 			~MoveStack();
 	};
+
 #endif

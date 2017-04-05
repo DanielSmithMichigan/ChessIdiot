@@ -1,8 +1,8 @@
 	#include "PawnMoveGenerator.h"
 
 	PawnMoveGeneratorTest::PawnMoveGeneratorTest() {
-		moveStack.reset(new TestMoveStack());
 		board.reset(new Board());
+		moveStack.reset(new TestMoveStack(board));
 		attackedSquare.reset(new AttackedSquare(board));
 		moveGenerationController.reset(new MoveGenerationController(board, moveStack, attackedSquare));
 	}

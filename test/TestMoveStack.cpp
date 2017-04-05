@@ -2,8 +2,8 @@
 #define TestMoveStack_cpp
 	#include "TestMoveStack.h"
 
-	TestMoveStack::TestMoveStack() 
-		: MoveStack() {
+	TestMoveStack::TestMoveStack(shared_ptr<Board> board) 
+		: MoveStack(board) {
 	}
 
 	TestMoveStack::~TestMoveStack() {

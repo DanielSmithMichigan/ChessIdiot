@@ -1,8 +1,8 @@
 	#include "KingMoveGenerator.h"
 
 	KingMoveGenerationControllerTest::KingMoveGenerationControllerTest() {
-		moveStack = make_shared<TestMoveStack>();
 		board = make_shared<Board>();
+		moveStack.reset(new TestMoveStack(board));
 		attackedSquare.reset(new AttackedSquare(board));
 		moveGenerationController.reset(new MoveGenerationController(board, moveStack, attackedSquare));
 	}
