@@ -25,6 +25,10 @@
 		uint32_t currentMove;
 		while (currentMove = moveStack->pop()) {
 			board->doMove(currentMove);
+			if (attackedSquare->kingInCheck(GET_OPPOSING_COLOR(board->turn))) {
+				board->undoMove();
+				continue;
+			}
 			myFens.push_back(fen->exportLegacyBoard());
 			board->undoMove();
 		}

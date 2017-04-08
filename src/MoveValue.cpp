@@ -31,10 +31,14 @@
 		}
 	}
 
-	int MoveValue::getValue(uint32_t move) {
+	int MoveValue::getValue(const uint32_t &move) {
+		int captured = CAPTURED_PIECE(move);
+		if (!captured) {
+			return 0;
+		}
 		return mvvLva
 			      [CAPTURED_PIECE(move)]
-			      [board->getLocation(FROM(move))];
+			      [board->squares[FROM(move)]];
 	}
 
 #endif

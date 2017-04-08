@@ -70,14 +70,14 @@
 
 	uint32_t MoveGenerationController::getBestMove(int depth) {
 		generateAllMoves();
-		bool movesFound = moveStack->getMovesRemaining() > 0;
-		if (!movesFound) {
-			return 0;
-		}
 		int bestScore = INT32_MIN;
 		int bestMove = 0;
 		while(uint32_t currentMove = moveStack->pop()) {
 			board->doMove(currentMove);
+			if (attackedSquare->kingInCheck(GET_OPPOSING_COLOR(board->turn))) {
+				board->undoMove();
+				continue;
+			}
 			moveStack->increaseDepth();
 			int score = -alphaBeta(INT16_MIN + 1, INT16_MAX, depth - 1);
 			moveStack->decreaseDepth();
@@ -95,11 +95,14 @@
 			return positionEvaluator->piecesValue();
 		}
 		generateAllMoves();
-		if (moveStack->getMovesRemaining() == 0) {
-			return positionEvaluator->terminalPositionValue();
-		}
+		int legalMoves = 0;
 		while(uint32_t currentMove = moveStack->pop()) {
 			board->doMove(currentMove);
+			if (attackedSquare->kingInCheck(GET_OPPOSING_COLOR(board->turn))) {
+				board->undoMove();
+				continue;
+			}
+			legalMoves++;
 			moveStack->increaseDepth();
 			int score = -alphaBeta(-beta, -alpha, depthRemaining - 1);
 			moveStack->decreaseDepth();
@@ -111,8 +114,11 @@
 			}
 		}
 
-		return alpha;
+		if (legalMoves == 0) {
+			return positionEvaluator->terminalPositionValue();
+		}
 
+		return alpha;
 	}
 
 #endif

@@ -10,45 +10,6 @@
 	MoveGeneratorTest::~MoveGeneratorTest() {
 	}
 
-	TEST_F(MoveGeneratorTest, RookInMiddle) {
-		board->turn = WHITE;
-		board->place(WHITE_KING, 23);
-		board->place(BLACK_ROOK, 16);
-		board->place(WHITE_ROOK, 20);
-		moveGenerationController->generateMovesAt(20);
-		int expectedBoard[] = {
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-			1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-		};
-		EXPECT_TRUE(moveStack->matches(expectedBoard));
-	}
-
-	TEST_F(MoveGeneratorTest, MultiplePieces) {
-		board->turn = WHITE;
-		board->place(WHITE_KING, 23);
-		board->place(BLACK_ROOK, 19);
-		board->place(BLACK_ROOK, 21);
-		board->place(WHITE_PAWN, 36);
-		moveGenerationController->generateMovesAt(36);
-		int expectedBoard[] = {
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-			0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-		};
-		EXPECT_TRUE(moveStack->matches(expectedBoard));
-	}
-
 	TEST_F(MoveGeneratorTest, FirstMoveRemoveAndReset) {
 		board->place(WHITE_PAWN, 96);
 		moveGenerationController->generateMovesAt(96);

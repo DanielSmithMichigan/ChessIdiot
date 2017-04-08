@@ -13,17 +13,6 @@
 	}
 
 	void MoveGenerator::generateMove(int from, int to, int promotedPiece, bool enPassant, bool castle) {
-		uint32_t move = MOVE(from, to, board->getLocation(to), enPassant, promotedPiece, castle, board->blackCanCastleLeft, board->blackCanCastleRight, board->whiteCanCastleLeft, board->whiteCanCastleRight);
-		if (isLegal(move)) {
-			moveStack->push(move);
-		}
-	}
-
-	bool MoveGenerator::isLegal(uint32_t move) {
-		bool legal = true;
-		board->doMove(move);
-		legal = legal && !attackedSquare->kingInCheck(GET_OPPOSING_COLOR(board->turn));
-		board->undoMove();
-		return legal;
+		moveStack->push(MOVE(from, to, board->squares[to], enPassant, promotedPiece, castle, board->blackCanCastleLeft, board->blackCanCastleRight, board->whiteCanCastleLeft, board->whiteCanCastleRight));
 	}
 #endif

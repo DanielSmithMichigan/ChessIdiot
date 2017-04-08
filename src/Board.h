@@ -16,10 +16,10 @@
 			void initializePieces();
 			vector<uint32_t> movesPlayed;
 		protected:
-			int squares[BOARD_SIZE];
 		public:
 			Board();
 			~Board();
+			int squares[BOARD_SIZE];
 			int turn;
 			int fullMoveClock;
 			int halfMoveClock;

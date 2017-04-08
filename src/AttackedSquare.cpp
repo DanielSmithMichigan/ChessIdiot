@@ -58,7 +58,7 @@
 		int attackingQueen = defaultColor(attackedBy) == WHITE ? WHITE_QUEEN : BLACK_QUEEN;
 		int to = from + delta;
 		while (ON_BOARD(to)) {
-			int pieceAtLocation = board->getLocation(to);
+			int pieceAtLocation = board->squares[to];
 			if (pieceAtLocation == EMPTY_SPACE) {
 				to += delta;
 			} else if (pieceAtLocation == attackingQueen || pieceAtLocation == otherAttackingPiece) {

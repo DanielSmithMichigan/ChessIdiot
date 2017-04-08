@@ -15,7 +15,7 @@
 			MoveValue(shared_ptr<Board> board);
 			~MoveValue();
 			void reset();
-			int getValue(uint32_t move);
+			int getValue(const uint32_t &move);
 	};
 
 #endif
