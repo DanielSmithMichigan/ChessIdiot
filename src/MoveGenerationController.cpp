@@ -23,6 +23,20 @@
 		blackPawnMoveGenerator->direction = GET_DIRECTION(BLACK);
 		kingMoveGenerator.reset(new KingMoveGenerator(board, moveStack, attackedSquare));
 		fen.reset(new Fen(board));
+		moveGenerators[WHITE_KING] = kingMoveGenerator;
+		moveGenerators[BLACK_KING] = kingMoveGenerator;
+		moveGenerators[WHITE_KNIGHT] = knightMoveGenerator;
+		moveGenerators[BLACK_KNIGHT] = knightMoveGenerator;
+		moveGenerators[WHITE_BISHOP] = bishopMoveGenerator;
+		moveGenerators[BLACK_BISHOP] = bishopMoveGenerator;
+		moveGenerators[WHITE_QUEEN] = queenMoveGenerator;
+		moveGenerators[BLACK_QUEEN] = queenMoveGenerator;
+		moveGenerators[WHITE_ROOK] = rookMoveGenerator;
+		moveGenerators[BLACK_ROOK] = rookMoveGenerator;
+		moveGenerators[WHITE_PAWN] = whitePawnMoveGenerator;
+		moveGenerators[WHITE_PAWN]->direction = GET_DIRECTION(WHITE);
+		moveGenerators[BLACK_PAWN] = blackPawnMoveGenerator;
+		moveGenerators[BLACK_PAWN]->direction = GET_DIRECTION(BLACK);
 	}
 
 	MoveGenerationController::~MoveGenerationController() {
@@ -30,36 +44,9 @@
 	}
 
 	void MoveGenerationController::generateMovesAt(int from) {
-		int pieceAtLocation = Board::getLocation(from);
-		switch(pieceAtLocation) {
-			case WHITE_KING:
-			case BLACK_KING:
-				kingMoveGenerator->generateMoves(from);
-				break;
-			case WHITE_KNIGHT:
-			case BLACK_KNIGHT:
-				knightMoveGenerator->generateMoves(from);
-				break;
-			case WHITE_BISHOP:
-			case BLACK_BISHOP:
-				bishopMoveGenerator->generateMoves(from);
-				break;
-			case WHITE_QUEEN:
-			case BLACK_QUEEN:
-				queenMoveGenerator->generateMoves(from);
-				break;
-			case WHITE_ROOK:
-			case BLACK_ROOK:
-				rookMoveGenerator->generateMoves(from);
-				break;
-			case WHITE_PAWN:
-				whitePawnMoveGenerator->generateMoves(from);
-				break;
-			case BLACK_PAWN:
-				blackPawnMoveGenerator->generateMoves(from);
-				break;
-			case EMPTY_SPACE:
-				break;
+		int pieceAtLocation = Board::squares[from];
+		if (pieceAtLocation != EMPTY_SPACE) {
+			moveGenerators[pieceAtLocation]->generateMoves(from);
 		}
 	}
 

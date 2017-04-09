@@ -28,6 +28,7 @@
 			shared_ptr<PawnMoveGenerator> blackPawnMoveGenerator;
 			shared_ptr<KingMoveGenerator> kingMoveGenerator;
 			shared_ptr<Fen> fen;
+			shared_ptr<MoveGenerator> moveGenerators[13];
 		public:
 			MoveGenerationController(shared_ptr<Board> board, shared_ptr<MoveStack> moveStack, shared_ptr<AttackedSquare> attackedSquare);
 			~MoveGenerationController();
