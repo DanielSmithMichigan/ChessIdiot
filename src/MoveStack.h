@@ -2,7 +2,6 @@
 #define MoveStack_h
 	#include "globals.h"
 	#include "Board.h"
-	#include "MoveValue.h"
 	#include <stdint.h>
 	#include <iostream>
 	#include <memory>
@@ -14,7 +13,7 @@
 
 	class MoveStack {
 		private:
-			shared_ptr<MoveValue> moveValue;
+			shared_ptr<Board> board;
 			int depthLimits[DEPTH_LIMIT];
 			int currentDepth;
 		protected:

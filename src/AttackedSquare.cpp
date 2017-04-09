@@ -30,14 +30,14 @@
 		int attackingPawn = defaultColor(attackedBy) == WHITE ? WHITE_PAWN : BLACK_PAWN;
 		int attackMove1 = ROWS(GET_OPPOSING_DIRECTION(defaultColor(attackedBy))) + 1 + location;
 		int attackMove2 = ROWS(GET_OPPOSING_DIRECTION(defaultColor(attackedBy))) - 1 + location;
-		return board->getLocation(attackMove1) == attackingPawn
-			|| board->getLocation(attackMove2) == attackingPawn;
+		return Board::getLocation(attackMove1) == attackingPawn
+			|| Board::getLocation(attackMove2) == attackingPawn;
 	}
 
 	bool AttackedSquare::attackedByKnight(int location, int attackedBy) {
 		int attackingKnight = defaultColor(attackedBy) == WHITE ? WHITE_KNIGHT : BLACK_KNIGHT;
 		for (int i = 0; i < 8; i++) {
-			if (board->getLocation(knightMoves[i] + location) == attackingKnight) {
+			if (Board::getLocation(knightMoves[i] + location) == attackingKnight) {
 				return true;
 			}
 		}
@@ -47,7 +47,7 @@
 	bool AttackedSquare::attackedByKing(int location, int attackedBy) {
 		int attackingKing = defaultColor(attackedBy) == WHITE ? WHITE_KING : BLACK_KING;
 		for (int i = 0; i < 8; i++) {
-			if (board->getLocation(kingMoves[i] + location) == attackingKing) {
+			if (Board::getLocation(kingMoves[i] + location) == attackingKing) {
 				return true;
 			}
 		}
@@ -58,7 +58,7 @@
 		int attackingQueen = defaultColor(attackedBy) == WHITE ? WHITE_QUEEN : BLACK_QUEEN;
 		int to = from + delta;
 		while (ON_BOARD(to)) {
-			int pieceAtLocation = board->squares[to];
+			int pieceAtLocation = Board::squares[to];
 			if (pieceAtLocation == EMPTY_SPACE) {
 				to += delta;
 			} else if (pieceAtLocation == attackingQueen || pieceAtLocation == otherAttackingPiece) {

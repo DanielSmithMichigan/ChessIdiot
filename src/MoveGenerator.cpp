@@ -13,6 +13,6 @@
 	}
 
 	void MoveGenerator::generateMove(int from, int to, int promotedPiece, bool enPassant, bool castle) {
-		moveStack->push(MOVE(from, to, board->squares[to], enPassant, promotedPiece, castle, board->blackCanCastleLeft, board->blackCanCastleRight, board->whiteCanCastleLeft, board->whiteCanCastleRight));
+		moveStack->push(MOVE(from, to, Board::squares[to], enPassant, promotedPiece, castle, board->blackCanCastleLeft, board->blackCanCastleRight, board->whiteCanCastleLeft, board->whiteCanCastleRight));
 	}
 #endif

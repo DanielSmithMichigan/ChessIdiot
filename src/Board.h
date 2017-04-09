@@ -19,7 +19,7 @@
 		public:
 			Board();
 			~Board();
-			int squares[BOARD_SIZE];
+			static int squares[];
 			int turn;
 			int fullMoveClock;
 			int halfMoveClock;
@@ -54,6 +54,6 @@
 			void checkAndPerformPromotion(uint32_t move);
 			void checkAndUndoPromotion(uint32_t move);
 			void changeTurn();
-			int getLocation(int location);
+			static int getLocation(int location);
 	};
 #endif

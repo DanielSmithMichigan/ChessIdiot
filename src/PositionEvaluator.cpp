@@ -22,7 +22,7 @@
 		int sum = 0;
 		for (int i = 0; i < BOARD_SIZE; i++) {
 			if (ON_BOARD(i)) {
-				switch(board->squares[i]) {
+				switch(Board::squares[i]) {
 					case WHITE_PAWN:
 						sum -= 1;
 					break;

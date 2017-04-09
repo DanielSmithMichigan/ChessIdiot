@@ -205,7 +205,7 @@
 				allBoardSquares += "/";
 			}
 			for (int x = 0; x < BOARD_WIDTH; x++) {
-				switch(board->getLocation(ROWS(y) + x)) {
+				switch(Board::getLocation(ROWS(y) + x)) {
 					case BLACK_ROOK:
 						allBoardSquares += "r";
 					break;

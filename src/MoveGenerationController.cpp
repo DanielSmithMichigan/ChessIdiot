@@ -24,7 +24,7 @@
 	}
 
 	void MoveGenerationController::generateMovesAt(int from) {
-		int pieceAtLocation = board->getLocation(from);
+		int pieceAtLocation = Board::getLocation(from);
 		switch(pieceAtLocation) {
 			case WHITE_KING:
 			case BLACK_KING:
@@ -59,7 +59,7 @@
 
 	void MoveGenerationController::generateAllMoves() {
 		for (int i = 0; i < BOARD_SIZE; i++) {
-			int pieceAtLocation = board->getLocation(i);
+			int pieceAtLocation = Board::getLocation(i);
 			if (pieceAtLocation != EMPTY_SPACE
 				&& GET_COLOR(pieceAtLocation) == board->turn) {
 				generateMovesAt(i);
