@@ -34,9 +34,7 @@
 		moveGenerators[WHITE_ROOK] = rookMoveGenerator;
 		moveGenerators[BLACK_ROOK] = rookMoveGenerator;
 		moveGenerators[WHITE_PAWN] = whitePawnMoveGenerator;
-		moveGenerators[WHITE_PAWN]->direction = GET_DIRECTION(WHITE);
 		moveGenerators[BLACK_PAWN] = blackPawnMoveGenerator;
-		moveGenerators[BLACK_PAWN]->direction = GET_DIRECTION(BLACK);
 	}
 
 	MoveGenerationController::~MoveGenerationController() {
