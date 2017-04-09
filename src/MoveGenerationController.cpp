@@ -1,6 +1,12 @@
 #ifndef MoveGenerationController_cpp
 #define MoveGenerationController_cpp
 	#include "MoveGenerationController.h"
+	#define _generateMovesAt(i) \
+	pieceAtLocation = Board::squares[i]; \
+	if (pieceAtLocation != EMPTY_SPACE \
+		&& GET_COLOR(pieceAtLocation) == board->turn) { \
+		generateMovesAt(i); \
+	}
 
 	MoveGenerationController::MoveGenerationController(shared_ptr<Board> board, shared_ptr<MoveStack> moveStack, shared_ptr<AttackedSquare> attackedSquare) :
 		board(board),
@@ -58,13 +64,78 @@
 	}
 
 	void MoveGenerationController::generateAllMoves() {
-		for (int i = 0; i < BOARD_SIZE; i++) {
-			int pieceAtLocation = Board::getLocation(i);
-			if (pieceAtLocation != EMPTY_SPACE
-				&& GET_COLOR(pieceAtLocation) == board->turn) {
-				generateMovesAt(i);
-			}
-		}
+		int pieceAtLocation;
+		_generateMovesAt(0)
+		_generateMovesAt(1)
+		_generateMovesAt(2)
+		_generateMovesAt(3)
+		_generateMovesAt(4)
+		_generateMovesAt(5)
+		_generateMovesAt(6)
+		_generateMovesAt(7)
+
+		_generateMovesAt(16)
+		_generateMovesAt(17)
+		_generateMovesAt(18)
+		_generateMovesAt(19)
+		_generateMovesAt(20)
+		_generateMovesAt(21)
+		_generateMovesAt(22)
+		_generateMovesAt(23)
+
+		_generateMovesAt(32)
+		_generateMovesAt(33)
+		_generateMovesAt(34)
+		_generateMovesAt(35)
+		_generateMovesAt(36)
+		_generateMovesAt(37)
+		_generateMovesAt(38)
+		_generateMovesAt(39)
+
+		_generateMovesAt(48)
+		_generateMovesAt(49)
+		_generateMovesAt(50)
+		_generateMovesAt(51)
+		_generateMovesAt(52)
+		_generateMovesAt(53)
+		_generateMovesAt(54)
+		_generateMovesAt(55)
+
+		_generateMovesAt(64)
+		_generateMovesAt(65)
+		_generateMovesAt(66)
+		_generateMovesAt(67)
+		_generateMovesAt(68)
+		_generateMovesAt(69)
+		_generateMovesAt(70)
+		_generateMovesAt(71)
+
+		_generateMovesAt(80)
+		_generateMovesAt(81)
+		_generateMovesAt(82)
+		_generateMovesAt(83)
+		_generateMovesAt(84)
+		_generateMovesAt(85)
+		_generateMovesAt(86)
+		_generateMovesAt(87)
+
+		_generateMovesAt(96)
+		_generateMovesAt(97)
+		_generateMovesAt(98)
+		_generateMovesAt(99)
+		_generateMovesAt(100)
+		_generateMovesAt(101)
+		_generateMovesAt(102)
+		_generateMovesAt(103)
+
+		_generateMovesAt(112)
+		_generateMovesAt(113)
+		_generateMovesAt(114)
+		_generateMovesAt(115)
+		_generateMovesAt(116)
+		_generateMovesAt(117)
+		_generateMovesAt(118)
+		_generateMovesAt(119)
 		moveStack->sortCurrentDepth();
 	}
 
