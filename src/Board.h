@@ -19,7 +19,9 @@
 		public:
 			Board();
 			~Board();
-			static int squares[];
+			static int squares[BOARD_SIZE];
+			static int pieceValue;
+			static int piecesValue[13];
 			int turn;
 			int fullMoveClock;
 			int halfMoveClock;

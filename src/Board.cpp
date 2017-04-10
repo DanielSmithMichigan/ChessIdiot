@@ -11,6 +11,8 @@
 	}
 
 	int Board::squares[BOARD_SIZE] = {};
+	int Board::pieceValue = 0;
+	int Board::piecesValue[13] = {0,-1,-3,-3,-5,-9,-5,1,3,3,5,9,5};
 
 	void Board::reset() {
 		initializeEmptyBoard();
@@ -56,6 +58,10 @@
 		changeTurn();
 		int from = FROM(move);
 		int to = TO(move);
+		int captured = CAPTURED_PIECE(move);
+		if (captured) {
+			pieceValue -= piecesValue[captured];
+		}
 		place(squares[from], to);
 		remove(from);
 		checkAndPerformEnPassant(move);
@@ -73,7 +79,9 @@
 			int to = TO(move);
 			int direction = GET_OPPOSING_DIRECTION(turn);
 			int pawnPosition = ROWS(direction) + to;
-			squares[pawnPosition] = turn == WHITE ? BLACK_PAWN : WHITE_PAWN;
+			int pawn = turn == WHITE ? BLACK_PAWN : WHITE_PAWN;
+			pieceValue += piecesValue[pawn];
+			squares[pawnPosition] = pawn;
 		}
 	}
 
@@ -105,8 +113,12 @@
 		changeTurn();
 		int from = FROM(move);
 		int to = TO(move);
+		int captured = CAPTURED_PIECE(move);
+		if (captured) {
+			pieceValue += piecesValue[captured];
+		}
 		place(squares[to], from);
-		squares[to] = CAPTURED_PIECE(move);
+		squares[to] = captured;
 		checkAndUndoEnPassant(move);
 		checkAndUndoCastle(move);
 		resetCastlingBooleans(move);
@@ -120,6 +132,7 @@
 			int to = TO(move);
 			int direction = GET_OPPOSING_DIRECTION(GET_COLOR(squares[to]));
 			int enPassantSquare = to + ROWS(direction);
+			pieceValue -= piecesValue[squares[enPassantSquare]];
 			remove(enPassantSquare);
 		}
 	}
@@ -128,7 +141,10 @@
 	void Board::checkAndPerformPromotion(uint32_t move) {
 		int promotedPiece = PROMOTEDPIECE(move);
 		if (promotedPiece) {
-			place(promotedPiece, TO(move));
+			int pieceLocation = TO(move);
+			pieceValue += piecesValue[promotedPiece];
+			pieceValue -= piecesValue[squares[pieceLocation]];
+			place(promotedPiece, pieceLocation);
 		}
 	}
 
@@ -253,6 +269,8 @@
 		if (promotedPiece) {
 			int color = GET_COLOR(promotedPiece);
 			int pawn = color == WHITE ? WHITE_PAWN : BLACK_PAWN;
+			pieceValue += piecesValue[pawn];
+			pieceValue -= piecesValue[promotedPiece];
 			place(pawn, FROM(move));
 		}
 	}
