@@ -22,7 +22,7 @@
 			static int squares[BOARD_SIZE];
 			static int pieceValue;
 			static int piecesValue[13];
-			int turn;
+			static int turn;
 			int fullMoveClock;
 			int halfMoveClock;
 			int enPassantTarget;

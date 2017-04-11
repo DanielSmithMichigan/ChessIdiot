@@ -15,6 +15,6 @@
 			PositionEvaluator(shared_ptr<Board> board, shared_ptr<AttackedSquare> attackedSquare);
 			~PositionEvaluator();
 			int terminalPositionValue();
-			int piecesValue();
+			static int piecesValue();
 	};
 #endif

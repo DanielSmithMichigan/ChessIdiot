@@ -13,10 +13,10 @@
 	int Board::squares[BOARD_SIZE] = {};
 	int Board::pieceValue = 0;
 	int Board::piecesValue[13] = {0,-1,-3,-3,-5,-9,-5,1,3,3,5,9,5};
+	int Board::turn = WHITE;
 
 	void Board::reset() {
 		initializeEmptyBoard();
-		turn = WHITE;
 		enPassantTarget = SOMEWHERE_OFF_BOARD;
 		fullMoveClock = 0;
 		halfMoveClock = 0;

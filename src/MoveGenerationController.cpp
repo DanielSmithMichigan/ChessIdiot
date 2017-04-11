@@ -148,7 +148,7 @@
 
 	int MoveGenerationController::alphaBeta(int alpha, int beta, int depthRemaining) {
 		if (depthRemaining == 0) {
-			return positionEvaluator->piecesValue();
+			return PositionEvaluator::piecesValue();
 		}
 		generateAllMoves();
 		int legalMoves = 0;
