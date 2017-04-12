@@ -42,10 +42,7 @@
 	}
 
 	void MoveGenerationController::generateMovesAt(int from) {
-		int pieceAtLocation = Board::squares[from];
-		if (pieceAtLocation != EMPTY_SPACE) {
-			moveGenerators[pieceAtLocation]->generateMoves(from);
-		}
+		moveGenerators[Board::squares[from]]->generateMoves(from);
 	}
 
 	void MoveGenerationController::generateAllMoves() {
