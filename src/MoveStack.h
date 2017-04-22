@@ -1,6 +1,6 @@
 #ifndef MoveStack_h
 #define MoveStack_h
-	#include "globals.h"
+	#include "Globals.h"
 	#include "Board.h"
 	#include <stdint.h>
 	#include <iostream>
@@ -13,22 +13,21 @@
 
 	class MoveStack {
 		private:
-			shared_ptr<Board> board;
-			int depthLimits[DEPTH_LIMIT];
-			int currentDepth;
 		protected:
 		public:
-			int top;
-			uint32_t stack[MOVE_STACK_LIMIT];
-			void push(uint32_t move);
-			uint32_t pop();
-			void reset();
-			void increaseDepth();
-			void decreaseDepth();
-			int getDepthBottom();
-			int getMovesRemaining();
-			void sortCurrentDepth();
-			MoveStack(shared_ptr<Board> board);
+			static int depthLimits[DEPTH_LIMIT];
+			static int currentDepth;
+			static int top;
+			static uint32_t stack[MOVE_STACK_LIMIT];
+			static void push(uint32_t move);
+			static uint32_t pop();
+			static void reset();
+			static void increaseDepth();
+			static void decreaseDepth();
+			static int getDepthBottom();
+			static int getMovesRemaining();
+			static void sortCurrentDepth();
+			MoveStack();
 			~MoveStack();
 	};
 

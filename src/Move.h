@@ -1,15 +1,16 @@
 #ifndef Move_h
 #define Move_h
-	#define MOVE(from,to,captured,enPassant,promotedPiece,isCastle,blackCanCastleLeft,blackCanCastleRight,whiteCanCastleLeft,whiteCanCastleRight) ( captured | (from << 4) | (to << 12) | (enPassant << 20) | (promotedPiece << 21) | (isCastle << 25) | (blackCanCastleLeft << 26) | (blackCanCastleRight << 27) | (whiteCanCastleLeft << 28) | (whiteCanCastleRight << 29))
-	#define CAPTURED_PIECE(m) (m & 0xF)
-	#define FROM(m) ((m >> 4) & 0xFF)
-	#define TO(m) ((m >> 12) & 0xFF)
-	#define EN_PASSANT(m) ((m >> 20) & 0x1)
-	#define PROMOTEDPIECE(m) ((m >> 21) & 0xF)
-	#define CASTLE(m) ((m >> 25) & 0x1)
-	#define BLACK_CASTLE_LEFT_FLAG(m) ((m >> 26) & 0x1)
-	#define BLACK_CASTLE_RIGHT_FLAG(m) ((m >> 27) & 0x1)
-	#define WHITE_CASTLE_LEFT_FLAG(m) ((m >> 28) & 0x1)
-	#define WHITE_CASTLE_RIGHT_FLAG(m) ((m >> 29) & 0x1)
+	#include <stdint.h>
+	#define FROM(m) (m & 0x40)
+	#define TO(m) ((m >> 6) & 0x40)
+	#define PIECE(m) ((m >> 12) & 0xF)
+	#define MOVE_TYPE(m) ((m >> 15) & 0x4)
+	enum MoveType {
+		CAPTURE, PROMOTION, QUIET
+	};
+	inline uint32_t quietMove(uint8_t from, uint8_t to);
+	
+	template <MoveType MOVE_TYPE>
+	inline uint32_t move(uint8_t from, uint8_t to, uint8_t piece);
 #endif
 

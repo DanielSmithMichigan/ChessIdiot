@@ -4,7 +4,8 @@
 	#include <regex>
 	#include <memory>
 	#include "Board.h"
-	#include "utilities.h"
+	#include "Globals.h"
+	#include "Utility.h"
 	#include <boost/algorithm/string/trim.hpp>
 	#include <boost/format.hpp>
 	#include <boost/lexical_cast.hpp>

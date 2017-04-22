@@ -19,17 +19,17 @@
 		useBoardString(readToken(fenString));
 		setPlayerTurn(readToken(fenString));
 		setCastling(readToken(fenString));
-		setEnPassantTarget(readToken(fenString));
-		board->halfMoveClock = boost::lexical_cast<int>(readToken(fenString));
-		board->fullMoveClock = boost::lexical_cast<int>(readToken(fenString));
+		// setEnPassantTarget(readToken(fenString));
+		// board->halfMoveClock = boost::lexical_cast<int>(readToken(fenString));
+		// board->fullMoveClock = boost::lexical_cast<int>(readToken(fenString));
 	}
 
 	void Fen::setEnPassantTarget(string fenString) {
-		int location = fenString == "-" ?
-			SOMEWHERE_OFF_BOARD
-			: boardCoordToInt(fenString);
-		board->enPassantTarget = location;
-		board->initialEnPassantTarget = location;
+		// int location = fenString == "-" ?
+		// 	SOMEWHERE_OFF_BOARD
+		// 	: boardCoordToInt(fenString);
+		// board->enPassantTarget = location;
+		// board->initialEnPassantTarget = location;
 	}
 
 	int Fen::boardCoordToInt(string boardCoord) {
@@ -87,97 +87,69 @@
 		for(char& c : fenString) {
 			switch(c) {
 				case 'w':
-					board->turn = WHITE;
+					Board::turn = WHITE;
 				break;
 				case 'b':
-					board->turn = BLACK;
+					Board::turn = BLACK;
 				break;
 			}
 		}
 	}
 
 	void Fen::setCastling(string fenString) {
-		board->initialBlackCanCastleRight = false;
-		board->initialBlackCanCastleLeft = false;
-		board->initialWhiteCanCastleRight = false;
-		board->initialWhiteCanCastleLeft = false;
-		board->blackCanCastleRight = false;
-		board->blackCanCastleLeft = false;
-		board->whiteCanCastleRight = false;
-		board->whiteCanCastleLeft = false;
-		for(char& c: fenString) {
-			switch(c) {
-				case 'K':
-					board->whiteCanCastleRight = true;
-					board->initialWhiteCanCastleRight = true;
-				break;
-				case 'Q':
-					board->whiteCanCastleLeft = true;
-					board->initialWhiteCanCastleLeft = true;
-				break;
-				case 'k':
-					board->blackCanCastleRight = true;
-					board->initialBlackCanCastleRight = true;
-				break;
-				case 'q':
-					board->blackCanCastleLeft = true;
-					board->initialBlackCanCastleLeft = true;
-				break;
-			}
-		}
 	}
 
 	void Fen::useBoardString(string fenString) {
-		board->reset();
+		// Board::reset();
 		int x = 0, y = 0;
 		for(char& c : fenString) {
 			switch(c) {
 				case 'R':
-					board->place(WHITE_ROOK, xyToInt(x, y));
+					Board::put(WHITE, ROOK, xyToInt(x, y));
 					x++;
 				break;
 				case 'r':
-					board->place(BLACK_ROOK, xyToInt(x, y));
+					Board::put(BLACK, ROOK, xyToInt(x, y));
 					x++;
 				break;
 				case 'N':
-					board->place(WHITE_KNIGHT, xyToInt(x, y));
+					Board::put(WHITE, KNIGHT, xyToInt(x, y));
 					x++;
 				break;
 				case 'n':
-					board->place(BLACK_KNIGHT, xyToInt(x, y));
+					Board::put(BLACK, KNIGHT, xyToInt(x, y));
 					x++;
 				break;
 				case 'B':
-					board->place(WHITE_BISHOP, xyToInt(x, y));
+					Board::put(WHITE, BISHOP, xyToInt(x, y));
 					x++;
 				break;
 				case 'b':
-					board->place(BLACK_BISHOP, xyToInt(x, y));
+					Board::put(BLACK, BISHOP, xyToInt(x, y));
 					x++;
 				break;
 				case 'Q':
-					board->place(WHITE_QUEEN, xyToInt(x, y));
+					Board::put(WHITE, QUEEN, xyToInt(x, y));
 					x++;
 				break;
 				case 'q':
-					board->place(BLACK_QUEEN, xyToInt(x, y));
+					Board::put(BLACK, QUEEN, xyToInt(x, y));
 					x++;
 				break;
 				case 'K':
-					board->place(WHITE_KING, xyToInt(x, y));
+					Board::put(WHITE, KING, xyToInt(x, y));
 					x++;
 				break;
 				case 'k':
-					board->place(BLACK_KING, xyToInt(x, y));
+					Board::put(BLACK, KING, xyToInt(x, y));
 					x++;
 				break;
 				case 'P':
-					board->place(WHITE_PAWN, xyToInt(x, y));
+					Board::put(WHITE, PAWN, xyToInt(x, y));
 					x++;
 				break;
 				case 'p':
-					board->place(BLACK_PAWN, xyToInt(x, y));
+					Board::put(BLACK, PAWN, xyToInt(x, y));
 					x++;
 				break;
 				case '/':
@@ -200,47 +172,29 @@
 
 	string Fen::getBoardSquares() {
 		string allBoardSquares;
-		for (int y = 0; y < BOARD_WIDTH; y++) {
+		for (int y = 0; y < ROW; y++) {
 			if (y) {
 				allBoardSquares += "/";
 			}
-			for (int x = 0; x < BOARD_WIDTH; x++) {
-				switch(Board::getLocation(ROWS(y) + x)) {
-					case BLACK_ROOK:
-						allBoardSquares += "r";
+			for (int x = 0; x < ROW; x++) {
+				switch(Board::piecesIndex[ROWS(y) + x]) {
+					case ROOK:
+						allBoardSquares += Board::colorsIndex[ROWS(y) + x] == WHITE ? "R" : "r";
 					break;
-					case WHITE_ROOK:
-						allBoardSquares += "R";
+					case KNIGHT:
+						allBoardSquares += Board::colorsIndex[ROWS(y) + x] == WHITE ? "N" : "n";
 					break;
-					case BLACK_KNIGHT:
-						allBoardSquares += "n";
+					case BISHOP:
+						allBoardSquares += Board::colorsIndex[ROWS(y) + x] == WHITE ? "B" : "b";
 					break;
-					case WHITE_KNIGHT:
-						allBoardSquares += "N";
+					case KING:
+						allBoardSquares += Board::colorsIndex[ROWS(y) + x] == WHITE ? "K" : "k";
 					break;
-					case BLACK_BISHOP:
-						allBoardSquares += "b";
+					case QUEEN:
+						allBoardSquares += Board::colorsIndex[ROWS(y) + x] == WHITE ? "Q" : "q";
 					break;
-					case WHITE_BISHOP:
-						allBoardSquares += "B";
-					break;
-					case BLACK_KING:
-						allBoardSquares += "k";
-					break;
-					case WHITE_KING:
-						allBoardSquares += "K";
-					break;
-					case BLACK_QUEEN:
-						allBoardSquares += "q";
-					break;
-					case WHITE_QUEEN:
-						allBoardSquares += "Q";
-					break;
-					case BLACK_PAWN:
-						allBoardSquares += "p";
-					break;
-					case WHITE_PAWN:
-						allBoardSquares += "P";
+					case PAWN:
+						allBoardSquares += Board::colorsIndex[ROWS(y) + x] == WHITE ? "P" : "p";
 					break;
 					case EMPTY_SPACE:
 					default:
@@ -260,7 +214,7 @@
 	}
 
 	string Fen::getPlayerTurn() {
-		switch(board->turn) {
+		switch(Board::turn) {
 			case BLACK:
 				return "b";
 			default:
@@ -270,21 +224,6 @@
 
 	string Fen::getCastling() {
 		string output = "";
-		if (board->whiteCanCastleRight) {
-			output += "K";
-		}
-		if (board->whiteCanCastleLeft) {
-			output += "Q";
-		}
-		if (board->blackCanCastleRight) {
-			output += "k";
-		}
-		if (board->blackCanCastleLeft) {
-			output += "q";
-		}
-		if (output == "") {
-			return "-";
-		}
 		return output;
 	}
 
@@ -295,10 +234,7 @@
 	}
 
 	string Fen::getEnPassantTarget() {
-		if (board->enPassantTarget == SOMEWHERE_OFF_BOARD) {
-			return "-";
-		}
-		return intToBoardCoord(board->enPassantTarget);
+		return "-";
 	}
 
 	string Fen::exportBoard() {
@@ -306,9 +242,9 @@
 			+ getBoardSquares()
 			+ " " + getPlayerTurn()
 			+ " " + getCastling()
-			+ " " + getEnPassantTarget()
-			+ " " + to_string(board->halfMoveClock)
-			+ " " + to_string(board->fullMoveClock);
+			+ " " + getEnPassantTarget();
+			// + " " + to_string(board->halfMoveClock)
+			// + " " + to_string(board->fullMoveClock);
 	}
 
 	string Fen::exportLegacyBoard() {

@@ -1,11 +1,7 @@
 #ifndef Board_h
 #define Board_h
-	#include "globals.h"
-	#include "Move.h"
-	#include <stdint.h>
-	#include <iostream>
-	#include <memory>
-	#include <vector>
+	#include "Globals.h"
+	#include "stdint.h"
 	
 	#define MAX_MOVES_PLAYED 128
 
@@ -13,49 +9,20 @@
 
 	class Board {
 		private:
-			void initializePieces();
-			vector<uint32_t> movesPlayed;
 		protected:
 		public:
 			Board();
 			~Board();
-			static int squares[BOARD_SIZE];
-			static int pieceValue;
-			static int piecesValue[13];
-			static int turn;
-			int fullMoveClock;
-			int halfMoveClock;
-			int enPassantTarget;
-			int initialEnPassantTarget;
-			int blackKingLocation = 0;
-			int whiteKingLocation = 0;
-			bool whiteCanCastleLeft = false;
-			bool whiteCanCastleRight = false;
-			bool blackCanCastleLeft = false;
-			bool blackCanCastleRight = false;
-			bool initialWhiteCanCastleLeft = false;
-			bool initialWhiteCanCastleRight = false;
-			bool initialBlackCanCastleLeft = false;
-			bool initialBlackCanCastleRight = false;
-			void place(int piece, int location);
-			void remove(int location);
-			void doMove(uint32_t move);
-			void undoMove();
-			void reset();
-			void initializeEmptyBoard();
-			void initializeFirstMove();
-			void adjustCastlingBooleansTo(uint32_t move);
-			void adjustCastlingBooleansFrom(uint32_t move);
-			void resetCastlingBooleans(uint32_t move);
-			void checkAndUndoEnPassant(uint32_t move);
-			bool shouldSetEnPassantTarget(uint32_t move);
-			void checkAndSetEnPassantTarget();
-			void checkAndPerformEnPassant(uint32_t move);
-			void checkAndPerformCastle(uint32_t move);
-			void checkAndUndoCastle(uint32_t move);
-			void checkAndPerformPromotion(uint32_t move);
-			void checkAndUndoPromotion(uint32_t move);
-			void changeTurn();
-			static int getLocation(int location);
+			static void doMove();
+			static bool turn;
+			static void put(bool color, uint8_t piece, uint8_t location);
+			static uint8_t getPiece(uint8_t location);
+			static uint8_t getColor(uint8_t location);
+			static uint64_t occupiedSquares;
+			static uint64_t colors[2];
+			static uint64_t pieces[8];
+			static uint8_t piecesIndex[64];
+			static uint8_t colorsIndex[64];
+
 	};
 #endif
