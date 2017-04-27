@@ -2,6 +2,11 @@
 #define MoveStack_cpp
 	#include "MoveStack.h"
 
+	int MoveStack::depthLimits[DEPTH_LIMIT] = {};
+	uint32_t MoveStack::stack[MOVE_STACK_LIMIT] = {};
+	int MoveStack::currentDepth = 0;
+	int MoveStack::top = 0;
+
 	MoveStack::MoveStack() {
 		reset();
 	}

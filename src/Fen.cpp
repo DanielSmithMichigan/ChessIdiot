@@ -2,7 +2,7 @@
 #define Fen_cpp
 	#include "Fen.h"
 
-	Fen::Fen(shared_ptr<Board> board) : board(board) {
+	Fen::Fen() {
 	}
 
 	Fen::~Fen() {

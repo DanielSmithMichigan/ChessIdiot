@@ -6,7 +6,7 @@
 	#define ROWS(x) (x * ROW)
 	#define GET_ROW(x) (x / ROW)
 	enum Color {
-		WHITE, BLACK
+		WHITE, BLACK, BLANK
 	};
 	enum PieceType {
 		EMPTY_SPACE, PAWN, KNIGHT, BISHOP, ROOK, QUEEN, KING,
