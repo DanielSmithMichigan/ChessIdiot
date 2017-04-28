@@ -13,14 +13,14 @@
 	};
 	inline uint32_t quietMove(int from, int to);
 	
-	template <MoveType MOVE_TYPE> inline uint32_t move(uint8_t from, uint8_t to, uint8_t piece);
+	template <MoveType MOVE_TYPE> inline uint32_t move(uint32_t from, uint32_t to, uint32_t piece);
 
 	inline uint32_t quietMove(int from, int to) {
 		return from | (to << 6);
 	}
 
 	template <MoveType MOVE_TYPE>
-	inline uint32_t move(uint8_t from, uint8_t to, uint8_t piece) {
+	inline uint32_t move(uint32_t from, uint32_t to, uint32_t piece) {
 		if (MOVE_TYPE == QUIET) {
 			return quietMove(from, to);
 		} else {

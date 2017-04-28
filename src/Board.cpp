@@ -3,12 +3,12 @@
 	#include "Board.h"
 
 	State* Board::currentState = new State();
-	uint8_t Board::turn = 0;
+	uint32_t Board::turn = 0;
 	uint64_t Board::occupiedSquares = 0;
 	uint64_t Board::colors[2] = {};
 	uint64_t Board::pieces[8] = {};
-	uint8_t Board::piecesIndex[64] = {};
-	uint8_t Board::colorsIndex[64] = {};
+	uint32_t Board::piecesIndex[64] = {};
+	uint32_t Board::colorsIndex[64] = {};
 
 	Board::Board() {
 	}
@@ -17,10 +17,10 @@
 	}
 
 	void Board::doMove(uint32_t move) {
-		uint8_t from = FROM(move);
-		uint8_t to = TO(move);
-		uint8_t piece = piecesIndex[from];
-		uint8_t color = colorsIndex[from];
+		uint32_t from = FROM(move);
+		uint32_t to = TO(move);
+		uint32_t piece = piecesIndex[from];
+		uint32_t color = colorsIndex[from];
 
 		put(color, piece, to);
 		remove(color, piece, from);
@@ -33,10 +33,10 @@
 
 	void Board::undoMove() {
 		uint32_t move = currentState->move;
-		uint8_t from = FROM(move);
-		uint8_t to = TO(move);
-		uint8_t piece = piecesIndex[to];
-		uint8_t color = colorsIndex[to];
+		uint32_t from = FROM(move);
+		uint32_t to = TO(move);
+		uint32_t piece = piecesIndex[to];
+		uint32_t color = colorsIndex[to];
 
 		put(color, piece, from);
 		remove(color, piece, to);
@@ -59,7 +59,7 @@
 		occupiedSquares = 0;
 	}
 
-	void Board::put(bool color, uint8_t piece, uint8_t location) {
+	void Board::put(bool color, uint32_t piece, uint32_t location) {
 		uint64_t pieceBoard = getPieceBoard(location);
 		occupiedSquares |= pieceBoard;
 		colors[color] |= pieceBoard;
@@ -68,7 +68,7 @@
 		colorsIndex[location] = color;
 	}
 
-	void Board::remove(bool color, uint8_t piece, uint8_t location) {
+	void Board::remove(bool color, uint32_t piece, uint32_t location) {
 		uint64_t pieceBoard = getPieceBoard(location);
 		pieceBoard = ~pieceBoard;
 		occupiedSquares &= pieceBoard;

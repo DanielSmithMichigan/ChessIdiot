@@ -1,8 +1,8 @@
 #ifndef Globals_h
 #define Globals_h
 	#include <stdint.h>
-	const uint8_t BOARD_SIZE = 64;
-	const uint8_t ROW = 8;
+	const uint32_t BOARD_SIZE = 64;
+	const uint32_t ROW = 8;
 	template <int x>
 	inline int rows() {return x * ROW;}
 	template <int x>

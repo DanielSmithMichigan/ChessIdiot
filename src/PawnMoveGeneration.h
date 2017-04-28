@@ -9,19 +9,19 @@
 
 	using namespace std;
 
-	template <uint8_t COLOR> inline void generatePawnMoves();
+	template <uint32_t COLOR> inline void generatePawnMoves();
 
-	template <uint8_t COLOR> inline void oneMoveUp();
+	template <uint32_t COLOR> inline void oneMoveUp();
 
-	template <uint8_t COLOR> inline void twoMovesUp();
+	template <uint32_t COLOR> inline void twoMovesUp();
 
-	template <uint8_t COLOR>
+	template <uint32_t COLOR>
 	inline void generatePawnMoves() {
 		oneMoveUp<COLOR>();
 		twoMovesUp<COLOR>();
 	}
 
-	template <uint8_t COLOR>
+	template <uint32_t COLOR>
 	inline void oneMoveUp() {
 		uint64_t pawnBoard = Board::pieces[PAWN] & Board::colors[COLOR];
 		if (COLOR == WHITE) {
@@ -30,7 +30,7 @@
 			pawnBoard >>= ROW;
 		}
 		pawnBoard &= ~Board::occupiedSquares;
-		uint8_t moveIndex;
+		uint32_t moveIndex;
 		while (pawnBoard) {
 			moveIndex = popBit(pawnBoard);
 			if (COLOR == WHITE) {
@@ -41,7 +41,7 @@
 		}
 	}
 
-	template <uint8_t COLOR>
+	template <uint32_t COLOR>
 	inline void twoMovesUp() {
 		uint64_t pawnBoard = Board::pieces[PAWN] & Board::colors[COLOR];
 
@@ -65,7 +65,7 @@
 
 		pawnBoard &= ~Board::occupiedSquares;
 
-		uint8_t moveIndex;
+		uint32_t moveIndex;
 		while (pawnBoard) {
 			moveIndex = popBit(pawnBoard);
 			if (COLOR == WHITE) {
