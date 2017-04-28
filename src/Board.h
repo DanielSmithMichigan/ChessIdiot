@@ -3,6 +3,7 @@
 	#include "Globals.h"
 	#include "State.h"
 	#include "Move.h"
+	#include "Utility.h"
 	#include <stdint.h>
 	#include <iostream>
 	

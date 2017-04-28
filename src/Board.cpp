@@ -46,11 +46,21 @@
 	}
 
 	void Board::reset() {
-
+		for (int i = 0; i < BOARD_SIZE; i++) {
+			piecesIndex[i] = 0;
+			colorsIndex[i] = 0;
+		}
+		for (int i = 0; i < 2; i++) {
+			colors[i] = 0;
+		}
+		for (int i = 0; i < 8; i++) {
+			pieces[i] = 0;
+		}
+		occupiedSquares = 0;
 	}
 
 	void Board::put(bool color, uint8_t piece, uint8_t location) {
-		uint64_t pieceBoard = 0x8000000000000000 >> location;
+		uint64_t pieceBoard = getPieceBoard(location);
 		occupiedSquares |= pieceBoard;
 		colors[color] |= pieceBoard;
 		pieces[piece] |= pieceBoard;
@@ -59,7 +69,7 @@
 	}
 
 	void Board::remove(bool color, uint8_t piece, uint8_t location) {
-		uint64_t pieceBoard = 0x8000000000000000 >> location;
+		uint64_t pieceBoard = getPieceBoard(location);
 		pieceBoard = ~pieceBoard;
 		occupiedSquares &= pieceBoard;
 		colors[color] &= pieceBoard;
