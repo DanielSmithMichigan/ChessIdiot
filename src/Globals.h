@@ -8,7 +8,7 @@
 	template <int x>
 	inline uint64_t row() {return (uint64_t)255 << ((7 - x) * ROW);}
 	template <int x>
-	inline uint64_t file() {return (uint64_t)0x8080808080808080 << x;}
+	inline uint64_t file() {return (uint64_t)0x8080808080808080 >> x;}
 	#define ROWS(x) (x * ROW)
 	#define GET_ROW(x) (x / ROW)
 	enum Direction {

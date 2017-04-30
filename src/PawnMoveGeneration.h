@@ -26,7 +26,7 @@
 		oneMoveUp<COLOR>();
 		twoMovesUp<COLOR>();
 		attack<COLOR, LEFT>();
-		// attack<COLOR, RIGHT>();
+		attack<COLOR, RIGHT>();
 	}
 
 	template <uint32_t COLOR, uint32_t DIRECTION> 

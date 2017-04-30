@@ -1,5 +1,6 @@
 #ifndef TestUtility_h
 #define TestUtility_h
+	#include <boost/algorithm/string/join.hpp>
 	#include "../src/MoveGenerationController.h"
 	#include "../src/MoveStack.h"
 	#include "gtest/gtest.h"
@@ -9,14 +10,19 @@
 		bool found = false;
 		Fen* fen = new Fen();
 		MoveGenerationController::generateAllMoves();
+		vector<string> fensFound;
 		while (uint32_t currentMove = MoveStack::pop()) {
 			Board::doMove(currentMove);
-			if (fen->getBoardSquares().compare(fenString) == 0) {
+			string newFen = fen->getBoardSquares();
+			fensFound.push_back(newFen);
+			if (newFen.compare(fenString) == 0) {
 				found = true;
 			}
 			Board::undoMove();
 		}
-		ASSERT_TRUE(found) << fenString << " should be an available move.";
+		ASSERT_TRUE(found) << fenString << " should be an available move."
+		  << " Moves found: " << endl
+		  << boost::algorithm::join(fensFound, "\n");
 	}
 	void assertNotMoveExists(string fenString) {
 		bool found = false;
