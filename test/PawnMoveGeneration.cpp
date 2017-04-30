@@ -21,7 +21,13 @@
 		assertMoveExists("8/8/8/8/5P2/PPPPP1PP/8/8");
 		assertMoveExists("8/8/8/8/6P1/PPPPPP1P/8/8");
 		assertMoveExists("8/8/8/8/7P/PPPPPPP1/8/8");
-		assertMoveCount(8);
+	}
+
+	TEST_F(PawnMoveGeneratorTest, AttackWhiteLeft) {
+		Fen* fen = new Fen();
+		fen->import("8/8/8/8/7r/r7/PP6/8 w");
+		assertMoveExists("8/8/8/8/7r/P7/P7/8");
+		assertNotMoveExists("8/8/8/8/7P/r7/1P6/8");
 	}
 
 	TEST_F(PawnMoveGeneratorTest, TwoPawnsForwardWhite) {
@@ -44,7 +50,6 @@
 		assertMoveExists("8/8/8/8/5P2/8/PPPPP1PP/8");
 		assertMoveExists("8/8/8/8/6P1/8/PPPPPP1P/8");
 		assertMoveExists("8/8/8/8/7P/8/PPPPPPP1/8");
-		assertMoveCount(16);
 	}
 
 	TEST_F(PawnMoveGeneratorTest, BlockersWhite) {
@@ -80,8 +85,15 @@
 		assertMoveExists("8/8/ppppp1pp/5p2/8/8/8/8");
 		assertMoveExists("8/8/pppppp1p/6p1/8/8/8/8");
 		assertMoveExists("8/8/ppppppp1/7p/8/8/8/8");
-		assertMoveCount(8);
 	}
+
+	TEST_F(PawnMoveGeneratorTest, AttackBlackLeft) {
+		Fen* fen = new Fen();
+		fen->import("8/8/8/8/8/r6r/PP6/8 w");
+		assertMoveExists("8/8/8/8/8/P6r/P7/8");
+		assertNotMoveExists("8/8/8/8/7r/P7/P7/8 w - -");
+	}
+
 
 
 	TEST_F(PawnMoveGeneratorTest, TwoPawnsForwardBlack) {
@@ -104,7 +116,6 @@
 		assertMoveExists("8/ppppp1pp/8/5p2/8/8/8/8");
 		assertMoveExists("8/pppppp1p/8/6p1/8/8/8/8");
 		assertMoveExists("8/ppppppp1/8/7p/8/8/8/8");
-		assertMoveCount(16);
 	}
 
 	TEST_F(PawnMoveGeneratorTest, BlockersBlack) {

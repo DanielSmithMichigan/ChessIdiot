@@ -22,8 +22,8 @@
 			static void doMove(uint32_t move);
 			static void undoMove();
 			static uint32_t turn;
-			static void put(bool color, uint32_t piece, uint32_t location);
-			static void remove(bool color, uint32_t piece, uint32_t location);
+			static void put(uint32_t color, uint32_t piece, uint32_t location);
+			static void remove(uint32_t color, uint32_t piece, uint32_t location);
 			static uint32_t getPiece(uint32_t location);
 			static uint32_t getColor(uint32_t location);
 			static uint64_t occupiedSquares;

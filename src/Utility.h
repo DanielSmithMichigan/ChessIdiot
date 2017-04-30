@@ -2,6 +2,7 @@
 #define Utility_h
 	#include <stdint.h>
 	#include <iostream>
+	#include "Move.h"
 	using namespace std;
 	inline int xyToInt(int x, int y) {
 		return y * 8 + x;
@@ -13,4 +14,5 @@
 		return getPieceBoard(xyToInt(x, y));
 	}
 	void showBitBoard(uint64_t bitboard);
+	void showMoveBoard(uint32_t move);
 #endif

@@ -21,6 +21,8 @@
 		uint32_t to = TO(move);
 		uint32_t piece = piecesIndex[from];
 		uint32_t color = colorsIndex[from];
+		uint32_t capturedPiece = piecesIndex[to];
+		uint32_t capturedPieceColor = colorsIndex[to];
 
 		put(color, piece, to);
 		remove(color, piece, from);
@@ -28,6 +30,8 @@
 		State* nextState = new State();
 		nextState->move = move;
 		nextState->prev = currentState;
+		nextState->capturedPiece = capturedPiece;
+		nextState->capturedPieceColor = capturedPieceColor;
 		currentState = nextState;
 	}
 
@@ -40,6 +44,9 @@
 
 		put(color, piece, from);
 		remove(color, piece, to);
+		if (currentState->capturedPiece) {
+			put(currentState->capturedPieceColor, currentState->capturedPiece, to);
+		}
 		State *prevState = currentState->prev;
 		delete currentState;
 		currentState = prevState;
@@ -47,8 +54,8 @@
 
 	void Board::reset() {
 		for (int i = 0; i < BOARD_SIZE; i++) {
-			piecesIndex[i] = 0;
-			colorsIndex[i] = 0;
+			piecesIndex[i] = EMPTY_SPACE;
+			colorsIndex[i] = BLANK;
 		}
 		for (int i = 0; i < 2; i++) {
 			colors[i] = 0;
@@ -59,7 +66,7 @@
 		occupiedSquares = 0;
 	}
 
-	void Board::put(bool color, uint32_t piece, uint32_t location) {
+	void Board::put(uint32_t color, uint32_t piece, uint32_t location) {
 		uint64_t pieceBoard = getPieceBoard(location);
 		occupiedSquares |= pieceBoard;
 		colors[color] |= pieceBoard;
@@ -68,9 +75,8 @@
 		colorsIndex[location] = color;
 	}
 
-	void Board::remove(bool color, uint32_t piece, uint32_t location) {
-		uint64_t pieceBoard = getPieceBoard(location);
-		pieceBoard = ~pieceBoard;
+	void Board::remove(uint32_t color, uint32_t piece, uint32_t location) {
+		uint64_t pieceBoard = ~getPieceBoard(location);
 		occupiedSquares &= pieceBoard;
 		colors[color] &= pieceBoard;
 		pieces[piece] &= pieceBoard;
