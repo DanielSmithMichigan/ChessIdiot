@@ -6,26 +6,30 @@
 	using namespace std;
 	#define FROM(m) (m & 0x3F)
 	#define TO(m) ((m >> 6) & 0x3F)
-	#define PIECE(m) ((m >> 12) & 0xF)
-	#define MOVE_TYPE(m) ((m >> 15) & 0x7)
-	enum MoveType {
-		CAPTURE, PROMOTION, QUIET
+	#define SPECIAL_MOVE(m) ((m >> 12) & 0x3)
+	#define PIECE(m) ((m >> 14) & 0xF)
+	enum SpecialMove {
+		PROMOTION, EN_PASSANT, PAWN_DOUBLE
 	};
-	inline uint32_t quietMove(int from, int to);
-	
-	template <MoveType MOVE_TYPE> inline uint32_t move(uint32_t from, uint32_t to, uint32_t piece);
 
-	inline uint32_t quietMove(int from, int to) {
+	inline uint32_t quietMove(const int &from, const int &to);
+	
+	template <SpecialMove MOVE_TYPE> inline uint32_t move(const uint32_t &from, const uint32_t &to, const uint32_t &piece);
+	
+	template <SpecialMove MOVE_TYPE> inline uint32_t move(const uint32_t &from, const uint32_t &to);
+
+	inline uint32_t quietMove(const int &from, const int &to) {
 		return from | (to << 6);
 	}
 
-	template <MoveType MOVE_TYPE>
-	inline uint32_t move(uint32_t from, uint32_t to, uint32_t piece) {
-		if (MOVE_TYPE == QUIET) {
-			return quietMove(from, to);
-		} else {
-			return (MOVE_TYPE << 15) | (piece << 12) | quietMove(from, to);
-		}
+	template <SpecialMove MOVE_TYPE>
+	inline uint32_t move(const uint32_t &from, const uint32_t &to, const uint32_t &piece) {
+		return (piece << 14) | (MOVE_TYPE << 12) | quietMove(from, to);
+	}
+
+	template <SpecialMove MOVE_TYPE>
+	inline uint32_t move(const uint32_t &from, const uint32_t &to) {
+		return (MOVE_TYPE << 12) | quietMove(from, to);
 	}
 #endif
 

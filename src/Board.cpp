@@ -19,26 +19,34 @@
 	void Board::doMove(uint32_t move) {
 		uint32_t from = FROM(move);
 		uint32_t to = TO(move);
+		uint32_t specialMove = SPECIAL_MOVE(move);
+		uint32_t specialMoveTarget = PIECE(move);
 		uint32_t piece = piecesIndex[from];
 		uint32_t color = colorsIndex[from];
 		uint32_t capturedPiece = piecesIndex[to];
 		uint32_t capturedPieceColor = colorsIndex[to];
 
+		increaseStateDepth();
+
+		currentState->move = move;
+		currentState->capturedPiece = capturedPiece;
+		currentState->capturedPieceColor = capturedPieceColor;
+
 		put(color, piece, to);
 		remove(color, piece, from);
 
-		State* nextState = new State();
-		nextState->move = move;
-		nextState->prev = currentState;
-		nextState->capturedPiece = capturedPiece;
-		nextState->capturedPieceColor = capturedPieceColor;
-		currentState = nextState;
+		if (specialMove == EN_PASSANT) {
+			remove(OPPOSING_COLOR(turn), PAWN, getEnPassantLocation(from, to));
+		} else if (specialMove == PAWN_DOUBLE) {
+			currentState->enPassantTarget = getEnPassantLocation(to, from);
+		}
 	}
 
 	void Board::undoMove() {
 		uint32_t move = currentState->move;
 		uint32_t from = FROM(move);
 		uint32_t to = TO(move);
+		uint32_t specialMove = SPECIAL_MOVE(move);
 		uint32_t piece = piecesIndex[to];
 		uint32_t color = colorsIndex[to];
 
@@ -46,13 +54,17 @@
 		remove(color, piece, to);
 		if (currentState->capturedPiece) {
 			put(currentState->capturedPieceColor, currentState->capturedPiece, to);
+		} else if (specialMove == EN_PASSANT) {
+			put(OPPOSING_COLOR(turn), PAWN, getEnPassantLocation(from, to));
 		}
-		State *prevState = currentState->prev;
-		delete currentState;
-		currentState = prevState;
+		decreaseStateDepth();
 	}
 
 	void Board::reset() {
+		while(currentState) {
+			decreaseStateDepth();
+		}
+		currentState = new State();
 		for (int i = 0; i < BOARD_SIZE; i++) {
 			piecesIndex[i] = EMPTY_SPACE;
 			colorsIndex[i] = BLANK;

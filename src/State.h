@@ -5,7 +5,8 @@
 		uint32_t capturedPiece;
 		uint32_t capturedPieceColor;
 		uint32_t move;
-		State* prev;
+		uint32_t enPassantTarget;
+		State* prev = 0;
 	};
 #endif
 

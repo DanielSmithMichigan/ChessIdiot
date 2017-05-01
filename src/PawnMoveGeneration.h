@@ -110,14 +110,15 @@
 
 		pawnBoard &= ~Board::occupiedSquares;
 
-		uint32_t moveIndex;
+		uint32_t from, to;
 		while (pawnBoard) {
-			moveIndex = popBit(pawnBoard);
+			to = popBit(pawnBoard);
 			if (COLOR == WHITE) {
-				MoveStack::push(quietMove(moveIndex + rows<2>(), moveIndex));
+				from = to + rows<2>();
 			} else if (COLOR == BLACK) {
-				MoveStack::push(quietMove(moveIndex - rows<2>(), moveIndex));
+				from = to - rows<2>();
 			}
+			MoveStack::push(move<PAWN_DOUBLE>(from, to));
 		}
 	}
 

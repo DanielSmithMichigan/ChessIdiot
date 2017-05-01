@@ -31,6 +31,16 @@
 			static uint64_t pieces[8];
 			static uint32_t piecesIndex[64];
 			static uint32_t colorsIndex[64];
+			static inline void decreaseStateDepth() {
+				State *prevState = currentState->prev;
+				delete currentState;
+				currentState = prevState;
+			}
+			static inline void increaseStateDepth() {
+				State* nextState = new State();
+				nextState->prev = currentState;
+				currentState = nextState;
+			}
 
 	};
 #endif

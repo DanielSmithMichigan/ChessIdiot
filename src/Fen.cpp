@@ -16,20 +16,20 @@
 	}
 
 	void Fen::import(string fenString) {
+		Board::reset();
 		useBoardString(readToken(fenString));
 		setPlayerTurn(readToken(fenString));
 		setCastling(readToken(fenString));
-		// setEnPassantTarget(readToken(fenString));
+		setEnPassantTarget(readToken(fenString));
 		// board->halfMoveClock = boost::lexical_cast<int>(readToken(fenString));
 		// board->fullMoveClock = boost::lexical_cast<int>(readToken(fenString));
 	}
 
 	void Fen::setEnPassantTarget(string fenString) {
-		// int location = fenString == "-" ?
-		// 	SOMEWHERE_OFF_BOARD
-		// 	: boardCoordToInt(fenString);
-		// board->enPassantTarget = location;
-		// board->initialEnPassantTarget = location;
+		if (fenString == "-") {
+			return;
+		}
+		Board::currentState->enPassantTarget = boardCoordToInt(fenString);
 	}
 
 	int Fen::boardCoordToInt(string boardCoord) {
@@ -100,7 +100,6 @@
 	}
 
 	void Fen::useBoardString(string fenString) {
-		// Board::reset();
 		int x = 0, y = 0;
 		for(char& c : fenString) {
 			switch(c) {
