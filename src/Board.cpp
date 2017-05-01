@@ -23,23 +23,22 @@
 		uint32_t specialMoveTarget = PIECE(move);
 		uint32_t piece = piecesIndex[from];
 		uint32_t color = colorsIndex[from];
-		uint32_t capturedPiece = piecesIndex[to];
-		uint32_t capturedPieceColor = colorsIndex[to];
 
 		increaseStateDepth();
 
 		currentState->move = move;
-		currentState->capturedPiece = capturedPiece;
-		currentState->capturedPieceColor = capturedPieceColor;
-
-		put(color, piece, to);
-		remove(color, piece, from);
 
 		if (specialMove == EN_PASSANT) {
 			remove(OPPOSING_COLOR(turn), PAWN, getEnPassantLocation(from, to));
 		} else if (specialMove == PAWN_DOUBLE) {
 			currentState->enPassantTarget = getEnPassantLocation(to, from);
+		} else if (specialMove == CAPTURE) {
+			currentState->capturedPiece = piecesIndex[to];
+			currentState->capturedPieceColor = colorsIndex[to];
 		}
+
+		put(color, piece, to);
+		remove(color, piece, from);
 	}
 
 	void Board::undoMove() {
@@ -52,7 +51,7 @@
 
 		put(color, piece, from);
 		remove(color, piece, to);
-		if (currentState->capturedPiece) {
+		if (specialMove == CAPTURE) {
 			put(currentState->capturedPieceColor, currentState->capturedPiece, to);
 		} else if (specialMove == EN_PASSANT) {
 			put(OPPOSING_COLOR(turn), PAWN, getEnPassantLocation(from, to));

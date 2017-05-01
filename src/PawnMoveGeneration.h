@@ -51,13 +51,13 @@
 		while (nonPromotionMoves) {
 			moveIndex = popBit(nonPromotionMoves);
 			if (COLOR == WHITE && DIRECTION == LEFT) {
-				MoveStack::push(quietMove(moveIndex + ROW + 1, moveIndex));
+				MoveStack::push(move<CAPTURE>(moveIndex + ROW + 1, moveIndex));
 			} else if (COLOR == WHITE && DIRECTION == RIGHT) {
-				MoveStack::push(quietMove(moveIndex + ROW - 1, moveIndex));
+				MoveStack::push(move<CAPTURE>(moveIndex + ROW - 1, moveIndex));
 			} else if (COLOR == BLACK && DIRECTION == LEFT) {
-				MoveStack::push(quietMove(moveIndex - ROW + 1, moveIndex));
+				MoveStack::push(move<CAPTURE>(moveIndex - ROW + 1, moveIndex));
 			} else if (COLOR == BLACK && DIRECTION == RIGHT) {
-				MoveStack::push(quietMove(moveIndex - ROW - 1, moveIndex));
+				MoveStack::push(move<CAPTURE>(moveIndex - ROW - 1, moveIndex));
 			}
 		}
 
