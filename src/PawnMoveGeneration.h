@@ -11,6 +11,8 @@
 
 	template <uint32_t COLOR, uint32_t NUM_ROWS> inline void pushPawns(uint64_t &pawnBoard);
 
+	template <uint32_t DIRECTION> inline void shiftPawns(uint64_t &pawnBoard);
+
 	template <uint32_t COLOR> inline void generatePawnMoves();
 
 	template <uint32_t COLOR> inline void oneMoveUp();
@@ -21,12 +23,47 @@
 
 	template <uint32_t COLOR, uint32_t DIRECTION> inline void attack();
 
+	template <uint32_t COLOR, uint32_t DIRECTION> inline void enPassant();
+
 	template <uint32_t COLOR>
 	inline void generatePawnMoves() {
 		oneMoveUp<COLOR>();
 		twoMovesUp<COLOR>();
 		attack<COLOR, LEFT>();
 		attack<COLOR, RIGHT>();
+		enPassant<COLOR, LEFT>();
+		enPassant<COLOR, RIGHT>();
+	}
+
+	template <uint32_t COLOR, uint32_t DIRECTION> 
+	inline void enPassant() {
+		uint32_t enPassantTarget = Board::currentState->enPassantTarget;
+		if (enPassantTarget == -1) {
+			return;
+		}
+
+		uint64_t pawnBoard = Board::pieces[PAWN] & Board::colors[COLOR];
+		uint64_t enPassantBoard = getPieceBoard(enPassantTarget);
+
+		pushPawns<COLOR, 1>(pawnBoard);
+		shiftPawns<DIRECTION>(pawnBoard);
+		
+		pawnBoard &= enPassantBoard;
+
+		uint32_t moveIndex;
+		if (pawnBoard) {
+			moveIndex = popBit(pawnBoard);
+			if (COLOR == WHITE && DIRECTION == LEFT) {
+				MoveStack::push(move<EN_PASSANT>(moveIndex + ROW + 1, moveIndex));
+			} else if (COLOR == WHITE && DIRECTION == RIGHT) {
+				MoveStack::push(move<EN_PASSANT>(moveIndex + ROW - 1, moveIndex));
+			} else if (COLOR == BLACK && DIRECTION == LEFT) {
+				MoveStack::push(move<EN_PASSANT>(moveIndex - ROW + 1, moveIndex));
+			} else if (COLOR == BLACK && DIRECTION == RIGHT) {
+				MoveStack::push(move<EN_PASSANT>(moveIndex - ROW - 1, moveIndex));
+			}
+		}
+
 	}
 
 	template <uint32_t COLOR, uint32_t DIRECTION> 
@@ -35,13 +72,7 @@
 
 		pushPawns<COLOR, 1>(pawnBoard);
 
-		if (DIRECTION == LEFT) {
-			pawnBoard &= ~file<0>();
-			pawnBoard <<= 1;
-		} else if (DIRECTION == RIGHT) {
-			pawnBoard &= ~file<7>();
-			pawnBoard >>= 1;
-		}
+		shiftPawns<DIRECTION>(pawnBoard);
 		
 		pawnBoard &= Board::colors[OPPOSING_COLOR(COLOR)];
 
@@ -128,6 +159,17 @@
 			pawnBoard <<= rows<NUM_ROWS>();
 		} else if (COLOR == BLACK) {
 			pawnBoard >>= rows<NUM_ROWS>();
+		}
+	}
+
+	template <uint32_t DIRECTION> 
+	inline void shiftPawns(uint64_t &pawnBoard) {
+		if (DIRECTION == LEFT) {
+			pawnBoard &= ~file<0>();
+			pawnBoard <<= 1;
+		} else if (DIRECTION == RIGHT) {
+			pawnBoard &= ~file<7>();
+			pawnBoard >>= 1;
 		}
 	}
 #endif

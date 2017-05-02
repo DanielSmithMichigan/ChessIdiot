@@ -122,6 +122,20 @@
 		assertNotMoveExists("8/6p1/7R/p7/8/8/8/8");
 	}
 
+	TEST_F(PawnMoveGeneratorTest, EnPassantBlackLeft) {
+		Fen* fen = new Fen();
+		fen->import("8/8/8/8/1PpP4/8/8/8 b - b3");
+		assertMoveExists("8/8/8/8/3P4/1p6/8/8");
+		assertNotMoveExists("8/8/8/8/1P6/3p4/8/8");
+	}
+
+	TEST_F(PawnMoveGeneratorTest, EnPassantBlackRight) {
+		Fen* fen = new Fen();
+		fen->import("8/8/8/8/1PpP4/8/8/8 b - b3");
+		assertMoveExists("8/8/8/8/3P4/1p6/8/8");
+		assertNotMoveExists("8/8/8/8/1P6/3p4/8/8");
+	}
+
 	TEST_F(PawnMoveGeneratorTest, TwoPawnsForwardBlack) {
 		Fen* fen = new Fen();
 		fen->import("8/pppppppp/8/8/8/8/8/8 b");
