@@ -93,6 +93,23 @@
 		}
 
 		uint64_t promotionMoves = pawnBoard & PROMOTION_ROWS; 
+		uint32_t from;
+		while (promotionMoves) {
+			moveIndex = popBit(promotionMoves);
+			if (COLOR == WHITE && DIRECTION == LEFT) {
+				from = moveIndex + ROW + 1;
+			} else if (COLOR == WHITE && DIRECTION == RIGHT) {
+				from = moveIndex + ROW - 1;
+			} else if (COLOR == BLACK && DIRECTION == LEFT) {
+				from = moveIndex - ROW + 1;
+			} else if (COLOR == BLACK && DIRECTION == RIGHT) {
+				from = moveIndex - ROW + 1;
+			}
+			MoveStack::push(move<PROMOTION>(from, moveIndex, QUEEN));
+			MoveStack::push(move<PROMOTION>(from, moveIndex, ROOK));
+			MoveStack::push(move<PROMOTION>(from, moveIndex, BISHOP));
+			MoveStack::push(move<PROMOTION>(from, moveIndex, KNIGHT));
+		}
 
 	}
 
@@ -117,8 +134,19 @@
 		}
 
 		uint64_t promotionMoves = pawnBoard & PROMOTION_ROWS; 
-
-		// Create promotion moves
+		uint32_t from;
+		while (promotionMoves) {
+			moveIndex = popBit(promotionMoves);
+			if (COLOR == WHITE) {
+				from = moveIndex + ROW;
+			} else if (COLOR == BLACK) {
+				from = moveIndex - ROW;
+			}
+			MoveStack::push(move<PROMOTION>(from, moveIndex, QUEEN));
+			MoveStack::push(move<PROMOTION>(from, moveIndex, ROOK));
+			MoveStack::push(move<PROMOTION>(from, moveIndex, BISHOP));
+			MoveStack::push(move<PROMOTION>(from, moveIndex, KNIGHT));
+		}
 	}
 
 	template <uint32_t COLOR>

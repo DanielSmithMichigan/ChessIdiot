@@ -20,7 +20,7 @@
 		uint32_t from = FROM(move);
 		uint32_t to = TO(move);
 		uint32_t specialMove = SPECIAL_MOVE(move);
-		uint32_t specialMoveTarget = PIECE(move);
+		uint32_t specialMovePiece = PIECE(move);
 		uint32_t piece = piecesIndex[from];
 		uint32_t color = colorsIndex[from];
 
@@ -32,12 +32,19 @@
 			remove(OPPOSING_COLOR(turn), PAWN, getEnPassantLocation(from, to));
 		} else if (specialMove == PAWN_DOUBLE) {
 			currentState->enPassantTarget = getEnPassantLocation(to, from);
-		} else if (specialMove == CAPTURE) {
+		} 
+
+		if (piecesIndex[to]) {
 			currentState->capturedPiece = piecesIndex[to];
 			currentState->capturedPieceColor = colorsIndex[to];
+		} 
+
+		if (specialMove == PROMOTION) {
+			put(color, specialMovePiece, to);
+		} else {
+			put(color, piece, to);			
 		}
 
-		put(color, piece, to);
 		remove(color, piece, from);
 	}
 
@@ -46,16 +53,25 @@
 		uint32_t from = FROM(move);
 		uint32_t to = TO(move);
 		uint32_t specialMove = SPECIAL_MOVE(move);
+		uint32_t specialMovePiece = PIECE(move);
 		uint32_t piece = piecesIndex[to];
 		uint32_t color = colorsIndex[to];
 
-		put(color, piece, from);
-		remove(color, piece, to);
-		if (specialMove == CAPTURE) {
+
+		if (specialMove == PROMOTION) {
+			put(color, PAWN, from);
+			remove(color, specialMovePiece, to);
+		} else {
+			put(color, piece, from);
+			remove(color, piece, to);
+		}
+
+		if (currentState->capturedPiece) {
 			put(currentState->capturedPieceColor, currentState->capturedPiece, to);
 		} else if (specialMove == EN_PASSANT) {
 			put(OPPOSING_COLOR(turn), PAWN, getEnPassantLocation(from, to));
 		}
+
 		decreaseStateDepth();
 	}
 

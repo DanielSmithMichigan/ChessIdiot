@@ -95,6 +95,31 @@
 	}
 
 
+	TEST_F(PawnMoveGeneratorTest, WhitePromotion) {
+		Fen* fen = new Fen();
+		fen->import("8/7P/8/8/8/8/8/8 w");
+		assertMoveExists("7Q/8/8/8/8/8/8/8");
+		assertMoveExists("7R/8/8/8/8/8/8/8");
+		assertMoveExists("7B/8/8/8/8/8/8/8");
+		assertMoveExists("7N/8/8/8/8/8/8/8");
+	}
+
+
+	TEST_F(PawnMoveGeneratorTest, WhitePromotionAttack) {
+		Fen* fen = new Fen();
+		fen->import("3n1n2/4P3/8/8/8/8/8/8 w");
+		assertMoveExists("3n1N2/8/8/8/8/8/8/8");
+		assertMoveExists("3n1R2/8/8/8/8/8/8/8");
+		assertMoveExists("3n1Q2/8/8/8/8/8/8/8");
+		assertMoveExists("3n1B2/8/8/8/8/8/8/8");
+		assertMoveExists("3N1n2/8/8/8/8/8/8/8");
+		assertMoveExists("3R1n2/8/8/8/8/8/8/8");
+		assertMoveExists("3Q1n2/8/8/8/8/8/8/8");
+		assertMoveExists("3B1n2/8/8/8/8/8/8/8");
+	}
+
+
+
 	TEST_F(PawnMoveGeneratorTest, OnePawnForwardBlack) {
 		Fen* fen = new Fen();
 		fen->import("8/8/pppppppp/8/8/8/8/8 b");
