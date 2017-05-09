@@ -29,3 +29,27 @@ void showMoveBoard(uint32_t move) {
 	}
 	cout << "@@@@@@@@@@@@@ MOVEBOARD @@@@@@@@@@@@" << endl;
 }
+uint64_t generateSlideMove(uint64_t occupancyBoard, uint32_t location, uint32_t deltaX, uint32_t deltaY) {
+	uint64_t outputBoard = 0;
+	uint32_t y = GET_ROW(location);
+	uint32_t x = GET_COLUMN(location);
+	uint64_t newSquareBoard;
+	while(true) {
+		if (y >= 7 && deltaY == 1) {
+			break;
+		} else if (y <= 0 && deltaY == -1) {
+			break;
+		} else if (x >= 7 && deltaX == 1) {
+			break;
+		} else if (x <= 0 && deltaX == -1) {
+			break;
+		}
+		x += deltaX;
+		y += deltaY;
+		outputBoard |= getPieceBoard(x, y);
+		if (occupancyBoard & outputBoard) {
+			break;
+		}
+	}
+	return outputBoard;
+}

@@ -3,56 +3,15 @@
 	#include <boost/algorithm/string/join.hpp>
 	#include "../src/MoveGenerationController.h"
 	#include "../src/MoveStack.h"
+	#include "../src/Fen.h"
 	#include "gtest/gtest.h"
 	#include "gmock/gmock.h"
 	#include <stdint.h>
-	void assertMoveExists(string fenString) {
-		bool found = false;
-		Fen* fen = new Fen();
-		MoveGenerationController::generateAllMoves();
-		vector<string> fensFound;
-		while (uint32_t currentMove = MoveStack::pop()) {
-			Board::doMove(currentMove);
-			string newFen = fen->getBoardSquares();
-			fensFound.push_back(newFen);
-			if (newFen.compare(fenString) == 0) {
-				found = true;
-			}
-			Board::undoMove();
-		}
-		ASSERT_TRUE(found) << fenString << " should be an available move."
-		  << " Moves found: " << endl
-		  << boost::algorithm::join(fensFound, "\n");
-	}
-	void assertNotMoveExists(string fenString) {
-		bool found = false;
-		Fen* fen = new Fen();
-		MoveGenerationController::generateAllMoves();
-		while (uint32_t currentMove = MoveStack::pop()) {
-			Board::doMove(currentMove);
-			if (fen->getBoardSquares().compare(fenString) == 0) {
-				found = true;
-			}
-			Board::undoMove();
-		}
-		ASSERT_FALSE(found) << fenString << " should not be an available move.";
-	}
-	void showAllMoves() {
-		Fen* fen = new Fen();
-		MoveGenerationController::generateAllMoves();
-		while (uint32_t currentMove = MoveStack::pop()) {
-			Board::doMove(currentMove);
-			cout << fen->getBoardSquares() << endl;
-			Board::undoMove();
-		}
-	}
-	void assertMoveCount(int assertedAmount) {
-		int moveCount = 0;
-		Fen* fen = new Fen();
-		MoveGenerationController::generateAllMoves();
-		while (uint32_t currentMove = MoveStack::pop()) {
-			moveCount++;
-		}
-		ASSERT_EQ(moveCount, assertedAmount) << "Should have generated the expected number of moves" << endl;
-	}
+	#include <math.h>
+	void assertMoveExists(string fenString);
+	void assertNotMoveExists(string fenString);
+	void showAllMoves();
+	void assertMoveCount(int assertedAmount);
+	uint64_t bitBoardFromRows(uint64_t row1, uint64_t row2, uint64_t row3, uint64_t row4, uint64_t row5, uint64_t row6, uint64_t row7, uint64_t row8);
+	uint64_t binToDec(uint64_t row);
 #endif

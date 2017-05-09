@@ -11,6 +11,7 @@
 	inline uint64_t file() {return (uint64_t)0x8080808080808080 >> x;}
 	#define ROWS(x) (x * ROW)
 	#define GET_ROW(x) (x / ROW)
+	#define GET_COLUMN(x) (x - ROWS((int)GET_ROW(x)))
 	enum Direction {
 		LEFT, RIGHT
 	};

@@ -19,4 +19,5 @@
 	}
 	void showBitBoard(uint64_t bitboard);
 	void showMoveBoard(uint32_t move);
+	uint64_t generateSlideMove(uint64_t occupancyBoard, uint32_t startLocation, uint32_t deltaX, uint32_t deltaY);
 #endif
