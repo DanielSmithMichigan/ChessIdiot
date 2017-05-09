@@ -48,7 +48,7 @@ uint64_t generateSlideMove(uint64_t occupancyBoard, uint32_t location, uint32_t 
 		y += deltaY;
 		outputBoard |= getPieceBoard(x, y);
 		if (occupancyBoard & outputBoard) {
-			break;
+			return outputBoard;
 		}
 	}
 	return outputBoard;
