@@ -1,5 +1,4 @@
-#include "src/MoveGenerationController.h"
-#include "src/Fen.h"
+#include "src/BitBoard.h"
 
 using namespace std;
 
@@ -16,5 +15,7 @@ int main(int argc, char** argv )
 	// cout << "FROM: " << FROM(bestMove)
 	//      << " TO: " << TO(bestMove)
 	//      << endl;
+	BitBoard::InitRookBitBoards();
+	BitBoard::InitBishopBitBoards();
     return 0;
 }
