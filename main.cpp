@@ -2,6 +2,73 @@
 
 using namespace std;
 
+uint64_t random64() {
+	uint64_t u1, u2, u3, u4;
+	u1 = (uint64_t)(rand()) & 0xFFFF; u2 = (uint64_t)(rand()) & 0xFFFF;
+	u3 = (uint64_t)(rand()) & 0xFFFF; u4 = (uint64_t)(rand()) & 0xFFFF;
+	return u1 | (u2 << 16) | (u3 << 32) | (u4 << 48);
+}
+
+uint64_t countOnes(uint64_t mask) {
+	uint64_t size = 0;
+	while (mask) {
+		mask >>= 1;
+		if (mask & 1) {
+			size++;
+		}
+	}
+	return size;
+}
+
+uint64_t getTestMagic(uint64_t occupancyMask) {
+	uint64_t testMagic;
+	do {
+		testMagic = random64() & random64() & random64();
+	} while(countOnes((occupancyMask * testMagic) & 0xFF00000000000000ULL) < 6);
+	return testMagic;
+}
+
+
+bool valid(uint64_t testMagic, uint64_t occupancyMask) {
+	bool used[4096] = {false};
+	uint64_t subset = 0;
+	uint64_t index;
+	uint64_t shift = 64 - countOnes(occupancyMask);
+	do {
+		subset = (subset - occupancyMask) & occupancyMask;
+		index = (subset * testMagic) >> shift;
+		if (!used[index]) {
+			used[index] = true;
+		} else {
+			return false;
+		}
+	} while (subset);
+	return true;
+}
+
+uint64_t getRookMask(int location) {
+	return (generateSlideMove(0, location, 0, -1) & ~row<0>())
+				| (generateSlideMove(0, location, 1, 0) & ~file<7>())
+				| (generateSlideMove(0, location, 0, 1) & ~row<7>())
+				| (generateSlideMove(0, location, -1, 0) & ~file<0>());
+}
+
+uint64_t getBishopmask(int location) {
+	return (generateSlideMove(0, location, -1, -1) & ~row<0>() & ~file<0>())
+		| (generateSlideMove(0, location, 1, -1) & ~row<0>() & ~file<7>())
+		| (generateSlideMove(0, location, 1, 1) & ~row<7>() & ~file<7>())
+		| (generateSlideMove(0, location, -1, 1) & ~row<7>() & ~file<0>());
+}
+
+uint64_t findMagic(int location) {
+	uint64_t occupancyMask = getBishopmask(location);
+	uint64_t testMagic;
+	do {
+		testMagic = getTestMagic(occupancyMask);
+	} while(!valid(testMagic, occupancyMask));
+	cout << testMagic << endl;
+}
+
 int main(int argc, char** argv )
 {
 	// shared_ptr<Board> board(new Board());
@@ -15,7 +82,7 @@ int main(int argc, char** argv )
 	// cout << "FROM: " << FROM(bestMove)
 	//      << " TO: " << TO(bestMove)
 	//      << endl;
-	BitBoard::InitRookBitBoards();
-	BitBoard::InitBishopBitBoards();
+	// BitBoard::InitRookBitBoards();
+	// BitBoard::InitBishopBitBoards();
     return 0;
 }
