@@ -171,3 +171,33 @@
 		uint64_t output = binToDec(1111111);
 		ASSERT_EQ(output, 127);
 	}
+
+
+	TEST_F(UtilityTest, CountOnes) {
+		uint64_t bitboard = bitBoardFromRows(
+			00000000,
+			00000000,
+			10000000,
+			10010000,
+			10001000,
+			10000000,
+			00000000,
+			00000000
+		);
+		ASSERT_EQ(countOnes(bitboard), 6);
+	}
+
+
+	TEST_F(UtilityTest, CountOnes2) {
+		uint64_t bitboard = bitBoardFromRows(
+			00000000,
+			00000000,
+			10000000,
+			   10000,
+			    1000,
+			10000000,
+			00000000,
+			00000000
+		);
+		ASSERT_EQ(countOnes(bitboard), 4);
+	}
