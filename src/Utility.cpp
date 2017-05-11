@@ -53,3 +53,35 @@ uint64_t generateSlideMove(uint64_t occupancyBoard, uint32_t location, uint32_t 
 	}
 	return outputBoard;
 }
+int countOnes(uint64_t bitboard) {
+	uint64_t size = 0;
+	while (bitboard) {
+		bitboard >>= 1;
+		if (bitboard & 1) {
+			size++;
+		}
+	}
+	return size;
+}
+uint64_t bitBoardFromRows(uint64_t row1, uint64_t row2, uint64_t row3, uint64_t row4, uint64_t row5, uint64_t row6, uint64_t row7, uint64_t row8) {
+	return binToDec(row8)
+		| binToDec(row7) << rows<1>()
+		| binToDec(row6) << rows<2>()
+		| binToDec(row5) << rows<3>()
+		| binToDec(row4) << rows<4>()
+		| binToDec(row3) << rows<5>()
+		| binToDec(row2) << rows<6>()
+		| binToDec(row1) << rows<7>();
+}
+uint64_t binToDec(uint64_t row) {
+	uint64_t output = 0;
+	uint64_t mult = 0;
+	while (row) {
+		if (row & 1) {
+			output += pow(2, mult);
+		}	
+		mult++;
+		row /= 10;
+	}
+	return output;
+}

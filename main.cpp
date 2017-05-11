@@ -9,17 +9,6 @@ uint64_t random64() {
 	return u1 | (u2 << 16) | (u3 << 32) | (u4 << 48);
 }
 
-uint64_t countOnes(uint64_t mask) {
-	uint64_t size = 0;
-	while (mask) {
-		mask >>= 1;
-		if (mask & 1) {
-			size++;
-		}
-	}
-	return size;
-}
-
 uint64_t getTestMagic(uint64_t occupancyMask) {
 	uint64_t testMagic;
 	do {
@@ -82,7 +71,23 @@ int main(int argc, char** argv )
 	// cout << "FROM: " << FROM(bestMove)
 	//      << " TO: " << TO(bestMove)
 	//      << endl;
-	// BitBoard::InitRookBitBoards();
-	// BitBoard::InitBishopBitBoards();
+	BitBoard::InitRookBitBoards();
+	BitBoard::InitBishopBitBoards();
+
+	int square = 0;
+	uint64_t occupancyBoard = bitBoardFromRows(
+		00000000,
+		00000000,
+		10000000,
+		10010000,
+		10001000,
+		10000000,
+		00000000,
+		00000000
+	);
+	uint64_t occupancyMask = BitBoard::BishopOccupancyMasks[square] & occupancyBoard;
+	showBitBoard(
+		BitBoard::BishopPointers[square][(occupancyMask * BitBoard::BishopMagics[square]) >> BitBoard::BishopShifts[square]]
+	);
     return 0;
 }

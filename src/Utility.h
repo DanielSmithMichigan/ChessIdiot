@@ -2,6 +2,7 @@
 #define Utility_h
 	#include <stdint.h>
 	#include <iostream>
+	#include <math.h>
 	#include "Move.h"
 	#include "Globals.h"
 	using namespace std;
@@ -20,4 +21,7 @@
 	void showBitBoard(uint64_t bitboard);
 	void showMoveBoard(uint32_t move);
 	uint64_t generateSlideMove(uint64_t occupancyBoard, uint32_t startLocation, uint32_t deltaX, uint32_t deltaY);
+	int countOnes(uint64_t bitboard);
+	uint64_t bitBoardFromRows(uint64_t row1, uint64_t row2, uint64_t row3, uint64_t row4, uint64_t row5, uint64_t row6, uint64_t row7, uint64_t row8);
+	uint64_t binToDec(uint64_t row);
 #endif

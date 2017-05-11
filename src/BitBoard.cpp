@@ -2,49 +2,56 @@
 
 uint64_t BitBoard::RookOccupancyMasks[64] = {};
 uint64_t BitBoard::BishopOccupancyMasks[64] = {};
-
+uint64_t *BitBoard::RookPointers[64] = {};
+uint64_t *BitBoard::BishopPointers[64] = {};
+uint64_t BitBoard::RookAttacks[102400] = {};
+uint64_t BitBoard::BishopAttacks[5248] = {};
+uint64_t BitBoard::RookShifts[64] = {};
+uint64_t BitBoard::BishopShifts[64] = {};
 void BitBoard::InitRookBitBoards() {
-	uint64_t mask, up, down, left, right, occupancyMask, subset, slideMoves;
+	uint64_t occupancyMask, subset, index;
+	uint64_t counter = 0;
 	for (int i = 0; i < BOARD_SIZE; i++) {
-		up = generateSlideMove(0, i, 0, -1);
-		right = generateSlideMove(0, i, 1, 0);
-		down = generateSlideMove(0, i, 0, 1);
-		left = generateSlideMove(0, i, -1, 0);
-		occupancyMask = (up & ~row<0>())
-					| (right & ~file<7>())
-					| (down & ~row<7>())
-					| (left & ~file<0>());
+		RookPointers[i] = RookAttacks + counter;
+		occupancyMask = (generateSlideMove(0, i, 0, -1) & ~row<0>())
+					| (generateSlideMove(0, i, 1, 0) & ~file<7>())
+					| (generateSlideMove(0, i, 0, 1) & ~row<7>())
+					| (generateSlideMove(0, i, -1, 0) & ~file<0>());
 		RookOccupancyMasks[i] = occupancyMask;
+		RookShifts[i] = 64 - countOnes(occupancyMask);
 		subset = 0;
 		do {
 			subset = (subset - occupancyMask) & occupancyMask;
-			slideMoves = generateSlideMove(subset, i, 0, -1)
+			index = (subset * RookMagics[i]) >> RookShifts[i];
+			RookPointers[i][index] = generateSlideMove(subset, i, 0, -1)
 				| generateSlideMove(subset, i, 1, 0)
 				| generateSlideMove(subset, i, 0, 1)
 				| generateSlideMove(subset, i, -1, 0);
+			counter++;
 		} while (subset);
 	}
 }
 
 void BitBoard::InitBishopBitBoards() {
-	uint64_t mask, upLeft, upRight, downRight, downLeft, occupancyMask, subset, slideMoves;
+	uint64_t occupancyMask, subset, index;
+	uint64_t counter = 0;
 	for (int i = 0; i < BOARD_SIZE; i++) {
-		upLeft = generateSlideMove(0, i, -1, -1);
-		upRight = generateSlideMove(0, i, 1, -1);
-		downRight = generateSlideMove(0, i, 1, 1);
-		downLeft = generateSlideMove(0, i, -1, 1);
-		occupancyMask = (upLeft & ~row<0>() & ~file<0>())
-					| (upRight & ~row<0>() & ~file<7>())
-					| (downRight & ~row<7>() & ~file<7>())
-					| (downLeft & ~row<7>() & ~file<0>());
+		BishopPointers[i] = BishopAttacks + counter;
+		occupancyMask = (generateSlideMove(0, i, -1, -1) & ~row<0>() & ~file<0>())
+					| (generateSlideMove(0, i, 1, -1) & ~row<0>() & ~file<7>())
+					| (generateSlideMove(0, i, 1, 1) & ~row<7>() & ~file<7>())
+					| (generateSlideMove(0, i, -1, 1) & ~row<7>() & ~file<0>());
 		BishopOccupancyMasks[i] = occupancyMask;
+		BishopShifts[i] = 64 - countOnes(occupancyMask);
 		subset = 0;
 		do {
 			subset = (subset - occupancyMask) & occupancyMask;
-			slideMoves = generateSlideMove(subset, i, -1, -1)
+			index = (subset * BishopMagics[i]) >> BishopShifts[i];
+			BishopPointers[i][index] = generateSlideMove(subset, i, -1, -1)
 				| generateSlideMove(subset, i, 1, -1)
 				| generateSlideMove(subset, i, 1, 1)
 				| generateSlideMove(subset, i, -1, 1);
+			counter++;
 		} while (subset);
 	}
 }
