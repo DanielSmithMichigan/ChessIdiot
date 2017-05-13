@@ -12,8 +12,10 @@
 	void MoveGenerationController::generateAllMoves() {
 		if (Board::turn == WHITE) {
 			generatePawnMoves<WHITE>();
+			generateBishopMoves<WHITE>();
 		} else {
 			generatePawnMoves<BLACK>();
+			generateBishopMoves<BLACK>();
 		}
 	}
 

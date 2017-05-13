@@ -1,5 +1,6 @@
 #ifndef BitBoard_h
 #define BitBoard_h
+	#include "Board.h"
 	#include "Utility.h"
 	#include <stdint.h>
 	#include <iostream>
@@ -21,5 +22,9 @@
 		void InitBitBoards();
 		void InitRookBitBoards();
 		void InitBishopBitBoards();
+		template<uint32_t COLOR>
+		inline uint64_t getBishopMoves(int location) {
+			return (BishopPointers[location][((BishopOccupancyMasks[location] & Board::occupiedSquares) * BishopMagics[location]) >> BishopShifts[location]]) & ~Board::colors[OPPOSING_COLOR(COLOR)];
+		}
 	}
 #endif
