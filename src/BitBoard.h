@@ -28,5 +28,11 @@
 			uint64_t occupancyMask = BishopOccupancyMasks[location] & Board::occupiedSquares;
 			return (BishopPointers[location][(occupancyMask * BishopMagics[location]) >> BishopShifts[location]]) & ~Board::colors[COLOR];
 		}
+
+		template<uint32_t COLOR>
+		inline uint64_t getRookMoves(uint32_t location) {
+			uint64_t occupancyMask = RookOccupancyMasks[location] & Board::occupiedSquares;
+			return (RookPointers[location][(occupancyMask * RookMagics[location]) >> RookShifts[location]]) & ~Board::colors[COLOR];
+		}
 	}
 #endif

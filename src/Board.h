@@ -27,7 +27,7 @@
 			static uint32_t getPiece(uint32_t location);
 			static uint32_t getColor(uint32_t location);
 			static uint64_t occupiedSquares;
-			static uint64_t colors[2];
+			static uint64_t colors[3];
 			static uint64_t pieces[8];
 			static uint32_t piecesIndex[64];
 			static uint32_t colorsIndex[64];
