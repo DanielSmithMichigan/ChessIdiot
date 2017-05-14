@@ -5,7 +5,7 @@
 	State* Board::currentState = new State();
 	uint32_t Board::turn = 0;
 	uint64_t Board::occupiedSquares = 0;
-	uint64_t Board::colors[2] = {};
+	uint64_t Board::colors[3] = {};
 	uint64_t Board::pieces[8] = {};
 	uint32_t Board::piecesIndex[64] = {};
 	uint32_t Board::colorsIndex[64] = {};
@@ -84,7 +84,7 @@
 			piecesIndex[i] = EMPTY_SPACE;
 			colorsIndex[i] = BLANK;
 		}
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 3; i++) {
 			colors[i] = 0;
 		}
 		for (int i = 0; i < 8; i++) {
