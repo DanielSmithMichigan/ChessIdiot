@@ -11,11 +11,11 @@
 
 	void MoveGenerationController::generateAllMoves() {
 		if (Board::turn == WHITE) {
-			generatePawnMoves<WHITE>();
-			generateBishopMoves<WHITE>();
+			generatePawnMoves<WHITE, false>();
+			generateBishopMoves<WHITE, false>();
 		} else {
-			generatePawnMoves<BLACK>();
-			generateBishopMoves<BLACK>();
+			generatePawnMoves<BLACK, false>();
+			generateBishopMoves<BLACK, false>();
 		}
 	}
 

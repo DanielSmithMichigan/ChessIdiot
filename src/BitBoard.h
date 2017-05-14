@@ -22,9 +22,11 @@
 		void InitBitBoards();
 		void InitRookBitBoards();
 		void InitBishopBitBoards();
+
 		template<uint32_t COLOR>
-		inline uint64_t getBishopMoves(int location) {
-			return (BishopPointers[location][((BishopOccupancyMasks[location] & Board::occupiedSquares) * BishopMagics[location]) >> BishopShifts[location]]) & ~Board::colors[OPPOSING_COLOR(COLOR)];
+		inline uint64_t getBishopMoves(uint32_t location) {
+			uint64_t occupancyMask = BishopOccupancyMasks[location] & Board::occupiedSquares;
+			return (BishopPointers[location][(occupancyMask * BishopMagics[location]) >> BishopShifts[location]]) & ~Board::colors[COLOR];
 		}
 	}
 #endif
