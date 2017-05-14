@@ -13,7 +13,7 @@
 
 	template <uint32_t DIRECTION> inline void shiftPawns(uint64_t &pawnBoard);
 
-	template <uint32_t COLOR> inline void generatePawnMoves();
+	template <uint32_t COLOR, bool QUIESCENCE> inline void generatePawnMoves();
 
 	template <uint32_t COLOR> inline void oneMoveUp();
 
@@ -25,14 +25,16 @@
 
 	template <uint32_t COLOR, uint32_t DIRECTION> inline void enPassant();
 
-	template <uint32_t COLOR>
+	template <uint32_t COLOR, bool QUIESCENCE>
 	inline void generatePawnMoves() {
-		oneMoveUp<COLOR>();
-		twoMovesUp<COLOR>();
 		attack<COLOR, LEFT>();
 		attack<COLOR, RIGHT>();
-		enPassant<COLOR, LEFT>();
-		enPassant<COLOR, RIGHT>();
+		if (!QUIESCENCE) {
+			oneMoveUp<COLOR>();
+			twoMovesUp<COLOR>();
+			enPassant<COLOR, LEFT>();
+			enPassant<COLOR, RIGHT>();
+		}
 	}
 
 	template <uint32_t COLOR, uint32_t DIRECTION> 

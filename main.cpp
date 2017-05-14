@@ -74,7 +74,7 @@ int main(int argc, char** argv )
 	BitBoard::InitRookBitBoards();
 	BitBoard::InitBishopBitBoards();
 
-	int square = 0;
+	int square = 6;
 	uint64_t occupancyBoard = bitBoardFromRows(
 		00000000,
 		00000000,
@@ -86,8 +86,6 @@ int main(int argc, char** argv )
 		00000000
 	);
 	uint64_t occupancyMask = BitBoard::BishopOccupancyMasks[square] & occupancyBoard;
-	showBitBoard(
-		BitBoard::BishopPointers[square][(occupancyMask * BitBoard::BishopMagics[square]) >> BitBoard::BishopShifts[square]]
-	);
+	showBitBoard(BitBoard::BishopPointers[square][(occupancyMask * BitBoard::BishopMagics[square]) >> BitBoard::BishopShifts[square]]);
     return 0;
 }

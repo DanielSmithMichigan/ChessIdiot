@@ -9,23 +9,23 @@
 	#include "Move.h"
 
 	using namespace std;
-	template <uint32_t COLOR> inline void generateBishopMoves();
 
-	template <uint32_t COLOR>
+	template <uint32_t COLOR, bool QUIESCENCE> inline void generateBishopMoves();
+	template <uint32_t COLOR, bool QUIESCENCE>
 	inline void generateBishopMoves() {
-		uint64_t bishopBoard = Board::pieces[BISHOP] & Board::colors[COLOR];
-		uint32_t bishopLocation;
-		uint64_t bishopMoves;
-		while(bishopBoard) {
-			bishopLocation = popBit(bishopBoard);
-			uint64_t allMoves = BitBoard::getBishopMoves<COLOR>(bishopLocation);
-			uint64_t nonCaptureMoves = allMoves & ~Board::colors[OPPOSING_COLOR(COLOR)];
-			while(nonCaptureMoves) {
-				MoveStack::push(quietMove(bishopLocation, popBit(nonCaptureMoves)));
-			}
-			uint64_t captureMoves = allMoves & Board::colors[OPPOSING_COLOR(COLOR)];
+		uint64_t bishops = Board::pieces[BISHOP] & Board::colors[COLOR];
+		while(bishops) {
+			uint32_t bishopLocation = popBit(bishops);
+			uint64_t allBishopMoves = BitBoard::getBishopMoves<COLOR>(bishopLocation);
+			uint64_t captureMoves = Board::colors[OPPOSING_COLOR(COLOR)] & allBishopMoves;
 			while(captureMoves) {
 				MoveStack::push(move<CAPTURE>(bishopLocation, popBit(captureMoves)));
+			}
+			if (!QUIESCENCE) {
+				uint64_t nonCaptureMoves = ~Board::colors[OPPOSING_COLOR(COLOR)] & allBishopMoves;
+				while(nonCaptureMoves) {
+					MoveStack::push(move<CAPTURE>(bishopLocation, popBit(nonCaptureMoves)));
+				}
 			}
 		}
 	}
