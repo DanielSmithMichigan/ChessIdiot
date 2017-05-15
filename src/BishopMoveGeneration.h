@@ -24,7 +24,7 @@
 			if (!QUIESCENCE) {
 				uint64_t nonCaptureMoves = ~Board::colors[OPPOSING_COLOR(COLOR)] & allBishopMoves;
 				while(nonCaptureMoves) {
-					MoveStack::push(move<CAPTURE>(bishopLocation, popBit(nonCaptureMoves)));
+					MoveStack::push(quietMove(bishopLocation, popBit(nonCaptureMoves)));
 				}
 			}
 		}

@@ -37,7 +37,7 @@
 			if (!QUIESCENCE) {
 				uint64_t nonCaptureMoves = ~Board::colors[OPPOSING_COLOR(COLOR)] & allKingMoves;
 				while(nonCaptureMoves) {
-					MoveStack::push(move<CAPTURE>(kingLocation, popBit(nonCaptureMoves)));
+					MoveStack::push(quietMove(kingLocation, popBit(nonCaptureMoves)));
 				}
 			}
 		}
