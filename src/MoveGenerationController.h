@@ -1,6 +1,9 @@
 #ifndef MoveGenerationController_h
 #define MoveGenerationController_h
+	#include <stdint.h>
+	#include "Fen.h"
 	#include "Board.h"
+	#include "MoveStack.h"
 	#include "PawnMoveGeneration.h"
 	#include "BishopMoveGeneration.h"
 	#include "RookMoveGeneration.h"
@@ -17,5 +20,6 @@
 			MoveGenerationController();
 			~MoveGenerationController();
 			static void generateAllMoves();
+			static uint64_t countMovesAtDepth(uint64_t depth);
 	};
 #endif

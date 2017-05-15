@@ -76,6 +76,8 @@
 		}
 
 		remove(color, piece, from);
+
+		Board::turn = OPPOSING_COLOR(Board::turn);
 	}
 
 	void Board::undoMove() {
@@ -117,6 +119,8 @@
 		}
 
 		decreaseStateDepth();
+
+		Board::turn = OPPOSING_COLOR(Board::turn);
 	}
 
 	void Board::reset() {
