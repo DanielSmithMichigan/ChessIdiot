@@ -9,7 +9,7 @@
 	#define SPECIAL_MOVE(m) ((m >> 12) & 0x3)
 	#define PIECE(m) ((m >> 14) & 0xF)
 	enum SpecialMove {
-		CLASSIC, PROMOTION, EN_PASSANT, CAPTURE, PAWN_DOUBLE
+		CLASSIC, PROMOTION, EN_PASSANT, CAPTURE, PAWN_DOUBLE, CASTLE
 	};
 
 	inline uint32_t quietMove(const int &from, const int &to);

@@ -1,6 +1,7 @@
 #ifndef KingMoveGeneration_h
 #define KingMoveGeneration_h
-
+	
+	#include "SquareAttacked.h"
 	#include "BitBoard.h"
 	#include "Globals.h"
 	#include "Board.h"
@@ -44,11 +45,41 @@
 
 	template <uint32_t COLOR>
 	inline void generateCastle() {
-		uint64_t rooks = Board::pieces[KING] & Board::colors[COLOR];
+		uint64_t rooks = Board::pieces[ROOK] & Board::colors[COLOR];
+		uint64_t kings = Board::pieces[KING] & Board::colors[COLOR];
+		uint32_t kingLocation = popBit(kings);
+		if (squareAttacked<OPPOSING_COLOR(COLOR)>(kingLocation)) {
+			return;
+		}
 		if (COLOR == WHITE
-			&& (rooks & 1)
-			&& Board::currentState->whiteCanCastleRight) {
-
+			&& Board::currentState->whiteCanCastleRight
+			&& !(Board::occupiedSquares & CASTLE_RIGHT_OCCUPIED)
+			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(61)
+			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(62)) {
+			MoveStack::push(move<CASTLE>(kingLocation, 62));
+		}
+		if (COLOR == WHITE
+			&& Board::currentState->whiteCanCastleLeft
+			&& !(Board::occupiedSquares & CASTLE_LEFT_OCCUPIED)
+			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(57)
+			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(58)
+			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(59)) {
+			MoveStack::push(move<CASTLE>(kingLocation, 58));
+		}
+		if (COLOR == BLACK
+			&& Board::currentState->blackCanCastleRight
+			&& !(Board::occupiedSquares & CASTLE_RIGHT_OCCUPIED)
+			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(5)
+			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(6)) {
+			MoveStack::push(move<CASTLE>(kingLocation, 6));
+		}
+		if (COLOR == BLACK
+			&& Board::currentState->blackCanCastleLeft
+			&& !(Board::occupiedSquares & CASTLE_LEFT_OCCUPIED)
+			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(1)
+			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(2)
+			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(3)) {
+			MoveStack::push(move<CASTLE>(kingLocation, 2));
 		}
 	}
 #endif

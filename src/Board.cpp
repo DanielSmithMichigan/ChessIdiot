@@ -45,18 +45,18 @@
 			put(color, piece, to);			
 		}
 
-		if (from == 0) {
+		if (from == 0 || to == 0) {
 			currentState->blackCanCastleLeft = false;
-		} else if (from == 7) {
+		} else if (from == 7 || to == 7) {
 			currentState->blackCanCastleRight = false;
-		} else if (from == 112) {
+		} else if (from == 112 || to == 112) {
 			currentState->whiteCanCastleLeft = false;
-		} else if (from == 119) {
+		} else if (from == 119 || to == 119) {
 			currentState->whiteCanCastleRight = false;
-		} else if (from == 116) {
+		} else if (from == 116 || to == 116) {
 			currentState->whiteCanCastleLeft = false;
 			currentState->whiteCanCastleRight = false;
-		} else if (from == 4) {
+		} else if (from == 4 || to == 4) {
 			currentState->blackCanCastleLeft = false;
 			currentState->blackCanCastleRight = false;
 		}
