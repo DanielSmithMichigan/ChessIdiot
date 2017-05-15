@@ -4,6 +4,8 @@
 	#include "PawnMoveGeneration.h"
 	#include "BishopMoveGeneration.h"
 	#include "RookMoveGeneration.h"
+	#include "QueenMoveGeneration.h"
+	#include "KnightMoveGeneration.h"
 	
 
 	using namespace std;

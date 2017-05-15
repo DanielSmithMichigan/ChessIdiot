@@ -19,6 +19,9 @@
 		extern uint64_t RookShifts[64];
 		extern uint64_t BishopShifts[64];
 
+		extern uint64_t KnightBoards[64];
+		extern uint64_t KingBoards[64];
+
 		void InitBitBoards();
 		void InitRookBitBoards();
 		void InitBishopBitBoards();
@@ -33,6 +36,16 @@
 		inline uint64_t getRookMoves(uint32_t location) {
 			uint64_t occupancyMask = RookOccupancyMasks[location] & Board::occupiedSquares;
 			return (RookPointers[location][(occupancyMask * RookMagics[location]) >> RookShifts[location]]) & ~Board::colors[COLOR];
+		}
+
+		template<uint32_t COLOR>
+		inline uint64_t getAdjacentKingMoves(uint32_t location) {
+			return KingBoards[location] & ~Board::colors[COLOR];
+		}
+
+		template<uint32_t COLOR>
+		inline uint64_t getKnightMoves(uint32_t location) {
+			return KnightBoards[location] & ~Board::colors[COLOR];
 		}
 	}
 #endif

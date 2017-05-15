@@ -13,7 +13,7 @@
 	template <uint32_t COLOR, bool QUIESCENCE> inline void generateQueenMoves();
 	template <uint32_t COLOR, bool QUIESCENCE>
 	inline void generateQueenMoves() {
-		uint64_t queens = Board::pieces[Queen] & Board::colors[COLOR];
+		uint64_t queens = Board::pieces[QUEEN] & Board::colors[COLOR];
 		while(queens) {
 			uint32_t queenLocation = popBit(queens);
 			uint64_t allQueenMoves = BitBoard::getBishopMoves<COLOR>(queenLocation) | BitBoard::getRookMoves<COLOR>(queenLocation);

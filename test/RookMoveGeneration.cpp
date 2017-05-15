@@ -15,7 +15,6 @@
 	TEST_F(RookMoveGenerationTest, OneRookWhite) {
 		Fen* fen = new Fen();
 		fen->import("8/8/8/8/4R3/8/8/8 w");
-		// Down Right
 		assertMoveExists("4R3/8/8/8/8/8/8/8");
 		assertMoveExists("8/4R3/8/8/8/8/8/8");
 		assertMoveExists("8/8/4R3/8/8/8/8/8");
@@ -35,7 +34,6 @@
 	TEST_F(RookMoveGenerationTest, OneRookWhiteBlocked) {
 		Fen* fen = new Fen();
 		fen->import("8/8/8/8/4RP2/8/8/8");
-		// Down Right
 		assertMoveExists("8/8/8/4R3/5P2/8/8/8");
 		assertMoveExists("8/8/4R3/8/5P2/8/8/8");
 		assertMoveExists("8/4R3/8/8/5P2/8/8/8");
@@ -69,7 +67,6 @@
 	TEST_F(RookMoveGenerationTest, OneRookBlack) {
 		Fen* fen = new Fen();
 		fen->import("8/8/8/8/4r3/8/8/8 b");
-		// Down Right
 		assertMoveExists("4r3/8/8/8/8/8/8/8");
 		assertMoveExists("8/4r3/8/8/8/8/8/8");
 		assertMoveExists("8/8/4r3/8/8/8/8/8");
@@ -89,7 +86,6 @@
 	TEST_F(RookMoveGenerationTest, OneRookBlackBlocked) {
 		Fen* fen = new Fen();
 		fen->import("8/8/8/8/4rp2/8/8/8 b");
-		// Down Right
 		assertMoveExists("8/8/8/4r3/5p2/8/8/8");
 		assertMoveExists("8/8/4r3/8/5p2/8/8/8");
 		assertMoveExists("8/4r3/8/8/5p2/8/8/8");
