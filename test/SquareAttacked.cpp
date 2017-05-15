@@ -60,3 +60,15 @@
 		ASSERT_TRUE(squareAttacked<BLACK>(56));
 		ASSERT_TRUE(squareAttacked<BLACK>(63));
 	}
+
+	TEST_F(SquareAttackedTest, CanTakeKing) {
+		Fen* fen = new Fen();
+		fen->import("rnbqkbnr/pppp2pp/4p3/5p1Q/8/4P3/PPPP1PPP/RNB1KBNR w");
+		ASSERT_TRUE(canTakeKing());
+	}
+
+	TEST_F(SquareAttackedTest, CanNotTakeKing) {
+		Fen* fen = new Fen();
+		fen->import("rnbqkbnr/pppp2pp/4p3/5p1Q/8/4P3/PPPP1PPP/RNB1KBNR b");
+		ASSERT_FALSE(canTakeKing());
+	}

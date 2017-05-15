@@ -10,6 +10,8 @@
 
 	using namespace std;
 
+	bool canTakeKing();
+
 	template <uint32_t COLOR> inline bool squareAttacked(uint32_t location);
 	template <uint32_t COLOR>
 	inline bool squareAttacked(uint32_t location) {
