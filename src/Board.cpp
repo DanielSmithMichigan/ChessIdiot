@@ -45,6 +45,22 @@
 			put(color, piece, to);			
 		}
 
+		if (from == 0) {
+			currentState->blackCanCastleLeft = false;
+		} else if (from == 7) {
+			currentState->blackCanCastleRight = false;
+		} else if (from == 112) {
+			currentState->whiteCanCastleLeft = false;
+		} else if (from == 119) {
+			currentState->whiteCanCastleRight = false;
+		} else if (from == 116) {
+			currentState->whiteCanCastleLeft = false;
+			currentState->whiteCanCastleRight = false;
+		} else if (from == 4) {
+			currentState->blackCanCastleLeft = false;
+			currentState->blackCanCastleRight = false;
+		}
+
 		remove(color, piece, from);
 	}
 
