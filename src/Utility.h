@@ -24,4 +24,24 @@
 	int countOnes(uint64_t bitboard);
 	uint64_t bitBoardFromRows(uint64_t row1, uint64_t row2, uint64_t row3, uint64_t row4, uint64_t row5, uint64_t row6, uint64_t row7, uint64_t row8);
 	uint64_t binToDec(uint64_t row);
+
+	template <uint32_t COLOR, uint32_t NUM_ROWS> 
+	inline void pushPawns(uint64_t &pawnBoard) {
+		if (COLOR == WHITE) {
+			pawnBoard <<= rows<NUM_ROWS>();
+		} else if (COLOR == BLACK) {
+			pawnBoard >>= rows<NUM_ROWS>();
+		}
+	}
+
+	template <uint32_t DIRECTION> 
+	inline void shiftPawns(uint64_t &pawnBoard) {
+		if (DIRECTION == LEFT) {
+			pawnBoard &= ~file<0>();
+			pawnBoard <<= 1;
+		} else if (DIRECTION == RIGHT) {
+			pawnBoard &= ~file<7>();
+			pawnBoard >>= 1;
+		}
+	}
 #endif

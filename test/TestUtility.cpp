@@ -42,9 +42,13 @@ void showAllMoves() {
 void assertMoveCount(int assertedAmount) {
 	int moveCount = 0;
 	Fen* fen = new Fen();
+	vector<string> fensFound;
 	MoveGenerationController::generateAllMoves();
 	while (uint32_t currentMove = MoveStack::pop()) {
 		moveCount++;
+		fensFound.push_back(fen->getBoardSquares());
 	}
-	ASSERT_EQ(moveCount, assertedAmount) << "Should have generated the expected number of moves" << endl;
+	ASSERT_EQ(moveCount, assertedAmount) << "Should have generated the expected number of moves" << endl
+	  << " Moves found: " << endl
+	  << boost::algorithm::join(fensFound, "\n");
 }

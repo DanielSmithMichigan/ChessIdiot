@@ -9,10 +9,6 @@
 
 	using namespace std;
 
-	template <uint32_t COLOR, uint32_t NUM_ROWS> inline void pushPawns(uint64_t &pawnBoard);
-
-	template <uint32_t DIRECTION> inline void shiftPawns(uint64_t &pawnBoard);
-
 	template <uint32_t COLOR, bool QUIESCENCE> inline void generatePawnMoves();
 
 	template <uint32_t COLOR> inline void oneMoveUp();
@@ -180,26 +176,6 @@
 				from = to - rows<2>();
 			}
 			MoveStack::push(move<PAWN_DOUBLE>(from, to));
-		}
-	}
-
-	template <uint32_t COLOR, uint32_t NUM_ROWS> 
-	inline void pushPawns(uint64_t &pawnBoard) {
-		if (COLOR == WHITE) {
-			pawnBoard <<= rows<NUM_ROWS>();
-		} else if (COLOR == BLACK) {
-			pawnBoard >>= rows<NUM_ROWS>();
-		}
-	}
-
-	template <uint32_t DIRECTION> 
-	inline void shiftPawns(uint64_t &pawnBoard) {
-		if (DIRECTION == LEFT) {
-			pawnBoard &= ~file<0>();
-			pawnBoard <<= 1;
-		} else if (DIRECTION == RIGHT) {
-			pawnBoard &= ~file<7>();
-			pawnBoard >>= 1;
 		}
 	}
 #endif
