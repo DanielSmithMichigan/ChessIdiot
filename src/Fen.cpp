@@ -97,6 +97,23 @@
 	}
 
 	void Fen::setCastling(string fenString) {
+		int x = 0, y = 0;
+		for(char& c : fenString) {
+			switch(c) {
+				case 'K':
+					Board::currentState->whiteCanCastleRight = true;
+				break;
+				case 'Q':
+					Board::currentState->whiteCanCastleLeft = true;
+				break;
+				case 'k':
+					Board::currentState->blackCanCastleRight = true;
+				break;
+				case 'q':
+					Board::currentState->blackCanCastleLeft = true;
+				break;
+			}
+		}
 	}
 
 	void Fen::useBoardString(string fenString) {
