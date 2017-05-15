@@ -32,7 +32,21 @@
 			remove(OPPOSING_COLOR(turn), PAWN, getEnPassantLocation(from, to));
 		} else if (specialMove == PAWN_DOUBLE) {
 			currentState->enPassantTarget = getEnPassantLocation(to, from);
-		} 
+		}  else if (specialMove == CASTLE) {
+			if (to == 62) {
+				remove(color, ROOK, 63);
+				put(color, ROOK, 61);
+			} else if (to == 58) {
+				remove(color, ROOK, 56);
+				put(color, ROOK, 59);
+			} else if (to == 6) {
+				remove(color, ROOK, 7);
+				put(color, ROOK, 5);
+			} else if (to == 2) {
+				remove(color, ROOK, 0);
+				put(color, ROOK, 3);
+			}
+		}
 
 		if (piecesIndex[to]) {
 			currentState->capturedPiece = piecesIndex[to];
@@ -77,6 +91,20 @@
 		if (specialMove == PROMOTION) {
 			put(color, PAWN, from);
 			remove(color, specialMovePiece, to);
+		} else if (specialMove == CASTLE) {
+			if (to == 62) {
+				put(color, ROOK, 63);
+				remove(color, ROOK, 61);
+			} else if (to == 58) {
+				put(color, ROOK, 56);
+				remove(color, ROOK, 59);
+			} else if (to == 6) {
+				put(color, ROOK, 7);
+				remove(color, ROOK, 5);
+			} else if (to == 2) {
+				put(color, ROOK, 0);
+				remove(color, ROOK, 3);
+			}
 		} else {
 			put(color, piece, from);
 			remove(color, piece, to);

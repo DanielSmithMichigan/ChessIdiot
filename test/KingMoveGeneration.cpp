@@ -37,3 +37,27 @@
 		assertMoveExists("8/8/8/4k3/8/4p3/8/8");
 		assertNotMoveExists("8/8/8/4P3/8/4k3/8/8");
 	}
+
+	TEST_F(KingMoveGenerationTest, WhiteCastlingRight) {
+		Fen* fen = new Fen();
+		fen->import("r3k2r/8/8/8/8/8/8/R3K2R w Kk");
+		assertMoveExists("r3k2r/8/8/8/8/8/8/R4RK1");
+	}
+
+	TEST_F(KingMoveGenerationTest, WhiteCastlingLeft) {
+		Fen* fen = new Fen();
+		fen->import("r3k2r/8/8/8/8/8/8/R3K2R w Qq");
+		assertMoveExists("r3k2r/8/8/8/8/8/8/2KR3R");
+	}
+
+	TEST_F(KingMoveGenerationTest, BlackCastlingRight) {
+		Fen* fen = new Fen();
+		fen->import("r3k2r/8/8/8/8/8/8/R3K2R b Kk");
+		assertMoveExists("r4rk1/8/8/8/8/8/8/R3K2R");
+	}
+
+	TEST_F(KingMoveGenerationTest, BlackCastlingLeft) {
+		Fen* fen = new Fen();
+		fen->import("r3k2r/8/8/8/8/8/8/R3K2R b Qq");
+		assertMoveExists("2kr3r/8/8/8/8/8/8/R3K2R");
+	}
