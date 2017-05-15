@@ -16,12 +16,14 @@
 			generateRookMoves<WHITE, false>();
 			generateQueenMoves<WHITE, false>();
 			generateKnightMoves<WHITE, false>();
+			generateKingMoves<WHITE, false>();
 		} else {
 			generatePawnMoves<BLACK, false>();
 			generateBishopMoves<BLACK, false>();
 			generateRookMoves<BLACK, false>();
 			generateQueenMoves<BLACK, false>();
 			generateKnightMoves<BLACK, false>();
+			generateKingMoves<BLACK, false>();
 		}
 	}
 

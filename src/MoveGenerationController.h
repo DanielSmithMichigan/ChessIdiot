@@ -6,6 +6,7 @@
 	#include "RookMoveGeneration.h"
 	#include "QueenMoveGeneration.h"
 	#include "KnightMoveGeneration.h"
+	#include "KingMoveGeneration.h"
 	
 
 	using namespace std;

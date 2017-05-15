@@ -256,7 +256,7 @@ uint64_t BitBoard::KnightBoards[64] = {
 	132096ULL
 };
 
-uint64_t KingBoards[64] = {
+uint64_t BitBoard::KingBoards[64] = {
 	4665729213955833856ULL,
 	11592265440851656704ULL,
 	5796132720425828352ULL,
