@@ -29,9 +29,9 @@
 		currentState->move = move;
 
 		if (specialMove == EN_PASSANT) {
-			remove(OPPOSING_COLOR(turn), PAWN, getEnPassantLocation(from, to));
+			remove(OPPOSING_COLOR(turn), PAWN, getEnPassantPawnLocation(from, to));
 		} else if (specialMove == PAWN_DOUBLE) {
-			currentState->enPassantTarget = getEnPassantLocation(to, from);
+			currentState->enPassantTarget = getEnPassantTarget(from, to);
 		}  else if (specialMove == CASTLE) {
 			if (to == 62) {
 				remove(color, ROOK, 63);
@@ -59,18 +59,28 @@
 			put(color, piece, to);			
 		}
 
-		if (from == 0 || to == 0) {
+		if (to == 0) {
 			currentState->blackCanCastleLeft = false;
-		} else if (from == 7 || to == 7) {
+		} else if (to == 7) {
 			currentState->blackCanCastleRight = false;
-		} else if (from == 112 || to == 112) {
+		} else if (to == 56) {
 			currentState->whiteCanCastleLeft = false;
-		} else if (from == 119 || to == 119) {
+		} else if (to == 63) {
 			currentState->whiteCanCastleRight = false;
-		} else if (from == 116 || to == 116) {
+		}
+
+		if (from == 0) {
+			currentState->blackCanCastleLeft = false;
+		} else if (from == 7) {
+			currentState->blackCanCastleRight = false;
+		} else if (from == 56) {
+			currentState->whiteCanCastleLeft = false;
+		} else if (from == 63) {
+			currentState->whiteCanCastleRight = false;
+		} else if (from == 60) {
 			currentState->whiteCanCastleLeft = false;
 			currentState->whiteCanCastleRight = false;
-		} else if (from == 4 || to == 4) {
+		} else if (from == 4) {
 			currentState->blackCanCastleLeft = false;
 			currentState->blackCanCastleRight = false;
 		}
@@ -93,6 +103,15 @@
 		if (specialMove == PROMOTION) {
 			put(color, PAWN, from);
 			remove(color, specialMovePiece, to);
+		} else {
+			put(color, piece, from);
+			remove(color, piece, to);
+		}
+
+		if (currentState->capturedPiece) {
+			put(currentState->capturedPieceColor, currentState->capturedPiece, to);
+		} else if (specialMove == EN_PASSANT) {
+			put(OPPOSING_COLOR(turn), PAWN, getEnPassantPawnLocation(from, to));
 		} else if (specialMove == CASTLE) {
 			if (to == 62) {
 				put(color, ROOK, 63);
@@ -107,15 +126,6 @@
 				put(color, ROOK, 0);
 				remove(color, ROOK, 3);
 			}
-		} else {
-			put(color, piece, from);
-			remove(color, piece, to);
-		}
-
-		if (currentState->capturedPiece) {
-			put(currentState->capturedPieceColor, currentState->capturedPiece, to);
-		} else if (specialMove == EN_PASSANT) {
-			put(OPPOSING_COLOR(turn), PAWN, getEnPassantLocation(from, to));
 		}
 
 		decreaseStateDepth();

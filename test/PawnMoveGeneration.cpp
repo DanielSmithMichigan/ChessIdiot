@@ -7,6 +7,8 @@
 	}
 
 	void PawnMoveGeneratorTest::SetUp() {
+		BitBoard::InitRookBitBoards();
+		BitBoard::InitBishopBitBoards();
 		Board::reset();
 	}
 
@@ -202,4 +204,10 @@
 		assertMoveExists("8/p1pppppp/1p1qQ3/2q2Q2/8/8/8/8");
 		assertMoveExists("8/1ppppppp/3qQ3/p1q2Q2/8/8/8/8");
 		assertMoveExists("8/1ppppppp/p2qQ3/2q2Q2/8/8/8/8");
+	}
+
+	TEST_F(PawnMoveGeneratorTest, CapturePromotion) {
+		Fen *fen = new Fen();
+		fen->import("n1n5/1Pk5/8/8/8/8/5Kp1/5N1N b");
+		assertMoveExists("n1n5/1Pk5/8/8/8/8/5K2/5N1r");
 	}

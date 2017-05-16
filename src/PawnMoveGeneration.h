@@ -101,7 +101,7 @@
 			} else if (COLOR == BLACK && DIRECTION == LEFT) {
 				from = moveIndex - ROW + 1;
 			} else if (COLOR == BLACK && DIRECTION == RIGHT) {
-				from = moveIndex - ROW + 1;
+				from = moveIndex - ROW - 1;
 			}
 			MoveStack::push(move<PROMOTION>(from, moveIndex, QUEEN));
 			MoveStack::push(move<PROMOTION>(from, moveIndex, ROOK));

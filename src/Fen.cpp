@@ -240,17 +240,36 @@
 
 	string Fen::getCastling() {
 		string output = "";
+		if (Board::currentState->whiteCanCastleRight) {
+			output += "K";
+		}
+		if (Board::currentState->whiteCanCastleLeft) {
+			output += "Q";
+		}
+		if (Board::currentState->blackCanCastleRight) {
+			output += "k";
+		}
+		if (Board::currentState->blackCanCastleLeft) {
+			output += "q";
+		}
+		if (output == "") {
+			return "-";
+		}
 		return output;
 	}
 
 	string Fen::intToBoardCoord(int location) {
-		int row = GET_ROW(location);
+		int row = 8 - GET_ROW(location);
+		int column = GET_COLUMN(location);
 		string letters[8] = {"a", "b", "c", "d", "e", "f", "g", "h"};
-		return "" + letters[location - ROWS(row)] + to_string((7 - row) + 1);
+		return "" + letters[column] + to_string(row);
 	}
 
 	string Fen::getEnPassantTarget() {
-		return "-";
+		if (Board::currentState->enPassantTarget == -1) {
+			return "-";
+		}
+		return intToBoardCoord(Board::currentState->enPassantTarget);
 	}
 
 	string Fen::exportBoard() {

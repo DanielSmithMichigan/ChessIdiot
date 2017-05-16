@@ -61,3 +61,15 @@
 		fen->import("r3k2r/8/8/8/8/8/8/R3K2R b Qq");
 		assertMoveExists("2kr3r/8/8/8/8/8/8/R3K2R");
 	}
+
+	TEST_F(KingMoveGenerationTest, BugOne) {
+		Fen * fen = new Fen();
+		fen->import("r3k2r/8/8/8/8/8/8/R3K1R1 b Qkq - 0 1");
+		assertMoveExists("r6r/4k3/8/8/8/8/8/R3K1R1");
+	}
+
+	TEST_F(KingMoveGenerationTest, BugTwo) {
+		Fen *fen = new Fen();
+		fen->import("r3k2r/8/8/8/8/8/8/1R2K2R b Kkq - 0 1");
+		assertMoveExists("2kr3r/8/8/8/8/8/8/1R2K2R");
+	}

@@ -30,7 +30,6 @@
 			& (rooks | queens)) {
 			return true;
 		} 
-
 		if (BitBoard::getKnightMoves<OPPOSING_COLOR(COLOR)>(location) & knights) {
 			return true;
 		}

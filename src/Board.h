@@ -39,6 +39,10 @@
 			static inline void increaseStateDepth() {
 				State* nextState = new State();
 				nextState->prev = currentState;
+				nextState->whiteCanCastleLeft = currentState->whiteCanCastleLeft;
+				nextState->blackCanCastleLeft = currentState->blackCanCastleLeft;
+				nextState->whiteCanCastleRight = currentState->whiteCanCastleRight;
+				nextState->blackCanCastleRight = currentState->blackCanCastleRight;
 				currentState = nextState;
 			}
 

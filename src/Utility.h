@@ -15,7 +15,10 @@
 	inline uint64_t getPieceBoard(int x, int y) {
 		return getPieceBoard(xyToInt(x, y));
 	}
-	inline uint32_t getEnPassantLocation(const uint32_t &from, const uint32_t &to) {
+	inline uint32_t getEnPassantTarget(const uint32_t &from, const uint32_t &to) {
+		return xyToInt(GET_COLUMN(to), GET_ROW(to) == 3 ? 2 : 5);
+	}
+	inline uint32_t getEnPassantPawnLocation(const uint32_t &from, const uint32_t &to) {
 		return xyToInt(to - ROWS(GET_ROW(to)), GET_ROW(from));
 	}
 	void showBitBoard(uint64_t bitboard);
