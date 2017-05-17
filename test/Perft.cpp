@@ -39,4 +39,20 @@
 	}
 
 	TEST_F(PerftTest, EngineComparison) {
+		performPerft("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", 5, 4865609);
+		// performPerft("rnbqkbnr/pppppppp/8/8/P7/8/1PPPPPPP/RNBQKBNR b KQkq a3", 4, 217832);
+		// performPerft("rnbqkbnr/1ppppppp/p7/8/P7/8/1PPPPPPP/RNBQKBNR w KQkq -", 3, 9312);
+		// performPerft("rnbqkbnr/1ppppppp/p7/P7/8/8/1PPPPPPP/RNBQKBNR b KQkq -", 2, 380);
+		// rnbqkbnr/2pppppp/p7/Pp6/8/8/1PPPPPPP/RNBQKBNR w KQkq b6
+		// "rnbqkbnr/2pppppp/p7/PP6/1P6/8/2PPPPPP/RNBQKBNR b KQkq b3"
+		// vector<string> outputFens;
+		// Fen::import("rnbqkbnr/1ppppppp/p7/P7/8/8/1PPPPPPP/RNBQKBNR b KQkq -");
+		// Board::doMove(17993);
+		// Board::doMove(18545);
+		// cout << Fen::getBoardSquares() << endl;
+		// MoveGenerationController::logPath(2);
+		// 17993
+		// rnbqkbnr/2pppppp/p7/Pp6/8/8/1PPPPPPP/RNBQKBNR w KQkq b6
+		// 18545
+		// rnbqkbnr/2pppppp/p7/PP6/1P6/8/2PPPPPP/RNBQKBNR b KQkq b3
 	}

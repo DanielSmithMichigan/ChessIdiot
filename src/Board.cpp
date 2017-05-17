@@ -112,7 +112,7 @@
 		if (currentState->capturedPiece) {
 			put(currentState->capturedPieceColor, currentState->capturedPiece, to);
 		} else if (specialMove == EN_PASSANT) {
-			put(OPPOSING_COLOR(turn), PAWN, getEnPassantPawnLocation(from, to));
+			put(turn, PAWN, getEnPassantPawnLocation(from, to));
 		} else if (specialMove == CASTLE) {
 			if (to == 62) {
 				put(color, ROOK, 63);

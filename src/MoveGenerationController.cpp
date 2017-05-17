@@ -52,6 +52,9 @@
 			fens.push_back(Fen::exportLegacyBoard());
 			return;
 		}
+		fens.push_back("BEGIN_BOARD");
+		fens.push_back(Fen::exportLegacyBoard());
+		fens.push_back("END_BOARD");
 		generateAllMoves();
 		while(uint32_t currentMove = MoveStack::pop()) {
 			Board::doMove(currentMove);
@@ -61,6 +64,27 @@
 			}
 			MoveStack::increaseDepth();
 			getAllFensAtDepth(depth - 1, fens);
+			MoveStack::decreaseDepth();
+			Board::undoMove();
+		}
+	}
+
+	void MoveGenerationController::logPath(uint64_t depth) {
+		if (depth == 0) {
+			cout << Fen::exportLegacyBoard() << endl;
+			return;
+		}
+		cout << Fen::exportLegacyBoard() << endl;
+		generateAllMoves();
+		while(uint32_t currentMove = MoveStack::pop()) {
+			// cout << currentMove << endl;
+			Board::doMove(currentMove);
+			if (canTakeKing()) {
+				Board::undoMove();
+				continue;
+			}
+			MoveStack::increaseDepth();
+			logPath(depth - 1);
 			MoveStack::decreaseDepth();
 			Board::undoMove();
 		}
