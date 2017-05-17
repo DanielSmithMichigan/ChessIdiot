@@ -21,5 +21,6 @@
 			~MoveGenerationController();
 			static void generateAllMoves();
 			static uint64_t countMovesAtDepth(uint64_t depth);
+			static void getAllFensAtDepth(uint64_t depth, vector<string> &fens);
 	};
 #endif

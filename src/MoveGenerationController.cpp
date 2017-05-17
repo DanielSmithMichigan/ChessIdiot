@@ -47,4 +47,23 @@
 		return counter;
 	}
 
+	void MoveGenerationController::getAllFensAtDepth(uint64_t depth, vector<string> &fens) {
+		if (depth == 0) {
+			fens.push_back(Fen::exportLegacyBoard());
+			return;
+		}
+		generateAllMoves();
+		while(uint32_t currentMove = MoveStack::pop()) {
+			Board::doMove(currentMove);
+			if (canTakeKing()) {
+				Board::undoMove();
+				continue;
+			}
+			MoveStack::increaseDepth();
+			getAllFensAtDepth(depth - 1, fens);
+			MoveStack::decreaseDepth();
+			Board::undoMove();
+		}
+	}
+
 #endif

@@ -51,6 +51,7 @@
 		if (piecesIndex[to]) {
 			currentState->capturedPiece = piecesIndex[to];
 			currentState->capturedPieceColor = colorsIndex[to];
+			remove(colorsIndex[to], piecesIndex[to], to);
 		} 
 
 		if (specialMove == PROMOTION) {
