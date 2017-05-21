@@ -3,13 +3,14 @@
 	EvaluationTest::EvaluationTest() {
 		BitBoard::InitRookBitBoards();
 		BitBoard::InitBishopBitBoards();
+		Board::reset();
+		MoveStack::reset();
 	}
 
 	EvaluationTest::~EvaluationTest() {
 	}
 
 	void EvaluationTest::SetUp() {
-		Board::reset();
 	}
 
 	TEST_F(EvaluationTest, OneBishopBlack) {
@@ -17,7 +18,7 @@
 		MoveGenerationController::generateAllMoves();
 		Board::doMove(MoveStack::pop());
 		while (MoveStack::pop()) {
-			ASSERT_EQ(Board::pieceValue, -3);
+			ASSERT_EQ(Board::pieceValue, 3);
 		}
 	}
 

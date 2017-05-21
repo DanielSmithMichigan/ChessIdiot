@@ -1,9 +1,10 @@
 	#include "EngineComparison.h"
 
 	EngineComparison::EngineComparison() {
-		fen = new Fen();
 		BitBoard::InitRookBitBoards();
 		BitBoard::InitBishopBitBoards();
+		Board::reset();
+		MoveStack::reset();
 	}
 
 	EngineComparison::~EngineComparison() {
@@ -294,7 +295,7 @@
 		ifstream infile("../test/engine-comparison/" + filename);
 		string fenStr, initialPosition;
 		getline(infile, initialPosition);
-		fen->import(initialPosition);
+		Fen::import(initialPosition);
 		vector<string> comparisonFens, myFens;
 		while (getline(infile, fenStr)) {
 			comparisonFens.push_back(fenStr);
@@ -307,7 +308,7 @@
 				Board::undoMove();
 				continue;
 			}
-			myFens.push_back(fen->exportLegacyBoard());
+			myFens.push_back(Fen::exportLegacyBoard());
 			Board::undoMove();
 		}
 		assertStringVectorMatch(comparisonFens, myFens, initialPosition);
