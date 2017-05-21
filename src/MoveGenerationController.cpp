@@ -116,7 +116,7 @@
 
 	int MoveGenerationController::alphaBeta(int alpha, int beta, int depthRemaining) {
 		if (depthRemaining == 0) {
-			return Board::piecesValue;
+			return Board::pieceValue;
 		}
 		generateAllMoves();
 		int legalMoves = 0;
@@ -128,7 +128,7 @@
 			}
 			legalMoves++;
 			MoveStack::increaseDepth();
-			int score = -alphaBeta(INT16_MIN + 1, INT16_MAX, depth - 1);
+			int score = -alphaBeta(INT16_MIN + 1, INT16_MAX, depthRemaining - 1);
 			MoveStack::decreaseDepth();
 			Board::undoMove();
 			if (score >= beta) {
@@ -139,7 +139,7 @@
 		}
 
 		if (legalMoves == 0) {
-			return positionEvaluator->terminalPositionValue();
+			return Evaluation::terminalPositionValue();
 		}
 
 		return alpha;

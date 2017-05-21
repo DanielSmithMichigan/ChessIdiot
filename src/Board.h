@@ -4,7 +4,6 @@
 	#include "State.h"
 	#include "Move.h"
 	#include "Utility.h"
-	#include "Evaluation.h"
 	#include <stdint.h>
 	#include <iostream>
 	
@@ -33,6 +32,7 @@
 			static uint64_t pieces[8];
 			static uint32_t piecesIndex[64];
 			static uint32_t colorsIndex[64];
+			static int PiecesValue[7];
 			static inline void decreaseStateDepth() {
 				State *prevState = currentState->prev;
 				delete currentState;

@@ -4,6 +4,7 @@
 	#include "Fen.h"
 	#include "Board.h"
 	#include "MoveStack.h"
+	#include "Evaluation.h"
 	#include "PawnMoveGeneration.h"
 	#include "BishopMoveGeneration.h"
 	#include "RookMoveGeneration.h"

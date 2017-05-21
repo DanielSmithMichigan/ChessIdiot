@@ -8,7 +8,6 @@
 	using namespace std;
 
 	namespace Evaluation {
-		extern int PieceValue[7];
 		int terminalPositionValue();
 	}
 #endif
