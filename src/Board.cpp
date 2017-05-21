@@ -9,6 +9,7 @@
 	uint64_t Board::pieces[8] = {};
 	uint32_t Board::piecesIndex[64] = {};
 	uint32_t Board::colorsIndex[64] = {};
+	int Board::pieceValue = 0;
 
 	Board::Board() {
 	}
@@ -150,6 +151,7 @@
 			pieces[i] = 0;
 		}
 		occupiedSquares = 0;
+		pieceValue = 0;
 	}
 
 	void Board::put(uint32_t color, uint32_t piece, uint32_t location) {
@@ -159,6 +161,11 @@
 		pieces[piece] |= pieceBoard;
 		piecesIndex[location] = piece;
 		colorsIndex[location] = color;
+		if (color == BLACK) {
+			pieceValue -= Evaluation::PieceValue[piece];
+		} else {
+			pieceValue += Evaluation::PieceValue[piece];
+		}
 	}
 
 	void Board::remove(uint32_t color, uint32_t piece, uint32_t location) {
@@ -168,5 +175,10 @@
 		pieces[piece] &= pieceBoard;
 		piecesIndex[location] = EMPTY_SPACE;
 		colorsIndex[location] = BLANK;
+		if (color == WHITE) {
+			pieceValue -= Evaluation::PieceValue[piece];
+		} else {
+			pieceValue += Evaluation::PieceValue[piece];
+		}
 	}
 #endif

@@ -4,6 +4,7 @@
 	#include "State.h"
 	#include "Move.h"
 	#include "Utility.h"
+	#include "Evaluation.h"
 	#include <stdint.h>
 	#include <iostream>
 	
@@ -18,6 +19,7 @@
 			Board();
 			~Board();
 			static State* currentState;
+			static int pieceValue;
 			static void reset();
 			static void doMove(uint32_t move);
 			static void undoMove();
