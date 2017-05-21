@@ -98,11 +98,8 @@
 		int bestScore = INT32_MIN;
 		int bestMove = 0;
 		while(uint32_t currentMove = MoveStack::pop()) {
-			cout << "FROM: " << FROM(currentMove)
-				 << " TO: " << TO(currentMove) << endl;
 			Board::doMove(currentMove);
 			if (canTakeKing()) {
-				cout << "ILLEGAL MOVE" << endl;
 				Board::undoMove();
 				continue;
 			}
@@ -120,23 +117,19 @@
 
 	int MoveGenerationController::alphaBeta(int alpha, int beta, int depthRemaining) {
 		if (depthRemaining == 0) {
-			cout << "SCORE: " << Board::pieceValue << endl;
 			return Board::pieceValue;
 		}
 		generateAllMoves();
 		int legalMoves = 0;
 		while(uint32_t currentMove = MoveStack::pop()) {
-			cout << "FROM: " << FROM(currentMove)
-				 << " TO: " << TO(currentMove) << endl;
 			Board::doMove(currentMove);
 			if (canTakeKing()) {
-				cout << "ILLEGAL MOVE" << endl;
 				Board::undoMove();
 				continue;
 			}
 			legalMoves++;
 			MoveStack::increaseDepth();
-			int score = -alphaBeta(INT16_MIN + 1, INT16_MAX, depthRemaining - 1);
+			int score = -alphaBeta(-beta, -alpha, depthRemaining - 1);
 			MoveStack::decreaseDepth();
 			Board::undoMove();
 			if (score >= beta) {

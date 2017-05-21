@@ -78,13 +78,11 @@
 	}
 
 	void MoveStack::increaseDepth() {
-		cout << "INCREASE DEPTH" << endl;
 		currentDepth++;
 		depthLimits[currentDepth] = top;
 	}
 
 	void MoveStack::decreaseDepth() {
-		cout << "DECREASE DEPTH" << endl;
 		currentDepth--;
 		top = depthLimits[currentDepth];
 	}
