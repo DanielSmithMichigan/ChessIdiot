@@ -37,11 +37,6 @@
 
 
 	MoveStack::MoveStack() {
-		for (int i = 0; i < 13; i++) {
-			for (int j = 0; j < 13; j++) {
-				mvvLva[i][j] = (100 * pieceValue[i]) - pieceValue[j];
-			}
-		}
 		reset();
 	}
 
@@ -50,6 +45,11 @@
 	}
 
 	void MoveStack::reset() {
+		for (int i = 0; i < 13; i++) {
+			for (int j = 0; j < 13; j++) {
+				mvvLva[i][j] = (100 * pieceValue[i]) - pieceValue[j];
+			}
+		}
 		for(int i = 0; i < MOVE_STACK_LIMIT; i++) {
 			stack[i] = 0;
 		}
