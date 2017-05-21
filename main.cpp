@@ -1,4 +1,6 @@
 #include "src/BitBoard.h"
+#include "src/Fen.h"
+#include "src/MoveGenerationController.h"
 #include <stdlib.h>
 
 using namespace std;
@@ -6,36 +8,7 @@ int main(int argc, char** argv )
 {
 	BitBoard::InitRookBitBoards();
 	BitBoard::InitBishopBitBoards();
-
-	int testValues[] = {
-		-1, 0, 1
-	};
-
-	int counter = 0;
-
-	for (int y = 0; y < ROW; y++) {
-		for (int x = 0; x < ROW; x++) {
-			uint64_t board = 0;
-			for (int xMod = 0; xMod < 3; xMod++) {
-				for (int yMod = 0; yMod < 3; yMod++) {
-					if (testValues[xMod] == 0
-						&& testValues[yMod] == 0) {
-						continue;
-					}
-					int newX = x + testValues[xMod];
-					int newY = y + testValues[yMod];
-					if (newX >= 0 
-						&& newX <=7
-						&& newY >= 0
-						&& newY <= 7) {
-						board |= getPieceBoard(newX, newY);
-					}
-				}
-			}
-			counter++;
-			cout << "COUNTER: " << counter << " BOARD: " << board << endl;
-			// showBitBoard(board);
-		}
-	}
+	Fen::import("r1b1k2r/ppppnppp/2n2q2/2b5/3NP3/2P1B3/PP3PPP/RN1QKB1R w KQkq - 0 1"); // benchmark
+	int bestMove = MoveGenerationController::getBestMove(5);
     return 0;
 }
