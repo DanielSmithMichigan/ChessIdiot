@@ -7,7 +7,41 @@
 	int MoveStack::currentDepth = 0;
 	int MoveStack::top = 0;
 
+	int mvvLva[13][13];
+	int pieceValue[13] = {
+		0,
+		1,
+		3,
+		3,
+		5,
+		9,
+		5,
+		1,
+		3,
+		3,
+		5,
+		9,
+		5
+	};
+
+	bool sortByMVVLVA(uint32_t a, uint32_t b) {
+
+		int capturedA = Board::piecesIndex[TO(a)];
+		int aValue = capturedA ? mvvLva[capturedA][Board::piecesIndex[FROM(a)]] : 0;
+
+		int capturedB = Board::piecesIndex[TO(b)];
+		int bValue = capturedB ? mvvLva[capturedB][Board::piecesIndex[FROM(b)]] : 0;
+
+		return aValue < bValue;
+	}
+
+
 	MoveStack::MoveStack() {
+		for (int i = 0; i < 13; i++) {
+			for (int j = 0; j < 13; j++) {
+				mvvLva[i][j] = (100 * pieceValue[i]) - pieceValue[j];
+			}
+		}
 		reset();
 	}
 
@@ -41,6 +75,12 @@
 		}
 		depthLimits[currentDepth] = --top;
 		return stack[top];
+	}
+
+	void MoveStack::sortCurrentDepth() {
+		sort(stack+getDepthBottom(), 
+			 stack+top, 
+			 &sortByMVVLVA);
 	}
 
 	void MoveStack::increaseDepth() {

@@ -25,6 +25,7 @@
 			generateKnightMoves<BLACK, false>();
 			generateKingMoves<BLACK, false>();
 		}
+		MoveStack::sortCurrentDepth();
 	}
 
 	uint64_t MoveGenerationController::countMovesAtDepth(uint64_t depth) {
