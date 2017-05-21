@@ -7,21 +7,15 @@
 	int MoveStack::currentDepth = 0;
 	int MoveStack::top = 0;
 
-	int mvvLva[13][13];
-	int pieceValue[13] = {
+	int mvvLva[7][7];
+	int pieceValue[7] = {
 		0,
 		1,
 		3,
 		3,
 		5,
 		9,
-		5,
-		1,
-		3,
-		3,
-		5,
-		9,
-		5
+		1
 	};
 
 	bool sortByMVVLVA(uint32_t a, uint32_t b) {
@@ -45,8 +39,8 @@
 	}
 
 	void MoveStack::reset() {
-		for (int i = 0; i < 13; i++) {
-			for (int j = 0; j < 13; j++) {
+		for (int i = 0; i < 7; i++) {
+			for (int j = 0; j < 7; j++) {
 				mvvLva[i][j] = (100 * pieceValue[i]) - pieceValue[j];
 			}
 		}
@@ -84,11 +78,13 @@
 	}
 
 	void MoveStack::increaseDepth() {
+		cout << "INCREASE DEPTH" << endl;
 		currentDepth++;
 		depthLimits[currentDepth] = top;
 	}
 
 	void MoveStack::decreaseDepth() {
+		cout << "DECREASE DEPTH" << endl;
 		currentDepth--;
 		top = depthLimits[currentDepth];
 	}

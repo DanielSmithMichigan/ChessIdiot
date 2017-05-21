@@ -11,7 +11,7 @@
 	uint32_t Board::colorsIndex[64] = {};
 	int Board::pieceValue = 0;
 	int Board::PiecesValue[7] = {
-		0, 1, 3, 3, 5, 9, 0
+		0, 1, 3, 3, 5, 9, 1
 	};
 
 	Board::Board() {
@@ -164,7 +164,7 @@
 		pieces[piece] |= pieceBoard;
 		piecesIndex[location] = piece;
 		colorsIndex[location] = color;
-		if (color == BLACK) {
+		if (color == WHITE) {
 			pieceValue -= Board::PiecesValue[piece];
 		} else {
 			pieceValue += Board::PiecesValue[piece];
@@ -178,7 +178,7 @@
 		pieces[piece] &= pieceBoard;
 		piecesIndex[location] = EMPTY_SPACE;
 		colorsIndex[location] = BLANK;
-		if (color == WHITE) {
+		if (color == BLACK) {
 			pieceValue -= Board::PiecesValue[piece];
 		} else {
 			pieceValue += Board::PiecesValue[piece];
