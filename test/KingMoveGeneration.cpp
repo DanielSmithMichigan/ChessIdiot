@@ -73,3 +73,8 @@
 		fen->import("r3k2r/8/8/8/8/8/8/1R2K2R b Kkq - 0 1");
 		assertMoveExists("2kr3r/8/8/8/8/8/8/1R2K2R");
 	}
+
+	TEST_F(KingMoveGenerationTest, BugThree) {
+		Fen::import("rnbqkB1r/pppp1ppp/4pn2/8/8/1P6/P1PPPPPP/RN1QKBNR b KQkq -");
+		assertNotMoveExists("rnbq1rk1/pppp1ppp/4pn2/8/8/1P6/P1PPPPPP/RN1QKBNR");
+	}
