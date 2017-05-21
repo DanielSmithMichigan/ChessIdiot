@@ -90,4 +90,59 @@
 		}
 	}
 
+
+
+	uint32_t MoveGenerationController::getBestMove(int depth) {
+		generateAllMoves();
+		int bestScore = INT32_MIN;
+		int bestMove = 0;
+		while(uint32_t currentMove = MoveStack::pop()) {
+			Board::doMove(currentMove);
+			if (canTakeKing()) {
+				Board::undoMove();
+				continue;
+			}
+			MoveStack::increaseDepth();
+			int score = -alphaBeta(INT16_MIN + 1, INT16_MAX, depth - 1);
+			MoveStack::decreaseDepth();
+			Board::undoMove();
+			if (score > bestScore) {
+				bestScore = score;
+				bestMove = currentMove;
+			} 
+		}
+		return bestMove;
+	}
+
+	int MoveGenerationController::alphaBeta(int alpha, int beta, int depthRemaining) {
+		if (depthRemaining == 0) {
+			return Board::piecesValue;
+		}
+		generateAllMoves();
+		int legalMoves = 0;
+		while(uint32_t currentMove = MoveStack::pop()) {
+			Board::doMove(currentMove);
+			if (canTakeKing()) {
+				Board::undoMove();
+				continue;
+			}
+			legalMoves++;
+			MoveStack::increaseDepth();
+			int score = -alphaBeta(INT16_MIN + 1, INT16_MAX, depth - 1);
+			MoveStack::decreaseDepth();
+			Board::undoMove();
+			if (score >= beta) {
+				return beta; 
+			} else if (score > alpha) {
+				alpha = score;
+			}
+		}
+
+		if (legalMoves == 0) {
+			return positionEvaluator->terminalPositionValue();
+		}
+
+		return alpha;
+	}
+
 #endif
