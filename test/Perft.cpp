@@ -26,6 +26,12 @@
 		// performPerft("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", 4, 197281);
 		// performPerft("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", 5, 4865609);
 		// performPerft("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", 6, 119060324);
+		performPerft("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", 7, 3195901860);
+		// performPerft("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", 8, 84998978956);
+		// performPerft("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", 9, 2439530234167);
+		// performPerft("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", 10, 69352859712417);
+		// performPerft("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", 11, 2097651003696806);
+		// performPerft("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", 12, 1981066775000396239);
 	}
 
 	TEST_F(PerftTest, Kiwipete) {
@@ -50,6 +56,6 @@
 		// performPerft("rnbqkbnr/pppp1ppp/4p3/8/8/BP6/P1PPPPPP/RN1QKBNR b KQkq -", 3, 20023);
 		// performPerft("rnbqkb1r/pppp1ppp/4pn2/8/8/BP6/P1PPPPPP/RN1QKBNR w KQkq -", 2, 636);
 		// performPerft("rnbqkB1r/pppp1ppp/4pn2/8/8/1P6/P1PPPPPP/RN1QKBNR b KQkq -", 1, 24);
-		Fen::import("rnbqkB1r/pppp1ppp/4pn2/8/8/1P6/P1PPPPPP/RN1QKBNR b KQkq -");
-		MoveGenerationController::logPath(1);
+		// Fen::import("rnbqkB1r/pppp1ppp/4pn2/8/8/1P6/P1PPPPPP/RN1QKBNR b KQkq -");
+		// MoveGenerationController::logPath(1);
 	}
