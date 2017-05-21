@@ -11,4 +11,14 @@
 			return squareAttacked<BLACK>(kingLocation);
 		}
 	}
+
+	bool kingInCheck() {
+		uint64_t kings = Board::pieces[KING] & Board::colors[Board::turn];
+		uint32_t kingLocation = popBit(kings);
+		if (Board::turn == BLACK) {
+			return squareAttacked<WHITE>(kingLocation);
+		} else {
+			return squareAttacked<BLACK>(kingLocation);
+		}
+	}
 #endif

@@ -11,6 +11,7 @@
 	using namespace std;
 
 	bool canTakeKing();
+	bool kingInCheck();
 
 	template <uint32_t COLOR> inline bool squareAttacked(uint32_t location);
 	template <uint32_t COLOR>

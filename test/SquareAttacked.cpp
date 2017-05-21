@@ -72,3 +72,13 @@
 		fen->import("rnbqkbnr/pppp2pp/4p3/5p1Q/8/4P3/PPPP1PPP/RNB1KBNR b");
 		ASSERT_FALSE(canTakeKing());
 	}
+
+	TEST_F(SquareAttackedTest, KingInCheck) {
+		Fen::import("7K/8/8/8/8/8/k7/7r w - -");
+		ASSERT_TRUE(kingInCheck());
+	}
+
+	TEST_F(SquareAttackedTest, KingNotInCheck) {
+		Fen::import("7K/8/8/8/8/8/k7/7r b - -");
+		ASSERT_FALSE(kingInCheck());
+	}

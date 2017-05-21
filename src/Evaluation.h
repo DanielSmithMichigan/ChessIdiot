@@ -9,6 +9,6 @@
 
 	namespace Evaluation {
 		extern int PieceValue[7];
-		int terminalPositionValue
+		int terminalPositionValue();
 	}
 #endif
