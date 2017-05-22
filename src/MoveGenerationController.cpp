@@ -2,6 +2,8 @@
 #define MoveGenerationController_cpp
 	#include "MoveGenerationController.h"
 
+	int MoveGenerationController::nodesSearched = 0;
+
 	MoveGenerationController::MoveGenerationController() {
 	}
 
@@ -98,11 +100,14 @@
 		int bestScore = INT32_MIN;
 		int bestMove = 0;
 		while(uint32_t currentMove = MoveStack::pop()) {
+			cout << "FROM: " << FROM(currentMove)
+			     << " TO: " << TO(currentMove) << endl;
 			Board::doMove(currentMove);
 			if (canTakeKing()) {
 				Board::undoMove();
 				continue;
 			}
+			cout << "INCREASE DEPTH" << endl;
 			MoveStack::increaseDepth();
 			int score = -alphaBeta(INT16_MIN + 1, INT16_MAX, depth - 1);
 			MoveStack::decreaseDepth();
@@ -117,17 +122,21 @@
 
 	int MoveGenerationController::alphaBeta(int alpha, int beta, int depthRemaining) {
 		if (depthRemaining == 0) {
+			nodesSearched++;
 			return Board::pieceValue;
 		}
 		generateAllMoves();
 		int legalMoves = 0;
 		while(uint32_t currentMove = MoveStack::pop()) {
+			cout << "FROM: " << FROM(currentMove)
+			     << " TO: " << TO(currentMove) << endl;
 			Board::doMove(currentMove);
 			if (canTakeKing()) {
 				Board::undoMove();
 				continue;
 			}
 			legalMoves++;
+			cout << "INCREASE DEPTH" << endl;
 			MoveStack::increaseDepth();
 			int score = -alphaBeta(-beta, -alpha, depthRemaining - 1);
 			MoveStack::decreaseDepth();

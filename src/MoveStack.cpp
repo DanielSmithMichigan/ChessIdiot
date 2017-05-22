@@ -15,7 +15,7 @@
 		3,
 		5,
 		9,
-		1
+		5
 	};
 
 	bool sortByMVVLVA(uint32_t a, uint32_t b) {
