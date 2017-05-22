@@ -8,6 +8,14 @@
 		generateMovesAt(i); \
 	}
 
+	int getColumn(int x) {
+		return x - ROWS(GET_ROW(x));
+	}
+
+	int to64(int x) {
+		return getColumn(x) + (GET_ROW(x) * 8);
+	}
+
 	MoveGenerationController::MoveGenerationController(shared_ptr<Board> board, shared_ptr<MoveStack> moveStack, shared_ptr<AttackedSquare> attackedSquare) :
 		board(board),
 		moveStack(moveStack),
@@ -126,13 +134,17 @@
 		int bestScore = INT32_MIN;
 		int bestMove = 0;
 		while(uint32_t currentMove = moveStack->pop()) {
+			cout << "FROM: " << to64(FROM(currentMove))
+				 << " TO: " << to64(TO(currentMove)) << endl;
 			board->doMove(currentMove);
 			if (attackedSquare->kingInCheck(GET_OPPOSING_COLOR(board->turn))) {
 				board->undoMove();
 				continue;
 			}
 			moveStack->increaseDepth();
+			cout << "INCREASE DEPTH" << endl;
 			int score = -alphaBeta(INT16_MIN + 1, INT16_MAX, depth - 1);
+			cout << "DECREASE DEPTH" << endl;
 			moveStack->decreaseDepth();
 			board->undoMove();
 			if (score > bestScore) {
@@ -150,6 +162,8 @@
 		generateAllMoves();
 		int legalMoves = 0;
 		while(uint32_t currentMove = moveStack->pop()) {
+			cout << "FROM: " << to64(FROM(currentMove))
+				 << " TO: " << to64(TO(currentMove)) << endl;
 			board->doMove(currentMove);
 			if (attackedSquare->kingInCheck(GET_OPPOSING_COLOR(board->turn))) {
 				board->undoMove();
@@ -157,7 +171,9 @@
 			}
 			legalMoves++;
 			moveStack->increaseDepth();
+			cout << "INCREASE DEPTH" << endl;
 			int score = -alphaBeta(-beta, -alpha, depthRemaining - 1);
+			cout << "DECREASE DEPTH" << endl;
 			moveStack->decreaseDepth();
 			board->undoMove();
 			if (score >= beta) {
