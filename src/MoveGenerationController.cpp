@@ -110,6 +110,7 @@
 			cout << "INCREASE DEPTH" << endl;
 			MoveStack::increaseDepth();
 			int score = -alphaBeta(INT16_MIN + 1, INT16_MAX, depth - 1);
+			cout << "DECREASE DEPTH" << endl;
 			MoveStack::decreaseDepth();
 			Board::undoMove();
 			if (score > bestScore) {
@@ -123,6 +124,7 @@
 	int MoveGenerationController::alphaBeta(int alpha, int beta, int depthRemaining) {
 		if (depthRemaining == 0) {
 			nodesSearched++;
+			cout << "SCORE: " << Board::pieceValue << endl;
 			return Board::pieceValue;
 		}
 		generateAllMoves();
@@ -139,6 +141,7 @@
 			cout << "INCREASE DEPTH" << endl;
 			MoveStack::increaseDepth();
 			int score = -alphaBeta(-beta, -alpha, depthRemaining - 1);
+			cout << "DECREASE DEPTH" << endl;
 			MoveStack::decreaseDepth();
 			Board::undoMove();
 			if (score >= beta) {
