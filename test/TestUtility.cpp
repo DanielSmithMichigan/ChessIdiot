@@ -1,8 +1,12 @@
 #include "TestUtility.h"
-void assertMoveExists(string fenString) {
+void assertMoveExists(string fenString, string param) {
 	bool found = false;
 	Fen* fen = new Fen();
-	MoveGenerationController::generateAllMoves();
+	if (param != "quiescence") {
+		MoveGenerationController::generateAllMoves();
+	} else {
+		MoveGenerationController::generateCaptures();
+	}
 	vector<string> fensFound;
 	while (uint32_t currentMove = MoveStack::pop()) {
 		Board::doMove(currentMove);
@@ -17,10 +21,14 @@ void assertMoveExists(string fenString) {
 	  << " Moves found: " << endl
 	  << boost::algorithm::join(fensFound, "\n");
 }
-void assertNotMoveExists(string fenString) {
+void assertNotMoveExists(string fenString, string param) {
 	bool found = false;
 	Fen* fen = new Fen();
-	MoveGenerationController::generateAllMoves();
+	if (param != "quiescence") {
+		MoveGenerationController::generateAllMoves();
+	} else {
+		MoveGenerationController::generateCaptures();
+	}
 	while (uint32_t currentMove = MoveStack::pop()) {
 		Board::doMove(currentMove);
 		if (fen->getBoardSquares().compare(fenString) == 0) {

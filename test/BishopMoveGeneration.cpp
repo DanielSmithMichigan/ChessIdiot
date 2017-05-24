@@ -113,3 +113,16 @@
 		assertMoveExists("8/8/8/4p3/8/8/7B/8");
 		assertMoveExists("8/8/8/4B3/8/8/8/8");
 	}
+
+	TEST_F(BishopMoveGenerationTest, Quiescence) {
+		Fen* fen = new Fen();
+		fen->import("8/8/8/4p3/5B2/8/8/8 w");
+		assertNotMoveExists("8/8/8/4p1B1/8/8/8/8", "quiescence");
+		assertNotMoveExists("8/8/7B/4p3/8/8/8/8", "quiescence");
+		assertNotMoveExists("8/8/8/4p3/8/4B3/8/8", "quiescence");
+		assertNotMoveExists("8/8/8/4p3/8/8/3B4/8", "quiescence");
+		assertNotMoveExists("8/8/8/4p3/8/8/8/2B5", "quiescence");
+		assertNotMoveExists("8/8/8/4p3/8/6B1/8/8", "quiescence");
+		assertNotMoveExists("8/8/8/4p3/8/8/7B/8", "quiescence");
+		assertMoveExists("8/8/8/4B3/8/8/8/8", "quiescence");
+	}

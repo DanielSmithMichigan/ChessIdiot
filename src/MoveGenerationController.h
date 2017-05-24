@@ -20,12 +20,13 @@
 		public:
 			MoveGenerationController();
 			~MoveGenerationController();
-			static int nodesSearched;
 			static void generateAllMoves();
+			static void generateCaptures();
 			static uint64_t countMovesAtDepth(uint64_t depth);
 			static void getAllFensAtDepth(uint64_t depth, vector<string> &fens);
 			static void logPath(uint64_t depth);
 			static uint32_t getBestMove(int depth);
 			static int alphaBeta(int alpha, int beta, int depthRemaining);
+			static int quiescence(int alpha, int beta);
 	};
 #endif

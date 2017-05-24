@@ -34,3 +34,11 @@
 		assertNotMoveExists("8/8/8/6p1/6p1/4QPP1/8/8");
 		assertNotMoveExists("8/8/8/6p1/6p1/4PPP1/5Q2/8");
 	}
+
+	TEST_F(QueenMoveGenerationTest, Quiescence) {
+		Fen* fen = new Fen();
+		fen->import("8/2p3p1/8/4Q3/8/8/8/8 w");
+		assertMoveExists("8/2Q3p1/8/8/8/8/8/8", "quiescence");
+		assertMoveExists("8/2p3Q1/8/8/8/8/8/8", "quiescence");
+		assertNotMoveExists("8/2p3p1/4Q3/8/8/8/8/8", "quiescence");
+	}

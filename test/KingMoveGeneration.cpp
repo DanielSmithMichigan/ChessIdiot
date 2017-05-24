@@ -78,3 +78,15 @@
 		Fen::import("rnbqkB1r/pppp1ppp/4pn2/8/8/1P6/P1PPPPPP/RN1QKBNR b KQkq -");
 		assertNotMoveExists("rnbq1rk1/pppp1ppp/4pn2/8/8/1P6/P1PPPPPP/RN1QKBNR");
 	}
+
+	TEST_F(KingMoveGenerationTest, Quiescence) {
+		Fen::import("8/8/4n1n1/5K2/8/8/8/8 w");
+		assertNotMoveExists("8/8/4nKn1/8/8/8/8/8", "quiescence");
+		assertNotMoveExists("8/8/4n1n1/6K1/8/8/8/8", "quiescence");
+		assertNotMoveExists("8/8/4n1n1/8/6K1/8/8/8", "quiescence");
+		assertNotMoveExists("8/8/4n1n1/8/5K2/8/8/8", "quiescence");
+		assertNotMoveExists("8/8/4n1n1/8/4K3/8/8/8", "quiescence");
+		assertNotMoveExists("8/8/4n1n1/4K3/8/8/8/8", "quiescence");
+		assertMoveExists("8/8/4K1n1/8/8/8/8/8", "quiescence");
+		assertMoveExists("8/8/4n1K1/8/8/8/8/8", "quiescence");
+	}

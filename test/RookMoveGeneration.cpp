@@ -115,3 +115,11 @@
 		assertMoveExists("8/8/8/8/1r3P2/8/8/8");
 		assertMoveExists("8/8/8/8/r4P2/8/8/8");
 	}
+
+	TEST_F(RookMoveGenerationTest, Quiescence) {
+		Fen* fen = new Fen();
+		fen->import("8/2p1R1p1/8/8/8/8/8/8 w");
+		assertMoveExists("8/2p3R1/8/8/8/8/8/8", "quiescence");
+		assertMoveExists("8/2R3p1/8/8/8/8/8/8", "quiescence");
+		assertNotMoveExists("8/2pR2p1/8/8/8/8/8/8", "quiescence");
+	}

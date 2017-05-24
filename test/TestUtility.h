@@ -7,8 +7,8 @@
 	#include "gtest/gtest.h"
 	#include "gmock/gmock.h"
 	#include <stdint.h>
-	void assertMoveExists(string fenString);
-	void assertNotMoveExists(string fenString);
+	void assertMoveExists(string fenString, string param = "");
+	void assertNotMoveExists(string fenString,  string param = "");
 	void showAllMoves();
 	void assertMoveCount(int assertedAmount);
 #endif

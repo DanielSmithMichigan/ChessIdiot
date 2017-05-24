@@ -25,11 +25,11 @@
 	inline void generatePawnMoves() {
 		attack<COLOR, LEFT>();
 		attack<COLOR, RIGHT>();
+		enPassant<COLOR, LEFT>();
+		enPassant<COLOR, RIGHT>();
 		if (!QUIESCENCE) {
 			oneMoveUp<COLOR>();
 			twoMovesUp<COLOR>();
-			enPassant<COLOR, LEFT>();
-			enPassant<COLOR, RIGHT>();
 		}
 	}
 
