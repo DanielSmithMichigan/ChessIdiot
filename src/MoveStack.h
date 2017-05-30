@@ -1,35 +1,45 @@
 #ifndef MoveStack_h
 #define MoveStack_h
-	#include "globals.h"
+	#include "Globals.h"
 	#include "Board.h"
 	#include <stdint.h>
 	#include <iostream>
 	#include <memory>
 	#include <algorithm>
 	#define MOVE_STACK_LIMIT 512
-	#define DEPTH_LIMIT 24
+	#define DEPTH_LIMIT 100
 
 	using namespace std;
 
+	struct WeightedMove {
+		uint32_t move;
+		int score;
+		WeightedMove(uint32_t move, int score) : move(move), score(score) {
+
+		}
+		WeightedMove() {
+		}
+	};
+
 	class MoveStack {
 		private:
-			shared_ptr<Board> board;
-			int depthLimits[DEPTH_LIMIT];
-			int currentDepth;
+			WeightedMove stack[MOVE_STACK_LIMIT];
+			uint32_t depthLimits[DEPTH_LIMIT];
+			uint32_t top;
+			uint32_t getDepthBottom();
 		protected:
 		public:
-			int top;
-			uint32_t stack[MOVE_STACK_LIMIT];
+			uint32_t currentDepth;
+			void reset();
 			void push(uint32_t move);
 			uint32_t pop();
-			void reset();
 			void increaseDepth();
 			void decreaseDepth();
-			int getDepthBottom();
-			int getMovesRemaining();
-			void sortCurrentDepth();
-			MoveStack(shared_ptr<Board> board);
+			static MoveStack *instance;
+			MoveStack();
 			~MoveStack();
 	};
+
+
 
 #endif

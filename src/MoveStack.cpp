@@ -2,15 +2,11 @@
 #define MoveStack_cpp
 	#include "MoveStack.h"
 
-	static int mvvLva[13][13];
-	static int pieceValue[13] = {
+	MoveStack *MoveStack::instance = new MoveStack();
+
+	int mvvLva[7][7];
+	int pieceValue[7] = {
 		0,
-		1,
-		3,
-		3,
-		5,
-		9,
-		5,
 		1,
 		3,
 		3,
@@ -19,23 +15,8 @@
 		5
 	};
 
-	static bool sortByMVVLVA(uint32_t a, uint32_t b) {
 
-		int capturedA = CAPTURED_PIECE(a);
-		int aValue = capturedA ? mvvLva[capturedA][Board::squares[FROM(a)]] : 0;
-
-		int capturedB = CAPTURED_PIECE(b);
-		int bValue = capturedB ? mvvLva[capturedB][Board::squares[FROM(b)]] : 0;
-
-		return aValue < bValue;
-	}
-
-	MoveStack::MoveStack(shared_ptr<Board> board) : board(board) {
-		for (int i = 0; i < 13; i++) {
-			for (int j = 0; j < 13; j++) {
-				mvvLva[i][j] = (100 * pieceValue[i]) - pieceValue[j];
-			}
-		}
+	MoveStack::MoveStack() {
 		reset();
 	}
 
@@ -44,8 +25,13 @@
 	}
 
 	void MoveStack::reset() {
+		for (int i = 0; i < 7; i++) {
+			for (int j = 0; j < 7; j++) {
+				mvvLva[i][j] = (100 * pieceValue[i]) - pieceValue[j];
+			}
+		}
 		for(int i = 0; i < MOVE_STACK_LIMIT; i++) {
-			stack[i] = 0;
+			stack[i] = WeightedMove(0, 0);
 		}
 		for(int i = 0; i < DEPTH_LIMIT; i++) {
 			depthLimits[i] = 0;
@@ -55,26 +41,38 @@
 	}
 
 	void MoveStack::push(uint32_t move) {
-		stack[top++] = move;
+		uint32_t to = TO(move);
+		if (Board::piecesIndex[to]) {
+			uint32_t from = FROM(move);
+			stack[top].score = mvvLva[Board::piecesIndex[to]][Board::piecesIndex[from]];
+		} else {
+			stack[top].score = 0;
+		}
+		stack[top].move = move;
+		top++;
 		depthLimits[currentDepth] = top;
 	}
 
-	int MoveStack::getMovesRemaining() {
-		return top - getDepthBottom();
-	}
-
 	uint32_t MoveStack::pop() {
-		if (top <= getDepthBottom()) {
+		uint32_t bottom = getDepthBottom();
+		if (top <= bottom) {
 			return 0;
 		}
-		depthLimits[currentDepth] = --top;
-		return stack[top];
-	}
+		int bestScoreFound = stack[bottom].score;
+		int bestIndexFound = bottom;
+		for (uint32_t i = bottom; i < top; i++) {
+			if (stack[i].score > bestScoreFound) {
+				bestScoreFound = stack[i].score;
+				bestIndexFound = i;
+			}
+		}
 
-	void MoveStack::sortCurrentDepth() {
-		sort(stack+getDepthBottom(), 
-			 stack+top, 
-			 &sortByMVVLVA);
+		depthLimits[currentDepth] = --top;
+
+		uint32_t bestMoveFound = stack[bestIndexFound].move;
+		stack[bestIndexFound].move = stack[top].move;
+		stack[bestIndexFound].score = stack[top].score;
+		return bestMoveFound;
 	}
 
 	void MoveStack::increaseDepth() {
@@ -87,7 +85,7 @@
 		top = depthLimits[currentDepth];
 	}
 
-	int MoveStack::getDepthBottom() {
+	uint32_t MoveStack::getDepthBottom() {
 		if (currentDepth == 0) {
 			return 0;
 		}

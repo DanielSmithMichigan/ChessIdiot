@@ -1,16 +1,16 @@
-	#include "../src/MoveStack.h"
-	#include "../src/Board.h"
+	#include "../src/MoveGenerationController.h"
+	#include "../src/Fen.h"
+	#include "TestUtility.h"
 	#include "gtest/gtest.h"
 	#include "gmock/gmock.h"
-	#include <memory>
+	#include <algorithm>
 
 	using namespace std;
 
 	class MoveStackTest : public ::testing::Test{
 		private:
 		public:
-			shared_ptr<Board> board;
-			shared_ptr<MoveStack> moveStack;
+			virtual void SetUp();
 			MoveStackTest();
 			~MoveStackTest();
 	};
