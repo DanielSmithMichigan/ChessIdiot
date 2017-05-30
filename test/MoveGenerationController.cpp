@@ -4,7 +4,7 @@
 		BitBoard::InitRookBitBoards();
 		BitBoard::InitBishopBitBoards();
 		Board::reset();
-		MoveStack::reset();
+		MoveStack::instance->reset();
 	}
 
 	MoveGenerationControllerTest::~MoveGenerationControllerTest() {
@@ -52,9 +52,9 @@
 		ASSERT_EQ(TO(bestMove), 12);
 	}
 
-	// TEST_F(MoveGenerationControllerTest, SolveChessPuzzleThree) {
-	// 	Fen::import("r1b1k2r/ppppnppp/2n2q2/2b5/3NP3/2P1B3/PP3PPP/RN1QKB1R w KQkq - 0 1");
-	// 	int bestMove = MoveGenerationController::getBestMove(7);
-	// 	ASSERT_EQ(FROM(bestMove), 35);
-	// 	ASSERT_EQ(TO(bestMove), 18);
-	// }
+	TEST_F(MoveGenerationControllerTest, MateInOne) {
+		Fen::import("2rr1k2/R2Q3p/1q1p2p1/1p1Pp3/1Pn1N3/7P/5PP1/5RK1 w");
+		int bestMove = MoveGenerationController::getBestMove(3);
+		ASSERT_EQ(FROM(bestMove), 11);
+		ASSERT_EQ(TO(bestMove), 13);
+	}

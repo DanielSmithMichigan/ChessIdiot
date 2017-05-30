@@ -7,26 +7,35 @@
 	#include <memory>
 	#include <algorithm>
 	#define MOVE_STACK_LIMIT 512
-	#define DEPTH_LIMIT 24
+	#define DEPTH_LIMIT 100
 
 	using namespace std;
 
+	struct WeightedMove {
+		uint32_t move;
+		int score;
+		WeightedMove(uint32_t move, int score) : move(move), score(score) {
+
+		}
+		WeightedMove() {
+		}
+	};
+
 	class MoveStack {
 		private:
+			WeightedMove stack[MOVE_STACK_LIMIT];
+			uint32_t depthLimits[DEPTH_LIMIT];
+			uint32_t top;
+			uint32_t getDepthBottom();
 		protected:
 		public:
-			static int depthLimits[DEPTH_LIMIT];
-			static int currentDepth;
-			static int top;
-			static uint32_t stack[MOVE_STACK_LIMIT];
-			static void push(uint32_t move);
-			static uint32_t pop();
-			static void reset();
-			static void increaseDepth();
-			static void decreaseDepth();
-			static int getDepthBottom();
-			static int getMovesRemaining();
-			static void sortCurrentDepth();
+			uint32_t currentDepth;
+			void reset();
+			void push(uint32_t move);
+			uint32_t pop();
+			void increaseDepth();
+			void decreaseDepth();
+			static MoveStack *instance;
 			MoveStack();
 			~MoveStack();
 	};

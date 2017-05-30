@@ -3,7 +3,7 @@
 	#include "Evaluation.h"
 
 	int Evaluation::terminalPositionValue() {
-		if (canTakeKing()) {
+		if (kingInCheck()) {
 			return Board::turn == WHITE ?
 				CHECKMATE : -CHECKMATE;
 		}

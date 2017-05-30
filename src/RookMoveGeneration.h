@@ -19,12 +19,12 @@
 			uint64_t allRookMoves = BitBoard::getRookMoves<COLOR>(rookLocation);
 			uint64_t captureMoves = Board::colors[OPPOSING_COLOR(COLOR)] & allRookMoves;
 			while(captureMoves) {
-				MoveStack::push(move<CAPTURE>(rookLocation, popBit(captureMoves)));
+				MoveStack::instance->push(move<CAPTURE>(rookLocation, popBit(captureMoves)));
 			}
 			if (!QUIESCENCE) {
 				uint64_t nonCaptureMoves = ~Board::colors[OPPOSING_COLOR(COLOR)] & allRookMoves;
 				while(nonCaptureMoves) {
-					MoveStack::push(quietMove(rookLocation, popBit(nonCaptureMoves)));
+					MoveStack::instance->push(quietMove(rookLocation, popBit(nonCaptureMoves)));
 				}
 			}
 		}

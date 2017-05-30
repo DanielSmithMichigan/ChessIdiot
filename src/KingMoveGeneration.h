@@ -32,12 +32,12 @@
 			uint64_t allKingMoves = BitBoard::getAdjacentKingMoves<COLOR>(kingLocation);
 			uint64_t captureMoves = Board::colors[OPPOSING_COLOR(COLOR)] & allKingMoves;
 			while(captureMoves) {
-				MoveStack::push(move<CAPTURE>(kingLocation, popBit(captureMoves)));
+				MoveStack::instance->push(move<CAPTURE>(kingLocation, popBit(captureMoves)));
 			}
 			if (!QUIESCENCE) {
 				uint64_t nonCaptureMoves = ~Board::colors[OPPOSING_COLOR(COLOR)] & allKingMoves;
 				while(nonCaptureMoves) {
-					MoveStack::push(quietMove(kingLocation, popBit(nonCaptureMoves)));
+					MoveStack::instance->push(quietMove(kingLocation, popBit(nonCaptureMoves)));
 				}
 			}
 		}
@@ -56,21 +56,21 @@
 			&& !(Board::occupiedSquares & CASTLE_RIGHT_OCCUPIED & row<7>())
 			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(61)
 			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(62)) {
-			MoveStack::push(move<CASTLE>(kingLocation, 62));
+			MoveStack::instance->push(move<CASTLE>(kingLocation, 62));
 		}
 		if (COLOR == WHITE
 			&& Board::currentState->whiteCanCastleLeft
 			&& !(Board::occupiedSquares & CASTLE_LEFT_OCCUPIED & row<7>())
 			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(58)
 			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(59)) {
-			MoveStack::push(move<CASTLE>(kingLocation, 58));
+			MoveStack::instance->push(move<CASTLE>(kingLocation, 58));
 		}
 		if (COLOR == BLACK
 			&& Board::currentState->blackCanCastleRight
 			&& !(Board::occupiedSquares & CASTLE_RIGHT_OCCUPIED & row<0>())
 			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(5)
 			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(6)) {
-			MoveStack::push(move<CASTLE>(kingLocation, 6));
+			MoveStack::instance->push(move<CASTLE>(kingLocation, 6));
 		}
 
 		if (COLOR == BLACK
@@ -78,7 +78,7 @@
 			&& !(Board::occupiedSquares & CASTLE_LEFT_OCCUPIED & row<0>())
 			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(2)
 			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(3)) {
-			MoveStack::push(move<CASTLE>(kingLocation, 2));
+			MoveStack::instance->push(move<CASTLE>(kingLocation, 2));
 		}
 	}
 #endif

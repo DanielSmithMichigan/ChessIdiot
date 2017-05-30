@@ -4,7 +4,7 @@
 		BitBoard::InitRookBitBoards();
 		BitBoard::InitBishopBitBoards();
 		Board::reset();
-		MoveStack::reset();
+		MoveStack::instance->reset();
 	}
 
 	EngineComparison::~EngineComparison() {
@@ -302,7 +302,7 @@
 		}
 		MoveGenerationController::generateAllMoves();
 		uint32_t currentMove;
-		while (currentMove = MoveStack::pop()) {
+		while (currentMove = MoveStack::instance->pop()) {
 			Board::doMove(currentMove);
 			if (canTakeKing()) {
 				Board::undoMove();

@@ -25,7 +25,6 @@
 			generateKnightMoves<BLACK, false>();
 			generateKingMoves<BLACK, false>();
 		}
-		MoveStack::sortCurrentDepth();
 	}
 
 	void MoveGenerationController::generateCaptures() {
@@ -44,7 +43,6 @@
 			generateKnightMoves<BLACK, true>();
 			generateKingMoves<BLACK, true>();
 		}
-		MoveStack::sortCurrentDepth();
 	}
 
 	uint64_t MoveGenerationController::countMovesAtDepth(uint64_t depth) {
@@ -53,15 +51,15 @@
 		}
 		generateAllMoves();
 		uint64_t counter = 0;
-		while(uint32_t currentMove = MoveStack::pop()) {
+		while(uint32_t currentMove = MoveStack::instance->pop()) {
 			Board::doMove(currentMove);
 			if (canTakeKing()) {
 				Board::undoMove();
 				continue;
 			}
-			MoveStack::increaseDepth();
+			MoveStack::instance->increaseDepth();
 			counter += countMovesAtDepth(depth - 1);
-			MoveStack::decreaseDepth();
+			MoveStack::instance->decreaseDepth();
 			Board::undoMove();
 		}
 		return counter;
@@ -76,15 +74,15 @@
 		fens.push_back(Fen::exportLegacyBoard());
 		fens.push_back("END_BOARD");
 		generateAllMoves();
-		while(uint32_t currentMove = MoveStack::pop()) {
+		while(uint32_t currentMove = MoveStack::instance->pop()) {
 			Board::doMove(currentMove);
 			if (canTakeKing()) {
 				Board::undoMove();
 				continue;
 			}
-			MoveStack::increaseDepth();
+			MoveStack::instance->increaseDepth();
 			getAllFensAtDepth(depth - 1, fens);
-			MoveStack::decreaseDepth();
+			MoveStack::instance->decreaseDepth();
 			Board::undoMove();
 		}
 	}
@@ -96,15 +94,15 @@
 		}
 		cout << Fen::exportLegacyBoard() << endl;
 		generateAllMoves();
-		while(uint32_t currentMove = MoveStack::pop()) {
+		while(uint32_t currentMove = MoveStack::instance->pop()) {
 			Board::doMove(currentMove);
 			if (canTakeKing()) {
 				Board::undoMove();
 				continue;
 			}
-			MoveStack::increaseDepth();
+			MoveStack::instance->increaseDepth();
 			logPath(depth - 1);
-			MoveStack::decreaseDepth();
+			MoveStack::instance->decreaseDepth();
 			Board::undoMove();
 		}
 	}
@@ -115,15 +113,15 @@
 		generateAllMoves();
 		int bestScore = INT32_MIN;
 		int bestMove = 0;
-		while(uint32_t currentMove = MoveStack::pop()) {
+		while(uint32_t currentMove = MoveStack::instance->pop()) {
 			Board::doMove(currentMove);
 			if (canTakeKing()) {
 				Board::undoMove();
 				continue;
 			}
-			MoveStack::increaseDepth();
+			MoveStack::instance->increaseDepth();
 			int score = -alphaBeta(INT16_MIN + 1, INT16_MAX, depth - 1);
-			MoveStack::decreaseDepth();
+			MoveStack::instance->decreaseDepth();
 			Board::undoMove();
 			if (score > bestScore) {
 				bestScore = score;
@@ -135,20 +133,21 @@
 
 	int MoveGenerationController::alphaBeta(int alpha, int beta, int depthRemaining) {
 		if (depthRemaining == 0) {
-			return quiescence(alpha, beta);
+			return Board::pieceValue;
+			// return quiescence(alpha, beta);
 		}
 		generateAllMoves();
 		int legalMoves = 0;
-		while(uint32_t currentMove = MoveStack::pop()) {
+		while(uint32_t currentMove = MoveStack::instance->pop()) {
 			Board::doMove(currentMove);
 			if (canTakeKing()) {
 				Board::undoMove();
 				continue;
 			}
 			legalMoves++;
-			MoveStack::increaseDepth();
+			MoveStack::instance->increaseDepth();
 			int score = -alphaBeta(-beta, -alpha, depthRemaining - 1);
-			MoveStack::decreaseDepth();
+			MoveStack::instance->decreaseDepth();
 			Board::undoMove();
 			if (score >= beta) {
 				return beta; 
@@ -172,15 +171,15 @@
 			alpha = positionValue;
 		}
 		generateCaptures();
-		while(uint32_t currentMove = MoveStack::pop()) {
+		while(uint32_t currentMove = MoveStack::instance->pop()) {
 			Board::doMove(currentMove);
 			if (canTakeKing()) {
 				Board::undoMove();
 				continue;
 			}
-			MoveStack::increaseDepth();
+			MoveStack::instance->increaseDepth();
 			int score = -quiescence(-beta, -alpha);
-			MoveStack::decreaseDepth();
+			MoveStack::instance->decreaseDepth();
 			Board::undoMove();
 			if (score >= beta) {
 				return beta; 

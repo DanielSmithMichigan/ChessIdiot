@@ -52,13 +52,13 @@
 		if (pawnBoard) {
 			moveIndex = popBit(pawnBoard);
 			if (COLOR == WHITE && DIRECTION == LEFT) {
-				MoveStack::push(move<EN_PASSANT>(moveIndex + ROW + 1, moveIndex));
+				MoveStack::instance->push(move<EN_PASSANT>(moveIndex + ROW + 1, moveIndex));
 			} else if (COLOR == WHITE && DIRECTION == RIGHT) {
-				MoveStack::push(move<EN_PASSANT>(moveIndex + ROW - 1, moveIndex));
+				MoveStack::instance->push(move<EN_PASSANT>(moveIndex + ROW - 1, moveIndex));
 			} else if (COLOR == BLACK && DIRECTION == LEFT) {
-				MoveStack::push(move<EN_PASSANT>(moveIndex - ROW + 1, moveIndex));
+				MoveStack::instance->push(move<EN_PASSANT>(moveIndex - ROW + 1, moveIndex));
 			} else if (COLOR == BLACK && DIRECTION == RIGHT) {
-				MoveStack::push(move<EN_PASSANT>(moveIndex - ROW - 1, moveIndex));
+				MoveStack::instance->push(move<EN_PASSANT>(moveIndex - ROW - 1, moveIndex));
 			}
 		}
 
@@ -80,13 +80,13 @@
 		while (nonPromotionMoves) {
 			moveIndex = popBit(nonPromotionMoves);
 			if (COLOR == WHITE && DIRECTION == LEFT) {
-				MoveStack::push(move<CAPTURE>(moveIndex + ROW + 1, moveIndex));
+				MoveStack::instance->push(move<CAPTURE>(moveIndex + ROW + 1, moveIndex));
 			} else if (COLOR == WHITE && DIRECTION == RIGHT) {
-				MoveStack::push(move<CAPTURE>(moveIndex + ROW - 1, moveIndex));
+				MoveStack::instance->push(move<CAPTURE>(moveIndex + ROW - 1, moveIndex));
 			} else if (COLOR == BLACK && DIRECTION == LEFT) {
-				MoveStack::push(move<CAPTURE>(moveIndex - ROW + 1, moveIndex));
+				MoveStack::instance->push(move<CAPTURE>(moveIndex - ROW + 1, moveIndex));
 			} else if (COLOR == BLACK && DIRECTION == RIGHT) {
-				MoveStack::push(move<CAPTURE>(moveIndex - ROW - 1, moveIndex));
+				MoveStack::instance->push(move<CAPTURE>(moveIndex - ROW - 1, moveIndex));
 			}
 		}
 
@@ -103,10 +103,10 @@
 			} else if (COLOR == BLACK && DIRECTION == RIGHT) {
 				from = moveIndex - ROW - 1;
 			}
-			MoveStack::push(move<PROMOTION>(from, moveIndex, QUEEN));
-			MoveStack::push(move<PROMOTION>(from, moveIndex, ROOK));
-			MoveStack::push(move<PROMOTION>(from, moveIndex, BISHOP));
-			MoveStack::push(move<PROMOTION>(from, moveIndex, KNIGHT));
+			MoveStack::instance->push(move<PROMOTION>(from, moveIndex, QUEEN));
+			MoveStack::instance->push(move<PROMOTION>(from, moveIndex, ROOK));
+			MoveStack::instance->push(move<PROMOTION>(from, moveIndex, BISHOP));
+			MoveStack::instance->push(move<PROMOTION>(from, moveIndex, KNIGHT));
 		}
 
 	}
@@ -125,9 +125,9 @@
 		while (nonPromotionMoves) {
 			moveIndex = popBit(nonPromotionMoves);
 			if (COLOR == WHITE) {
-				MoveStack::push(quietMove(moveIndex + ROW, moveIndex));
+				MoveStack::instance->push(quietMove(moveIndex + ROW, moveIndex));
 			} else if (COLOR == BLACK) {
-				MoveStack::push(quietMove(moveIndex - ROW, moveIndex));
+				MoveStack::instance->push(quietMove(moveIndex - ROW, moveIndex));
 			}
 		}
 
@@ -140,10 +140,10 @@
 			} else if (COLOR == BLACK) {
 				from = moveIndex - ROW;
 			}
-			MoveStack::push(move<PROMOTION>(from, moveIndex, QUEEN));
-			MoveStack::push(move<PROMOTION>(from, moveIndex, ROOK));
-			MoveStack::push(move<PROMOTION>(from, moveIndex, BISHOP));
-			MoveStack::push(move<PROMOTION>(from, moveIndex, KNIGHT));
+			MoveStack::instance->push(move<PROMOTION>(from, moveIndex, QUEEN));
+			MoveStack::instance->push(move<PROMOTION>(from, moveIndex, ROOK));
+			MoveStack::instance->push(move<PROMOTION>(from, moveIndex, BISHOP));
+			MoveStack::instance->push(move<PROMOTION>(from, moveIndex, KNIGHT));
 		}
 	}
 
@@ -175,7 +175,7 @@
 			} else if (COLOR == BLACK) {
 				from = to - rows<2>();
 			}
-			MoveStack::push(move<PAWN_DOUBLE>(from, to));
+			MoveStack::instance->push(move<PAWN_DOUBLE>(from, to));
 		}
 	}
 #endif
