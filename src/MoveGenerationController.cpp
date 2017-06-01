@@ -2,12 +2,15 @@
 #define MoveGenerationController_cpp
 	#include "MoveGenerationController.h"
 
+	MoveGenerationController *MoveGenerationController::instance = new MoveGenerationController();
+
 	MoveGenerationController::MoveGenerationController() {
 	}
 
 	MoveGenerationController::~MoveGenerationController() {
 
 	}
+
 
 	void MoveGenerationController::generateAllMoves() {
 		if (Board::turn == WHITE) {

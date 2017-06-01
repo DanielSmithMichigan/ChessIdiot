@@ -56,7 +56,6 @@
 	TEST_F(PawnMoveGeneratorTest, TwoPawnsForwardWhite) {
 		Fen* fen = new Fen();
 		fen->import("8/8/8/8/8/8/PPPPPPPP/8 w");
-		MoveGenerationController::generateAllMoves();
 		assertMoveExists("8/8/8/8/8/P7/1PPPPPPP/8");
 		assertMoveExists("8/8/8/8/8/1P6/P1PPPPPP/8");
 		assertMoveExists("8/8/8/8/8/2P5/PP1PPPPP/8");

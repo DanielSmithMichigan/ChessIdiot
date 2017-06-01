@@ -17,7 +17,7 @@
 		Board::reset();
 		MoveStack::instance->reset();
 		fen->import(fenString);
-		ASSERT_EQ(MoveGenerationController::countMovesAtDepth(depth), nodes);
+		ASSERT_EQ(MoveGenerationController::instance->countMovesAtDepth(depth), nodes);
 	}
 
 	TEST_F(PerftTest, ChessProgrammingWikispaces) {

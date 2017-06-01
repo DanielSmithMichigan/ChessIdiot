@@ -3,9 +3,9 @@ void assertMoveExists(string fenString, string param) {
 	bool found = false;
 	Fen* fen = new Fen();
 	if (param != "quiescence") {
-		MoveGenerationController::generateAllMoves();
+		MoveGenerationController::instance->generateAllMoves();
 	} else {
-		MoveGenerationController::generateCaptures();
+		MoveGenerationController::instance->generateCaptures();
 	}
 	vector<string> fensFound;
 	while (uint32_t currentMove = MoveStack::instance->pop()) {
@@ -25,9 +25,9 @@ void assertNotMoveExists(string fenString, string param) {
 	bool found = false;
 	Fen* fen = new Fen();
 	if (param != "quiescence") {
-		MoveGenerationController::generateAllMoves();
+		MoveGenerationController::instance->generateAllMoves();
 	} else {
-		MoveGenerationController::generateCaptures();
+		MoveGenerationController::instance->generateCaptures();
 	}
 	while (uint32_t currentMove = MoveStack::instance->pop()) {
 		Board::doMove(currentMove);
@@ -40,7 +40,7 @@ void assertNotMoveExists(string fenString, string param) {
 }
 void showAllMoves() {
 	Fen* fen = new Fen();
-	MoveGenerationController::generateAllMoves();
+	MoveGenerationController::instance->generateAllMoves();
 	while (uint32_t currentMove = MoveStack::instance->pop()) {
 		Board::doMove(currentMove);
 		cout << fen->getBoardSquares() << endl;
@@ -51,7 +51,7 @@ void assertMoveCount(int assertedAmount) {
 	int moveCount = 0;
 	Fen* fen = new Fen();
 	vector<string> fensFound;
-	MoveGenerationController::generateAllMoves();
+	MoveGenerationController::instance->generateAllMoves();
 	while (uint32_t currentMove = MoveStack::instance->pop()) {
 		moveCount++;
 		fensFound.push_back(fen->getBoardSquares());

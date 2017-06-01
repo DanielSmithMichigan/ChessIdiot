@@ -300,7 +300,7 @@
 		while (getline(infile, fenStr)) {
 			comparisonFens.push_back(fenStr);
 		}
-		MoveGenerationController::generateAllMoves();
+		MoveGenerationController::instance->generateAllMoves();
 		uint32_t currentMove;
 		while (currentMove = MoveStack::instance->pop()) {
 			Board::doMove(currentMove);

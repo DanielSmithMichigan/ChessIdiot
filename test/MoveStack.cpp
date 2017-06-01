@@ -15,7 +15,7 @@
 
 	TEST_F(MoveStackTest, SimpleExample) {
 		Fen::import("8/8/8/8/5p1q/4Q1P1/8/8 w - -");
-		MoveGenerationController::generateAllMoves();
+		MoveGenerationController::instance->generateAllMoves();
 		uint32_t firstMove = MoveStack::instance->pop();
 		uint32_t secondMove = MoveStack::instance->pop();
 		while(MoveStack::instance->pop()) {
@@ -28,7 +28,7 @@
 
 	TEST_F(MoveStackTest, EmptyDepthOne) {
 		Fen::import("8/8/6p1/8/8/1P6/8/8 w - -");
-		MoveGenerationController::generateAllMoves();
+		MoveGenerationController::instance->generateAllMoves();
 		uint32_t firstMove = MoveStack::instance->pop();
 		ASSERT_EQ(FROM(firstMove), 41);
 		ASSERT_EQ(TO(firstMove), 33);
@@ -38,7 +38,7 @@
 	TEST_F(MoveStackTest, EmptyDepthTwo) {
 		Fen::import("8/8/6p1/8/8/1P6/8/8 w - -");
 		MoveStack::instance->increaseDepth();
-		MoveGenerationController::generateAllMoves();
+		MoveGenerationController::instance->generateAllMoves();
 		uint32_t firstMove = MoveStack::instance->pop();
 		ASSERT_EQ(FROM(firstMove), 41);
 		ASSERT_EQ(TO(firstMove), 33);
@@ -49,19 +49,19 @@
 
 	TEST_F(MoveStackTest, HigherDepth) {
 		Fen::import("8/8/8/4b1r1/3p1q2/2Q1R1P1/8/8 w - -");
-		MoveGenerationController::generateAllMoves();
+		MoveGenerationController::instance->generateAllMoves();
 		uint32_t firstMove = MoveStack::instance->pop();
 		ASSERT_EQ(FROM(firstMove), 46);
 		ASSERT_EQ(TO(firstMove), 37);
 		MoveStack::instance->increaseDepth();
 		Board::doMove(firstMove);
-		MoveGenerationController::generateAllMoves();
+		MoveGenerationController::instance->generateAllMoves();
 		firstMove = MoveStack::instance->pop();
 		ASSERT_EQ(FROM(firstMove), 35);
 		ASSERT_EQ(TO(firstMove), 42);
 		MoveStack::instance->increaseDepth();
 		Board::doMove(firstMove);
-		MoveGenerationController::generateAllMoves();
+		MoveGenerationController::instance->generateAllMoves();
 		firstMove = MoveStack::instance->pop();
 		ASSERT_EQ(FROM(firstMove), 37);
 		ASSERT_EQ(TO(firstMove), 30);
