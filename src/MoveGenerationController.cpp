@@ -11,48 +11,11 @@
 
 	}
 
-
-	void MoveGenerationController::generateAllMoves() {
-		if (Board::turn == WHITE) {
-			generatePawnMoves<WHITE, false>();
-			generateBishopMoves<WHITE, false>();
-			generateRookMoves<WHITE, false>();
-			generateQueenMoves<WHITE, false>();
-			generateKnightMoves<WHITE, false>();
-			generateKingMoves<WHITE, false>();
-		} else {
-			generatePawnMoves<BLACK, false>();
-			generateBishopMoves<BLACK, false>();
-			generateRookMoves<BLACK, false>();
-			generateQueenMoves<BLACK, false>();
-			generateKnightMoves<BLACK, false>();
-			generateKingMoves<BLACK, false>();
-		}
-	}
-
-	void MoveGenerationController::generateCaptures() {
-		if (Board::turn == WHITE) {
-			generatePawnMoves<WHITE, true>();
-			generateBishopMoves<WHITE, true>();
-			generateRookMoves<WHITE, true>();
-			generateQueenMoves<WHITE, true>();
-			generateKnightMoves<WHITE, true>();
-			generateKingMoves<WHITE, true>();
-		} else {
-			generatePawnMoves<BLACK, true>();
-			generateBishopMoves<BLACK, true>();
-			generateRookMoves<BLACK, true>();
-			generateQueenMoves<BLACK, true>();
-			generateKnightMoves<BLACK, true>();
-			generateKingMoves<BLACK, true>();
-		}
-	}
-
 	uint64_t MoveGenerationController::countMovesAtDepth(uint64_t depth) {
 		if (depth == 0) {
 			return 1;
 		}
-		generateAllMoves();
+		generateAllMoves<false>();
 		uint64_t counter = 0;
 		while(uint32_t currentMove = MoveStack::instance->pop()) {
 			Board::doMove(currentMove);
@@ -69,7 +32,7 @@
 	}
 
 	uint32_t MoveGenerationController::getBestMove(int depth) {
-		generateAllMoves();
+		generateAllMoves<false>();
 		int bestScore = INT32_MIN;
 		int bestMove = 0;
 		while(uint32_t currentMove = MoveStack::instance->pop()) {
@@ -95,7 +58,7 @@
 			return Board::pieceValue;
 			// return quiescence(alpha, beta);
 		}
-		generateAllMoves();
+		generateAllMoves<false>();
 		int legalMoves = 0;
 		while(uint32_t currentMove = MoveStack::instance->pop()) {
 			Board::doMove(currentMove);
@@ -129,7 +92,7 @@
 		} else if (positionValue > alpha) {
 			alpha = positionValue;
 		}
-		generateCaptures();
+		generateAllMoves<true>();
 		while(uint32_t currentMove = MoveStack::instance->pop()) {
 			Board::doMove(currentMove);
 			if (canTakeKing()) {

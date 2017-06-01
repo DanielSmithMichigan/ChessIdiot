@@ -15,7 +15,7 @@
 
 	TEST_F(EvaluationTest, OneBishopBlack) {
 		Fen::import("8/8/8/4b3/8/8/8/8");
-		MoveGenerationController::instance->generateAllMoves();
+		MoveGenerationController::instance->generateAllMoves<false>();
 		Board::doMove(MoveStack::instance->pop());
 		while (MoveStack::instance->pop()) {
 			ASSERT_EQ(Board::pieceValue, 3);

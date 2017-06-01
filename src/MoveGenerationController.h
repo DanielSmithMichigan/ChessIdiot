@@ -20,12 +20,30 @@
 		public:
 			MoveGenerationController();
 			~MoveGenerationController();
-			void generateAllMoves();
 			void generateCaptures();
 			uint64_t countMovesAtDepth(uint64_t depth);
 			uint32_t getBestMove(int depth);
 			int alphaBeta(int alpha, int beta, int depthRemaining);
 			int quiescence(int alpha, int beta);
 			static MoveGenerationController *instance;
+
+			template <bool CAPTURES_ONLY>
+			void generateAllMoves() {
+				if (Board::turn == WHITE) {
+					generatePawnMoves<WHITE, CAPTURES_ONLY>();
+					generateBishopMoves<WHITE, CAPTURES_ONLY>();
+					generateRookMoves<WHITE, CAPTURES_ONLY>();
+					generateQueenMoves<WHITE, CAPTURES_ONLY>();
+					generateKnightMoves<WHITE, CAPTURES_ONLY>();
+					generateKingMoves<WHITE, CAPTURES_ONLY>();
+				} else {
+					generatePawnMoves<BLACK, CAPTURES_ONLY>();
+					generateBishopMoves<BLACK, CAPTURES_ONLY>();
+					generateRookMoves<BLACK, CAPTURES_ONLY>();
+					generateQueenMoves<BLACK, CAPTURES_ONLY>();
+					generateKnightMoves<BLACK, CAPTURES_ONLY>();
+					generateKingMoves<BLACK, CAPTURES_ONLY>();
+				}
+			}
 	};
 #endif
