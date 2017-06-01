@@ -23,8 +23,6 @@
 			void generateAllMoves();
 			void generateCaptures();
 			uint64_t countMovesAtDepth(uint64_t depth);
-			void getAllFensAtDepth(uint64_t depth, vector<string> &fens);
-			void logPath(uint64_t depth);
 			uint32_t getBestMove(int depth);
 			int alphaBeta(int alpha, int beta, int depthRemaining);
 			int quiescence(int alpha, int beta);

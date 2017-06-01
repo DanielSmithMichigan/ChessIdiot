@@ -68,50 +68,6 @@
 		return counter;
 	}
 
-	void MoveGenerationController::getAllFensAtDepth(uint64_t depth, vector<string> &fens) {
-		if (depth == 0) {
-			fens.push_back(Fen::exportLegacyBoard());
-			return;
-		}
-		fens.push_back("BEGIN_BOARD");
-		fens.push_back(Fen::exportLegacyBoard());
-		fens.push_back("END_BOARD");
-		generateAllMoves();
-		while(uint32_t currentMove = MoveStack::instance->pop()) {
-			Board::doMove(currentMove);
-			if (canTakeKing()) {
-				Board::undoMove();
-				continue;
-			}
-			MoveStack::instance->increaseDepth();
-			getAllFensAtDepth(depth - 1, fens);
-			MoveStack::instance->decreaseDepth();
-			Board::undoMove();
-		}
-	}
-
-	void MoveGenerationController::logPath(uint64_t depth) {
-		if (depth == 0) {
-			cout << Fen::exportLegacyBoard() << endl;
-			return;
-		}
-		cout << Fen::exportLegacyBoard() << endl;
-		generateAllMoves();
-		while(uint32_t currentMove = MoveStack::instance->pop()) {
-			Board::doMove(currentMove);
-			if (canTakeKing()) {
-				Board::undoMove();
-				continue;
-			}
-			MoveStack::instance->increaseDepth();
-			logPath(depth - 1);
-			MoveStack::instance->decreaseDepth();
-			Board::undoMove();
-		}
-	}
-
-
-
 	uint32_t MoveGenerationController::getBestMove(int depth) {
 		generateAllMoves();
 		int bestScore = INT32_MIN;
