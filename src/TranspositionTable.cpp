@@ -9,7 +9,6 @@
 	}
 
 	TranspositionTable::~TranspositionTable() {
-
 	}
-	
+
 #endif

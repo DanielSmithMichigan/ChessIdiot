@@ -36,7 +36,7 @@
 			remove(OPPOSING_COLOR(turn), PAWN, getEnPassantPawnLocation(from, to));
 		} else if (specialMove == PAWN_DOUBLE) {
 			currentState->enPassantTarget = getEnPassantTarget(from, to);
-			currentState->zobrist ^= Zobrist::EnPassant[currentState->enPassantTarget + 1];
+			currentState->zobrist ^= Zobrist::EnPassant[currentState->enPassantTarget];
 		}  else if (specialMove == CASTLE) {
 			if (to == 62) {
 				remove(color, ROOK, 63);
