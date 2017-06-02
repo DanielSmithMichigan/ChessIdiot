@@ -36,7 +36,7 @@
 	template <uint32_t COLOR, uint32_t DIRECTION> 
 	inline void enPassant() {
 		uint32_t enPassantTarget = Board::currentState->enPassantTarget;
-		if (enPassantTarget == -1) {
+		if (enPassantTarget == NO_EN_PASSANT) {
 			return;
 		}
 

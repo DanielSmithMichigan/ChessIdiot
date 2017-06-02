@@ -266,7 +266,7 @@
 	}
 
 	string Fen::getEnPassantTarget() {
-		if (Board::currentState->enPassantTarget == -1) {
+		if (Board::currentState->enPassantTarget == NO_EN_PASSANT) {
 			return "-";
 		}
 		return intToBoardCoord(Board::currentState->enPassantTarget);
@@ -283,6 +283,14 @@
 	}
 
 	string Fen::exportLegacyBoard() {
+		return "" 
+			+ getBoardSquares()
+			+ " " + getPlayerTurn()
+			+ " " + getCastling()
+			+ " " + getEnPassantTarget();
+	}
+
+	string Fen::exportZobristInfo() {
 		return "" 
 			+ getBoardSquares()
 			+ " " + getPlayerTurn()

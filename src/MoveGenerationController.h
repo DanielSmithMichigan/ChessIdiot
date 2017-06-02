@@ -22,6 +22,7 @@
 			~MoveGenerationController();
 			void generateCaptures();
 			uint64_t countMovesAtDepth(uint64_t depth);
+			void runAtDepth(uint64_t depth, void (*fn)());
 			uint32_t getBestMove(int depth);
 			int alphaBeta(int alpha, int beta, int depthRemaining);
 			int quiescence(int alpha, int beta);

@@ -36,6 +36,7 @@
 			remove(OPPOSING_COLOR(turn), PAWN, getEnPassantPawnLocation(from, to));
 		} else if (specialMove == PAWN_DOUBLE) {
 			currentState->enPassantTarget = getEnPassantTarget(from, to);
+			currentState->zobrist ^= Zobrist::EnPassant[currentState->enPassantTarget + 1];
 		}  else if (specialMove == CASTLE) {
 			if (to == 62) {
 				remove(color, ROOK, 63);
@@ -63,6 +64,8 @@
 		} else {
 			put(color, piece, to);			
 		}
+		
+		currentState->zobrist ^= Zobrist::CastlingRights[currentState->castlingRights];
 
 		if (to == 0) {
 			currentState->castlingRights &= BLACK_CANT_CASTLE_LEFT;
@@ -89,10 +92,13 @@
 			currentState->castlingRights &= BLACK_CANT_CASTLE_LEFT;
 			currentState->castlingRights &= BLACK_CANT_CASTLE_RIGHT;
 		}
+		
+		currentState->zobrist ^= Zobrist::CastlingRights[currentState->castlingRights];
 
 		remove(color, piece, from);
 
 		Board::turn = OPPOSING_COLOR(Board::turn);
+		currentState->zobrist ^= Zobrist::SideToMove[Board::turn];
 	}
 
 	void Board::undoMove() {

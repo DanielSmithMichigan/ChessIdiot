@@ -44,6 +44,9 @@
 				nextState->prev = currentState;
 				nextState->castlingRights = currentState->castlingRights;
 				nextState->zobrist = currentState->zobrist;
+				if (currentState->enPassantTarget != NO_EN_PASSANT) {
+					nextState->zobrist ^= Zobrist::EnPassant[currentState->enPassantTarget + 1];
+				}
 				currentState = nextState;
 			}
 

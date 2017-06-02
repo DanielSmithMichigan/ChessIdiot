@@ -32,5 +32,6 @@
 			static string intToBoardCoord(int location);
 			static string getEnPassantTarget();
 			static string exportLegacyBoard();
+			static string exportZobristInfo();
 	};
 #endif
