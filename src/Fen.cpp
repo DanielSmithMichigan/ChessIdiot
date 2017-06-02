@@ -30,6 +30,7 @@
 			return;
 		}
 		Board::currentState->enPassantTarget = boardCoordToInt(fenString);
+		Board::currentState->zobrist ^= Zobrist::EnPassant[Board::currentState->enPassantTarget];
 	}
 
 	int Fen::boardCoordToInt(string boardCoord) {
@@ -94,6 +95,8 @@
 				break;
 			}
 		}
+		
+		Board::currentState->zobrist ^= Zobrist::SideToMove[Board::turn];
 	}
 
 	void Fen::setCastling(string fenString) {
@@ -114,6 +117,8 @@
 				break;
 			}
 		}
+		
+		Board::currentState->zobrist ^= Zobrist::CastlingRights[Board::currentState->castlingRights];
 	}
 
 	void Fen::useBoardString(string fenString) {
