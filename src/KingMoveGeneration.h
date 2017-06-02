@@ -52,21 +52,21 @@
 			return;
 		}
 		if (COLOR == WHITE
-			&& Board::currentState->whiteCanCastleRight
+			&& (Board::currentState->castlingRights & WHITE_CAN_CASTLE_RIGHT)
 			&& !(Board::occupiedSquares & CASTLE_RIGHT_OCCUPIED & row<7>())
 			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(61)
 			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(62)) {
 			MoveStack::instance->push(move<CASTLE>(kingLocation, 62));
 		}
 		if (COLOR == WHITE
-			&& Board::currentState->whiteCanCastleLeft
+			&& (Board::currentState->castlingRights & WHITE_CAN_CASTLE_LEFT)
 			&& !(Board::occupiedSquares & CASTLE_LEFT_OCCUPIED & row<7>())
 			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(58)
 			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(59)) {
 			MoveStack::instance->push(move<CASTLE>(kingLocation, 58));
 		}
 		if (COLOR == BLACK
-			&& Board::currentState->blackCanCastleRight
+			&& (Board::currentState->castlingRights & BLACK_CAN_CASTLE_RIGHT)
 			&& !(Board::occupiedSquares & CASTLE_RIGHT_OCCUPIED & row<0>())
 			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(5)
 			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(6)) {
@@ -74,7 +74,7 @@
 		}
 
 		if (COLOR == BLACK
-			&& Board::currentState->blackCanCastleLeft
+			&& (Board::currentState->castlingRights & BLACK_CAN_CASTLE_LEFT)
 			&& !(Board::occupiedSquares & CASTLE_LEFT_OCCUPIED & row<0>())
 			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(2)
 			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(3)) {

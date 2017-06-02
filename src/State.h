@@ -6,10 +6,8 @@
 		uint32_t capturedPieceColor;
 		uint32_t move;
 		uint32_t enPassantTarget = -1;
-		bool blackCanCastleLeft = false;
-		bool whiteCanCastleLeft = false;
-		bool blackCanCastleRight = false;
-		bool whiteCanCastleRight = false;
+		uint8_t castlingRights = 0;
+		uint16_t zobrist = 0;
 		State* prev = 0;
 	};
 #endif

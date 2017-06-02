@@ -101,16 +101,16 @@
 		for(char& c : fenString) {
 			switch(c) {
 				case 'K':
-					Board::currentState->whiteCanCastleRight = true;
+					Board::currentState->castlingRights |= WHITE_CAN_CASTLE_RIGHT;
 				break;
 				case 'Q':
-					Board::currentState->whiteCanCastleLeft = true;
+					Board::currentState->castlingRights |= WHITE_CAN_CASTLE_LEFT;
 				break;
 				case 'k':
-					Board::currentState->blackCanCastleRight = true;
+					Board::currentState->castlingRights |= BLACK_CAN_CASTLE_RIGHT;
 				break;
 				case 'q':
-					Board::currentState->blackCanCastleLeft = true;
+					Board::currentState->castlingRights |= BLACK_CAN_CASTLE_LEFT;
 				break;
 			}
 		}
@@ -240,16 +240,16 @@
 
 	string Fen::getCastling() {
 		string output = "";
-		if (Board::currentState->whiteCanCastleRight) {
+		if (Board::currentState->castlingRights & WHITE_CAN_CASTLE_RIGHT) {
 			output += "K";
 		}
-		if (Board::currentState->whiteCanCastleLeft) {
+		if (Board::currentState->castlingRights & WHITE_CAN_CASTLE_LEFT) {
 			output += "Q";
 		}
-		if (Board::currentState->blackCanCastleRight) {
+		if (Board::currentState->castlingRights & BLACK_CAN_CASTLE_RIGHT) {
 			output += "k";
 		}
-		if (Board::currentState->blackCanCastleLeft) {
+		if (Board::currentState->castlingRights & BLACK_CAN_CASTLE_LEFT) {
 			output += "q";
 		}
 		if (output == "") {

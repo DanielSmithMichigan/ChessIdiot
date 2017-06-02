@@ -4,6 +4,7 @@
 	#include "State.h"
 	#include "Move.h"
 	#include "Utility.h"
+	#include "Zobrist.h"
 	#include <stdint.h>
 	#include <iostream>
 	
@@ -41,10 +42,8 @@
 			static inline void increaseStateDepth() {
 				State* nextState = new State();
 				nextState->prev = currentState;
-				nextState->whiteCanCastleLeft = currentState->whiteCanCastleLeft;
-				nextState->blackCanCastleLeft = currentState->blackCanCastleLeft;
-				nextState->whiteCanCastleRight = currentState->whiteCanCastleRight;
-				nextState->blackCanCastleRight = currentState->blackCanCastleRight;
+				nextState->castlingRights = currentState->castlingRights;
+				nextState->zobrist = currentState->zobrist;
 				currentState = nextState;
 			}
 

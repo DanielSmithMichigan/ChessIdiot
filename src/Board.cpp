@@ -65,29 +65,29 @@
 		}
 
 		if (to == 0) {
-			currentState->blackCanCastleLeft = false;
+			currentState->castlingRights &= BLACK_CANT_CASTLE_LEFT;
 		} else if (to == 7) {
-			currentState->blackCanCastleRight = false;
+			currentState->castlingRights &= BLACK_CANT_CASTLE_RIGHT;
 		} else if (to == 56) {
-			currentState->whiteCanCastleLeft = false;
+			currentState->castlingRights &= WHITE_CANT_CASTLE_LEFT;
 		} else if (to == 63) {
-			currentState->whiteCanCastleRight = false;
+			currentState->castlingRights &= WHITE_CANT_CASTLE_RIGHT;
 		}
 
 		if (from == 0) {
-			currentState->blackCanCastleLeft = false;
+			currentState->castlingRights &= BLACK_CANT_CASTLE_LEFT;
 		} else if (from == 7) {
-			currentState->blackCanCastleRight = false;
+			currentState->castlingRights &= BLACK_CANT_CASTLE_RIGHT;
 		} else if (from == 56) {
-			currentState->whiteCanCastleLeft = false;
+			currentState->castlingRights &= WHITE_CANT_CASTLE_LEFT;
 		} else if (from == 63) {
-			currentState->whiteCanCastleRight = false;
+			currentState->castlingRights &= WHITE_CANT_CASTLE_RIGHT;
 		} else if (from == 60) {
-			currentState->whiteCanCastleLeft = false;
-			currentState->whiteCanCastleRight = false;
+			currentState->castlingRights &= WHITE_CANT_CASTLE_LEFT;
+			currentState->castlingRights &= WHITE_CANT_CASTLE_RIGHT;
 		} else if (from == 4) {
-			currentState->blackCanCastleLeft = false;
-			currentState->blackCanCastleRight = false;
+			currentState->castlingRights &= BLACK_CANT_CASTLE_LEFT;
+			currentState->castlingRights &= BLACK_CANT_CASTLE_RIGHT;
 		}
 
 		remove(color, piece, from);
@@ -158,6 +158,7 @@
 	}
 
 	void Board::put(uint32_t color, uint32_t piece, uint32_t location) {
+		currentState->zobrist ^= Zobrist::PieceBySquare[piece][location];
 		uint64_t pieceBoard = getPieceBoard(location);
 		occupiedSquares |= pieceBoard;
 		colors[color] |= pieceBoard;
@@ -172,6 +173,7 @@
 	}
 
 	void Board::remove(uint32_t color, uint32_t piece, uint32_t location) {
+		currentState->zobrist ^= Zobrist::PieceBySquare[piece][location];
 		uint64_t pieceBoard = ~getPieceBoard(location);
 		occupiedSquares &= pieceBoard;
 		colors[color] &= pieceBoard;
