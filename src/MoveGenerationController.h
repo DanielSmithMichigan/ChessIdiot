@@ -51,10 +51,7 @@
 					generateKnightMoves<BLACK, CAPTURES_ONLY>();
 					generateKingMoves<BLACK, CAPTURES_ONLY>();
 				}
-				uint32_t hashMove = TranspositionTable::instance->searchMove();
-				if (hashMove != TRANSPOSITION_TABLE_MISS) {
-					MoveStack::instance->pushToTop(hashMove);
-				}
+				MoveStack::instance->scoreSpecialMoves(TranspositionTable::instance->searchMove());
 			}
 	};
 #endif

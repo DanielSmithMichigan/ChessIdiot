@@ -88,14 +88,9 @@
 		if (depthRemaining == 0) {
 			// return Board::pieceValue;
 			int result = quiescence(alpha, beta);
-			TranspositionTable::instance->store(0,result,SCORE);
 			return result;
 		}
 
-		int score = TranspositionTable::instance->searchScore(depthRemaining);
-		if (score != TRANSPOSITION_TABLE_MISS) {
-			return score;
-		}
 		generateAllMoves<false>();
 		int legalMoves = 0;
 		int bestCurrentMove = 0;
@@ -162,8 +157,6 @@
 
 		if (alpha != oldAlpha) {
 			TranspositionTable::instance->store(bestCurrentMove,alpha, PRINCIPAL_VARIATION);
-		} else {
-			TranspositionTable::instance->store(0,alpha,SCORE);
 		}
 
 		return alpha;
