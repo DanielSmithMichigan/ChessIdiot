@@ -35,7 +35,7 @@
 
 	TEST_F(EvaluationTest, BlackCheckmate) {
 		Fen::import("2r2rk1/R5Qp/1q1p2p1/1p1Pp3/1Pn1N3/7P/5PP1/5RK1 b - - 1 1");
-		ASSERT_EQ(Evaluation::terminalPositionValue(), -CHECKMATE);
+		ASSERT_EQ(Evaluation::terminalPositionValue(), CHECKMATE);
 	}
 
 	TEST_F(EvaluationTest, BlackStalemate) {

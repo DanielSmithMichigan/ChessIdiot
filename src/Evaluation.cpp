@@ -4,8 +4,7 @@
 
 	int Evaluation::terminalPositionValue() {
 		if (kingInCheck()) {
-			return Board::turn == WHITE ?
-				CHECKMATE : -CHECKMATE;
+			return CHECKMATE;
 		}
 		return STALEMATE;
 	}

@@ -66,3 +66,22 @@
 		ASSERT_EQ(FROM(bestMove), 11);
 		ASSERT_EQ(TO(bestMove), 13);
 	}
+
+	TEST_F(MoveGenerationControllerTest, BlackMateInOne) {
+		Fen::import("1KN5/PP3qr1/8/8/8/8/8/6k1 b - -");
+		int bestMove = MoveGenerationController::instance->getBestMove(3);
+		ASSERT_EQ(FROM(bestMove), 13);
+		ASSERT_EQ(TO(bestMove), 9);
+	}
+
+	TEST_F(MoveGenerationControllerTest, ShouldAvoidCheckmate) {
+		Fen::import("1r2k3/1q2p3/8/8/5n2/6B1/PPP5/1KR5 w - - 0 1");
+		int bestMove = MoveGenerationController::instance->getBestMove(4);
+		ASSERT_EQ(FROM(bestMove), 49);		
+	}
+
+	TEST_F(MoveGenerationControllerTest, ShouldAvoidCheckmateBlack) {
+		Fen::import("1kr5/ppp5/6b1/5N2/8/8/1Q2P3/1R2K3 b KQkq -");
+		int bestMove = MoveGenerationController::instance->getBestMove(4);
+		ASSERT_EQ(FROM(bestMove), 9);		
+	}
