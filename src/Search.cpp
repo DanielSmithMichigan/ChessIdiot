@@ -15,9 +15,11 @@
 		int currentDepth = 1;
 		uint32_t bestMove;
 		while(true) {
+			if (currentDepth > maxDepth) {
+				return bestMove;
+			}
 			Fen::import(fen);
 			MoveStack::instance->reset();
-			MoveGenerationController::instance->reset();
 			bestMove = MoveGenerationController::instance->getBestMove(currentDepth++);
 			MoveGenerationController::instance->showStats();
 		}
