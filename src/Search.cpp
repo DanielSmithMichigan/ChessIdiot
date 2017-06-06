@@ -17,6 +17,7 @@
 		while(true) {
 			Fen::import(fen);
 			MoveStack::instance->reset();
+			MoveGenerationController::instance->reset();
 			bestMove = MoveGenerationController::instance->getBestMove(currentDepth++);
 			MoveGenerationController::instance->showStats();
 		}

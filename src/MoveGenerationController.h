@@ -1,6 +1,7 @@
 #ifndef MoveGenerationController_h
 #define MoveGenerationController_h
 	#include <stdint.h>
+	#include <iomanip>
 	#include "Fen.h"
 	#include "Board.h"
 	#include "MoveStack.h"
@@ -29,6 +30,7 @@
 			~MoveGenerationController();
 			void reset();
 			void showStats();
+			void showPv();
 			uint64_t countMovesAtDepth(uint64_t depth);
 			void runAtDepth(uint64_t depth, void (*fn)());
 			uint32_t getBestMove(int depth);
@@ -51,10 +53,7 @@
 					generateKnightMoves<BLACK, CAPTURES_ONLY>();
 					generateKingMoves<BLACK, CAPTURES_ONLY>();
 				}
-				uint32_t hashMove = TranspositionTable::instance->searchMove();
-				if (hashMove != TRANSPOSITION_TABLE_MISS) {
-					MoveStack::instance->pushToTop(hashMove);
-				}
+				MoveStack::instance->scoreSpecialMoves(TranspositionTable::instance->searchMove());
 			}
 	};
 #endif

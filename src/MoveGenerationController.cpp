@@ -78,16 +78,20 @@
 			} 
 		}
 
+		TranspositionTable::instance->store(bestMove);
+
 		return bestMove;
 	}
 
 	int MoveGenerationController::alphaBeta(int oldAlpha, int beta, int depthRemaining) {
 		nodesSearched++;
+
 		int alpha = oldAlpha;
 		if (depthRemaining == 0) {
-			// return Board::pieceValue;
-			return quiescence(alpha, beta);
+			int result = quiescence(alpha, beta);
+			return result;
 		}
+
 		generateAllMoves<false>();
 		int legalMoves = 0;
 		int bestCurrentMove = 0;
@@ -103,8 +107,10 @@
 			MoveStack::instance->decreaseDepth();
 			Board::undoMove();
 			if (score >= beta) {
+				MoveStack::instance->markKiller(currentMove);
 				return beta; 
 			} else if (score > alpha) {
+				MoveStack::instance->markHistory(currentMove);
 				alpha = score;
 				bestCurrentMove = currentMove;
 			}
@@ -115,7 +121,7 @@
 		}
 
 		if (alpha != oldAlpha) {
-			TranspositionTable::instance->store(bestCurrentMove,alpha);
+			TranspositionTable::instance->store(bestCurrentMove);
 		}
 
 		return alpha;
@@ -123,8 +129,9 @@
 
 	int MoveGenerationController::quiescence(int oldAlpha, int beta) {
 		nodesSearched++;
+
 		int alpha = oldAlpha;
-		int positionValue = Board::pieceValue;
+		int positionValue = Evaluation::positionValue();
 		if (positionValue >= beta) {
 			return beta;
 		} else if (positionValue > alpha) {
@@ -152,7 +159,7 @@
 		}
 
 		if (alpha != oldAlpha) {
-			TranspositionTable::instance->store(bestCurrentMove,alpha);
+			TranspositionTable::instance->store(bestCurrentMove);
 		}
 
 		return alpha;
@@ -160,10 +167,29 @@
 
 	void MoveGenerationController::showStats() {
 		cout << "Depth: " << depthSearched
-			 << " from: " << FROM(bestMove)
-			 << " to: " << TO(bestMove)
 			 << " score: " << bestScore
 		     << " nodes: " << nodesSearched << endl;
+		showPv();
+		cout << endl;
+	}
+
+	void MoveGenerationController::showPv() {
+		generateAllMoves<false>();
+		uint32_t pvMove = TranspositionTable::instance->searchMove();
+		bool found = false;
+		while (uint32_t currentMove = MoveStack::instance->pop()) {
+			if (currentMove == pvMove) {
+				found = true;
+			} 
+		}
+		if (found) {
+			cout << "[" << setw(2) << setfill('0') << FROM(pvMove) << " - " << setw(2) << setfill('0') << TO(pvMove) << "]";
+			Board::doMove(pvMove);
+			MoveStack::instance->increaseDepth();
+			showPv();
+			MoveStack::instance->decreaseDepth();
+			Board::undoMove();
+		}
 	}
 
 #endif

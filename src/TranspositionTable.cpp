@@ -19,26 +19,13 @@
 		for (int i = 0; i < TRANSPOSITION_TABLE_LENGTH; i++) {
 			table[i].reset();
 		}
+		age = 0;
 	}
 
-	void TranspositionTable::store(uint32_t bestMove,uint64_t score) {
+	void TranspositionTable::store(uint32_t bestMove) {
 		uint32_t index = Board::currentState->zobrist & TRANSPOSITION_TABLE_MASK;
-		if (table[index].positionKey != Board::currentState->zobrist
-			|| Board::currentState->depth > table[index].depthSearched) {
-			table[index].positionKey = Board::currentState->zobrist;
-			table[index].depthSearched = Board::currentState->depth;
-			table[index].bestMove = bestMove;
-			table[index].score = score;
-		}
-	}
-
-	int TranspositionTable::searchScore() {
-		uint32_t index = Board::currentState->zobrist & TRANSPOSITION_TABLE_MASK;
-		if (table[index].positionKey == Board::currentState->zobrist
-			&& table[index].depthSearched >= Board::currentState->depth) {
-			return table[index].score;
-		}
-		return TRANSPOSITION_TABLE_MISS;
+		table[index].positionKey = Board::currentState->zobrist;
+		table[index].bestMove = bestMove;
 	}
 
 	uint32_t TranspositionTable::searchMove() {
