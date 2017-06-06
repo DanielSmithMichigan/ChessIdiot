@@ -17,6 +17,7 @@
 		while(true) {
 			Fen::import(fen);
 			MoveStack::instance->reset();
+			TranspositionTable::instance->increaseAge();
 			bestMove = MoveGenerationController::instance->getBestMove(currentDepth++);
 			MoveGenerationController::instance->showStats();
 		}
