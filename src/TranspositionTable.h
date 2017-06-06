@@ -19,17 +19,15 @@
 	struct TranspositionTableEntry {
 		uint64_t positionKey;
 		uint32_t bestMove;
-		uint64_t score;
+		int score;
 		uint16_t depthSearched;
 		uint16_t priority;
-		uint16_t age;
 		void reset() {
 			positionKey = 0ULL;
 			depthSearched = 0;
 			score = 0;
 			bestMove = 0;
 			priority = 0;
-			age = 0;
 		}
 	};
 
@@ -44,9 +42,8 @@
 			TranspositionTable();
 			~TranspositionTable();
 			void reset();
-			void store(uint32_t bestMove,uint64_t score, uint16_t priority);
-			void increaseAge();
-			uint64_t searchScore();
+			void store(uint32_t bestMove,int score, uint16_t priority);
+			int searchScore(int depthRemaining);
 			uint32_t searchMove();
 	};
 

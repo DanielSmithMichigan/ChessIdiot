@@ -70,7 +70,6 @@
 			}
 			MoveStack::instance->increaseDepth();
 			int score = -alphaBeta(INT16_MIN + 1, INT16_MAX, depth - 1);
-			TranspositionTable::instance->store(0,score,SCORE);
 			MoveStack::instance->decreaseDepth();
 			Board::undoMove();
 			if (score > bestScore) {
@@ -85,17 +84,17 @@
 	int MoveGenerationController::alphaBeta(int oldAlpha, int beta, int depthRemaining) {
 		nodesSearched++;
 
-		uint32_t transpositionTableResult = TranspositionTable::instance->searchScore();
-		if (transpositionTableResult != TRANSPOSITION_TABLE_MISS) {
-			return transpositionTableResult;
-		}
-
 		int alpha = oldAlpha;
 		if (depthRemaining == 0) {
 			// return Board::pieceValue;
 			int result = quiescence(alpha, beta);
 			TranspositionTable::instance->store(0,result,SCORE);
 			return result;
+		}
+
+		int score = TranspositionTable::instance->searchScore(depthRemaining);
+		if (score != TRANSPOSITION_TABLE_MISS) {
+			return score;
 		}
 		generateAllMoves<false>();
 		int legalMoves = 0;
