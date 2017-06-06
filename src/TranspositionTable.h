@@ -24,10 +24,7 @@
 		uint16_t priority;
 		void reset() {
 			positionKey = 0ULL;
-			depthSearched = 0;
-			score = 0;
 			bestMove = 0;
-			priority = 0;
 		}
 	};
 
@@ -42,7 +39,7 @@
 			TranspositionTable();
 			~TranspositionTable();
 			void reset();
-			void store(uint32_t bestMove,int score, uint16_t priority);
+			void store(uint32_t bestMove);
 			int searchScore(int depthRemaining);
 			uint32_t searchMove();
 	};

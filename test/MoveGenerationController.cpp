@@ -25,6 +25,13 @@
 		ASSERT_EQ(TO(bestMove), 15);
 	}
 
+	TEST_F(MoveGenerationControllerTest, WillTakeAPieceTwoDepthTwo) {
+		Fen::import("8/7p/5k1K/8/8/8/8/8 w - -");
+		int bestMove = MoveGenerationController::instance->getBestMove(2);
+		ASSERT_EQ(FROM(bestMove), 23);
+		ASSERT_EQ(TO(bestMove), 15);
+	}
+
 	TEST_F(MoveGenerationControllerTest, CanLookTwoMovesAhead) {
 		Fen::import("8/7p/8/7K/8/8/8/7k w - - 0 1");
 		int bestMove = MoveGenerationController::instance->getBestMove(3);

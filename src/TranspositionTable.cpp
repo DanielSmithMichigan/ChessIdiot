@@ -22,30 +22,15 @@
 		age = 0;
 	}
 
-	void TranspositionTable::store(uint32_t bestMove,int score, uint16_t priority) {
+	void TranspositionTable::store(uint32_t bestMove) {
 		uint32_t index = Board::currentState->zobrist & TRANSPOSITION_TABLE_MASK;
-		if (priority >= table[index].priority) {
-			table[index].positionKey = Board::currentState->zobrist;
-			table[index].depthSearched = Board::currentState->depth;
-			table[index].bestMove = bestMove;
-			table[index].score = score;
-			table[index].priority = priority;
-		}
-	}
-
-	int TranspositionTable::searchScore(int depthRemaining) {
-		uint32_t index = Board::currentState->zobrist & TRANSPOSITION_TABLE_MASK;
-		if (table[index].positionKey == Board::currentState->zobrist
-			&& Board::currentState->depth + depthRemaining <= table[index].depthSearched) {
-			return table[index].score;
-		}
-		return TRANSPOSITION_TABLE_MISS;
+		table[index].positionKey = Board::currentState->zobrist;
+		table[index].bestMove = bestMove;
 	}
 
 	uint32_t TranspositionTable::searchMove() {
 		uint32_t index = Board::currentState->zobrist & TRANSPOSITION_TABLE_MASK;
-		if (table[index].positionKey == Board::currentState->zobrist
-			&& table[index].priority == PRINCIPAL_VARIATION) {
+		if (table[index].positionKey == Board::currentState->zobrist) {
 			return table[index].bestMove;
 		}
 		return TRANSPOSITION_TABLE_MISS;

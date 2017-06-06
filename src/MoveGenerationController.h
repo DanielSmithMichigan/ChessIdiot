@@ -1,6 +1,7 @@
 #ifndef MoveGenerationController_h
 #define MoveGenerationController_h
 	#include <stdint.h>
+	#include <iomanip>
 	#include "Fen.h"
 	#include "Board.h"
 	#include "MoveStack.h"
@@ -29,6 +30,7 @@
 			~MoveGenerationController();
 			void reset();
 			void showStats();
+			void showPv();
 			uint64_t countMovesAtDepth(uint64_t depth);
 			void runAtDepth(uint64_t depth, void (*fn)());
 			uint32_t getBestMove(int depth);

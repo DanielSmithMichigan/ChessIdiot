@@ -9,5 +9,6 @@
 
 	namespace Evaluation {
 		int terminalPositionValue();
+		int positionValue();
 	}
 #endif

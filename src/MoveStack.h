@@ -26,6 +26,7 @@
 			WeightedMove stack[MOVE_STACK_LIMIT];
 			uint32_t depthLimits[DEPTH_LIMIT];
 			uint32_t searchKillers[DEPTH_LIMIT][2];
+			uint32_t searchHistory[BOARD_SIZE][BOARD_SIZE];
 			uint32_t top;
 			uint32_t getDepthBottom();
 		protected:
@@ -38,6 +39,7 @@
 			void decreaseDepth();
 			void scoreSpecialMoves(uint32_t move);
 			void markKiller(uint32_t move);
+			void markHistory(uint32_t move);
 			static MoveStack *instance;
 			MoveStack();
 			~MoveStack();

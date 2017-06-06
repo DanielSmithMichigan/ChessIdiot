@@ -9,4 +9,12 @@
 		}
 		return STALEMATE;
 	}
+
+	int Evaluation::positionValue() {
+		if (Board::turn == WHITE) {
+			return -Board::pieceValue;
+		} else {
+			return Board::pieceValue;
+		}
+	}
 #endif

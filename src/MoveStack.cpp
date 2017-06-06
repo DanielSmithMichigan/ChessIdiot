@@ -29,10 +29,19 @@
 		searchKillers[Board::currentState->depth][0] = move;
 	}
 
+	void MoveStack::markHistory(uint32_t move) {
+		searchHistory[FROM(move)][TO(move)] += Board::currentState->depth * Board::currentState->depth;
+	}
+
 	void MoveStack::reset() {
 		for (int i = 0; i < 7; i++) {
 			for (int j = 0; j < 7; j++) {
 				mvvLva[i][j] = (100 * pieceValue[i]) - pieceValue[j];
+			}
+		}
+		for (int i = 0; i < BOARD_SIZE; i++) {
+			for (int j = 0; j < BOARD_SIZE; j++) {
+				searchHistory[i][j] = 0;
 			}
 		}
 		for(int i = 0; i < MOVE_STACK_LIMIT; i++) {
@@ -65,6 +74,7 @@
 			uint32_t from = FROM(move);
 			stack[top].score = mvvLva[Board::piecesIndex[to]][Board::piecesIndex[from]];
 		} else {
+			stack[top].score = searchHistory[FROM(move)][TO(move)];
 			stack[top].score = 0;
 		}
 		stack[top].move = move;
