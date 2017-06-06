@@ -19,23 +19,30 @@
 		for (int i = 0; i < TRANSPOSITION_TABLE_LENGTH; i++) {
 			table[i].reset();
 		}
+		age = 0;
 	}
 
-	void TranspositionTable::store(uint32_t bestMove,uint64_t score) {
+	void TranspositionTable::store(uint32_t bestMove,uint64_t score, uint16_t priority) {
 		uint32_t index = Board::currentState->zobrist & TRANSPOSITION_TABLE_MASK;
-		if (table[index].positionKey != Board::currentState->zobrist
-			|| Board::currentState->depth > table[index].depthSearched) {
+		if (priority >= table[index].priority) {
 			table[index].positionKey = Board::currentState->zobrist;
 			table[index].depthSearched = Board::currentState->depth;
 			table[index].bestMove = bestMove;
 			table[index].score = score;
+			table[index].priority = priority;
+			table[index].age = age;
 		}
 	}
 
-	int TranspositionTable::searchScore() {
+	void TranspositionTable::increaseAge() {
+		age++;
+	}
+
+	uint64_t TranspositionTable::searchScore() {
 		uint32_t index = Board::currentState->zobrist & TRANSPOSITION_TABLE_MASK;
 		if (table[index].positionKey == Board::currentState->zobrist
-			&& table[index].depthSearched >= Board::currentState->depth) {
+			&& table[index].age == age
+			&& Board::currentState->depth <= table[index].depthSearched) {
 			return table[index].score;
 		}
 		return TRANSPOSITION_TABLE_MISS;
@@ -43,7 +50,8 @@
 
 	uint32_t TranspositionTable::searchMove() {
 		uint32_t index = Board::currentState->zobrist & TRANSPOSITION_TABLE_MASK;
-		if (table[index].positionKey == Board::currentState->zobrist) {
+		if (table[index].positionKey == Board::currentState->zobrist
+			&& table[index].priority == PRINCIPAL_VARIATION) {
 			return table[index].bestMove;
 		}
 		return TRANSPOSITION_TABLE_MISS;
