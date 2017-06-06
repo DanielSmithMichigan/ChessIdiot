@@ -3,6 +3,7 @@
 	KnightMoveGenerationTest::KnightMoveGenerationTest() {
 		BitBoard::InitRookBitBoards();
 		BitBoard::InitBishopBitBoards();
+		TranspositionTable::instance->reset();
 	}
 
 	KnightMoveGenerationTest::~KnightMoveGenerationTest() {

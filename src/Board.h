@@ -47,6 +47,7 @@
 				if (currentState->enPassantTarget != NO_EN_PASSANT) {
 					nextState->zobrist ^= Zobrist::EnPassant[currentState->enPassantTarget];
 				}
+				nextState->depth = currentState->depth + 1;
 				currentState = nextState;
 			}
 

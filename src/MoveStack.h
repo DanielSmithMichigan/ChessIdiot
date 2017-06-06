@@ -35,6 +35,7 @@
 			uint32_t pop();
 			void increaseDepth();
 			void decreaseDepth();
+			void pushToTop(uint32_t move);
 			static MoveStack *instance;
 			MoveStack();
 			~MoveStack();

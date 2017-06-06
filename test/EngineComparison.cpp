@@ -4,6 +4,7 @@
 		BitBoard::InitRookBitBoards();
 		BitBoard::InitBishopBitBoards();
 		Board::reset();
+		TranspositionTable::instance->reset();
 		MoveStack::instance->reset();
 	}
 

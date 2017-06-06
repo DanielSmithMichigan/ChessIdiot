@@ -40,6 +40,14 @@
 		currentDepth = 0;
 	}
 
+	void MoveStack::pushToTop(uint32_t move) {
+		for (uint32_t i = getDepthBottom(); i < top; i++) {
+			if (stack[i].move == move) {
+				stack[i].score = 1000000;
+			}
+		}
+	}
+
 	void MoveStack::push(uint32_t move) {
 		uint32_t to = TO(move);
 		if (Board::piecesIndex[to]) {

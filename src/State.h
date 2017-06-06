@@ -8,6 +8,7 @@
 		uint32_t enPassantTarget = NO_EN_PASSANT;
 		uint8_t castlingRights = 0;
 		uint64_t zobrist = 0;
+		int depth = 0;
 		State* prev = 0;
 	};
 #endif

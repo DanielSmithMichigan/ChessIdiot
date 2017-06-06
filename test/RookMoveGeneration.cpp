@@ -3,6 +3,7 @@
 	RookMoveGenerationTest::RookMoveGenerationTest() {
 		BitBoard::InitRookBitBoards();
 		BitBoard::InitBishopBitBoards();
+		TranspositionTable::instance->reset();
 	}
 
 	RookMoveGenerationTest::~RookMoveGenerationTest() {

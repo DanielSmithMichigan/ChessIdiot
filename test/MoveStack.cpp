@@ -11,6 +11,7 @@
 		BitBoard::InitBishopBitBoards();
 		Board::reset();
 		MoveStack::instance->reset();
+		TranspositionTable::instance->reset();
 	}
 
 	TEST_F(MoveStackTest, SimpleExample) {

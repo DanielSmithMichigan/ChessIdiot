@@ -4,6 +4,7 @@
 		fen = new Fen();
 		BitBoard::InitRookBitBoards();
 		BitBoard::InitBishopBitBoards();
+		TranspositionTable::instance->reset();
 	}
 
 	ZobristTest::~ZobristTest() {

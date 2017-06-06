@@ -10,6 +10,7 @@
 		BitBoard::InitRookBitBoards();
 		BitBoard::InitBishopBitBoards();
 		Board::reset();
+		TranspositionTable::instance->reset();
 	}
 
 	TEST_F(PawnMoveGeneratorTest, OnePawnForwardWhite) {

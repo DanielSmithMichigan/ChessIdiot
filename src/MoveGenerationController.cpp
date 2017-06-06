@@ -11,6 +11,13 @@
 
 	}
 
+	void MoveGenerationController::reset() {
+		bestMove = 0;
+		nodesSearched = 0;
+		bestScore = INT32_MIN;
+		depthSearched = 0;
+	}
+
 	void MoveGenerationController::runAtDepth(uint64_t depth, void (*fn)()) {
 		if (depth == 0) {
 			fn();
@@ -51,10 +58,11 @@
 	}
 
 	uint32_t MoveGenerationController::getBestMove(int depth) {
+		reset();
+		depthSearched = depth;
 		generateAllMoves<false>();
-		int bestScore = INT32_MIN;
-		int bestMove = 0;
 		while(uint32_t currentMove = MoveStack::instance->pop()) {
+			nodesSearched++;
 			Board::doMove(currentMove);
 			if (canTakeKing()) {
 				Board::undoMove();
@@ -69,16 +77,20 @@
 				bestMove = currentMove;
 			} 
 		}
+
 		return bestMove;
 	}
 
-	int MoveGenerationController::alphaBeta(int alpha, int beta, int depthRemaining) {
+	int MoveGenerationController::alphaBeta(int oldAlpha, int beta, int depthRemaining) {
+		nodesSearched++;
+		int alpha = oldAlpha;
 		if (depthRemaining == 0) {
-			return Board::pieceValue;
-			// return quiescence(alpha, beta);
+			// return Board::pieceValue;
+			return quiescence(alpha, beta);
 		}
 		generateAllMoves<false>();
 		int legalMoves = 0;
+		int bestCurrentMove = 0;
 		while(uint32_t currentMove = MoveStack::instance->pop()) {
 			Board::doMove(currentMove);
 			if (canTakeKing()) {
@@ -94,6 +106,7 @@
 				return beta; 
 			} else if (score > alpha) {
 				alpha = score;
+				bestCurrentMove = currentMove;
 			}
 		}
 
@@ -101,16 +114,24 @@
 			return Evaluation::terminalPositionValue();
 		}
 
+		if (alpha != oldAlpha) {
+			TranspositionTable::instance->store(bestCurrentMove,alpha);
+		}
+
 		return alpha;
 	}
 
-	int MoveGenerationController::quiescence(int alpha, int beta) {
+	int MoveGenerationController::quiescence(int oldAlpha, int beta) {
+		nodesSearched++;
+		int alpha = oldAlpha;
 		int positionValue = Board::pieceValue;
 		if (positionValue >= beta) {
 			return beta;
 		} else if (positionValue > alpha) {
 			alpha = positionValue;
 		}
+		int bestCurrentScore = INT32_MIN;
+		int bestCurrentMove = 0;
 		generateAllMoves<true>();
 		while(uint32_t currentMove = MoveStack::instance->pop()) {
 			Board::doMove(currentMove);
@@ -126,10 +147,23 @@
 				return beta; 
 			} else if (score > alpha) {
 				alpha = score;
+				bestCurrentMove = currentMove;
 			}
 		}
 
+		if (alpha != oldAlpha) {
+			TranspositionTable::instance->store(bestCurrentMove,alpha);
+		}
+
 		return alpha;
+	}
+
+	void MoveGenerationController::showStats() {
+		cout << "Depth: " << depthSearched
+			 << " from: " << FROM(bestMove)
+			 << " to: " << TO(bestMove)
+			 << " score: " << bestScore
+		     << " nodes: " << nodesSearched << endl;
 	}
 
 #endif

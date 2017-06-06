@@ -11,21 +11,27 @@
 	#include "QueenMoveGeneration.h"
 	#include "KnightMoveGeneration.h"
 	#include "KingMoveGeneration.h"
+	#include "TranspositionTable.h"
 	
 
 	using namespace std;
 
 	class MoveGenerationController {
 		private:
+			uint32_t nodesSearched;
+			uint32_t bestMove;
+			int bestScore;
+			int depthSearched;
+			int alphaBeta(int alpha, int beta, int depthRemaining);
+			int quiescence(int alpha, int beta);
 		public:
 			MoveGenerationController();
 			~MoveGenerationController();
-			void generateCaptures();
+			void reset();
+			void showStats();
 			uint64_t countMovesAtDepth(uint64_t depth);
 			void runAtDepth(uint64_t depth, void (*fn)());
 			uint32_t getBestMove(int depth);
-			int alphaBeta(int alpha, int beta, int depthRemaining);
-			int quiescence(int alpha, int beta);
 			static MoveGenerationController *instance;
 
 			template <bool CAPTURES_ONLY>
@@ -44,6 +50,10 @@
 					generateQueenMoves<BLACK, CAPTURES_ONLY>();
 					generateKnightMoves<BLACK, CAPTURES_ONLY>();
 					generateKingMoves<BLACK, CAPTURES_ONLY>();
+				}
+				uint32_t hashMove = TranspositionTable::instance->searchMove();
+				if (hashMove != TRANSPOSITION_TABLE_MISS) {
+					MoveStack::instance->pushToTop(hashMove);
 				}
 			}
 	};

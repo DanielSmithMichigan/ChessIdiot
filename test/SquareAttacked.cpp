@@ -4,6 +4,7 @@
 		Board::reset();
 		BitBoard::InitRookBitBoards();
 		BitBoard::InitBishopBitBoards();
+		TranspositionTable::instance->reset();
 	}
 
 	SquareAttackedTest::~SquareAttackedTest() {

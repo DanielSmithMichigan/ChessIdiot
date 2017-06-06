@@ -5,6 +5,7 @@
 		BitBoard::InitBishopBitBoards();
 		Board::reset();
 		MoveStack::instance->reset();
+		TranspositionTable::instance->reset();
 	}
 
 	EvaluationTest::~EvaluationTest() {
