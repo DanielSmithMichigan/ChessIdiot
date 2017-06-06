@@ -263,13 +263,6 @@
 		return output;
 	}
 
-	string Fen::intToBoardCoord(int location) {
-		int row = 8 - GET_ROW(location);
-		int column = GET_COLUMN(location);
-		string letters[8] = {"a", "b", "c", "d", "e", "f", "g", "h"};
-		return "" + letters[column] + to_string(row);
-	}
-
 	string Fen::getEnPassantTarget() {
 		if (Board::currentState->enPassantTarget == NO_EN_PASSANT) {
 			return "-";

@@ -174,6 +174,9 @@
 	}
 
 	void MoveGenerationController::showPv() {
+		if (Board::currentState->depth >= 20) {
+			return;
+		}
 		generateAllMoves<false>();
 		uint32_t pvMove = TranspositionTable::instance->searchMove();
 		bool found = false;
@@ -183,7 +186,7 @@
 			} 
 		}
 		if (found) {
-			cout << "[" << setw(2) << setfill('0') << FROM(pvMove) << " - " << setw(2) << setfill('0') << TO(pvMove) << "]";
+			cout << "[" << intToBoardCoord(FROM(pvMove)) << " - " << intToBoardCoord(TO(pvMove)) << "]";
 			Board::doMove(pvMove);
 			MoveStack::instance->increaseDepth();
 			showPv();

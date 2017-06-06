@@ -1,3 +1,5 @@
+#ifndef Utility_cpp
+#define Utility_cpp
 #include "Utility.h"
 void showBitBoard(uint64_t bitboard) {
 	cout << "@@@@@@@@@@@@@ BITBOARD @@@@@@@@@@@@" << endl;
@@ -85,3 +87,12 @@ uint64_t binToDec(uint64_t row) {
 	}
 	return output;
 }
+
+string intToBoardCoord(int location) {
+	int row = 8 - GET_ROW(location);
+	int column = GET_COLUMN(location);
+	string letters[8] = {"a", "b", "c", "d", "e", "f", "g", "h"};
+	return "" + letters[column] + to_string(row);
+}
+
+#endif

@@ -47,4 +47,6 @@
 			pawnBoard >>= 1;
 		}
 	}
+
+	string intToBoardCoord(int location);
 #endif
