@@ -11,7 +11,7 @@
 	uint32_t Board::colorsIndex[64] = {};
 	int Board::pieceValue = 0;
 	int Board::PiecesValue[7] = {
-		0, 1, 3, 3, 5, 9, 1
+		0, 100, 325, 325, 550, 1000, 100
 	};
 
 	Board::Board() {
@@ -173,8 +173,10 @@
 		colorsIndex[location] = color;
 		if (color == WHITE) {
 			pieceValue -= Board::PiecesValue[piece];
+			pieceValue -= PiecesValue::getValue<WHITE>(piece, location);
 		} else {
 			pieceValue += Board::PiecesValue[piece];
+			pieceValue += PiecesValue::getValue<BLACK>(piece, location);
 		}
 	}
 
@@ -188,8 +190,10 @@
 		colorsIndex[location] = BLANK;
 		if (color == BLACK) {
 			pieceValue -= Board::PiecesValue[piece];
+			pieceValue -= PiecesValue::getValue<BLACK>(piece, location);
 		} else {
 			pieceValue += Board::PiecesValue[piece];
+			pieceValue += PiecesValue::getValue<WHITE>(piece, location);
 		}
 	}
 #endif

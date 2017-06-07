@@ -61,6 +61,7 @@
 		reset();
 		depthSearched = depth;
 		generateAllMoves<false>();
+		bestScore = INT16_MIN + 1;
 		while(uint32_t currentMove = MoveStack::instance->pop()) {
 			nodesSearched++;
 			Board::doMove(currentMove);
@@ -69,7 +70,7 @@
 				continue;
 			}
 			MoveStack::instance->increaseDepth();
-			int score = -alphaBeta(INT16_MIN + 1, INT16_MAX, depth - 1);
+			int score = -alphaBeta(INT16_MIN + 1, -bestScore, depth - 1);
 			MoveStack::instance->decreaseDepth();
 			Board::undoMove();
 			if (score > bestScore) {
@@ -84,14 +85,13 @@
 	}
 
 	int MoveGenerationController::alphaBeta(int oldAlpha, int beta, int depthRemaining) {
-		nodesSearched++;
 
 		int alpha = oldAlpha;
 		if (depthRemaining == 0) {
 			int result = quiescence(alpha, beta);
 			return result;
 		}
-
+		nodesSearched++;
 		generateAllMoves<false>();
 		int legalMoves = 0;
 		int bestCurrentMove = 0;
@@ -107,10 +107,14 @@
 			MoveStack::instance->decreaseDepth();
 			Board::undoMove();
 			if (score >= beta) {
-				MoveStack::instance->markKiller(currentMove);
+				if (!Board::piecesIndex[TO(currentMove)]) {
+					MoveStack::instance->markKiller(currentMove);
+				}
 				return beta; 
 			} else if (score > alpha) {
-				MoveStack::instance->markHistory(currentMove);
+				if (!Board::piecesIndex[TO(currentMove)]) {
+					MoveStack::instance->markHistory(currentMove);
+				}
 				alpha = score;
 				bestCurrentMove = currentMove;
 			}

@@ -7,12 +7,12 @@
 	int mvvLva[7][7];
 	int pieceValue[7] = {
 		0,
-		1,
-		3,
-		3,
-		5,
-		9,
-		5
+		100,
+		200,
+		300,
+		400,
+		500,
+		600
 	};
 
 
@@ -30,16 +30,16 @@
 	}
 
 	void MoveStack::markHistory(uint32_t move) {
-		searchHistory[FROM(move)][TO(move)] += Board::currentState->depth * Board::currentState->depth;
+		searchHistory[Board::piecesIndex[FROM(move)]][TO(move)] += Board::currentState->depth;
 	}
 
 	void MoveStack::reset() {
-		for (int i = 0; i < 7; i++) {
-			for (int j = 0; j < 7; j++) {
-				mvvLva[i][j] = (100 * pieceValue[i]) - pieceValue[j];
+		for (int victim = 0; victim < 7; victim++) {
+			for (int attacker = 0; attacker < 7; attacker++) {
+				mvvLva[victim][attacker] = pieceValue[victim] + 6 - (pieceValue[attacker] / 100) + 1000000;
 			}
 		}
-		for (int i = 0; i < BOARD_SIZE; i++) {
+		for (int i = 0; i < 7; i++) {
 			for (int j = 0; j < BOARD_SIZE; j++) {
 				searchHistory[i][j] = 0;
 			}
@@ -59,23 +59,22 @@
 	void MoveStack::scoreSpecialMoves(uint32_t move) {
 		for (uint32_t i = getDepthBottom(); i < top; i++) {
 			if (stack[i].move == move) {
-				stack[i].score = 1000000;
-			} else if (stack[i].move == searchKillers[Board::currentState->depth][0]) {
-				stack[i].score = 900000;
-			} else if (stack[i].move == searchKillers[Board::currentState->depth][1]) {
-				stack[i].score = 800000;
+				stack[i].score = 2000000;
 			}
 		}
 	}
 
 	void MoveStack::push(uint32_t move) {
 		uint32_t to = TO(move);
+		uint32_t from = FROM(move);
 		if (Board::piecesIndex[to]) {
-			uint32_t from = FROM(move);
 			stack[top].score = mvvLva[Board::piecesIndex[to]][Board::piecesIndex[from]];
+		} else if (move == searchKillers[Board::currentState->depth][0]) {
+			stack[top].score = 900000;
+		} else if (move == searchKillers[Board::currentState->depth][1]) {
+			stack[top].score = 800000;
 		} else {
-			stack[top].score = searchHistory[FROM(move)][TO(move)];
-			stack[top].score = 0;
+			stack[top].score = searchHistory[Board::piecesIndex[from]][to];
 		}
 		stack[top].move = move;
 		top++;

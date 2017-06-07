@@ -23,14 +23,14 @@
 
 	template <uint32_t COLOR, bool QUIESCENCE>
 	inline void generatePawnMoves() {
-		attack<COLOR, LEFT>();
-		attack<COLOR, RIGHT>();
-		enPassant<COLOR, LEFT>();
-		enPassant<COLOR, RIGHT>();
 		if (!QUIESCENCE) {
 			oneMoveUp<COLOR>();
 			twoMovesUp<COLOR>();
 		}
+		attack<COLOR, LEFT>();
+		attack<COLOR, RIGHT>();
+		enPassant<COLOR, LEFT>();
+		enPassant<COLOR, RIGHT>();
 	}
 
 	template <uint32_t COLOR, uint32_t DIRECTION> 

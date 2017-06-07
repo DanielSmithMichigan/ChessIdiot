@@ -14,13 +14,19 @@
 	void EvaluationTest::SetUp() {
 	}
 
+	TEST_F(EvaluationTest, OneBishopWhite) {
+		Fen::import("8/8/8/4B3/8/8/8/8");
+		ASSERT_EQ(Board::pieceValue, -345);
+	}
+
 	TEST_F(EvaluationTest, OneBishopBlack) {
 		Fen::import("8/8/8/4b3/8/8/8/8");
-		MoveGenerationController::instance->generateAllMoves<false>();
-		Board::doMove(MoveStack::instance->pop());
-		while (MoveStack::instance->pop()) {
-			ASSERT_EQ(Board::pieceValue, 3);
-		}
+		ASSERT_EQ(Board::pieceValue, 345);
+	}
+
+	TEST_F(EvaluationTest, ExampleBoard) {
+		Fen::import("r1b1k2r/ppppnppp/2N2q2/2b5/4P3/2P1B3/PP3PPP/RN1QKB1R b KQkq -");
+		ASSERT_EQ(Board::pieceValue, -350);
 	}
 
 	TEST_F(EvaluationTest, WhiteCheckmate) {

@@ -5,6 +5,7 @@
 	#include "Move.h"
 	#include "Utility.h"
 	#include "Zobrist.h"
+	#include "PiecesValue.h"
 	#include <stdint.h>
 	#include <iostream>
 	
