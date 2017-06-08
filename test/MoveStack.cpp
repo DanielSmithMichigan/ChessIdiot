@@ -74,18 +74,22 @@
 		MoveStack::instance->reset();
 		MoveStack::instance->markKiller(secondMove);
 		MoveGenerationController::instance->generateAllMoves<false>();
+		while (MoveStack::instance->pop()) {
+
+		}
 		Board::doMove(firstMove);
 		MoveStack::instance->increaseDepth();
 		MoveGenerationController::instance->generateAllMoves<false>();
 		MoveStack::instance->decreaseDepth();
 		Board::undoMove();
-		firstMove = MoveStack::instance->pop();
-		secondMove = MoveStack::instance->pop();
+		MoveGenerationController::instance->generateAllMoves<false>();
+		uint32_t firstMovePopped = MoveStack::instance->pop();
+		uint32_t secondMovePopped = MoveStack::instance->pop();
 		while(MoveStack::instance->pop()) {
-			ASSERT_EQ(FROM(firstMove), 46);
-			ASSERT_EQ(TO(firstMove), 37);
-			ASSERT_EQ(FROM(secondMove), 46);
-			ASSERT_EQ(TO(secondMove), 39);
+			ASSERT_EQ(FROM(secondMove), FROM(firstMovePopped));
+			ASSERT_EQ(TO(secondMove), TO(firstMovePopped));
+			ASSERT_EQ(FROM(firstMove), FROM(secondMovePopped));
+			ASSERT_EQ(TO(firstMove), TO(secondMovePopped));
 		}
 	}
 
