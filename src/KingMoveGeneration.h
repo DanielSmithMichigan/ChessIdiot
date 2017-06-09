@@ -32,7 +32,7 @@
 			uint64_t allKingMoves = BitBoard::getAdjacentKingMoves<COLOR>(kingLocation);
 			uint64_t captureMoves = Board::colors[OPPOSING_COLOR(COLOR)] & allKingMoves;
 			while(captureMoves) {
-				MoveStack::instance->push(move<CAPTURE>(kingLocation, popBit(captureMoves)));
+				MoveStack::instance->push(quietMove(kingLocation, popBit(captureMoves)));
 			}
 			if (!QUIESCENCE) {
 				uint64_t nonCaptureMoves = ~Board::colors[OPPOSING_COLOR(COLOR)] & allKingMoves;

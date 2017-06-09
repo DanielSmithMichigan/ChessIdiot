@@ -19,7 +19,7 @@
 			uint64_t allKnightMoves = BitBoard::getKnightMoves<COLOR>(knightLocation);
 			uint64_t captureMoves = Board::colors[OPPOSING_COLOR(COLOR)] & allKnightMoves;
 			while(captureMoves) {
-				MoveStack::instance->push(move<CAPTURE>(knightLocation, popBit(captureMoves)));
+				MoveStack::instance->push(quietMove(knightLocation, popBit(captureMoves)));
 			}
 			if (!QUIESCENCE) {
 				uint64_t nonCaptureMoves = ~Board::colors[OPPOSING_COLOR(COLOR)] & allKnightMoves;

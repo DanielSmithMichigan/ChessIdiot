@@ -19,7 +19,7 @@
 			uint64_t allQueenMoves = BitBoard::getBishopMoves<COLOR>(queenLocation) | BitBoard::getRookMoves<COLOR>(queenLocation);
 			uint64_t captureMoves = Board::colors[OPPOSING_COLOR(COLOR)] & allQueenMoves;
 			while(captureMoves) {
-				MoveStack::instance->push(move<CAPTURE>(queenLocation, popBit(captureMoves)));
+				MoveStack::instance->push(quietMove(queenLocation, popBit(captureMoves)));
 			}
 			if (!QUIESCENCE) {
 				uint64_t nonCaptureMoves = ~Board::colors[OPPOSING_COLOR(COLOR)] & allQueenMoves;

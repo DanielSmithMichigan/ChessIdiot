@@ -170,9 +170,7 @@
 	}
 
 	void MoveGenerationController::showStats() {
-		cout << "Depth: " << depthSearched
-			 << " score: " << bestScore
-		     << " nodes: " << nodesSearched << endl;
+		cout << "info score cp " << bestScore << " depth " << depthSearched << " nodes " << (nodesSearched / 1000) << " pv ";
 		showPv();
 		cout << endl;
 	}
@@ -190,7 +188,7 @@
 			} 
 		}
 		if (found) {
-			cout << "[" << intToBoardCoord(FROM(pvMove)) << " - " << intToBoardCoord(TO(pvMove)) << "]";
+			cout << "" << intToBoardCoord(FROM(pvMove)) << intToBoardCoord(TO(pvMove)) << " ";
 			Board::doMove(pvMove);
 			MoveStack::instance->increaseDepth();
 			showPv();

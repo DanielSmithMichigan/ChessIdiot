@@ -3,6 +3,9 @@
 	#include <stdint.h>
 	#include <iostream>
 	#include <math.h>
+	#include <boost/algorithm/string/trim.hpp>
+	#include <boost/format.hpp>
+	#include <boost/lexical_cast.hpp>
 	#include "Move.h"
 	#include "Globals.h"
 	using namespace std;
@@ -49,4 +52,10 @@
 	}
 
 	string intToBoardCoord(int location);
+
+	string readToken(string &str);
+
+	int boardCoordToInt(string boardCoord);
+
+	int getPieceFromLetter(string letter);
 #endif

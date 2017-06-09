@@ -95,4 +95,81 @@ string intToBoardCoord(int location) {
 	return "" + letters[column] + to_string(row);
 }
 
+
+string readToken(string &str) {
+	boost::trim_left(str);
+	string token = str.substr(0, str.find(" "));
+	str.erase(0, str.find(" "));
+	return token;
+}
+
+int boardCoordToInt(string boardCoord) {
+	int location = 0;
+	for(char& c : boardCoord) {
+		switch(c) {
+			case 'a':
+			case 'A':
+			break;
+			case 'b':
+			case 'B':
+				location += 1;
+			break;
+			case 'c':
+			case 'C':
+				location += 2;
+			break;
+			case 'd':
+			case 'D':
+				location += 3;
+			break;
+			case 'e':
+			case 'E':
+				location += 4;
+			break;
+			case 'f':
+			case 'F':
+				location += 5;
+			break;
+			case 'g':
+			case 'G':
+				location += 6;
+			break;
+			case 'h':
+			case 'H':
+				location += 7;
+			break;
+			case '1':
+			case '2':
+			case '3':
+			case '4':
+			case '5':
+			case '6':
+			case '7':
+			case '8':
+				int numericChar = '8' - c;
+				location += ROWS(numericChar);
+			break;
+		}
+	}
+	return location;
+}
+
+int getPieceFromLetter(string letter) {
+	if (letter == "R" || letter == "r") {
+		return ROOK;
+	} else if (letter == "N" || letter == "n") {
+		return KNIGHT;
+	} else if (letter == "B" || letter == "b") {
+		return BISHOP;
+	} else if (letter == "Q" || letter == "q") {
+		return QUEEN;
+	} else if (letter == "K" || letter == "k") {
+		return KING;
+	} else if (letter == "P" || letter == "p") {
+		return PAWN;
+	} else {
+		return EMPTY_SPACE;
+	}
+}
+
 #endif

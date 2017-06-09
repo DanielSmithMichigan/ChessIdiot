@@ -80,13 +80,13 @@
 		while (nonPromotionMoves) {
 			moveIndex = popBit(nonPromotionMoves);
 			if (COLOR == WHITE && DIRECTION == LEFT) {
-				MoveStack::instance->push(move<CAPTURE>(moveIndex + ROW + 1, moveIndex));
+				MoveStack::instance->push(quietMove(moveIndex + ROW + 1, moveIndex));
 			} else if (COLOR == WHITE && DIRECTION == RIGHT) {
-				MoveStack::instance->push(move<CAPTURE>(moveIndex + ROW - 1, moveIndex));
+				MoveStack::instance->push(quietMove(moveIndex + ROW - 1, moveIndex));
 			} else if (COLOR == BLACK && DIRECTION == LEFT) {
-				MoveStack::instance->push(move<CAPTURE>(moveIndex - ROW + 1, moveIndex));
+				MoveStack::instance->push(quietMove(moveIndex - ROW + 1, moveIndex));
 			} else if (COLOR == BLACK && DIRECTION == RIGHT) {
-				MoveStack::instance->push(move<CAPTURE>(moveIndex - ROW - 1, moveIndex));
+				MoveStack::instance->push(quietMove(moveIndex - ROW - 1, moveIndex));
 			}
 		}
 

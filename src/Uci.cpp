@@ -1,0 +1,105 @@
+#ifndef Uci_cpp
+#define Uci_cpp
+	#include "Uci.h"
+
+	Uci *Uci::instance = new Uci();
+
+
+	Uci::Uci() {
+
+	}
+
+	Uci::~Uci() {
+
+	}
+
+	void Uci::loop() {
+		string input, token;
+		while (true) {
+			if (!getline(cin, input)) {
+				continue;
+			}
+
+			token = readToken(input);
+			if (token == "uci") {
+				identify();
+			} else if (token == "isready") {
+				readyUp();
+			} else if (token == "position") {
+				position(input);
+			} else if (token == "go") {
+				go(input);
+			} else if (token == "fen") {
+				getFen();
+			}
+		}
+	}
+
+	void Uci::identify() {
+		cout << "id name Merlin" << endl;
+		cout << "id author Daniel Smith" << endl;
+		cout << "uciok" << endl;
+	}
+
+	void Uci::readyUp() {
+		Init::instance->execute();
+		cout << "readyok" << endl;
+	}
+
+	void Uci::position(string input) {
+		string positionCommand = readToken(input), position = "";
+		if (positionCommand == "startpos") {
+			Fen::import("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+		} else if (positionCommand == "fen") {
+			for (int i = 0; i < 6; i++) {
+				position = position + " " + readToken(input);
+			}
+			Fen::import(position);
+		}
+
+		if (readToken(input) == "moves") {
+			doMoves(input);
+		}
+	}
+
+	void Uci::doMoves(string input) {
+		do {
+			doMove(readToken(input));
+		} while(input.length());
+	}
+
+	void Uci::doMove(string input) {
+		int from = boardCoordToInt(input.substr(0, 2));
+		int to = boardCoordToInt(input.substr(2, 2));
+		int pieceMoved = Board::piecesIndex[from];
+		int pieceAttacked = Board::piecesIndex[to];
+		if (pieceMoved == PAWN
+			&& GET_COLUMN(from) != GET_COLUMN(to)
+			&& !(getPieceBoard(to) & PROMOTION_ROWS)
+			&& !Board::piecesIndex[to]) {
+			Board::doMove(move<EN_PASSANT>(from, to));
+		} else if (pieceMoved == PAWN
+			&& (getPieceBoard(to) & PROMOTION_ROWS)) {
+			Board::doMove(move<PROMOTION>(from, to, getPieceFromLetter(input.substr(4, 1))));
+		} else if (pieceMoved == PAWN
+			&& abs((int)GET_ROW(from) - (int)GET_ROW(to)) > 1) {
+			Board::doMove(move<PAWN_DOUBLE>(from, to));
+		} else if (pieceMoved == KING
+			&& abs(GET_COLUMN(from) - GET_COLUMN(to)) > 1) {
+			Board::doMove(move<CASTLE>(from, to));
+		} else {
+			Board::doMove(quietMove(from, to));
+		}
+	}
+
+	// go depth 6 wtime 180000 btime 100000 binc 1000 winc 1000 movetime 1000 movestogo 40
+	void Uci::go(string input) {
+		Init::instance->reset();
+		uint32_t bestMove = Search::instance->iterativeDeepening(Fen::exportBoard(), 8);
+		cout << "bestmove " << intToBoardCoord(FROM(bestMove)) << intToBoardCoord(TO(bestMove)) << endl;
+	}
+
+	void Uci::getFen() {
+		cout << Fen::exportBoard() << endl;
+	}
+#endif
