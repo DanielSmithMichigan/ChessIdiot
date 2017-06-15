@@ -11,20 +11,24 @@
 
 	using namespace std;
 
-	enum TRANSPOSITION_TABLE_PRIORITY {
-		PRINCIPAL_VARIATION = 1,
-		SCORE = 0
+	enum TRANSPOSITION_TABLE_TYPE {
+		PRINCIPAL_VARIATION,
+		UPPER_BOUND,
+		LOWER_BOUND,
 	};
 
 	struct TranspositionTableEntry {
+		uint8_t depthSearched;
 		uint64_t positionKey;
 		uint32_t bestMove;
 		int score;
-		uint16_t depthSearched;
-		uint16_t priority;
+		uint8_t type;
 		void reset() {
 			positionKey = 0ULL;
 			bestMove = 0;
+			depthSearched = 0;
+			score = 0;
+			type = 0;
 		}
 	};
 
@@ -32,16 +36,15 @@
 		private:
 			size_t numEntries;
 			TranspositionTableEntry *table;
-			uint16_t age;
 		protected:
 		public:
 			static TranspositionTable *instance;
 			TranspositionTable();
 			~TranspositionTable();
 			void reset();
-			void store(uint32_t bestMove);
-			int searchScore(int depthRemaining);
+			void store(uint32_t bestMove, uint32_t score, uint8_t type, uint8_t remainingSearchDepth);
 			uint32_t searchMove();
+			bool searchPosition(uint32_t remainingSearchDepth, int alpha, int beta, int &score);
 	};
 
 

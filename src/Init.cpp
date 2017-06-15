@@ -20,10 +20,11 @@
 		BitBoard::InitRookBitBoards();
 		BitBoard::InitBishopBitBoards();
 		TranspositionTable::instance->reset();
+		Board::clearForSearch();
 		finished = true;
 	}
 
 	void Init::reset() {
-		TranspositionTable::instance->reset();
+		Board::clearForSearch();
 	}
 #endif

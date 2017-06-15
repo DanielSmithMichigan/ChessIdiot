@@ -61,7 +61,7 @@
 		reset();
 		depthSearched = depth;
 		generateAllMoves<false>();
-		bestScore = INT16_MIN + 1;
+		bestScore = INT32_MIN + 1;
 		while(uint32_t currentMove = MoveStack::instance->pop()) {
 			nodesSearched++;
 			Board::doMove(currentMove);
@@ -70,7 +70,7 @@
 				continue;
 			}
 			MoveStack::instance->increaseDepth();
-			int score = -alphaBeta(INT16_MIN + 1, -bestScore, depth - 1);
+			int score = -alphaBeta(INT32_MIN + 1, -bestScore, depth - 1);
 			MoveStack::instance->decreaseDepth();
 			Board::undoMove();
 			if (score > bestScore) {
@@ -79,18 +79,28 @@
 			} 
 		}
 
-		TranspositionTable::instance->store(bestMove);
+		TranspositionTable::instance->store(bestMove, bestScore, PRINCIPAL_VARIATION, depth);
 
 		return bestMove;
 	}
 
 	int MoveGenerationController::alphaBeta(int oldAlpha, int beta, int depthRemaining) {
-
 		int alpha = oldAlpha;
+
+		int hashScore;
+		if (TranspositionTable::instance->searchPosition(depthRemaining, alpha, beta, hashScore)) {
+			return hashScore;
+		}
+
 		if (depthRemaining == 0) {
 			int result = quiescence(alpha, beta);
 			return result;
 		}
+
+		if (Board::currentState->depth >= DEPTH_LIMIT) {
+			return quiescence(alpha, beta);
+		}
+
 		nodesSearched++;
 		generateAllMoves<false>();
 		int legalMoves = 0;
@@ -107,6 +117,7 @@
 			MoveStack::instance->decreaseDepth();
 			Board::undoMove();
 			if (score >= beta) {
+				TranspositionTable::instance->store(bestCurrentMove, beta, LOWER_BOUND, depthRemaining);
 				if (!Board::piecesIndex[TO(currentMove)]) {
 					MoveStack::instance->markKiller(currentMove);
 				}
@@ -125,7 +136,9 @@
 		}
 
 		if (alpha != oldAlpha) {
-			TranspositionTable::instance->store(bestCurrentMove);
+			TranspositionTable::instance->store(bestCurrentMove, alpha, PRINCIPAL_VARIATION, depthRemaining);
+		} else {
+			TranspositionTable::instance->store(bestCurrentMove, alpha, UPPER_BOUND, depthRemaining);
 		}
 
 		return alpha;
@@ -140,6 +153,10 @@
 			return beta;
 		} else if (positionValue > alpha) {
 			alpha = positionValue;
+		}
+
+		if (Board::currentState->depth >= DEPTH_LIMIT) {
+			return positionValue;
 		}
 		int bestCurrentScore = INT32_MIN;
 		int bestCurrentMove = 0;
@@ -163,7 +180,7 @@
 		}
 
 		if (alpha != oldAlpha) {
-			TranspositionTable::instance->store(bestCurrentMove);
+			TranspositionTable::instance->store(bestCurrentMove, alpha, PRINCIPAL_VARIATION, 0);
 		}
 
 		return alpha;

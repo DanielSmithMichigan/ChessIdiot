@@ -20,6 +20,19 @@
 	Board::~Board() {
 	}
 
+	void Board::clearForSearch() {
+		currentState->depth = 0;
+		if (currentState->prev) {
+			State *prevState = currentState->prev;
+			currentState->prev = NULL;
+			while (prevState->prev) {
+				State *priorState = prevState->prev;
+				delete prevState;
+				prevState = priorState;
+			}
+		}
+	}
+
 	void Board::doMove(uint32_t move) {
 		uint32_t from = FROM(move);
 		uint32_t to = TO(move);

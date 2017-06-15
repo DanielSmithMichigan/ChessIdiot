@@ -2,6 +2,7 @@
 #define Init_h
 	#include "BitBoard.h"
 	#include "TranspositionTable.h"
+	#include "Board.h"
 
 	using namespace std;
 

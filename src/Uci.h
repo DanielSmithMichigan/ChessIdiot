@@ -10,6 +10,7 @@
 	#include "Fen.h"
 	#include "Board.h"
 	#include "Search.h"
+	#include "MoveGenerationController.h"
 
 	using namespace std;
 

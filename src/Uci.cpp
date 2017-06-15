@@ -71,24 +71,20 @@
 	void Uci::doMove(string input) {
 		int from = boardCoordToInt(input.substr(0, 2));
 		int to = boardCoordToInt(input.substr(2, 2));
-		int pieceMoved = Board::piecesIndex[from];
-		int pieceAttacked = Board::piecesIndex[to];
-		if (pieceMoved == PAWN
-			&& GET_COLUMN(from) != GET_COLUMN(to)
-			&& !(getPieceBoard(to) & PROMOTION_ROWS)
-			&& !Board::piecesIndex[to]) {
-			Board::doMove(move<EN_PASSANT>(from, to));
-		} else if (pieceMoved == PAWN
-			&& (getPieceBoard(to) & PROMOTION_ROWS)) {
-			Board::doMove(move<PROMOTION>(from, to, getPieceFromLetter(input.substr(4, 1))));
-		} else if (pieceMoved == PAWN
-			&& abs((int)GET_ROW(from) - (int)GET_ROW(to)) > 1) {
-			Board::doMove(move<PAWN_DOUBLE>(from, to));
-		} else if (pieceMoved == KING
-			&& abs(GET_COLUMN(from) - GET_COLUMN(to)) > 1) {
-			Board::doMove(move<CASTLE>(from, to));
-		} else {
-			Board::doMove(quietMove(from, to));
+		int piece = 0;
+		if (input.length() == 5) {
+			piece = getPieceFromLetter(input.substr(4, 1));
+		}
+		MoveGenerationController::instance->generateAllMoves<false>();
+		while (uint32_t currentMove = MoveStack::instance->pop()) {
+			if (from == FROM(currentMove)
+				&& to == TO(currentMove)
+				&& piece == PIECE(currentMove)) {
+				Board::doMove(currentMove);
+				break;
+			}
+		}
+		while (MoveStack::instance->pop()) {
 		}
 	}
 
