@@ -1,0 +1,455 @@
+2017-06-17 16:41:16.232<--2:info score cp 0 depth 0 nodes 19832 pv e7e5 b1c3 b8c6 g1f3 f8c5 f3e5 c6e5 d2d4 d7d6 
+2017-06-17 16:41:16.232<--2:bestmove e7e5
+2017-06-17 16:41:16.232*2*Found move:e7-e5
+2017-06-17 16:41:16.361*1*Start calc, move no: 2
+2017-06-17 16:41:16.361-->1:position startpos moves e2e4 e7e5
+2017-06-17 16:41:16.361-->1:go wtime 290053 btime 295268 winc 0 binc 0
+2017-06-17 16:41:16.361<--1:Game Board:
+2017-06-17 16:41:16.361<--1:8    r  n  b  q  k  b  n  r
+2017-06-17 16:41:16.361<--1:7    p  p  p  p  .  p  p  p
+2017-06-17 16:41:16.362<--1:6    .  .  .  .  .  .  .  .
+2017-06-17 16:41:16.362<--1:5    .  .  .  .  p  .  .  .
+2017-06-17 16:41:16.362<--1:4    .  .  .  .  P  .  .  .
+2017-06-17 16:41:16.362<--1:3    .  .  .  .  .  .  .  .
+2017-06-17 16:41:16.362<--1:2    P  P  P  P  .  P  P  P
+2017-06-17 16:41:16.362<--1:1    R  N  B  Q  K  B  N  R
+2017-06-17 16:41:16.362<--1:     a  b  c  d  e  f  g  h
+2017-06-17 16:41:16.362<--1:side:w
+2017-06-17 16:41:16.362<--1:enPas:75
+2017-06-17 16:41:16.362<--1:castle:KQkq
+2017-06-17 16:41:16.362<--1:PosKey:3BE9DD10F94E646C
+2017-06-17 16:41:16.362<--1:time:9618 start:-1211509943 stop:-1211500325 depth:64 timeset:1
+2017-06-17 16:41:16.362<--1:info score cp 30 depth 1 nodes 34 time 0 pv d2d4
+2017-06-17 16:41:16.362<--1:info score cp 0 depth 2 nodes 223 time 1 pv d2d4 d7d5
+2017-06-17 16:41:16.364<--1:info score cp 25 depth 3 nodes 1926 time 2 pv d2d4 d7d5 c1e3
+2017-06-17 16:41:16.376<--1:info score cp 0 depth 4 nodes 9945 time 14 pv d2d4 d7d5 c1e3 c8e6
+2017-06-17 16:41:16.410<--1:info score cp 25 depth 5 nodes 72777 time 47 pv g1f3 g8f6 b1c3 f8d6 d2d4
+2017-06-17 16:41:16.572<--1:info score cp 5 depth 6 nodes 312792 time 210 pv g1f3 g8f6 b1c3 f8d6 d2d4 b8c6
+2017-06-17 16:41:17.604<--1:info score cp 15 depth 7 nodes 2323804 time 1243 pv b1c3 b8c6 f1c4 f8b4 d1h5 b4c3 d2c3
+2017-06-17 16:41:24.539<--1:info score cp 10 depth 8 nodes 12837835 time 8177 pv g1f3 g8f6 b1c3 f8b4 f3e5
+2017-06-17 16:41:25.981<--1:bestmove g1f3
+2017-06-17 16:41:25.981*1*Found move:Ng1-f3
+2017-06-17 16:41:26.108*2*Start calc, move no: 3
+2017-06-17 16:41:26.108-->2:position startpos moves e2e4 e7e5 g1f3
+2017-06-17 16:41:26.108-->2:go wtime 280438 btime 295268 winc 0 binc 0
+2017-06-17 16:41:26.110<--2:info score cp 0 depth 0 nodes 19832 pv f8d6 
+2017-06-17 16:41:26.110<--2:info score cp 0 depth 0 nodes 19832 pv d7d5 d2d4 
+2017-06-17 16:41:26.110<--2:info score cp 0 depth 0 nodes 19834 pv g8f6 f3e5 f6e4 
+2017-06-17 16:41:26.112<--2:info score cp 0 depth 0 nodes 19844 pv g8f6 b1c3 f8d6 
+2017-06-17 16:41:26.124<--2:info score cp 0 depth 0 nodes 19892 pv g8f6 b1c3 f8d6 f1c4 b8c6 
+2017-06-17 16:41:26.184<--2:info score cp 0 depth 0 nodes 20156 pv g8f6 b1c3 f8b4 f3e5 b4c3 d2c3 
+2017-06-17 16:41:26.434<--2:info score cp 0 depth 0 nodes 21431 pv b8c6 f1c4 g8f6 b1c3 f8b4 f3g5 h8f8 
+2017-06-17 16:41:27.918<--2:info score cp 0 depth 0 nodes 28450 pv b8c6 b1c3 f8b4 a2a3 b4c3 d2c3 g8f6 f1d3 
+2017-06-17 16:41:32.722<--2:info score cp 0 depth 0 nodes 52379 pv b8c6 b1c3 f8b4 c3d5 g8f6 f1b5 f6d5 e4d5 
+2017-06-17 16:41:32.722<--2:bestmove b8c6
+2017-06-17 16:41:32.722*2*Found move:Nb8-c6
+2017-06-17 16:41:32.855*1*Start calc, move no: 4
+2017-06-17 16:41:32.855-->1:position startpos moves e2e4 e7e5 g1f3 b8c6
+2017-06-17 16:41:32.855-->1:go wtime 280438 btime 288659 winc 0 binc 0
+2017-06-17 16:41:32.855<--1:Game Board:
+2017-06-17 16:41:32.856<--1:8    r  .  b  q  k  b  n  r
+2017-06-17 16:41:32.858<--1:7    p  p  p  p  .  p  p  p
+2017-06-17 16:41:32.858<--1:6    .  .  n  .  .  .  .  .
+2017-06-17 16:41:32.858<--1:5    .  .  .  .  p  .  .  .
+2017-06-17 16:41:32.859<--1:4    .  .  .  .  P  .  .  .
+2017-06-17 16:41:32.861<--1:3    .  .  .  .  .  N  .  .
+2017-06-17 16:41:32.861<--1:2    P  P  P  P  .  P  P  P
+2017-06-17 16:41:32.868<--1:1    R  N  B  Q  K  B  .  R
+2017-06-17 16:41:32.868<--1:     a  b  c  d  e  f  g  h
+2017-06-17 16:41:32.868<--1:side:w
+2017-06-17 16:41:32.868<--1:enPas:99
+2017-06-17 16:41:32.868<--1:castle:KQkq
+2017-06-17 16:41:32.868<--1:PosKey:AA82D26F8FB4D2AF
+2017-06-17 16:41:32.868<--1:time:9297 start:-1211493449 stop:-1211484152 depth:64 timeset:1
+2017-06-17 16:41:32.868<--1:info score cp 30 depth 1 nodes 37 time 1 pv d2d4
+2017-06-17 16:41:32.868<--1:info score cp 5 depth 2 nodes 259 time 1 pv d2d4 f8d6
+2017-06-17 16:41:32.868<--1:info score cp 30 depth 3 nodes 1775 time 1 pv d2d4 f8d6 c1e3
+2017-06-17 16:41:32.868<--1:info score cp 5 depth 4 nodes 9618 time 7 pv d2d4 g8f6 c1g5 f8d6
+2017-06-17 16:41:32.884<--1:info score cp 20 depth 5 nodes 52334 time 29 pv d2d4 g8f6 b1c3 f8b4 c1g5
+2017-06-17 16:41:33.061<--1:info score cp 10 depth 6 nodes 344324 time 206 pv d2d4 e5d4 f3d4 c6d4 d1d4 g8f6
+2017-06-17 16:41:33.810<--1:info score cp 25 depth 7 nodes 2002447 time 955 pv f1b5 g8f6 d2d3 f8d6 c1e3 a7a6 b5c4
+2017-06-17 16:41:38.533<--1:info score cp 10 depth 8 nodes 10371210 time 5678 pv f1b5 g8f6 d2d3 d7d6
+2017-06-17 16:41:42.154<--1:bestmove f1b5
+2017-06-17 16:41:42.154*1*Found move:Bf1-b5
+2017-06-17 16:41:42.288*2*Start calc, move no: 5
+2017-06-17 16:41:42.289-->2:position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5
+2017-06-17 16:41:42.289-->2:go wtime 271144 btime 288659 winc 0 binc 0
+2017-06-17 16:41:42.291<--2:info score cp 0 depth 0 nodes 52379 pv 
+2017-06-17 16:41:42.291<--2:info score cp 0 depth 0 nodes 52380 pv 
+2017-06-17 16:41:42.292<--2:info score cp 0 depth 0 nodes 52382 pv 
+2017-06-17 16:41:42.295<--2:info score cp 0 depth 0 nodes 52393 pv 
+2017-06-17 16:41:42.305<--2:info score cp 0 depth 0 nodes 52443 pv g8f6 
+2017-06-17 16:41:42.364<--2:info score cp 0 depth 0 nodes 52703 pv g8f6 d2d3 a7a6 b5a4 f8d6 c1e3 
+2017-06-17 16:41:42.769<--2:info score cp 0 depth 0 nodes 54286 pv f8c5 c2c3 d8f6 b5c6 f6c6 
+2017-06-17 16:41:44.202<--2:info score cp 0 depth 0 nodes 61254 pv f8c5 c2c3 d8e7 e1g1 d7d5 b5c6 b7c6 
+2017-06-17 16:41:49.195<--2:info score cp 0 depth 0 nodes 85662 pv g8f6 b1c3 c6d4 d2d3 f8b4 b5c4 d7d5 f3d4 e5d4 
+2017-06-17 16:41:49.196<--2:bestmove g8f6
+2017-06-17 16:41:49.196*2*Found move:Ng8-f6
+2017-06-17 16:41:49.324*1*Start calc, move no: 6
+2017-06-17 16:41:49.324-->1:position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5 g8f6
+2017-06-17 16:41:49.324-->1:go wtime 271144 btime 281757 winc 0 binc 0
+2017-06-17 16:41:49.324<--1:Game Board:
+2017-06-17 16:41:49.324<--1:8    r  .  b  q  k  b  .  r
+2017-06-17 16:41:49.324<--1:7    p  p  p  p  .  p  p  p
+2017-06-17 16:41:49.324<--1:6    .  .  n  .  .  n  .  .
+2017-06-17 16:41:49.324<--1:5    .  B  .  .  p  .  .  .
+2017-06-17 16:41:49.324<--1:4    .  .  .  .  P  .  .  .
+2017-06-17 16:41:49.325<--1:3    .  .  .  .  .  N  .  .
+2017-06-17 16:41:49.325<--1:2    P  P  P  P  .  P  P  P
+2017-06-17 16:41:49.325<--1:1    R  N  B  Q  K  .  .  R
+2017-06-17 16:41:49.325<--1:     a  b  c  d  e  f  g  h
+2017-06-17 16:41:49.325<--1:side:w
+2017-06-17 16:41:49.325<--1:enPas:99
+2017-06-17 16:41:49.325<--1:castle:KQkq
+2017-06-17 16:41:49.325<--1:PosKey:ED68204FD1705B50
+2017-06-17 16:41:49.325<--1:time:8988 start:-1211476980 stop:-1211467992 depth:64 timeset:1
+2017-06-17 16:41:49.325<--1:info score cp 20 depth 1 nodes 135 time 1 pv b1c3
+2017-06-17 16:41:49.327<--1:info score cp -5 depth 2 nodes 689 time 1 pv b1c3 f8d6
+2017-06-17 16:41:49.327<--1:info score cp 15 depth 3 nodes 2812 time 3 pv d2d3 f8d6 c1e3
+2017-06-17 16:41:49.342<--1:info score cp 10 depth 4 nodes 22100 time 17 pv d2d3 f8d6 c1e3 e8g8
+2017-06-17 16:41:49.381<--1:info score cp 25 depth 5 nodes 96493 time 57 pv d2d3 f8d6 c1e3 a7a6 b5c4
+2017-06-17 16:41:49.785<--1:info score cp 10 depth 6 nodes 742517 time 460 pv d2d3 d7d6
+2017-06-17 16:41:50.932<--1:info score cp 30 depth 7 nodes 3244838 time 1608 pv d2d3 d7d6 b5c6 b7c6 c1e3 c8e6 b1c3
+2017-06-17 16:41:58.313<--1:bestmove d2d3
+2017-06-17 16:41:58.313*1*Found move:d2-d3
+2017-06-17 16:41:58.446*2*Start calc, move no: 7
+2017-06-17 16:41:58.446-->2:position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5 g8f6 d2d3
+2017-06-17 16:41:58.446-->2:go wtime 262160 btime 281757 winc 0 binc 0
+2017-06-17 16:41:58.452<--2:info score cp 0 depth 0 nodes 85662 pv 
+2017-06-17 16:41:58.453<--2:info score cp 0 depth 0 nodes 85663 pv 
+2017-06-17 16:41:58.453<--2:info score cp 0 depth 0 nodes 85667 pv 
+2017-06-17 16:41:58.454<--2:info score cp 0 depth 0 nodes 85679 pv 
+2017-06-17 16:41:58.468<--2:info score cp 0 depth 0 nodes 85756 pv f8e7 b1d2 d7d6 
+2017-06-17 16:41:58.585<--2:info score cp 0 depth 0 nodes 86281 pv f8d6 h1f1 a7a6 b5c6 d7c6 
+2017-06-17 16:41:59.014<--2:info score cp 0 depth 0 nodes 88213 pv f8c5 b5c6 d7c6 f3e5 f6e4 d3e4 
+2017-06-17 16:42:01.138<--2:info score cp 0 depth 0 nodes 98458 pv f8e7 c1e3 a7a6 b5a4 b7b5 a4b3 d7d5 b1c3 
+2017-06-17 16:42:13.974<--2:info score cp 0 depth 0 nodes 144142 pv f8d6 b1c3 d6b4 
+2017-06-17 16:42:13.974<--2:bestmove f8d6
+2017-06-17 16:42:13.974*2*Found move:Bf8-d6
+2017-06-17 16:42:14.101*1*Start calc, move no: 8
+2017-06-17 16:42:14.101-->1:position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5 g8f6 d2d3 f8d6
+2017-06-17 16:42:14.102-->1:go wtime 262160 btime 266234 winc 0 binc 0
+2017-06-17 16:42:14.102<--1:Game Board:
+2017-06-17 16:42:14.103<--1:8    r  .  b  q  k  .  .  r
+2017-06-17 16:42:14.103<--1:7    p  p  p  p  .  p  p  p
+2017-06-17 16:42:14.103<--1:6    .  .  n  b  .  n  .  .
+2017-06-17 16:42:14.104<--1:5    .  B  .  .  p  .  .  .
+2017-06-17 16:42:14.104<--1:4    .  .  .  .  P  .  .  .
+2017-06-17 16:42:14.104<--1:3    .  .  .  P  .  N  .  .
+2017-06-17 16:42:14.104<--1:2    P  P  P  .  .  P  P  P
+2017-06-17 16:42:14.104<--1:1    R  N  B  Q  K  .  .  R
+2017-06-17 16:42:14.104<--1:     a  b  c  d  e  f  g  h
+2017-06-17 16:42:14.104<--1:side:w
+2017-06-17 16:42:14.104<--1:enPas:99
+2017-06-17 16:42:14.104<--1:castle:KQkq
+2017-06-17 16:42:14.105<--1:PosKey:FD736D026B504C15
+2017-06-17 16:42:14.105<--1:time:8688 start:-1211452202 stop:-1211443514 depth:64 timeset:1
+2017-06-17 16:42:14.105<--1:info score cp 15 depth 1 nodes 99 time 0 pv c1e3
+2017-06-17 16:42:14.105<--1:info score cp 10 depth 2 nodes 779 time 1 pv c1e3 e8g8
+2017-06-17 16:42:14.105<--1:info score cp 25 depth 3 nodes 4221 time 2 pv c1e3 a7a6 b5c4
+2017-06-17 16:42:14.117<--1:info score cp 20 depth 4 nodes 22931 time 14 pv c1e3 a7a6 b5c4 e8g8
+2017-06-17 16:42:14.186<--1:info score cp 30 depth 5 nodes 162776 time 84 pv c1e3 a7a6 b5c6
+2017-06-17 16:42:14.663<--1:info score cp 25 depth 6 nodes 898607 time 560 pv b1c3
+2017-06-17 16:42:18.085<--1:info score cp 35 depth 7 nodes 6928185 time 3982 pv c1g5 e8g8 b1c3
+2017-06-17 16:42:22.791<--1:bestmove c1g5
+2017-06-17 16:42:22.791*1*Found move:Bc1-g5
+2017-06-17 16:42:22.918*2*Start calc, move no: 9
+2017-06-17 16:42:22.918-->2:position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5 g8f6 d2d3 f8d6 c1g5
+2017-06-17 16:42:22.918-->2:go wtime 253477 btime 266234 winc 0 binc 0
+2017-06-17 16:42:22.919<--2:info score cp 0 depth 0 nodes 144142 pv 
+2017-06-17 16:42:22.919<--2:info score cp 0 depth 0 nodes 144143 pv 
+2017-06-17 16:42:22.919<--2:info score cp 0 depth 0 nodes 144145 pv 
+2017-06-17 16:42:22.921<--2:info score cp 0 depth 0 nodes 144159 pv d6c5 
+2017-06-17 16:42:22.926<--2:info score cp 0 depth 0 nodes 144177 pv d6c5 
+2017-06-17 16:42:22.946<--2:info score cp 0 depth 0 nodes 144263 pv d6c5 
+2017-06-17 16:42:23.711<--2:info score cp 0 depth 0 nodes 147878 pv d6b4 c2c3 f6e4 c3b4 e4g5 b5c6 d7c6 
+2017-06-17 16:42:24.716<--2:info score cp 0 depth 0 nodes 151825 pv d6b4 g5d2 b4d6 
+2017-06-17 16:42:45.772<--2:info score cp 0 depth 0 nodes 229545 pv d6e7 b1d2 d7d6 b5c6 b7c6 d3d4 c8g4 g5f6 e7f6 
+2017-06-17 16:42:45.773<--2:bestmove d6e7
+2017-06-17 16:42:45.773*2*Found move:Bd6-e7
+2017-06-17 16:42:45.917*1*Start calc, move no: 10
+2017-06-17 16:42:45.917-->1:position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5 g8f6 d2d3 f8d6 c1g5 d6e7
+2017-06-17 16:42:45.917-->1:go wtime 253477 btime 243383 winc 0 binc 0
+2017-06-17 16:42:45.924<--1:Game Board:
+2017-06-17 16:42:45.926<--1:8    r  .  b  q  k  .  .  r
+2017-06-17 16:42:45.928<--1:7    p  p  p  p  b  p  p  p
+2017-06-17 16:42:45.929<--1:6    .  .  n  .  .  n  .  .
+2017-06-17 16:42:45.930<--1:5    .  B  .  .  p  .  B  .
+2017-06-17 16:42:45.932<--1:4    .  .  .  .  P  .  .  .
+2017-06-17 16:42:45.934<--1:3    .  .  .  P  .  N  .  .
+2017-06-17 16:42:45.935<--1:2    P  P  P  .  .  P  P  P
+2017-06-17 16:42:45.937<--1:1    R  N  .  Q  K  .  .  R
+2017-06-17 16:42:45.938<--1:     a  b  c  d  e  f  g  h
+2017-06-17 16:42:45.939<--1:side:w
+2017-06-17 16:42:45.940<--1:enPas:99
+2017-06-17 16:42:45.941<--1:castle:KQkq
+2017-06-17 16:42:45.942<--1:PosKey:BC04410661D5BDCA
+2017-06-17 16:42:45.943<--1:time:8399 start:-1211420386 stop:-1211411987 depth:64 timeset:1
+2017-06-17 16:42:45.944<--1:info score cp 35 depth 1 nodes 273 time 0 pv b1c3
+2017-06-17 16:42:45.946<--1:info score cp 30 depth 2 nodes 4083 time 3 pv b1c3 d7d6
+2017-06-17 16:42:45.948<--1:info score cp 35 depth 3 nodes 9156 time 6 pv b1c3 d7d6 d3d4
+2017-06-17 16:42:46.045<--1:info score cp 30 depth 4 nodes 110882 time 126 pv b1c3 d7d6 b5c6 b7c6
+2017-06-17 16:42:46.163<--1:info score cp 45 depth 5 nodes 317532 time 244 pv b1c3 d7d6 b5c6 b7c6 d3d4
+2017-06-17 16:42:48.363<--1:info score cp 30 depth 6 nodes 3398858 time 2444 pv b1c3 d7d6 b5c6 b7c6
+2017-06-17 16:42:52.181<--1:info score cp 45 depth 7 nodes 9607878 time 6263 pv b1c3 d7d6 b5c6 b7c6
+2017-06-17 16:42:54.319<--1:bestmove b1c3
+2017-06-17 16:42:54.319*1*Found move:Nb1-c3
+2017-06-17 16:42:54.453*2*Start calc, move no: 11
+2017-06-17 16:42:54.453-->2:position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5 g8f6 d2d3 f8d6 c1g5 d6e7 b1c3
+2017-06-17 16:42:54.453-->2:go wtime 245080 btime 243383 winc 0 binc 0
+2017-06-17 16:42:54.456<--2:info score cp 0 depth 0 nodes 229545 pv 
+2017-06-17 16:42:54.457<--2:info score cp 0 depth 0 nodes 229547 pv 
+2017-06-17 16:42:54.457<--2:info score cp 0 depth 0 nodes 229552 pv 
+2017-06-17 16:42:54.463<--2:info score cp 0 depth 0 nodes 229567 pv 
+2017-06-17 16:42:54.483<--2:info score cp 0 depth 0 nodes 229678 pv a7a6 g5f6 e7f6 
+2017-06-17 16:42:54.527<--2:info score cp 0 depth 0 nodes 229871 pv a7a6 g5f6 e7f6 b5c4 
+2017-06-17 16:42:55.341<--2:info score cp 0 depth 0 nodes 233994 pv d7d6 b5c6 b7c6 d3d4 c8g4 g5f6 
+2017-06-17 16:42:56.716<--2:info score cp 0 depth 0 nodes 240433 pv d7d6 b5c6 b7c6 g5f6 e7f6 e1e2 
+2017-06-17 16:43:04.708<--2:info score cp 0 depth 0 nodes 273781 pv d7d6 c3d5 f6d5 e4d5 e7g5 d5c6 e8g8 
+2017-06-17 16:43:04.714<--2:bestmove d7d6
+2017-06-17 16:43:04.714*2*Found move:d7-d6
+2017-06-17 16:43:04.861*1*Start calc, move no: 12
+2017-06-17 16:43:04.862-->1:position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5 g8f6 d2d3 f8d6 c1g5 d6e7 b1c3 d7d6
+2017-06-17 16:43:04.862-->1:go wtime 245080 btime 233127 winc 0 binc 0
+2017-06-17 16:43:04.862<--1:Game Board:
+2017-06-17 16:43:04.862<--1:8    r  .  b  q  k  .  .  r
+2017-06-17 16:43:04.862<--1:7    p  p  p  .  b  p  p  p
+2017-06-17 16:43:04.862<--1:6    .  .  n  p  .  n  .  .
+2017-06-17 16:43:04.862<--1:5    .  B  .  .  p  .  B  .
+2017-06-17 16:43:04.862<--1:4    .  .  .  .  P  .  .  .
+2017-06-17 16:43:04.862<--1:3    .  .  N  P  .  N  .  .
+2017-06-17 16:43:04.862<--1:2    P  P  P  .  .  P  P  P
+2017-06-17 16:43:04.862<--1:1    R  .  .  Q  K  .  .  R
+2017-06-17 16:43:04.862<--1:     a  b  c  d  e  f  g  h
+2017-06-17 16:43:04.862<--1:side:w
+2017-06-17 16:43:04.862<--1:enPas:99
+2017-06-17 16:43:04.863<--1:castle:KQkq
+2017-06-17 16:43:04.863<--1:PosKey:94908A198AE95D90
+2017-06-17 16:43:04.863<--1:time:8119 start:-1211401442 stop:-1211393323 depth:64 timeset:1
+2017-06-17 16:43:04.863<--1:info score cp 35 depth 1 nodes 157 time 0 pv d3d4
+2017-06-17 16:43:04.869<--1:info score cp 30 depth 2 nodes 6373 time 7 pv b5c6 b7c6
+2017-06-17 16:43:04.874<--1:info score cp 45 depth 3 nodes 12233 time 11 pv b5c6 b7c6 d3d4
+2017-06-17 16:43:04.971<--1:info score cp 30 depth 4 nodes 119789 time 108 pv b5c6 b7c6 g5f6 e7f6
+2017-06-17 16:43:05.113<--1:info score cp 45 depth 5 nodes 329328 time 250 pv b5c6 b7c6 g5f6 e7f6 d3d4
+2017-06-17 16:43:07.532<--1:info score cp 25 depth 6 nodes 3386362 time 2670 pv b5c6 b7c6
+2017-06-17 16:43:12.491<--1:info score cp 20 depth 7 nodes 11031051 time 7628 pv b5c6 b7c6
+2017-06-17 16:43:12.982<--1:bestmove b5c6
+2017-06-17 16:43:12.982*1*Found move:Bb5xc6
+2017-06-17 16:43:13.123*2*Start calc, move no: 13
+2017-06-17 16:43:13.124-->2:position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5 g8f6 d2d3 f8d6 c1g5 d6e7 b1c3 d7d6 b5c6
+2017-06-17 16:43:13.124-->2:go wtime 236965 btime 233127 winc 0 binc 0
+2017-06-17 16:43:13.125<--2:info score cp 0 depth 0 nodes 273781 pv b7c6 
+2017-06-17 16:43:13.125<--2:info score cp 0 depth 0 nodes 273781 pv b7c6 
+2017-06-17 16:43:13.126<--2:info score cp 0 depth 0 nodes 273782 pv b7c6 g5f6 
+2017-06-17 16:43:13.127<--2:info score cp 0 depth 0 nodes 273786 pv b7c6 g5f6 e7f6 
+2017-06-17 16:43:13.131<--2:info score cp 0 depth 0 nodes 273812 pv b7c6 a1c1 c8g4 
+2017-06-17 16:43:13.157<--2:info score cp 0 depth 0 nodes 273923 pv b7c6 a1c1 c8g4 g5f6 
+2017-06-17 16:43:13.365<--2:info score cp 0 depth 0 nodes 275103 pv b7c6 g5f6 e7f6 d3d4 c8g4 d4e5 
+2017-06-17 16:43:13.865<--2:info score cp 0 depth 0 nodes 277896 pv b7c6 e1g1 c6c5 g5f6 e7f6 c3d5 c8e6 
+2017-06-17 16:43:16.893<--2:info score cp 0 depth 0 nodes 295108 pv b7c6 g5f6 e7f6 d3d4 c8g4 d4e5 d6e5 a1c1 
+2017-06-17 16:43:16.894<--2:bestmove b7c6
+2017-06-17 16:43:16.894*2*Found move:b7xc6
+2017-06-17 16:43:17.031*1*Start calc, move no: 14
+2017-06-17 16:43:17.032-->1:position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5 g8f6 d2d3 f8d6 c1g5 d6e7 b1c3 d7d6 b5c6 b7c6
+2017-06-17 16:43:17.032-->1:go wtime 236965 btime 229362 winc 0 binc 0
+2017-06-17 16:43:17.032<--1:Game Board:
+2017-06-17 16:43:17.032<--1:8    r  .  b  q  k  .  .  r
+2017-06-17 16:43:17.033<--1:7    p  .  p  .  b  p  p  p
+2017-06-17 16:43:17.033<--1:6    .  .  p  p  .  n  .  .
+2017-06-17 16:43:17.033<--1:5    .  .  .  .  p  .  B  .
+2017-06-17 16:43:17.033<--1:4    .  .  .  .  P  .  .  .
+2017-06-17 16:43:17.033<--1:3    .  .  N  P  .  N  .  .
+2017-06-17 16:43:17.037<--1:2    P  P  P  .  .  P  P  P
+2017-06-17 16:43:17.037<--1:1    R  .  .  Q  K  .  .  R
+2017-06-17 16:43:17.037<--1:     a  b  c  d  e  f  g  h
+2017-06-17 16:43:17.037<--1:side:w
+2017-06-17 16:43:17.037<--1:enPas:99
+2017-06-17 16:43:17.037<--1:castle:KQkq
+2017-06-17 16:43:17.038<--1:PosKey:F09B4F95B6667428
+2017-06-17 16:43:17.039<--1:time:7848 start:-1211389272 stop:-1211381424 depth:64 timeset:1
+2017-06-17 16:43:17.039<--1:info score cp 45 depth 1 nodes 99 time 1 pv d3d4
+2017-06-17 16:43:17.039<--1:info score cp 30 depth 2 nodes 3188 time 3 pv g5f6 e7f6
+2017-06-17 16:43:17.039<--1:info score cp 45 depth 3 nodes 7146 time 5 pv g5f6 e7f6 d3d4
+2017-06-17 16:43:17.086<--1:info score cp 25 depth 4 nodes 78282 time 51 pv d3d4 c8g4 g5f6 e7f6
+2017-06-17 16:43:17.144<--1:info score cp 20 depth 5 nodes 204429 time 112 pv g5f6 e7f6 e1g1 c8g4 a1c1
+2017-06-17 16:43:17.953<--1:info score cp 10 depth 6 nodes 1629065 time 920 pv g5f6 e7f6 d3d4 c8g4 d4e5 g4f3
+2017-06-17 16:43:20.298<--1:info score cp 20 depth 7 nodes 6847341 time 3265 pv d3d4 c8g4 d4e5 g4f3 d1f3 d6e5 a1d1
+2017-06-17 16:43:24.881<--1:bestmove d3d4
+2017-06-17 16:43:24.882*1*Found move:d3-d4
+2017-06-17 16:43:25.014*2*Start calc, move no: 15
+2017-06-17 16:43:25.014-->2:position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5 g8f6 d2d3 f8d6 c1g5 d6e7 b1c3 d7d6 b5c6 b7c6 d3d4
+2017-06-17 16:43:25.014-->2:go wtime 229120 btime 229362 winc 0 binc 0
+2017-06-17 16:43:25.020<--2:info score cp 0 depth 0 nodes 295108 pv 
+2017-06-17 16:43:25.028<--2:info score cp 0 depth 0 nodes 295109 pv 
+2017-06-17 16:43:25.028<--2:info score cp 0 depth 0 nodes 295111 pv 
+2017-06-17 16:43:25.028<--2:info score cp 0 depth 0 nodes 295117 pv 
+2017-06-17 16:43:25.029<--2:info score cp 0 depth 0 nodes 295153 pv c8g4 d4e5 g4f3 
+2017-06-17 16:43:25.069<--2:info score cp 0 depth 0 nodes 295356 pv c8g4 d4e5 g4f3 d1f3 d6e5 
+2017-06-17 16:43:25.280<--2:info score cp 0 depth 0 nodes 296552 pv c8g4 d4e5 g4f3 d1f3 d6e5 a1d1 
+2017-06-17 16:43:26.335<--2:info score cp 0 depth 0 nodes 301885 pv c8g4 d4e5 g4f3 d1f3 d6e5 a1d1 d8b8 g5f6 
+2017-06-17 16:43:31.832<--2:info score cp 0 depth 0 nodes 329153 pv e5d4 f3d4 c6c5 d4c6 c8d7 c6e7 d8e7 
+2017-06-17 16:43:31.832<--2:bestmove e5d4
+2017-06-17 16:43:31.833*2*Found move:e5xd4
+2017-06-17 16:43:31.962*1*Start calc, move no: 16
+2017-06-17 16:43:31.962-->1:position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5 g8f6 d2d3 f8d6 c1g5 d6e7 b1c3 d7d6 b5c6 b7c6 d3d4 e5d4
+2017-06-17 16:43:31.962-->1:go wtime 229120 btime 222549 winc 0 binc 0
+2017-06-17 16:43:31.962<--1:Game Board:
+2017-06-17 16:43:31.963<--1:8    r  .  b  q  k  .  .  r
+2017-06-17 16:43:31.964<--1:7    p  .  p  .  b  p  p  p
+2017-06-17 16:43:31.964<--1:6    .  .  p  p  .  n  .  .
+2017-06-17 16:43:31.964<--1:5    .  .  .  .  .  .  B  .
+2017-06-17 16:43:31.964<--1:4    .  .  .  p  P  .  .  .
+2017-06-17 16:43:31.964<--1:3    .  .  N  .  .  N  .  .
+2017-06-17 16:43:31.964<--1:2    P  P  P  .  .  P  P  P
+2017-06-17 16:43:31.964<--1:1    R  .  .  Q  K  .  .  R
+2017-06-17 16:43:31.964<--1:     a  b  c  d  e  f  g  h
+2017-06-17 16:43:31.964<--1:side:w
+2017-06-17 16:43:31.965<--1:enPas:99
+2017-06-17 16:43:31.965<--1:castle:KQkq
+2017-06-17 16:43:31.965<--1:PosKey:E5B479058830B87C
+2017-06-17 16:43:31.965<--1:time:7587 start:-1211374342 stop:-1211366755 depth:64 timeset:1
+2017-06-17 16:43:31.965<--1:info score cp 45 depth 1 nodes 88 time 1 pv g5f6
+2017-06-17 16:43:31.965<--1:info score cp 45 depth 2 nodes 540 time 1 pv g5f6 e7f6
+2017-06-17 16:43:31.966<--1:info score cp 45 depth 3 nodes 2409 time 2 pv g5f6 e7f6 f3d4
+2017-06-17 16:43:31.974<--1:info score cp 35 depth 4 nodes 12483 time 8 pv g5f6 e7f6 f3d4 c8d7
+2017-06-17 16:43:31.998<--1:info score cp 35 depth 5 nodes 75815 time 36 pv f3d4 f6e4 c3e4 e7g5 d4c6
+2017-06-17 16:43:32.190<--1:info score cp 35 depth 6 nodes 359330 time 225 pv f3d4 c8d7 g5f6 e7f6 f2f4 f6d4
+2017-06-17 16:43:32.977<--1:info score cp 25 depth 7 nodes 2145712 time 1015 pv f3d4 c8d7 f2f4 c6c5 d4f3 d7e6 e1g1
+2017-06-17 16:43:37.589<--1:info score cp 20 depth 8 nodes 9276835 time 5627 pv f3d4 c8d7 f2f4 c6c5 d4f3 d7e6 e1g1 e8g8
+2017-06-17 16:43:39.550<--1:bestmove f3d4
+2017-06-17 16:43:39.551*1*Found move:Nf3xd4
+2017-06-17 16:43:39.689*2*Start calc, move no: 17
+2017-06-17 16:43:39.689-->2:position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5 g8f6 d2d3 f8d6 c1g5 d6e7 b1c3 d7d6 b5c6 b7c6 d3d4 e5d4 f3d4
+2017-06-17 16:43:39.689-->2:go wtime 221537 btime 222549 winc 0 binc 0
+2017-06-17 16:43:39.691<--2:info score cp 0 depth 0 nodes 329153 pv c8d7 d1d3 
+2017-06-17 16:43:39.691<--2:info score cp 0 depth 0 nodes 329153 pv c8d7 d1d3 
+2017-06-17 16:43:39.691<--2:info score cp 0 depth 0 nodes 329155 pv c8d7 d1d3 
+2017-06-17 16:43:39.692<--2:info score cp 0 depth 0 nodes 329160 pv c8d7 d1d3 
+2017-06-17 16:43:39.698<--2:info score cp 0 depth 0 nodes 329185 pv c8d7 d1d3 
+2017-06-17 16:43:39.755<--2:info score cp 0 depth 0 nodes 329457 pv c8d7 d1e2 c6c5 d4f3 d7e6 
+2017-06-17 16:43:39.938<--2:info score cp 0 depth 0 nodes 330493 pv c8d7 d1e2 c6c5 d4f3 d7e6 a1d1 
+2017-06-17 16:43:41.347<--2:info score cp 0 depth 0 nodes 337995 pv c6c5 d4c6 c8d7 c6e7 d8e7 f2f4 
+2017-06-17 16:43:45.032<--2:info score cp 0 depth 0 nodes 359041 pv c6c5 d4c6 c8d7 c6e7 d8e7 f2f4 e8c8 
+2017-06-17 16:43:45.032<--2:bestmove c6c5
+2017-06-17 16:43:45.033*2*Found move:c6-c5
+2017-06-17 16:43:45.191*1*Start calc, move no: 18
+2017-06-17 16:43:45.192-->1:position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5 g8f6 d2d3 f8d6 c1g5 d6e7 b1c3 d7d6 b5c6 b7c6 d3d4 e5d4 f3d4 c6c5
+2017-06-17 16:43:45.192-->1:go wtime 221537 btime 217210 winc 0 binc 0
+2017-06-17 16:43:45.193<--1:Game Board:
+2017-06-17 16:43:45.194<--1:8    r  .  b  q  k  .  .  r
+2017-06-17 16:43:45.194<--1:7    p  .  p  .  b  p  p  p
+2017-06-17 16:43:45.194<--1:6    .  .  .  p  .  n  .  .
+2017-06-17 16:43:45.194<--1:5    .  .  p  .  .  .  B  .
+2017-06-17 16:43:45.195<--1:4    .  .  .  N  P  .  .  .
+2017-06-17 16:43:45.195<--1:3    .  .  N  .  .  .  .  .
+2017-06-17 16:43:45.196<--1:2    P  P  P  .  .  P  P  P
+2017-06-17 16:43:45.196<--1:1    R  .  .  Q  K  .  .  R
+2017-06-17 16:43:45.196<--1:     a  b  c  d  e  f  g  h
+2017-06-17 16:43:45.196<--1:side:w
+2017-06-17 16:43:45.196<--1:enPas:99
+2017-06-17 16:43:45.196<--1:castle:KQkq
+2017-06-17 16:43:45.196<--1:PosKey:D6FE7F4BFD4C3418
+2017-06-17 16:43:45.196<--1:time:7334 start:-1211361111 stop:-1211353777 depth:64 timeset:1
+2017-06-17 16:43:45.196<--1:info score cp 45 depth 1 nodes 85 time 0 pv g5f6
+2017-06-17 16:43:45.197<--1:info score cp 45 depth 2 nodes 728 time 0 pv g5f6 e7f6
+2017-06-17 16:43:45.197<--1:info score cp 35 depth 3 nodes 3480 time 1 pv g5f6 e7f6 d4b5
+2017-06-17 16:43:45.216<--1:info score cp 35 depth 4 nodes 17610 time 22 pv d4c6 d8d7 c6e7 d7e7
+2017-06-17 16:43:45.246<--1:info score cp 45 depth 5 nodes 92778 time 53 pv d4c6 d8d7 c6e7 d7e7 f2f4
+2017-06-17 16:43:45.459<--1:info score cp 35 depth 6 nodes 470359 time 266 pv d4c6 d8d7 c6e7 d7e7 g5f6 e7f6
+2017-06-17 16:43:46.433<--1:info score cp 40 depth 7 nodes 2950414 time 1239 pv d4c6 d8d7 c6e7 d7e7 g5f6 e7f6 e1g1
+2017-06-17 16:43:52.487<--1:info score cp 35 depth 8 nodes 13533378 time 7294 pv d4c6 d8d7 c6e7 d7e7 g5f6 e7f6 d1d5 a8b8
+2017-06-17 16:43:52.528<--1:bestmove d4c6
+2017-06-17 16:43:52.528*1*Found move:Nd4-c6
+2017-06-17 16:43:52.658*2*Start calc, move no: 19
+2017-06-17 16:43:52.659-->2:position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5 g8f6 d2d3 f8d6 c1g5 d6e7 b1c3 d7d6 b5c6 b7c6 d3d4 e5d4 f3d4 c6c5 d4c6
+2017-06-17 16:43:52.659-->2:go wtime 214207 btime 217210 winc 0 binc 0
+2017-06-17 16:43:52.661<--2:info score cp 0 depth 0 nodes 359042 pv c8d7 c6e7 d8e7 
+2017-06-17 16:43:52.661<--2:info score cp 0 depth 0 nodes 359042 pv c8d7 c6e7 d8e7 
+2017-06-17 16:43:52.661<--2:info score cp 0 depth 0 nodes 359043 pv c8d7 c6e7 d8e7 
+2017-06-17 16:43:52.661<--2:info score cp 0 depth 0 nodes 359047 pv c8d7 c6e7 d8e7 
+2017-06-17 16:43:52.667<--2:info score cp 0 depth 0 nodes 359069 pv c8d7 c6e7 d8e7 
+2017-06-17 16:43:52.706<--2:info score cp 0 depth 0 nodes 359257 pv c8d7 c6e7 d8e7 g5f6 e7f6 
+2017-06-17 16:43:52.861<--2:info score cp 0 depth 0 nodes 360127 pv c8d7 c6e7 d8e7 d1f3 d7g4 
+2017-06-17 16:43:53.559<--2:info score cp 0 depth 0 nodes 363864 pv c8d7 c6e7 d8e7 d1f3 d7g4 f3f4 
+2017-06-17 16:43:56.700<--2:info score cp 0 depth 0 nodes 381700 pv c8d7 c6e7 d8e7 e1g1 a8b8 d1b1 b8d8 
+2017-06-17 16:43:56.701<--2:bestmove c8d7
+2017-06-17 16:43:56.701*2*Found move:Bc8-d7
+2017-06-17 16:43:56.836*1*Start calc, move no: 20
+2017-06-17 16:43:56.836-->1:position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5 g8f6 d2d3 f8d6 c1g5 d6e7 b1c3 d7d6 b5c6 b7c6 d3d4 e5d4 f3d4 c6c5 d4c6 c8d7
+2017-06-17 16:43:56.836-->1:go wtime 214207 btime 213173 winc 0 binc 0
+2017-06-17 16:43:56.836<--1:Game Board:
+2017-06-17 16:43:56.837<--1:8    r  .  .  q  k  .  .  r
+2017-06-17 16:43:56.837<--1:7    p  .  p  b  b  p  p  p
+2017-06-17 16:43:56.838<--1:6    .  .  N  p  .  n  .  .
+2017-06-17 16:43:56.838<--1:5    .  .  p  .  .  .  B  .
+2017-06-17 16:43:56.838<--1:4    .  .  .  .  P  .  .  .
+2017-06-17 16:43:56.838<--1:3    .  .  N  .  .  .  .  .
+2017-06-17 16:43:56.838<--1:2    P  P  P  .  .  P  P  P
+2017-06-17 16:43:56.838<--1:1    R  .  .  Q  K  .  .  R
+2017-06-17 16:43:56.838<--1:     a  b  c  d  e  f  g  h
+2017-06-17 16:43:56.838<--1:side:w
+2017-06-17 16:43:56.838<--1:enPas:99
+2017-06-17 16:43:56.838<--1:castle:KQkq
+2017-06-17 16:43:56.838<--1:PosKey:A99EE578C2F5B4A
+2017-06-17 16:43:56.838<--1:time:7090 start:-1211349468 stop:-1211342378 depth:64 timeset:1
+2017-06-17 16:43:56.838<--1:info score cp 670 depth 1 nodes 75 time 1 pv c6d8
+2017-06-17 16:43:56.840<--1:info score cp 670 depth 2 nodes 354 time 1 pv c6d8 a8d8
+2017-06-17 16:43:56.840<--1:info score cp 680 depth 3 nodes 2916 time 2 pv c6d8 a8d8 f2f4
+2017-06-17 16:43:56.852<--1:info score cp 675 depth 4 nodes 14386 time 8 pv c6d8 a8d8 f2f4 e8g8
+2017-06-17 16:43:56.880<--1:info score cp 680 depth 5 nodes 103247 time 43 pv c6d8 a8d8 f2f4 e8g8 e1g1
+2017-06-17 16:43:57.085<--1:info score cp 675 depth 6 nodes 460863 time 248 pv c6d8 a8d8 f2f4 e8g8 e1g1 d7e6
+2017-06-17 16:43:58.097<--1:info score cp 680 depth 7 nodes 3191700 time 1260 pv c6d8 a8d8 f2f4 e8g8 e1g1 d7e6 a1c1
+2017-06-17 16:44:03.928<--1:bestmove c6d8
+2017-06-17 16:44:03.929*1*Found move:Nc6xd8
+2017-06-17 16:44:04.060*2*Start calc, move no: 21
+2017-06-17 16:44:04.061-->2:position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5 g8f6 d2d3 f8d6 c1g5 d6e7 b1c3 d7d6 b5c6 b7c6 d3d4 e5d4 f3d4 c6c5 d4c6 c8d7 c6d8
+2017-06-17 16:44:04.061-->2:go wtime 207118 btime 213173 winc 0 binc 0
+2017-06-17 16:44:04.062<--2:info score cp 0 depth 0 nodes 381700 pv 
+2017-06-17 16:44:04.062<--2:info score cp 0 depth 0 nodes 381701 pv 
+2017-06-17 16:44:04.062<--2:info score cp 0 depth 0 nodes 381702 pv 
+2017-06-17 16:44:04.063<--2:info score cp 0 depth 0 nodes 381708 pv 
+2017-06-17 16:44:04.072<--2:info score cp 0 depth 0 nodes 381738 pv a8d8 f2f4 
+2017-06-17 16:44:04.128<--2:info score cp 0 depth 0 nodes 381993 pv a8d8 f2f4 e8g8 d1d3 d7g4 
+2017-06-17 16:44:04.386<--2:info score cp 0 depth 0 nodes 383415 pv a8d8 f2f4 e8g8 d1d3 d7g4 
+2017-06-17 16:44:05.393<--2:info score cp 0 depth 0 nodes 388796 pv a8d8 f2f4 e8g8 d1d3 f8e8 
+2017-06-17 16:44:11.094<--2:info score cp 0 depth 0 nodes 420481 pv a8d8 d1d3 h8f8 e1c1 d7g4 d1e1 g4e6 
+2017-06-17 16:44:11.094<--2:bestmove a8d8
+2017-06-17 16:44:11.094*2*Found move:Ra8xd8
+2017-06-17 16:44:11.238*1*Start calc, move no: 22
+2017-06-17 16:44:11.238-->1:position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5 g8f6 d2d3 f8d6 c1g5 d6e7 b1c3 d7d6 b5c6 b7c6 d3d4 e5d4 f3d4 c6c5 d4c6 c8d7 c6d8 a8d8
+2017-06-17 16:44:11.238-->1:go wtime 207118 btime 206146 winc 0 binc 0
+2017-06-17 16:44:11.238<--1:Game Board:
+2017-06-17 16:44:11.239<--1:8    .  .  .  r  k  .  .  r
+2017-06-17 16:44:11.241<--1:7    p  .  p  b  b  p  p  p
+2017-06-17 16:44:11.242<--1:6    .  .  .  p  .  n  .  .
+2017-06-17 16:44:11.242<--1:5    .  .  p  .  .  .  B  .
+2017-06-17 16:44:11.243<--1:4    .  .  .  .  P  .  .  .
+2017-06-17 16:44:11.244<--1:3    .  .  N  .  .  .  .  .
+2017-06-17 16:44:11.244<--1:2    P  P  P  .  .  P  P  P
+2017-06-17 16:44:11.245<--1:1    R  .  .  Q  K  .  .  R
+2017-06-17 16:44:11.246<--1:     a  b  c  d  e  f  g  h
+2017-06-17 16:44:11.246<--1:side:w
+2017-06-17 16:44:11.247<--1:enPas:99
+2017-06-17 16:44:11.247<--1:castle:KQk-
+2017-06-17 16:44:11.247<--1:PosKey:F7E0006F3F8AC476
+2017-06-17 16:44:11.247<--1:time:6853 start:-1211335066 stop:-1211328213 depth:64 timeset:1
+2017-06-17 16:44:11.247<--1:info score cp 680 depth 1 nodes 69 time 1 pv f2f4
+2017-06-17 16:44:11.248<--1:info score cp 675 depth 2 nodes 1024 time 1 pv f2f4 e8g8
+2017-06-17 16:44:11.248<--1:info score cp 680 depth 3 nodes 4403 time 3 pv f2f4 e8g8 e1g1
+2017-06-17 16:44:11.263<--1:info score cp 675 depth 4 nodes 36638 time 25 pv f2f4 e8g8 e1g1 d7e6
+2017-06-17 16:44:11.324<--1:info score cp 680 depth 5 nodes 179241 time 86 pv f2f4 e8g8 e1g1 d7e6 a1c1
+2017-06-17 16:44:12.048<--1:info score cp 675 depth 6 nodes 1513006 time 810 pv f2f4 e8g8 e1g1 d7e6 a1c1 f8e8
+2017-06-17 16:44:14.574<--1:info score cp 685 depth 7 nodes 7412293 time 3336 pv d1d3
+2017-06-17 16:44:18.094<--1:bestmove d1d3
+2017-06-17 16:44:18.094*1*Found move:Qd1-d3
+2017-06-17 16:44:18.233*2*Start calc, move no: 23
+2017-06-17 16:44:18.234-->2:position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5 g8f6 d2d3 f8d6 c1g5 d6e7 b1c3 d7d6 b5c6 b7c6 d3d4 e5d4 f3d4 c6c5 d4c6 c8d7 c6d8 a8d8 d1d3
+2017-06-17 16:44:18.234-->2:go wtime 200267 btime 206146 winc 0 binc 0
+2017-06-17 16:44:18.234<--2:info score cp 0 depth 0 nodes 420481 pv 
+2017-06-17 16:44:18.236<--2:info score cp 0 depth 0 nodes 420481 pv 
+2017-06-17 16:44:18.237<--2:info score cp 0 depth 0 nodes 420485 pv 
+2017-06-17 16:44:18.242<--2:info score cp 0 depth 0 nodes 420496 pv 
+2017-06-17 16:44:18.259<--2:info score cp 0 depth 0 nodes 420567 pv c5c4 d3g3 d7c6 g5f6 
+2017-06-17 16:44:18.323<--2:info score cp 0 depth 0 nodes 420850 pv c5c4 d3g3 d7c6 g3f4 e8g8 
+2017-06-17 16:44:19.102<--2:info score cp 0 depth 0 nodes 425179 pv e8g8 d3a6 d8a8 f2f4 f8e8 
+2017-06-17 16:44:22.716<--2:info score cp 0 depth 0 nodes 444050 pv e8g8 d3a6 d8a8 f2f4 a8b8 

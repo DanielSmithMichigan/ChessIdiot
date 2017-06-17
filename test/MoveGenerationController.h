@@ -1,5 +1,4 @@
-	#include "../src/MoveGenerationController.h"
-	#include "../src/Fen.h"
+	#include "../src/Search.h"
 	#include "gtest/gtest.h"
 	#include "gmock/gmock.h"
 

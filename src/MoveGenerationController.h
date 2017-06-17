@@ -19,21 +19,11 @@
 
 	class MoveGenerationController {
 		private:
-			uint32_t nodesSearched;
-			uint32_t bestMove;
-			int bestScore;
-			int depthSearched;
-			int alphaBeta(int alpha, int beta, int depthRemaining);
-			int quiescence(int alpha, int beta);
 		public:
 			MoveGenerationController();
 			~MoveGenerationController();
-			void reset();
-			void showStats();
-			void showPv();
 			uint64_t countMovesAtDepth(uint64_t depth);
 			void runAtDepth(uint64_t depth, void (*fn)());
-			uint32_t getBestMove(int depth);
 			static MoveGenerationController *instance;
 
 			template <bool CAPTURES_ONLY>
