@@ -5,10 +5,26 @@
 	Search *Search::instance = new Search();
 
 	Search::Search() {
+
 	}
 
 	Search::~Search() {
 
+	}
+
+	void Search::timeRemaining(int msRemaining) {
+		stopTime = getCurrentTimeMs() + (msRemaining / 30);
+	}
+
+	void Search::checkStopped() {
+		if (getCurrentTimeMs() > stopTime) {
+			stopped = true;
+		}
+	}
+
+	void Search::clearForSearch() {
+		stopped = false;
+		stopTime = INT32_MAX;
 	}
 
 	void Search::reset() {
@@ -34,6 +50,11 @@
 			int score = -alphaBeta(INT32_MIN + 1, -bestScore, depth - 1);
 			MoveStack::instance->decreaseDepth();
 			Board::undoMove();
+
+			if (stopped) {
+				return 0;
+			}
+
 			if (score > bestScore) {
 				bestScore = score;
 				bestMove = currentMove;
@@ -47,17 +68,23 @@
 
 	uint32_t Search::iterativeDeepening(string fen, int maxDepth) {
 		int currentDepth = 1;
-		uint32_t bestMove;
+		uint32_t output, bestMoveCurrentDepth;
 		while(true) {
 			if (currentDepth > maxDepth) {
-				return bestMove;
+				return output;
 			}
 			Fen::import(fen);
 			MoveStack::instance->reset();
-			bestMove = getBestMove(currentDepth++);
+			bestMoveCurrentDepth = getBestMove(currentDepth++);
+			if (stopped) {
+				return output;
+			}
+			if (bestMoveCurrentDepth != 0) {
+				output = bestMoveCurrentDepth;
+			}
 			showStats();
 		}
-		return bestMove;
+		return output;
 	}
 
 	int Search::alphaBeta(int oldAlpha, int beta, int depthRemaining) {
@@ -66,6 +93,10 @@
 		int hashScore;
 		if (TranspositionTable::instance->searchPosition(depthRemaining, alpha, beta, hashScore)) {
 			return hashScore;
+		}
+
+		if ((nodesSearched & 2047) == 0) {
+			checkStopped();
 		}
 
 		if (depthRemaining == 0) {
@@ -92,6 +123,11 @@
 			int score = -alphaBeta(-beta, -alpha, depthRemaining - 1);
 			MoveStack::instance->decreaseDepth();
 			Board::undoMove();
+
+			if (stopped) {
+				return 0;
+			}
+
 			if (score >= beta) {
 				TranspositionTable::instance->store(bestCurrentMove, beta, LOWER_BOUND, depthRemaining);
 				if (!Board::piecesIndex[TO(currentMove)]) {
@@ -123,6 +159,10 @@
 	int Search::quiescence(int oldAlpha, int beta) {
 		nodesSearched++;
 
+		if ((nodesSearched & 2047) == 0) {
+			checkStopped();
+		}
+
 		int alpha = oldAlpha;
 		int positionValue = Evaluation::positionValue();
 		if (positionValue >= beta) {
@@ -147,6 +187,11 @@
 			int score = -quiescence(-beta, -alpha);
 			MoveStack::instance->decreaseDepth();
 			Board::undoMove();
+
+			if (stopped) {
+				return 0;
+			}
+
 			if (score >= beta) {
 				return beta; 
 			} else if (score > alpha) {

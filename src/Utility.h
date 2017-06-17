@@ -6,6 +6,7 @@
 	#include <boost/algorithm/string/trim.hpp>
 	#include <boost/format.hpp>
 	#include <boost/lexical_cast.hpp>
+	#include <sys/time.h>
 	#include "Move.h"
 	#include "Globals.h"
 	using namespace std;
@@ -58,4 +59,6 @@
 	int boardCoordToInt(string boardCoord);
 
 	int getPieceFromLetter(string letter);
+
+	int getCurrentTimeMs();
 #endif

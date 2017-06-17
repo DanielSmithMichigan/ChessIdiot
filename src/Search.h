@@ -16,10 +16,13 @@
 
 	class Search {
 		private:
+			int stopTime;
+			bool stopped;
 			uint32_t nodesSearched;
 			uint32_t bestMove;
 			int bestScore;
 			int depthSearched;
+			void checkStopped();
 			uint32_t getBestMove(int depth);
 			void reset();
 			int quiescence(int alpha, int beta);
@@ -28,7 +31,9 @@
 			void showPv();
 		protected:
 		public:
-			uint32_t iterativeDeepening(string fen, int maxDepth);
+			uint32_t iterativeDeepening(string fen, int maxDepth = INT32_MAX);
+			void timeRemaining(int msRemaining);
+			void clearForSearch();
 			static Search *instance;
 			Search();
 			~Search();

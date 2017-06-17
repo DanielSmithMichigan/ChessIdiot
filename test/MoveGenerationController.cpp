@@ -74,3 +74,10 @@
 		int bestMove = Search::instance->iterativeDeepening("1kr5/ppp5/6b1/5N2/8/8/1Q2P3/1R2K3 b KQkq -", 4);
 		ASSERT_EQ(FROM(bestMove), 9);		
 	}
+
+	TEST_F(MoveGenerationControllerTest, TenSeconds) {
+		Search::instance->timeRemaining(300000);
+		int bestMove = Search::instance->iterativeDeepening("r3r1k1/pp2n1pp/2p2p2/3p1q2/3P1P2/3Q1N2/PPP3PP/4RRK1 w - - 0 1");
+		ASSERT_EQ(FROM(bestMove), 60);
+		ASSERT_EQ(TO(bestMove), 12);
+	}

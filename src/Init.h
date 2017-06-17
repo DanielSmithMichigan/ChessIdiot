@@ -3,6 +3,7 @@
 	#include "BitBoard.h"
 	#include "TranspositionTable.h"
 	#include "Board.h"
+	#include "Search.h"
 
 	using namespace std;
 

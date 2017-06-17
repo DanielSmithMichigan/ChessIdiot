@@ -21,10 +21,12 @@
 		BitBoard::InitBishopBitBoards();
 		TranspositionTable::instance->reset();
 		Board::clearForSearch();
+		Search::instance->clearForSearch();
 		finished = true;
 	}
 
 	void Init::reset() {
 		Board::clearForSearch();
+		Search::instance->clearForSearch();
 	}
 #endif

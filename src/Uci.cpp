@@ -91,7 +91,17 @@
 	// go depth 6 wtime 180000 btime 100000 binc 1000 winc 1000 movetime 1000 movestogo 40
 	void Uci::go(string input) {
 		Init::instance->reset();
-		uint32_t bestMove = Search::instance->iterativeDeepening(Fen::exportBoard(), 9);
+		while(input.length()) {
+			string token = readToken(input);
+			if (token == "wtime"
+				&& Board::turn == WHITE) {
+				Search::instance->timeRemaining(stoi(readToken(input)));
+			} else if (token == "btime"
+				&& Board::turn == BLACK) {
+				Search::instance->timeRemaining(stoi(readToken(input)));
+			}
+		}
+		uint32_t bestMove = Search::instance->iterativeDeepening(Fen::exportBoard());
 		cout << "bestmove " << intToBoardCoord(FROM(bestMove)) << intToBoardCoord(TO(bestMove)) << endl;
 	}
 

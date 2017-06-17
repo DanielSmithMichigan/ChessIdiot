@@ -172,4 +172,10 @@ int getPieceFromLetter(string letter) {
 	}
 }
 
+int getCurrentTimeMs() {
+	struct timeval timeObj;
+	gettimeofday(&timeObj, NULL);
+	return timeObj.tv_sec*1000 + timeObj.tv_usec/1000;
+}
+
 #endif
