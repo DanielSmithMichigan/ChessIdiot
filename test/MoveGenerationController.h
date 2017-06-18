@@ -1,4 +1,5 @@
 	#include "../src/Search.h"
+	#include "../src/Init.h"
 	#include "gtest/gtest.h"
 	#include "gmock/gmock.h"
 

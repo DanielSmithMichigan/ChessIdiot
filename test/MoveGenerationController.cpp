@@ -1,11 +1,7 @@
 #include "MoveGenerationController.h"
 
 	MoveGenerationControllerTest::MoveGenerationControllerTest() {
-		BitBoard::InitRookBitBoards();
-		BitBoard::InitBishopBitBoards();
-		Board::reset();
-		TranspositionTable::instance->reset();
-		MoveStack::instance->reset();
+		Init::instance->execute(true);
 	}
 
 	MoveGenerationControllerTest::~MoveGenerationControllerTest() {

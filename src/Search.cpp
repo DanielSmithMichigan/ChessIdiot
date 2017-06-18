@@ -61,7 +61,7 @@
 			} 
 		}
 
-		TranspositionTable::instance->store(bestMove, bestScore, PRINCIPAL_VARIATION, depth);
+		TranspositionTable::instance->store(bestMove, bestScore, EXACT, depth);
 
 		return bestMove;
 	}
@@ -90,7 +90,8 @@
 	int Search::alphaBeta(int oldAlpha, int beta, int depthRemaining) {
 		int alpha = oldAlpha;
 
-		int hashScore;
+		int hashScore = INT32_MIN;
+
 		if (TranspositionTable::instance->searchPosition(depthRemaining, alpha, beta, hashScore)) {
 			return hashScore;
 		}
@@ -112,6 +113,7 @@
 		MoveGenerationController::instance->generateAllMoves<false>();
 		int legalMoves = 0;
 		int bestCurrentMove = 0;
+		int bestCurrentScore = INT32_MIN;
 		while(uint32_t currentMove = MoveStack::instance->pop()) {
 			Board::doMove(currentMove);
 			if (canTakeKing()) {
@@ -128,18 +130,21 @@
 				return 0;
 			}
 
-			if (score >= beta) {
-				TranspositionTable::instance->store(bestCurrentMove, beta, LOWER_BOUND, depthRemaining);
-				if (!Board::piecesIndex[TO(currentMove)]) {
-					MoveStack::instance->markKiller(currentMove);
+			if (score > bestCurrentScore) {
+				bestCurrentScore = score;
+				if (score >= beta) {
+					TranspositionTable::instance->store(bestCurrentMove, beta, BETA, depthRemaining);
+					if (!Board::piecesIndex[TO(currentMove)]) {
+						MoveStack::instance->markKiller(currentMove);
+					}
+					return beta; 
+				} else if (score > alpha) {
+					if (!Board::piecesIndex[TO(currentMove)]) {
+						MoveStack::instance->markHistory(currentMove);
+					}
+					alpha = score;
+					bestCurrentMove = currentMove;
 				}
-				return beta; 
-			} else if (score > alpha) {
-				if (!Board::piecesIndex[TO(currentMove)]) {
-					MoveStack::instance->markHistory(currentMove);
-				}
-				alpha = score;
-				bestCurrentMove = currentMove;
 			}
 		}
 
@@ -148,9 +153,9 @@
 		}
 
 		if (alpha != oldAlpha) {
-			TranspositionTable::instance->store(bestCurrentMove, alpha, PRINCIPAL_VARIATION, depthRemaining);
+			TranspositionTable::instance->store(bestCurrentMove, bestCurrentScore, EXACT, depthRemaining);
 		} else {
-			TranspositionTable::instance->store(bestCurrentMove, alpha, UPPER_BOUND, depthRemaining);
+			TranspositionTable::instance->store(bestCurrentMove, alpha, ALPHA, depthRemaining);
 		}
 
 		return alpha;
@@ -198,10 +203,6 @@
 				alpha = score;
 				bestCurrentMove = currentMove;
 			}
-		}
-
-		if (alpha != oldAlpha) {
-			TranspositionTable::instance->store(bestCurrentMove, alpha, PRINCIPAL_VARIATION, 0);
 		}
 
 		return alpha;

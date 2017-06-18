@@ -1,5 +1,6 @@
 	#include "../src/Init.h"
 	#include "../src/Search.h"
+	#include "../src/Uci.h"
 	#include "gtest/gtest.h"
 	#include "gmock/gmock.h"
 
