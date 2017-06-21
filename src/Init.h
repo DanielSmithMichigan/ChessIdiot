@@ -4,6 +4,7 @@
 	#include "TranspositionTable.h"
 	#include "Board.h"
 	#include "Search.h"
+	#include "Zobrist.h"
 
 	using namespace std;
 

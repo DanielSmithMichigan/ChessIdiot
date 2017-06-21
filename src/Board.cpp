@@ -177,7 +177,7 @@
 	}
 
 	void Board::put(uint32_t color, uint32_t piece, uint32_t location) {
-		currentState->zobrist ^= Zobrist::PieceBySquare[piece][location];
+		currentState->zobrist ^= Zobrist::PieceBySquare[color- 1][piece][location];
 		uint64_t pieceBoard = getPieceBoard(location);
 		occupiedSquares |= pieceBoard;
 		colors[color] |= pieceBoard;
@@ -194,7 +194,7 @@
 	}
 
 	void Board::remove(uint32_t color, uint32_t piece, uint32_t location) {
-		currentState->zobrist ^= Zobrist::PieceBySquare[piece][location];
+		currentState->zobrist ^= Zobrist::PieceBySquare[color - 1][piece][location];
 		uint64_t pieceBoard = ~getPieceBoard(location);
 		occupiedSquares &= pieceBoard;
 		colors[color] &= pieceBoard;

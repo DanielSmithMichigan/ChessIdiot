@@ -14,7 +14,7 @@
 	}
 
 	TEST_F(MoveGenerationControllerTest, WillTakeAPieceTwo) {
-		int bestMove = Search::instance->iterativeDeepening("4k3/7p/8/8/8/8/8/7R w KQkq - 0 1", 1);
+		int bestMove = Search::instance->iterativeDeepening("4k3/7p/8/8/8/8/8/7R w - - 0 1", 1);
 		ASSERT_EQ(FROM(bestMove), 63);
 		ASSERT_EQ(TO(bestMove), 15);
 	}
@@ -67,7 +67,7 @@
 	}
 
 	TEST_F(MoveGenerationControllerTest, ShouldAvoidCheckmateBlack) {
-		int bestMove = Search::instance->iterativeDeepening("1kr5/ppp5/6b1/5N2/8/8/1Q2P3/1R2K3 b KQkq -", 4);
+		int bestMove = Search::instance->iterativeDeepening("1kr5/ppp5/6b1/5N2/8/8/1Q2P3/1R2K3 b - -", 4);
 		ASSERT_EQ(FROM(bestMove), 9);		
 	}
 

@@ -22,6 +22,7 @@
 		TranspositionTable::instance->reset();
 		Board::clearForSearch();
 		Search::instance->clearForSearch();
+		Zobrist::Init();
 		finished = true;
 	}
 

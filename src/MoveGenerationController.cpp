@@ -23,6 +23,7 @@
 				Board::undoMove();
 				continue;
 			}
+
 			MoveStack::instance->increaseDepth();
 			runAtDepth(depth - 1, fn);
 			MoveStack::instance->decreaseDepth();
