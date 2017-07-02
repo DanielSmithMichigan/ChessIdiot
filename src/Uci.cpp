@@ -14,13 +14,17 @@
 	}
 
 	void Uci::loop() {
-		string input, token;
+		string input;
 		while (true) {
 			if (!getline(cin, input)) {
 				continue;
 			}
+			readLine(input);
+		}
+	}
 
-			token = readToken(input);
+	void Uci::readLine(string input) {
+			string token = readToken(input);
 			if (token == "uci") {
 				identify();
 			} else if (token == "isready") {
@@ -32,7 +36,6 @@
 			} else if (token == "fen") {
 				getFen();
 			}
-		}
 	}
 
 	void Uci::identify() {

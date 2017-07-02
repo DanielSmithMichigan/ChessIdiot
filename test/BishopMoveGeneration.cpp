@@ -1,9 +1,7 @@
 	#include "BishopMoveGeneration.h"
 
 	BishopMoveGenerationTest::BishopMoveGenerationTest() {
-		BitBoard::InitRookBitBoards();
-		BitBoard::InitBishopBitBoards();
-		TranspositionTable::instance->reset();
+		Init::instance->execute(true);
 	}
 
 	BishopMoveGenerationTest::~BishopMoveGenerationTest() {

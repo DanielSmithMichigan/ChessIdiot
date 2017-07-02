@@ -42,7 +42,7 @@
 			TranspositionTable();
 			~TranspositionTable();
 			void reset();
-			void store(uint32_t bestMove, uint32_t score, uint8_t type, uint8_t remainingSearchDepth);
+			void store(uint32_t bestMove, int score, uint8_t type, uint8_t remainingSearchDepth);
 			uint32_t searchMove();
 			bool searchPosition(uint32_t remainingSearchDepth, int alpha, int beta, int &score);
 			int getCounter();

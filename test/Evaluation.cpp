@@ -1,11 +1,7 @@
 	#include "Evaluation.h"
 
 	EvaluationTest::EvaluationTest() {
-		BitBoard::InitRookBitBoards();
-		BitBoard::InitBishopBitBoards();
-		Board::reset();
-		MoveStack::instance->reset();
-		TranspositionTable::instance->reset();
+		Init::instance->execute(true);
 	}
 
 	EvaluationTest::~EvaluationTest() {

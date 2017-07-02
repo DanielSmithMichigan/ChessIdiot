@@ -1,16 +1,10 @@
 	#include "PawnMoveGeneration.h"
 
 	PawnMoveGeneratorTest::PawnMoveGeneratorTest() {
+		Init::instance->execute(true);
 	}
 
 	PawnMoveGeneratorTest::~PawnMoveGeneratorTest() {
-	}
-
-	void PawnMoveGeneratorTest::SetUp() {
-		BitBoard::InitRookBitBoards();
-		BitBoard::InitBishopBitBoards();
-		Board::reset();
-		TranspositionTable::instance->reset();
 	}
 
 	TEST_F(PawnMoveGeneratorTest, OnePawnForwardWhite) {

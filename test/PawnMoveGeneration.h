@@ -1,5 +1,6 @@
 	#include "../src/MoveGenerationController.h"
 	#include "../src/Fen.h"
+	#include "../src/Init.h"
 	#include "TestUtility.h"
 	#include "gtest/gtest.h"
 	#include "gmock/gmock.h"
@@ -10,7 +11,6 @@
 	class PawnMoveGeneratorTest : public ::testing::Test{
 		private:
 		public:
-			virtual void SetUp();
 			PawnMoveGeneratorTest();
 			~PawnMoveGeneratorTest();
 	};

@@ -1,6 +1,6 @@
 	#include "../src/MoveGenerationController.h"
 	#include "../src/Fen.h"
-	#include "../src/BitBoard.h"
+	#include "../src/Init.h"
 	#include "../src/SquareAttacked.h"
 	#include "TestUtility.h"
 	#include "gtest/gtest.h"

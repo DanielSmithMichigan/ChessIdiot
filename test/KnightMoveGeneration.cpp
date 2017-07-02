@@ -1,16 +1,10 @@
 	#include "KnightMoveGeneration.h"
 
 	KnightMoveGenerationTest::KnightMoveGenerationTest() {
-		BitBoard::InitRookBitBoards();
-		BitBoard::InitBishopBitBoards();
-		TranspositionTable::instance->reset();
+		Init::instance->execute(true);
 	}
 
 	KnightMoveGenerationTest::~KnightMoveGenerationTest() {
-	}
-
-	void KnightMoveGenerationTest::SetUp() {
-		Board::reset();
 	}
 
 	TEST_F(KnightMoveGenerationTest, OneKnightWhite) {

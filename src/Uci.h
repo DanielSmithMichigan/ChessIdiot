@@ -22,6 +22,7 @@
 			Uci();
 			~Uci();
 			void loop();
+			void readLine(string input);
 			void identify();
 			void readyUp();
 			void position(string input);
