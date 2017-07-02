@@ -87,12 +87,24 @@
 		return output;
 	}
 
+	bool Search::isRepetition() {
+		if (Board::currentState->prev 
+			&& Board::currentState->prev->prev) {
+			return Board::currentState->zobrist == Board::currentState->prev->prev->zobrist;
+		}
+		return false;
+	}
+
 	int Search::alphaBeta(int alpha, int beta, int depthRemaining) {
 		int HASH_TYPE = ALPHA;
 
 
 		if ((nodesSearched & 2047) == 0) {
 			checkStopped();
+		}
+
+		if (isRepetition()) {
+			return 0;
 		}
 
 		// int hashScore = INT32_MIN;
