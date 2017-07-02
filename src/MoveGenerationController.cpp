@@ -51,4 +51,25 @@
 		return counter;
 	}
 
+	uint32_t MoveGenerationController::identifyMove(string input) {
+		int from = boardCoordToInt(input.substr(0, 2));
+		int to = boardCoordToInt(input.substr(2, 2));
+		int piece = 0;
+		if (input.length() == 5) {
+			piece = getPieceFromLetter(input.substr(4, 1));
+		}
+		MoveGenerationController::instance->generateAllMoves<false>();
+		uint32_t moveFound;
+		while (uint32_t currentMove = MoveStack::instance->pop()) {
+			if (from == FROM(currentMove)
+				&& to == TO(currentMove)
+				&& piece == PIECE(currentMove)) {
+				moveFound = currentMove;
+				break;
+			}
+		}
+		MoveStack::instance->reset();
+		return moveFound;
+	}
+
 #endif

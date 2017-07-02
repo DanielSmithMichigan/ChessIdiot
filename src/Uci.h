@@ -27,7 +27,6 @@
 			void readyUp();
 			void position(string input);
 			void doMoves(string input);
-			void doMove(string input);
 			void go(string input);
 			void getFen();
 	};

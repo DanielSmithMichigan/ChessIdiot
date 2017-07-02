@@ -67,28 +67,8 @@
 
 	void Uci::doMoves(string input) {
 		do {
-			doMove(readToken(input));
+			Board::doMove(MoveGenerationController::instance->identifyMove(readToken(input)));
 		} while(input.length());
-	}
-
-	void Uci::doMove(string input) {
-		int from = boardCoordToInt(input.substr(0, 2));
-		int to = boardCoordToInt(input.substr(2, 2));
-		int piece = 0;
-		if (input.length() == 5) {
-			piece = getPieceFromLetter(input.substr(4, 1));
-		}
-		MoveGenerationController::instance->generateAllMoves<false>();
-		while (uint32_t currentMove = MoveStack::instance->pop()) {
-			if (from == FROM(currentMove)
-				&& to == TO(currentMove)
-				&& piece == PIECE(currentMove)) {
-				Board::doMove(currentMove);
-				break;
-			}
-		}
-		while (MoveStack::instance->pop()) {
-		}
 	}
 
 	// go depth 6 wtime 180000 btime 100000 binc 1000 winc 1000 movetime 1000 movestogo 40
