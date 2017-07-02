@@ -29,6 +29,7 @@
 			int alphaBeta(int alpha, int beta, int depthRemaining);
 			void showStats();
 			void showPv();
+			bool isRepetition();
 		protected:
 		public:
 			uint32_t iterativeDeepening(string fen, int maxDepth = INT32_MAX);

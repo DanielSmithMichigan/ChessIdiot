@@ -87,17 +87,29 @@
 		return output;
 	}
 
+	bool Search::isRepetition() {
+		if (Board::currentState->prev 
+			&& Board::currentState->prev->prev) {
+			return Board::currentState->zobrist == Board::currentState->prev->prev->zobrist;
+		}
+		return false;
+	}
+
 	int Search::alphaBeta(int oldAlpha, int beta, int depthRemaining) {
 		int alpha = oldAlpha;
 
-		int hashScore = INT32_MIN;
+		// int hashScore = INT32_MIN;
 
-		if (TranspositionTable::instance->searchPosition(depthRemaining, alpha, beta, hashScore)) {
-			return hashScore;
-		}
+		// if (TranspositionTable::instance->searchPosition(depthRemaining, alpha, beta, hashScore)) {
+		// 	return hashScore;
+		// }
 
 		if ((nodesSearched & 2047) == 0) {
 			checkStopped();
+		}
+
+		if (isRepetition()) {
+			return 0;
 		}
 
 		if (depthRemaining == 0) {
