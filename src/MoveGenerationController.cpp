@@ -72,4 +72,16 @@
 		return moveFound;
 	}
 
+	void MoveGenerationController::printMoveStack() {
+		cout << "Printing Move Stack" << endl;
+		printMoveStackRecur(Board::currentState);
+	}
+
+	void MoveGenerationController::printMoveStackRecur(State *currentState) {
+		if (currentState->prev) {
+			printMoveStackRecur(currentState->prev);
+		}
+		cout << intToBoardCoord(FROM(currentState->move)) << intToBoardCoord(TO(currentState->move)) << endl;
+	}
+
 #endif

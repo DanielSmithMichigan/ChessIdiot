@@ -9,6 +9,7 @@
 	#include <iostream>
 	#include <memory>
 	#include <algorithm>
+	#include <cassert>
 	#define MOVE_STACK_LIMIT 512
 	#define DEPTH_LIMIT 100
 
@@ -32,7 +33,7 @@
 			bool isRepetition();
 		protected:
 		public:
-			uint32_t iterativeDeepening(string fen, int maxDepth = INT32_MAX);
+			uint32_t iterativeDeepening(int maxDepth = DEPTH_LIMIT);
 			void timeRemaining(int msRemaining);
 			void clearForSearch();
 			static Search *instance;

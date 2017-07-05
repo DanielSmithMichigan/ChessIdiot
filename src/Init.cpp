@@ -20,7 +20,6 @@
 		BitBoard::InitRookBitBoards();
 		BitBoard::InitBishopBitBoards();
 		TranspositionTable::instance->reset();
-		Board::clearForSearch();
 		Search::instance->clearForSearch();
 		MoveStack::instance->reset();
 		Zobrist::Init();
@@ -28,7 +27,6 @@
 	}
 
 	void Init::reset() {
-		Board::clearForSearch();
 		Search::instance->clearForSearch();
 	}
 #endif

@@ -84,7 +84,7 @@
 				Search::instance->timeRemaining(stoi(readToken(input)));
 			}
 		}
-		uint32_t bestMove = Search::instance->iterativeDeepening(Fen::exportBoard());
+		uint32_t bestMove = Search::instance->iterativeDeepening();
 		cout << "bestmove " << intToBoardCoord(FROM(bestMove)) << intToBoardCoord(TO(bestMove)) << endl;
 	}
 

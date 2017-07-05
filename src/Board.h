@@ -24,7 +24,6 @@
 			static void reset();
 			static void doMove(uint32_t move);
 			static void undoMove();
-			static void clearForSearch();
 			static uint32_t turn;
 			static void put(uint32_t color, uint32_t piece, uint32_t location);
 			static void remove(uint32_t color, uint32_t piece, uint32_t location);
@@ -46,6 +45,7 @@
 				nextState->prev = currentState;
 				nextState->castlingRights = currentState->castlingRights;
 				nextState->zobrist = currentState->zobrist;
+				nextState->halfMoveCount = currentState->halfMoveCount + 1;
 				if (currentState->enPassantTarget != NO_EN_PASSANT) {
 					nextState->zobrist ^= Zobrist::EnPassant[currentState->enPassantTarget];
 				}

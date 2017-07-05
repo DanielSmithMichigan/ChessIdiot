@@ -1,6 +1,4 @@
-	#include "../src/Search.h"
-	#include "../src/Fen.h"
-	#include "../src/Init.h"
+	#include "../src/Uci.h"
 	#include "gtest/gtest.h"
 	#include "gmock/gmock.h"
 

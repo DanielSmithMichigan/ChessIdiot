@@ -46,6 +46,7 @@
 				Board::undoMove();
 				continue;
 			}
+
 			MoveStack::instance->increaseDepth();
 			int score = -alphaBeta(INT32_MIN + 1, -bestScore, depth - 1);
 			MoveStack::instance->decreaseDepth();
@@ -66,14 +67,14 @@
 		return bestMove;
 	}
 
-	uint32_t Search::iterativeDeepening(string fen, int maxDepth) {
+	uint32_t Search::iterativeDeepening(int maxDepth) {
 		int currentDepth = 1;
 		uint32_t output, bestMoveCurrentDepth;
+		Board::currentState->depth = 0;
 		while(true) {
 			if (currentDepth > maxDepth) {
 				return output;
 			}
-			Fen::import(fen);
 			MoveStack::instance->reset();
 			bestMoveCurrentDepth = getBestMove(currentDepth++);
 			if (stopped) {
@@ -88,16 +89,24 @@
 	}
 
 	bool Search::isRepetition() {
-		if (Board::currentState->prev 
-			&& Board::currentState->prev->prev) {
-			return Board::currentState->zobrist == Board::currentState->prev->prev->zobrist;
+		if (Board::currentState->halfMoveCount >= 50) {
+			return true;
+		}
+		State* testState = Board::currentState;
+		for (int i = 0; i < Board::currentState->halfMoveCount; i++) {
+			if (!testState->prev) {
+				return false;
+			}
+			testState = testState->prev;
+			if (testState->zobrist == Board::currentState->zobrist) {
+				return true;
+			}
 		}
 		return false;
 	}
 
 	int Search::alphaBeta(int alpha, int beta, int depthRemaining) {
 		int HASH_TYPE = ALPHA;
-
 
 		if ((nodesSearched & 2047) == 0) {
 			checkStopped();
@@ -107,10 +116,10 @@
 			return 0;
 		}
 
-		// int hashScore = INT32_MIN;
-		// if (TranspositionTable::instance->searchPosition(depthRemaining, alpha, beta, hashScore)) {
-		// 	return hashScore;
-		// }
+		int hashScore = INT32_MIN;
+		if (TranspositionTable::instance->searchPosition(depthRemaining, alpha, beta, hashScore)) {
+			return hashScore;
+		}
 
 		if (depthRemaining == 0
 			|| Board::currentState->depth >= DEPTH_LIMIT) {
@@ -146,6 +155,7 @@
 			}
 
 			if (score >= beta) {
+
 				TranspositionTable::instance->store(bestCurrentMove, beta, BETA, depthRemaining);
 				if (!Board::piecesIndex[TO(currentMove)]) {
 					MoveStack::instance->markKiller(currentMove);
@@ -162,11 +172,11 @@
 		}
 
 		if (legalMoves == 0) {
-			return Evaluation::terminalPositionValue();
+			int result = Evaluation::terminalPositionValue();
+			return result;
 		}
 
 		TranspositionTable::instance->store(bestCurrentMove, alpha, HASH_TYPE, depthRemaining);
-
 		return alpha;
 	}
 
@@ -175,6 +185,10 @@
 
 		if ((nodesSearched & 2047) == 0) {
 			checkStopped();
+		}
+
+		if (isRepetition()) {
+			return 0;
 		}
 
 		int alpha = oldAlpha;
@@ -188,8 +202,6 @@
 		if (Board::currentState->depth >= DEPTH_LIMIT) {
 			return positionValue;
 		}
-		int bestCurrentScore = INT32_MIN;
-		int bestCurrentMove = 0;
 		MoveGenerationController::instance->generateAllMoves<true>();
 		while(uint32_t currentMove = MoveStack::instance->pop()) {
 			Board::doMove(currentMove);
@@ -210,7 +222,6 @@
 				return beta; 
 			} else if (score > alpha) {
 				alpha = score;
-				bestCurrentMove = currentMove;
 			}
 		}
 

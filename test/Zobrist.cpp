@@ -100,3 +100,27 @@
 		uint64_t secondZobrist = Board::currentState->zobrist;
 		ASSERT_EQ(firstZobrist, secondZobrist);
 	}
+
+	TEST_F(ZobristTest, Color) {
+		Fen::import("5k2/5rpB/pN1b2Q1/1p6/3P1qp1/P1P3PP/1P6/R6K b - -");
+		Board::doMove(MoveGenerationController::instance->identifyMove("f8e7"));
+		Board::doMove(MoveGenerationController::instance->identifyMove("g3f4"));
+		ASSERT_EQ(Fen::exportLegacyBoard(), "8/4krpB/pN1b2Q1/1p6/3P1Pp1/P1P4P/1P6/R6K b - -");
+		uint64_t firstZobrist = Board::currentState->zobrist;
+		Board::undoMove();
+		Board::undoMove();
+		Board::doMove(MoveGenerationController::instance->identifyMove("f8e8"));
+		Board::doMove(MoveGenerationController::instance->identifyMove("g3f4"));
+		Board::doMove(MoveGenerationController::instance->identifyMove("e8e7"));
+		ASSERT_EQ(Fen::exportLegacyBoard(), "8/4krpB/pN1b2Q1/1p6/3P1Pp1/P1P4P/1P6/R6K w - -");
+		uint64_t secondZobrist = Board::currentState->zobrist;
+		ASSERT_NE(firstZobrist, secondZobrist);
+	}
+
+	TEST_F(ZobristTest, ColorTwo) {
+		Fen::import("8/4krpB/pN1b2Q1/1p6/3P1Pp1/P1P4P/1P6/R6K w - -");
+		uint64_t firstZobrist = Board::currentState->zobrist;
+		Fen::import("8/4krpB/pN1b2Q1/1p6/3P1Pp1/P1P4P/1P6/R6K b - -");
+		uint64_t secondZobrist = Board::currentState->zobrist;
+		ASSERT_NE(firstZobrist, secondZobrist);
+	}

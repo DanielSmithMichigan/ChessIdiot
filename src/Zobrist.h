@@ -10,7 +10,7 @@
 
 	namespace Zobrist {
 		extern uint64_t PieceBySquare[2][7][64];
-		extern uint64_t SideToMove[3];
+		extern uint64_t BlackToMove;
 		extern uint64_t CastlingRights[16];
 		extern uint64_t EnPassant[64];
 

@@ -18,7 +18,7 @@
 	};
 
 	struct TranspositionTableEntry {
-		uint8_t depthSearched;
+		int depthSearched;
 		uint64_t positionKey;
 		uint32_t bestMove;
 		int score;
@@ -42,9 +42,9 @@
 			TranspositionTable();
 			~TranspositionTable();
 			void reset();
-			void store(uint32_t bestMove, int score, uint8_t type, uint8_t remainingSearchDepth);
+			void store(uint32_t bestMove, int score, uint8_t type, int remainingSearchDepth);
 			uint32_t searchMove();
-			bool searchPosition(uint32_t remainingSearchDepth, int alpha, int beta, int &score);
+			bool searchPosition(int remainingSearchDepth, int alpha, int beta, int &score);
 			int getCounter();
 			void runEach(void (*fn)(int i, TranspositionTableEntry *entry));
 	};

@@ -15,7 +15,7 @@
 			}
 		}
 
-		SideToMove[2] = dist(e2);
+		BlackToMove = dist(e2);
 
 		for (int i = 0; i < 16; i++) {
 			CastlingRights[i] = dist(e2);
@@ -28,7 +28,7 @@
 
 	uint64_t Zobrist::PieceBySquare[2][7][64] = {0};
 
-	uint64_t Zobrist::SideToMove[3] = {0};
+	uint64_t Zobrist::BlackToMove = 0;
 
 	uint64_t Zobrist::CastlingRights[16] = {0};
 
