@@ -47,7 +47,7 @@
 				nextState->zobrist = currentState->zobrist;
 				nextState->halfMoveCount = currentState->halfMoveCount + 1;
 				if (currentState->enPassantTarget != NO_EN_PASSANT) {
-					nextState->zobrist ^= Zobrist::EnPassant[currentState->enPassantTarget];
+					nextState->zobrist ^= Zobrist::EnPassant[GET_COLUMN(currentState->enPassantTarget)];
 				}
 				nextState->enPassantTarget = NO_EN_PASSANT;
 				nextState->depth = currentState->depth + 1;

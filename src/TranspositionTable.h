@@ -41,6 +41,7 @@
 			static TranspositionTable *instance;
 			TranspositionTable();
 			~TranspositionTable();
+			uint64_t hits = 0;
 			void reset();
 			void store(uint32_t bestMove, int score, uint8_t type, int remainingSearchDepth);
 			uint32_t searchMove();

@@ -42,13 +42,9 @@
 	bool TranspositionTable::searchPosition(int remainingSearchDepth, int alpha, int beta, int &score) {
 		uint32_t index = Board::currentState->zobrist & TRANSPOSITION_TABLE_MASK;
 		if (table[index].positionKey == Board::currentState->zobrist
-			&& table[index].depthSearched == remainingSearchDepth) {
+			&& table[index].depthSearched >= remainingSearchDepth) {
 			if (table[index].type == EXACT) {
-				if (score >= beta) {
-					score = beta;
-				} else {
-					score = table[index].score;
-				}
+				score = table[index].score;
 				return true;
 			}
 			if (table[index].type == ALPHA) {
@@ -66,7 +62,6 @@
 		}
 		return false;
 	}
-
 	int TranspositionTable::getCounter() {
 		int index = Board::currentState->zobrist & TRANSPOSITION_TABLE_MASK;
 		if (table[index].positionKey == Board::currentState->zobrist) {

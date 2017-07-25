@@ -124,7 +124,6 @@
 		if (depthRemaining == 0
 			|| Board::currentState->depth >= DEPTH_LIMIT) {
 			int result = quiescence(alpha, beta);
-			TranspositionTable::instance->store(0, result, EXACT, depthRemaining);
 			return result;
 		}
 

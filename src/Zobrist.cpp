@@ -21,7 +21,7 @@
 			CastlingRights[i] = dist(e2);
 		}
 
-		for (int i = 0; i < 64; i++) {
+		for (int i = 0; i < 8; i++) {
 			EnPassant[i] = dist(e2);
 		}
 	}
@@ -32,6 +32,6 @@
 
 	uint64_t Zobrist::CastlingRights[16] = {0};
 
-	uint64_t Zobrist::EnPassant[64] = {0};
+	uint64_t Zobrist::EnPassant[8] = {0};
 	
 #endif

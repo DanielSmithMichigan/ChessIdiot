@@ -2,6 +2,7 @@
 
 	ZobristTest::ZobristTest() {
 		Init::instance->execute(true);
+		table = (AlternateTranspositionTableEntry*)malloc(ALTERNATE_TRANSPOSITION_TABLE_SIZE);
 	}
 
 	ZobristTest::~ZobristTest() {
@@ -9,6 +10,7 @@
 
 	unordered_map<string, uint64_t> fenToZobrist;
 	unordered_map<uint64_t, string> zobristToFen;
+	AlternateTranspositionTableEntry *ZobristTest::table = 0;
 
 	void ZobristTest::doMove(uint32_t from, uint32_t to) {
 		MoveGenerationController::instance->generateAllMoves<false>();
@@ -18,6 +20,21 @@
 			}
 		}
 		while (uint32_t currentMove = MoveStack::instance->pop()) {
+		}
+	}
+
+	void ZobristTest::store() {
+		uint32_t index = Board::currentState->zobrist & ALTERNATE_TRANSPOSITION_TABLE_MASK;
+		table[index].positionKey = Board::currentState->zobrist;
+		string currentFen = Fen::exportZobristInfo();
+		strncpy(table[index].fen, currentFen.c_str(), 100);
+	}
+
+	void ZobristTest::retrieve() {
+		uint32_t index = Board::currentState->zobrist & ALTERNATE_TRANSPOSITION_TABLE_MASK;
+		if (table[index].positionKey == Board::currentState->zobrist) {
+			string fen = Fen::exportZobristInfo();
+			ASSERT_STREQ(table[index].fen, fen.c_str());
 		}
 	}
 
@@ -31,12 +48,8 @@
 	}
 
 	void ZobristTest::checkZobristToFen() {
-		string currentFen = Fen::exportZobristInfo();
-		unordered_map<uint64_t, string>::const_iterator tableEntry = zobristToFen.find(Board::currentState->zobrist);
-		if (tableEntry != zobristToFen.end()) {
-			ASSERT_EQ(currentFen, tableEntry->second) << "Second: " << tableEntry->second << " Fen: " << currentFen << " First: " << tableEntry->first << " Zobrist: " << Board::currentState->zobrist << endl;
-		}
-		zobristToFen[Board::currentState->zobrist] = currentFen;
+		retrieve();
+		store();
 	}
 
 	void ZobristTest::performZobrist(string fenString, uint64_t depth) {
@@ -46,7 +59,6 @@
 	}
 
 	void ZobristTest::performZobristOpposite(string fenString, uint64_t depth) {
-		zobristToFen.clear();
 		Fen::import(fenString);
 		MoveGenerationController::instance->runAtDepth(depth, ZobristTest::checkZobristToFen);
 	}
@@ -68,19 +80,49 @@
 	}
 
 	TEST_F(ZobristTest, UniqueZobrist) {
-		performZobristOpposite("r3k2r/Pppp1ppp/1b3nbN/nP6/BBP1P3/q4N2/Pp1P2PP/R2Q1RK1 w kq - 0 1", 2);
-		performZobristOpposite("r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq -", 3);
-		performZobristOpposite("8/2p5/3p4/KP5r/1R3p1k/8/4P1P1/8 w - -", 3);
-		performZobristOpposite("r3k2r/Pppp1ppp/1b3nbN/nP6/BBP1P3/q4N2/Pp1P2PP/R2Q1RK1 w kq - 0 1", 3);
-		performZobristOpposite("r3k2r/Pppp1ppp/1b3nbN/nP6/BBP1P3/q4N2/Pp1P2PP/R2Q1RK1 w kq b3 0 1", 3);
-		performZobristOpposite("rnbq1k1r/pp1Pbppp/2p5/8/2B5/8/PPP1NnPP/RNBQK2R w KQ - 1 8", 3);
-		performZobristOpposite("r4rk1/1pp1qppp/p1np1n2/2b1p1B1/2B1P1b1/P1NP1N2/1PP1QPPP/R4RK1 w - -", 3);
+		performZobristOpposite("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", 1);
 		performZobristOpposite("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", 2);
-		performZobristOpposite("r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq -", 2);
-		performZobristOpposite("8/2p5/3p4/KP5r/1R3p1k/8/4P1P1/8 w - -", 2);
-		performZobristOpposite("r3k2r/Pppp1ppp/1b3nbN/nP6/BBP1P3/q4N2/Pp1P2PP/R2Q1RK1 w kq - 0 1", 2);
-		performZobristOpposite("rnbq1k1r/pp1Pbppp/2p5/8/2B5/8/PPP1NnPP/RNBQK2R w KQ - 1 8", 2);
-		performZobristOpposite("r4rk1/1pp1qppp/p1np1n2/2b1p1B1/2B1P1b1/P1NP1N2/1PP1QPPP/R4RK1 w - -", 2);
+		performZobristOpposite("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", 3);
+		performZobristOpposite("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", 4);
+		// performZobristOpposite("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", 5);
+		// performZobristOpposite("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", 6);
+		// performZobristOpposite("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", 7);
+		// performZobristOpposite("r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq -", 1);
+		// performZobristOpposite("r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq -", 2);
+		// performZobristOpposite("r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq -", 3);
+		// performZobristOpposite("r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq -", 4);
+		// performZobristOpposite("r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq -", 5);
+		// performZobristOpposite("8/2p5/3p4/KP5r/1R3p1k/8/4P1P1/8 w - -", 1);
+		// performZobristOpposite("8/2p5/3p4/KP5r/1R3p1k/8/4P1P1/8 w - -", 2);
+		// performZobristOpposite("8/2p5/3p4/KP5r/1R3p1k/8/4P1P1/8 w - -", 3);
+		// performZobristOpposite("8/2p5/3p4/KP5r/1R3p1k/8/4P1P1/8 w - -", 4);
+		// performZobristOpposite("8/2p5/3p4/KP5r/1R3p1k/8/4P1P1/8 w - -", 5);
+		// performZobristOpposite("8/2p5/3p4/KP5r/1R3p1k/8/4P1P1/8 w - -", 6);
+		// performZobristOpposite("8/2p5/3p4/KP5r/1R3p1k/8/4P1P1/8 w - -", 7);
+		// performZobristOpposite("r3k2r/Pppp1ppp/1b3nbN/nP6/BBP1P3/q4N2/Pp1P2PP/R2Q1RK1 w kq - 0 1", 1);
+		// performZobristOpposite("r3k2r/Pppp1ppp/1b3nbN/nP6/BBP1P3/q4N2/Pp1P2PP/R2Q1RK1 w kq - 0 1", 2);
+		// performZobristOpposite("r3k2r/Pppp1ppp/1b3nbN/nP6/BBP1P3/q4N2/Pp1P2PP/R2Q1RK1 w kq - 0 1", 3);
+		// performZobristOpposite("r3k2r/Pppp1ppp/1b3nbN/nP6/BBP1P3/q4N2/Pp1P2PP/R2Q1RK1 w kq - 0 1", 4);
+		// performZobristOpposite("r3k2r/Pppp1ppp/1b3nbN/nP6/BBP1P3/q4N2/Pp1P2PP/R2Q1RK1 w kq - 0 1", 5);
+		// performZobristOpposite("r3k2r/Pppp1ppp/1b3nbN/nP6/BBP1P3/q4N2/Pp1P2PP/R2Q1RK1 w kq - 0 1", 6);
+		// performZobristOpposite("rnbq1k1r/pp1Pbppp/2p5/8/2B5/8/PPP1NnPP/RNBQK2R w KQ - 1 8", 1);
+		// performZobristOpposite("rnbq1k1r/pp1Pbppp/2p5/8/2B5/8/PPP1NnPP/RNBQK2R w KQ - 1 8", 2);
+		// performZobristOpposite("rnbq1k1r/pp1Pbppp/2p5/8/2B5/8/PPP1NnPP/RNBQK2R w KQ - 1 8", 3);
+		// performZobristOpposite("rnbq1k1r/pp1Pbppp/2p5/8/2B5/8/PPP1NnPP/RNBQK2R w KQ - 1 8", 4);
+		// performZobristOpposite("rnbq1k1r/pp1Pbppp/2p5/8/2B5/8/PPP1NnPP/RNBQK2R w KQ - 1 8", 5);
+		// performZobristOpposite("r4rk1/1pp1qppp/p1np1n2/2b1p1B1/2B1P1b1/P1NP1N2/1PP1QPPP/R4RK1 w - - 0 10", 1);
+		// performZobristOpposite("r4rk1/1pp1qppp/p1np1n2/2b1p1B1/2B1P1b1/P1NP1N2/1PP1QPPP/R4RK1 w - - 0 10", 2);
+		// performZobristOpposite("r4rk1/1pp1qppp/p1np1n2/2b1p1B1/2B1P1b1/P1NP1N2/1PP1QPPP/R4RK1 w - - 0 10", 3);
+		// performZobristOpposite("r4rk1/1pp1qppp/p1np1n2/2b1p1B1/2B1P1b1/P1NP1N2/1PP1QPPP/R4RK1 w - - 0 10", 4);
+		// performZobristOpposite("r4rk1/1pp1qppp/p1np1n2/2b1p1B1/2B1P1b1/P1NP1N2/1PP1QPPP/R4RK1 w - - 0 10", 5);
+		// performZobristOpposite("r4rk1/1pp1qppp/p1np1n2/2b1p1B1/2B1P1b1/P1NP1N2/1PP1QPPP/R4RK1 w - - 0 10", 6);
+		// Passed
+
+		// performZobristOpposite("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", 8);
+		// performZobristOpposite("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", 9);
+		// performZobristOpposite("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", 10);
+		// performZobristOpposite("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", 11);
+		// performZobristOpposite("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", 12);
 	}
 
 	TEST_F(ZobristTest, ImportVsDoMove) {
