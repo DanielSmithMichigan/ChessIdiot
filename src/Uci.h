@@ -24,6 +24,7 @@
 			void loop();
 			void identify();
 			void readyUp();
+			void parseLine(string input);
 			void position(string input);
 			void doMoves(string input);
 			void doMove(string input);

@@ -14,24 +14,28 @@
 	}
 
 	void Uci::loop() {
-		string input, token;
+		string input;
 		while (true) {
 			if (!getline(cin, input)) {
 				continue;
 			}
 
-			token = readToken(input);
-			if (token == "uci") {
-				identify();
-			} else if (token == "isready") {
-				readyUp();
-			} else if (token == "position") {
-				position(input);
-			} else if (token == "go") {
-				go(input);
-			} else if (token == "fen") {
-				getFen();
-			}
+			parseLine(input);
+		}
+	}
+
+	void Uci::parseLine(string input) {
+		string token = readToken(input);
+		if (token == "uci") {
+			identify();
+		} else if (token == "isready") {
+			readyUp();
+		} else if (token == "position") {
+			position(input);
+		} else if (token == "go") {
+			go(input);
+		} else if (token == "fen") {
+			getFen();
 		}
 	}
 
@@ -91,6 +95,7 @@
 	// go depth 6 wtime 180000 btime 100000 binc 1000 winc 1000 movetime 1000 movestogo 40
 	void Uci::go(string input) {
 		Init::instance->reset();
+		int depth = INT32_MAX;
 		while(input.length()) {
 			string token = readToken(input);
 			if (token == "wtime"
@@ -99,9 +104,11 @@
 			} else if (token == "btime"
 				&& Board::turn == BLACK) {
 				Search::instance->timeRemaining(stoi(readToken(input)));
+			} else if (token == "depth") {
+				depth = stoi(readToken(input));
 			}
 		}
-		uint32_t bestMove = Search::instance->iterativeDeepening(Fen::exportBoard());
+		uint32_t bestMove = Search::instance->iterativeDeepening(Fen::exportBoard(), depth);
 		cout << "bestmove " << intToBoardCoord(FROM(bestMove)) << intToBoardCoord(TO(bestMove)) << endl;
 	}
 
