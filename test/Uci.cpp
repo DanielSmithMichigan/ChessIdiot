@@ -1,6 +1,7 @@
 	#include "Uci.h"
 
 	UciTest::UciTest() {
+		Init::instance->execute();
 	}
 
 	UciTest::~UciTest() {

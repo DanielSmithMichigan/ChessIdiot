@@ -1,9 +1,7 @@
 	#include "KingMoveGeneration.h"
 
 	KingMoveGenerationTest::KingMoveGenerationTest() {
-		BitBoard::InitRookBitBoards();
-		BitBoard::InitBishopBitBoards();
-		TranspositionTable::instance->reset();
+		Init::instance->execute(true);
 	}
 
 	KingMoveGenerationTest::~KingMoveGenerationTest() {

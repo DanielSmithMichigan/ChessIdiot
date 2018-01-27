@@ -21,7 +21,7 @@
 		}
 	}
 
-	void TranspositionTable::store(uint32_t bestMove, uint32_t score, uint8_t type, uint8_t remainingSearchDepth) {
+	void TranspositionTable::store(uint32_t bestMove, int score, uint8_t type, int remainingSearchDepth) {
 		uint32_t index = Board::currentState->zobrist & TRANSPOSITION_TABLE_MASK;
 		table[index].positionKey = Board::currentState->zobrist;
 		table[index].bestMove = bestMove;
@@ -39,30 +39,29 @@
 		return TRANSPOSITION_TABLE_MISS;
 	}
 
-	bool TranspositionTable::searchPosition(uint32_t remainingSearchDepth, int alpha, int beta, int &score) {
+	bool TranspositionTable::searchPosition(int remainingSearchDepth, int alpha, int beta, int &score) {
 		uint32_t index = Board::currentState->zobrist & TRANSPOSITION_TABLE_MASK;
 		if (table[index].positionKey == Board::currentState->zobrist
-			&& table[index].depthSearched >= remainingSearchDepth) {
-			switch(table[index].type) {
-				case EXACT:
-					if (table[index].score >= beta) {
-						score = beta;
-					} else {
-						score = table[index].score;
-					}
+			&& table[index].depthSearched == remainingSearchDepth) {
+			if (table[index].type == EXACT) {
+				if (score >= beta) {
+					score = beta;
+				} else {
+					score = table[index].score;
+				}
+				return true;
+			}
+			if (table[index].type == ALPHA) {
+				if (table[index].score <= alpha) {
+					score = alpha;
 					return true;
-				case ALPHA:
-					if (table[index].score <= alpha) {
-						score = alpha;
-						return true;
-					}
-				break;
-				case BETA:
-					if (table[index].score >= beta) {
-						score = beta;
-						return true;
-					}
-				break;
+				}
+			}
+			if (table[index].type == BETA) {
+				if (table[index].score >= beta) {
+					score = beta;
+					return true;
+				}
 			}
 		}
 		return false;

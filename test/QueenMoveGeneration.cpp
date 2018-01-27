@@ -1,9 +1,7 @@
 	#include "QueenMoveGeneration.h"
 
 	QueenMoveGenerationTest::QueenMoveGenerationTest() {
-		BitBoard::InitRookBitBoards();
-		BitBoard::InitBishopBitBoards();
-		TranspositionTable::instance->reset();
+		Init::instance->execute(true);
 	}
 
 	QueenMoveGenerationTest::~QueenMoveGenerationTest() {

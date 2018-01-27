@@ -1,10 +1,7 @@
 	#include "SquareAttacked.h"
 
 	SquareAttackedTest::SquareAttackedTest() {
-		Board::reset();
-		BitBoard::InitRookBitBoards();
-		BitBoard::InitBishopBitBoards();
-		TranspositionTable::instance->reset();
+		Init::instance->execute(true);
 	}
 
 	SquareAttackedTest::~SquareAttackedTest() {

@@ -19,20 +19,6 @@
 
 	Board::~Board() {
 	}
-
-	void Board::clearForSearch() {
-		currentState->depth = 0;
-		if (currentState->prev) {
-			State *prevState = currentState->prev;
-			currentState->prev = NULL;
-			while (prevState->prev) {
-				State *priorState = prevState->prev;
-				delete prevState;
-				prevState = priorState;
-			}
-		}
-	}
-
 	void Board::doMove(uint32_t move) {
 		uint32_t from = FROM(move);
 		uint32_t to = TO(move);
@@ -70,7 +56,12 @@
 			currentState->capturedPiece = piecesIndex[to];
 			currentState->capturedPieceColor = colorsIndex[to];
 			remove(colorsIndex[to], piecesIndex[to], to);
+			currentState->halfMoveCount = 0;
 		} 
+
+		if (piecesIndex[from] == PAWN) {
+			currentState->halfMoveCount = 0;
+		}
 
 		if (specialMove == PROMOTION) {
 			put(color, specialMovePiece, to);
@@ -111,7 +102,7 @@
 		remove(color, piece, from);
 
 		Board::turn = OPPOSING_COLOR(Board::turn);
-		currentState->zobrist ^= Zobrist::SideToMove[Board::turn];
+		currentState->zobrist ^= Zobrist::BlackToMove;
 	}
 
 	void Board::undoMove() {

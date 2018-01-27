@@ -14,8 +14,15 @@
 		setPlayerTurn(readToken(fenString));
 		setCastling(readToken(fenString));
 		setEnPassantTarget(readToken(fenString));
-		// board->halfMoveClock = boost::lexical_cast<int>(readToken(fenString));
+		readHalfMoveClock(readToken(fenString));
 		// board->fullMoveClock = boost::lexical_cast<int>(readToken(fenString));
+	}
+
+	void Fen::readHalfMoveClock(string fenString) {
+		if (fenString == "") {
+			return;
+		}
+		Board::currentState->halfMoveCount = boost::lexical_cast<int>(fenString);
 	}
 
 	void Fen::setEnPassantTarget(string fenString) {
@@ -38,7 +45,9 @@
 			}
 		}
 		
-		Board::currentState->zobrist ^= Zobrist::SideToMove[Board::turn];
+		if (Board::turn == BLACK) {
+			Board::currentState->zobrist ^= Zobrist::BlackToMove;
+		}
 	}
 
 	void Fen::setCastling(string fenString) {

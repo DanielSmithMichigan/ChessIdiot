@@ -11,6 +11,7 @@
 		uint64_t zobrist = 0;
 		int depth = 0;
 		State* prev = 0;
+		int halfMoveCount = 0;
 	};
 #endif
 

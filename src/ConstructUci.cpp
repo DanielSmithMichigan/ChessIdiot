@@ -20,11 +20,11 @@
 		for (int i = 1; i < argc; i++) {
 			if (find(commands.begin(), commands.end(), argv[i]) != commands.end()
 				and !input.empty()) {
-				Uci::instance->parseLine(boost::algorithm::join(input, " "));
+				Uci::instance->readLine(boost::algorithm::join(input, " "));
 				input.clear();
 			}
 			input.push_back(string(argv[i]));
 		}
-		Uci::instance->parseLine(boost::algorithm::join(input, " "));
+		Uci::instance->readLine(boost::algorithm::join(input, " "));
 	}
 #endif

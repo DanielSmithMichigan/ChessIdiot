@@ -1,11 +1,7 @@
 	#include "EngineComparison.h"
 
 	EngineComparison::EngineComparison() {
-		BitBoard::InitRookBitBoards();
-		BitBoard::InitBishopBitBoards();
-		Board::reset();
-		TranspositionTable::instance->reset();
-		MoveStack::instance->reset();
+		Init::instance->execute(true);
 	}
 
 	EngineComparison::~EngineComparison() {

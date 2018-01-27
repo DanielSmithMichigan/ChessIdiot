@@ -1,9 +1,7 @@
 	#include "RookMoveGeneration.h"
 
 	RookMoveGenerationTest::RookMoveGenerationTest() {
-		BitBoard::InitRookBitBoards();
-		BitBoard::InitBishopBitBoards();
-		TranspositionTable::instance->reset();
+		Init::instance->execute(true);
 	}
 
 	RookMoveGenerationTest::~RookMoveGenerationTest() {

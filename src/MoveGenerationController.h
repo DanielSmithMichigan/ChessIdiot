@@ -22,8 +22,12 @@
 		public:
 			MoveGenerationController();
 			~MoveGenerationController();
+
+			uint32_t identifyMove(string input);
 			uint64_t countMovesAtDepth(uint64_t depth);
 			void runAtDepth(uint64_t depth, void (*fn)());
+			void printMoveStack();
+			void printMoveStackRecur(State *currentState);
 			static MoveGenerationController *instance;
 
 			template <bool CAPTURES_ONLY>

@@ -19,24 +19,23 @@
 			if (!getline(cin, input)) {
 				continue;
 			}
-
-			parseLine(input);
+			readLine(input);
 		}
 	}
 
-	void Uci::parseLine(string input) {
-		string token = readToken(input);
-		if (token == "uci") {
-			identify();
-		} else if (token == "isready") {
-			readyUp();
-		} else if (token == "position") {
-			position(input);
-		} else if (token == "go") {
-			go(input);
-		} else if (token == "fen") {
-			getFen();
-		}
+	void Uci::readLine(string input) {
+			string token = readToken(input);
+			if (token == "uci") {
+				identify();
+			} else if (token == "isready") {
+				readyUp();
+			} else if (token == "position") {
+				position(input);
+			} else if (token == "go") {
+				go(input);
+			} else if (token == "fen") {
+				getFen();
+			}
 	}
 
 	void Uci::identify() {
@@ -68,28 +67,8 @@
 
 	void Uci::doMoves(string input) {
 		do {
-			doMove(readToken(input));
+			Board::doMove(MoveGenerationController::instance->identifyMove(readToken(input)));
 		} while(input.length());
-	}
-
-	void Uci::doMove(string input) {
-		int from = boardCoordToInt(input.substr(0, 2));
-		int to = boardCoordToInt(input.substr(2, 2));
-		int piece = 0;
-		if (input.length() == 5) {
-			piece = getPieceFromLetter(input.substr(4, 1));
-		}
-		MoveGenerationController::instance->generateAllMoves<false>();
-		while (uint32_t currentMove = MoveStack::instance->pop()) {
-			if (from == FROM(currentMove)
-				&& to == TO(currentMove)
-				&& piece == PIECE(currentMove)) {
-				Board::doMove(currentMove);
-				break;
-			}
-		}
-		while (MoveStack::instance->pop()) {
-		}
 	}
 
 	// go depth 6 wtime 180000 btime 100000 binc 1000 winc 1000 movetime 1000 movestogo 40
@@ -108,7 +87,7 @@
 				depth = stoi(readToken(input));
 			}
 		}
-		uint32_t bestMove = Search::instance->iterativeDeepening(Fen::exportBoard(), depth);
+		uint32_t bestMove = Search::instance->iterativeDeepening(depth);
 		cout << "bestmove " << intToBoardCoord(FROM(bestMove)) << intToBoardCoord(TO(bestMove)) << endl;
 	}
 

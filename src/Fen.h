@@ -20,6 +20,7 @@
 			static void setPlayerTurn(string playerTurn);
 			static void setCastling(string castling);
 			static void setEnPassantTarget(string enPassantTarget);
+			static void readHalfMoveClock(string fenString);
 			static string getBoardSquares();
 			static void replaceSpacesWithNumbers(string &boardString);
 			static string getPlayerTurn();

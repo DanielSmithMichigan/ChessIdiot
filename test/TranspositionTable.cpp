@@ -1,10 +1,7 @@
 	#include "TranspositionTable.h"
 
 	TranspositionTableTest::TranspositionTableTest() {
-		BitBoard::InitRookBitBoards();
-		BitBoard::InitBishopBitBoards();
-		TranspositionTable::instance->reset();
-		Board::reset();
+		Init::instance->execute(true);
 	}
 
 	TranspositionTableTest::~TranspositionTableTest() {
