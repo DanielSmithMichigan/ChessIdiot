@@ -23,18 +23,18 @@
 		uint64_t kings = Board::pieces[KING] & Board::colors[COLOR];
 		uint64_t pawns = Board::pieces[PAWN] & Board::colors[COLOR];
 		uint64_t knights = Board::pieces[KNIGHT] & Board::colors[COLOR];
-		if (BitBoard::getBishopMoves<OPPOSING_COLOR(COLOR)>(location)
+		if (BitBoard::getBishopMoves<OPPOSING_COLOR(COLOR)>(location, Board::occupiedSquares, Board::colors[OPPOSING_COLOR(COLOR)])
 			& (bishops | queens)) {
 			return true;
 		}
-		if (BitBoard::getRookMoves<OPPOSING_COLOR(COLOR)>(location)
+		if (BitBoard::getRookMoves<OPPOSING_COLOR(COLOR)>(location, Board::occupiedSquares, Board::colors[OPPOSING_COLOR(COLOR)])
 			& (rooks | queens)) {
 			return true;
 		} 
-		if (BitBoard::getKnightMoves<OPPOSING_COLOR(COLOR)>(location) & knights) {
+		if (BitBoard::getKnightMoves<OPPOSING_COLOR(COLOR)>(location, Board::colors[OPPOSING_COLOR(COLOR)]) & knights) {
 			return true;
 		}
-		if (BitBoard::getAdjacentKingMoves<OPPOSING_COLOR(COLOR)>(location) & kings) {
+		if (BitBoard::getAdjacentKingMoves<OPPOSING_COLOR(COLOR)>(location, Board::colors[OPPOSING_COLOR(COLOR)]) & kings) {
 			return true;
 		}
 

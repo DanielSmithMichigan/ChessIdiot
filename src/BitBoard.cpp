@@ -8,6 +8,8 @@ uint64_t BitBoard::RookAttacks[102400] = {};
 uint64_t BitBoard::BishopAttacks[5248] = {};
 uint64_t BitBoard::RookShifts[64] = {};
 uint64_t BitBoard::BishopShifts[64] = {};
+uint64_t BitBoard::lines[64][64] = {};
+uint64_t BitBoard::betweenLines[64][64] = {};
 void BitBoard::InitRookBitBoards() {
 	uint64_t occupancyMask, subset, index;
 	uint64_t counter = 0;

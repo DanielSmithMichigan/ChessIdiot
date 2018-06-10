@@ -12,6 +12,7 @@
 		int depth = 0;
 		State* prev = 0;
 		int halfMoveCount = 0;
+		uint64_t pinnedToKing[3] = {0, 0, 0};
 	};
 #endif
 

@@ -19,6 +19,8 @@
 		}
 		BitBoard::InitRookBitBoards();
 		BitBoard::InitBishopBitBoards();
+		BitBoard::InitLines<ROOK>();
+		BitBoard::InitLines<BISHOP>();
 		TranspositionTable::instance->reset();
 		Search::instance->clearForSearch();
 		MoveStack::instance->reset();
