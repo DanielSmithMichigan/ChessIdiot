@@ -102,6 +102,8 @@
 		remove(color, piece, from);
 
 		Board::turn = OPPOSING_COLOR(Board::turn);
+		currentState->pinnedToKing[BLACK] = getPinnedPieces<BLACK, ROOK>() | getPinnedPieces<BLACK, BISHOP>();
+		currentState->pinnedToKing[WHITE] = getPinnedPieces<WHITE, ROOK>() | getPinnedPieces<WHITE, BISHOP>();
 		currentState->zobrist ^= Zobrist::BlackToMove;
 	}
 
@@ -144,7 +146,6 @@
 		}
 
 		decreaseStateDepth();
-
 		Board::turn = OPPOSING_COLOR(Board::turn);
 	}
 

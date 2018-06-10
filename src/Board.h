@@ -6,6 +6,8 @@
 	#include "Utility.h"
 	#include "Zobrist.h"
 	#include "PiecesValue.h"
+	#include "BitBoard.h"
+	#include "Lsb.h"
 	#include <stdint.h>
 	#include <iostream>
 	
@@ -24,6 +26,7 @@
 			static void reset();
 			static void doMove(uint32_t move);
 			static void undoMove();
+			static void getPinnedPieces();
 			static uint32_t turn;
 			static void put(uint32_t color, uint32_t piece, uint32_t location);
 			static void remove(uint32_t color, uint32_t piece, uint32_t location);
@@ -54,5 +57,40 @@
 				currentState = nextState;
 			}
 
+			template<uint32_t COLOR, PieceType PIECE_TYPE>
+			static inline uint64_t getPinnedPieces() {
+				uint64_t pinned = 0;
+				uint64_t kingBoard = pieces[KING] & colors[COLOR];
+				uint32_t kingLocation = popBit(kingBoard);
+				uint64_t opposingPieces = colors[OPPOSING_COLOR(COLOR)];
+				uint64_t opposingRooks = pieces[ROOK] & opposingPieces;
+				uint64_t opposingBishops = pieces[BISHOP] & opposingPieces;
+				uint64_t opposingQueens = pieces[QUEEN] & opposingPieces;
+				uint64_t attacks, firstXRay;
+				if (PIECE_TYPE == BISHOP) {
+					attacks = BitBoard::getBishopMovesWithoutCollision(kingLocation, Board::occupiedSquares);
+				} else if (PIECE_TYPE == ROOK) {
+					attacks = BitBoard::getRookMovesWithoutCollision(kingLocation, Board::occupiedSquares);
+				}
+				uint64_t firstBlockers = attacks & occupiedSquares;
+				uint64_t occupiedWithoutFirstBlockers = occupiedSquares ^ firstBlockers;
+				if (PIECE_TYPE == BISHOP) {
+					firstXRay = BitBoard::getBishopMovesWithoutCollision(kingLocation, occupiedWithoutFirstBlockers);
+				} else if (PIECE_TYPE == ROOK) {
+					firstXRay = BitBoard::getRookMovesWithoutCollision(kingLocation, occupiedWithoutFirstBlockers);
+				}
+				uint64_t snipers = firstXRay & occupiedWithoutFirstBlockers;
+				if (PIECE_TYPE == BISHOP) {
+					snipers &= (opposingQueens | opposingBishops);
+				} else if (PIECE_TYPE == ROOK) {
+					snipers &= (opposingQueens | opposingRooks);
+				}
+				while(snipers) {
+					uint32_t sniper = popBit(snipers);
+					uint64_t line = BitBoard::betweenLines[sniper][kingLocation];
+					pinned |= line & firstBlockers & colors[COLOR];
+				}
+				return pinned;
+			}
 	};
 #endif
