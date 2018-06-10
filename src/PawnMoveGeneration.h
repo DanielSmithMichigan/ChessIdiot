@@ -6,6 +6,7 @@
 	#include "Lsb.h"
 	#include "MoveStack.h"
 	#include "Move.h"
+	#include "SquareAttacked.h"
 
 	using namespace std;
 
@@ -49,17 +50,23 @@
 		pawnBoard &= enPassantBoard;
 
 		uint32_t moveIndex;
+		uint32_t move;
 		if (pawnBoard) {
 			moveIndex = popBit(pawnBoard);
 			if (COLOR == WHITE && DIRECTION == LEFT) {
-				MoveStack::instance->push(move<EN_PASSANT>(moveIndex + ROW + 1, moveIndex));
+				move = move<EN_PASSANT>(moveIndex + ROW + 1, moveIndex);
 			} else if (COLOR == WHITE && DIRECTION == RIGHT) {
-				MoveStack::instance->push(move<EN_PASSANT>(moveIndex + ROW - 1, moveIndex));
+				move = move<EN_PASSANT>(moveIndex + ROW - 1, moveIndex);
 			} else if (COLOR == BLACK && DIRECTION == LEFT) {
-				MoveStack::instance->push(move<EN_PASSANT>(moveIndex - ROW + 1, moveIndex));
+				move = move<EN_PASSANT>(moveIndex - ROW + 1, moveIndex);
 			} else if (COLOR == BLACK && DIRECTION == RIGHT) {
-				MoveStack::instance->push(move<EN_PASSANT>(moveIndex - ROW - 1, moveIndex));
+				move = move<EN_PASSANT>(moveIndex - ROW - 1, moveIndex);
 			}
+			// Board::doMove(move);
+			// if (!canTakeKing()) {
+				MoveStack::instance->push(move);
+			// }
+			// Board::undoMove();
 		}
 
 	}
@@ -67,6 +74,8 @@
 	template <uint32_t COLOR, uint32_t DIRECTION> 
 	inline void attack() {
 		uint64_t pawnBoard = Board::pieces[PAWN] & Board::colors[COLOR];
+		uint64_t kingBoard = Board::pieces[KING] & Board::colors[COLOR];
+		uint32_t kingLocation = popBit(kingBoard);
 
 		pushPawns<COLOR, 1>(pawnBoard);
 
@@ -75,38 +84,49 @@
 		pawnBoard &= Board::colors[OPPOSING_COLOR(COLOR)];
 
 		uint64_t nonPromotionMoves = pawnBoard & ~PROMOTION_ROWS;
-
-		uint32_t moveIndex;
+		uint64_t nonPromotionMove;
+		uint32_t to, from, fromBoard, pinned;
 		while (nonPromotionMoves) {
-			moveIndex = popBit(nonPromotionMoves);
+			to = popBit(nonPromotionMoves);
 			if (COLOR == WHITE && DIRECTION == LEFT) {
-				MoveStack::instance->push(quietMove(moveIndex + ROW + 1, moveIndex));
+				from = to + ROW + 1;
 			} else if (COLOR == WHITE && DIRECTION == RIGHT) {
-				MoveStack::instance->push(quietMove(moveIndex + ROW - 1, moveIndex));
+				from = to + ROW - 1;
 			} else if (COLOR == BLACK && DIRECTION == LEFT) {
-				MoveStack::instance->push(quietMove(moveIndex - ROW + 1, moveIndex));
+				from = to - ROW + 1;
 			} else if (COLOR == BLACK && DIRECTION == RIGHT) {
-				MoveStack::instance->push(quietMove(moveIndex - ROW - 1, moveIndex));
+				from = to - ROW - 1;
 			}
+			fromBoard = getPieceBoard(from);
+			pinned = fromBoard & Board::currentState->pinnedToKing[COLOR];
+			if (pinned
+				&& !BitBoard::aligned(kingLocation, to, fromBoard)) {
+				continue;
+			} 
+			MoveStack::instance->push(quietMove(from, to));
 		}
 
 		uint64_t promotionMoves = pawnBoard & PROMOTION_ROWS; 
-		uint32_t from;
 		while (promotionMoves) {
-			moveIndex = popBit(promotionMoves);
+			to = popBit(promotionMoves);
 			if (COLOR == WHITE && DIRECTION == LEFT) {
-				from = moveIndex + ROW + 1;
+				from = to + ROW + 1;
 			} else if (COLOR == WHITE && DIRECTION == RIGHT) {
-				from = moveIndex + ROW - 1;
+				from = to + ROW - 1;
 			} else if (COLOR == BLACK && DIRECTION == LEFT) {
-				from = moveIndex - ROW + 1;
+				from = to - ROW + 1;
 			} else if (COLOR == BLACK && DIRECTION == RIGHT) {
-				from = moveIndex - ROW - 1;
+				from = to - ROW - 1;
 			}
-			MoveStack::instance->push(move<PROMOTION>(from, moveIndex, QUEEN));
-			MoveStack::instance->push(move<PROMOTION>(from, moveIndex, ROOK));
-			MoveStack::instance->push(move<PROMOTION>(from, moveIndex, BISHOP));
-			MoveStack::instance->push(move<PROMOTION>(from, moveIndex, KNIGHT));
+			fromBoard = getPieceBoard(from);
+			pinned = fromBoard & Board::currentState->pinnedToKing[COLOR];
+			if (pinned) {
+				continue;
+			}
+			MoveStack::instance->push(move<PROMOTION>(from, to, QUEEN));
+			MoveStack::instance->push(move<PROMOTION>(from, to, ROOK));
+			MoveStack::instance->push(move<PROMOTION>(from, to, BISHOP));
+			MoveStack::instance->push(move<PROMOTION>(from, to, KNIGHT));
 		}
 
 	}
@@ -114,6 +134,8 @@
 	template <uint32_t COLOR>
 	inline void oneMoveUp() {
 		uint64_t pawnBoard = Board::pieces[PAWN] & Board::colors[COLOR];
+		uint64_t kingBoard = Board::pieces[KING] & Board::colors[COLOR];
+		uint32_t kingLocation = popBit(kingBoard);
 
 		pushPawns<COLOR, 1>(pawnBoard);
 
@@ -133,12 +155,18 @@
 
 		uint64_t promotionMoves = pawnBoard & PROMOTION_ROWS; 
 		uint32_t from;
+		uint64_t pinned;
 		while (promotionMoves) {
 			moveIndex = popBit(promotionMoves);
 			if (COLOR == WHITE) {
 				from = moveIndex + ROW;
 			} else if (COLOR == BLACK) {
 				from = moveIndex - ROW;
+			}
+			pinned = getPieceBoard(from) & Board::currentState->pinnedToKing[COLOR];
+			if (pinned
+				&& !BitBoard::aligned(kingLocation, moveIndex, getPieceBoard(from))) {
+				continue;
 			}
 			MoveStack::instance->push(move<PROMOTION>(from, moveIndex, QUEEN));
 			MoveStack::instance->push(move<PROMOTION>(from, moveIndex, ROOK));
@@ -150,6 +178,8 @@
 	template <uint32_t COLOR>
 	inline void twoMovesUp() {
 		uint64_t pawnBoard = Board::pieces[PAWN] & Board::colors[COLOR];
+		uint64_t kingBoard = Board::pieces[KING] & Board::colors[COLOR];
+		uint32_t kingLocation = popBit(kingBoard);
 
 		if (COLOR == WHITE) {
 			pawnBoard &= row<6>();
@@ -168,12 +198,18 @@
 		pawnBoard &= ~Board::occupiedSquares;
 
 		uint32_t from, to;
+		uint64_t pinned;
 		while (pawnBoard) {
 			to = popBit(pawnBoard);
 			if (COLOR == WHITE) {
 				from = to + rows<2>();
 			} else if (COLOR == BLACK) {
 				from = to - rows<2>();
+			}
+			pinned = getPieceBoard(from) & Board::currentState->pinnedToKing[COLOR];
+			if (pinned
+				&& !BitBoard::aligned(kingLocation, to, getPieceBoard(from))) {
+				continue;
 			}
 			MoveStack::instance->push(move<PAWN_DOUBLE>(from, to));
 		}
