@@ -42,11 +42,6 @@
 		while(uint32_t currentMove = MoveStack::instance->pop()) {
 			nodesSearched++;
 			Board::doMove(currentMove);
-			if (canTakeKing()) {
-				Board::undoMove();
-				continue;
-			}
-
 			MoveStack::instance->increaseDepth();
 			int score = -alphaBeta(INT32_MIN + 1, -bestScore, depth - 1);
 			MoveStack::instance->decreaseDepth();

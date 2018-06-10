@@ -50,23 +50,23 @@
 		pawnBoard &= enPassantBoard;
 
 		uint32_t moveIndex;
-		uint32_t move;
+		uint32_t move_32;
 		if (pawnBoard) {
 			moveIndex = popBit(pawnBoard);
 			if (COLOR == WHITE && DIRECTION == LEFT) {
-				move = move<EN_PASSANT>(moveIndex + ROW + 1, moveIndex);
+				move_32 = move<EN_PASSANT>(moveIndex + ROW + 1, moveIndex);
 			} else if (COLOR == WHITE && DIRECTION == RIGHT) {
-				move = move<EN_PASSANT>(moveIndex + ROW - 1, moveIndex);
+				move_32 = move<EN_PASSANT>(moveIndex + ROW - 1, moveIndex);
 			} else if (COLOR == BLACK && DIRECTION == LEFT) {
-				move = move<EN_PASSANT>(moveIndex - ROW + 1, moveIndex);
+				move_32 = move<EN_PASSANT>(moveIndex - ROW + 1, moveIndex);
 			} else if (COLOR == BLACK && DIRECTION == RIGHT) {
-				move = move<EN_PASSANT>(moveIndex - ROW - 1, moveIndex);
+				move_32 = move<EN_PASSANT>(moveIndex - ROW - 1, moveIndex);
 			}
-			// Board::doMove(move);
-			// if (!canTakeKing()) {
-				MoveStack::instance->push(move);
-			// }
-			// Board::undoMove();
+			Board::doMove(move_32);
+			if (!canTakeKing()) {
+				MoveStack::instance->push(move_32);
+			}
+			Board::undoMove();
 		}
 
 	}

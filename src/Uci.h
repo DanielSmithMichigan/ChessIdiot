@@ -25,6 +25,7 @@
 			void readLine(string input);
 			void identify();
 			void readyUp();
+			void parseLine(string input);
 			void position(string input);
 			void doMoves(string input);
 			void go(string input);
