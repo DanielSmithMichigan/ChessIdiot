@@ -29,15 +29,23 @@
 		uint64_t kings = Board::pieces[KING] & Board::colors[COLOR];
 		if (kings) {
 			uint32_t kingLocation = popBit(kings);
-			uint64_t allKingMoves = BitBoard::getAdjacentKingMoves<COLOR>(kingLocation);
+			uint64_t allKingMoves = BitBoard::getAdjacentKingMoves<COLOR>(kingLocation, Board::colors[COLOR]);
 			uint64_t captureMoves = Board::colors[OPPOSING_COLOR(COLOR)] & allKingMoves;
 			while(captureMoves) {
-				MoveStack::instance->push(quietMove(kingLocation, popBit(captureMoves)));
+				uint32_t captureMove = popBit(captureMoves);
+				if (squareAttacked<OPPOSING_COLOR(COLOR)>(captureMove)) {
+					continue;
+				}
+				MoveStack::instance->push(quietMove(kingLocation, captureMove));
 			}
 			if (!QUIESCENCE) {
 				uint64_t nonCaptureMoves = ~Board::colors[OPPOSING_COLOR(COLOR)] & allKingMoves;
 				while(nonCaptureMoves) {
-					MoveStack::instance->push(quietMove(kingLocation, popBit(nonCaptureMoves)));
+					uint32_t nonCaptureMove = popBit(nonCaptureMoves);
+					if (squareAttacked<OPPOSING_COLOR(COLOR)>(nonCaptureMove)) {
+						continue;
+					}
+					MoveStack::instance->push(quietMove(kingLocation, nonCaptureMove));
 				}
 			}
 		}
