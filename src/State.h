@@ -13,6 +13,9 @@
 		State* prev = 0;
 		int halfMoveCount = 0;
 		uint64_t pinnedToKing[3] = {0, 0, 0};
+		uint64_t checkers = 0;
+		uint64_t blockingSquares = 0;
+		bool doubleCheck = false;
 	};
 #endif
 

@@ -102,9 +102,29 @@
 		remove(color, piece, from);
 
 		Board::turn = OPPOSING_COLOR(Board::turn);
-		currentState->pinnedToKing[BLACK] = getPinnedPieces<BLACK, ROOK>() | getPinnedPieces<BLACK, BISHOP>();
-		currentState->pinnedToKing[WHITE] = getPinnedPieces<WHITE, ROOK>() | getPinnedPieces<WHITE, BISHOP>();
 		currentState->zobrist ^= Zobrist::BlackToMove;
+	}
+
+	void Board::augmentCurrentState() {
+		uint64_t blackPinnedPieces = 0, blackPinners = 0;
+		getPinnedPieces<BLACK, KING, ROOK>(blackPinnedPieces, blackPinners);
+		getPinnedPieces<BLACK, KING, BISHOP>(blackPinnedPieces, blackPinners);
+		currentState->pinnedToKing[BLACK] = blackPinnedPieces;
+
+		uint64_t whitePinnedPieces = 0, whitePinners = 0;
+		getPinnedPieces<WHITE, KING, ROOK>(whitePinnedPieces, whitePinners);
+		getPinnedPieces<WHITE, KING, BISHOP>(whitePinnedPieces, whitePinners);
+		currentState->pinnedToKing[WHITE] = whitePinnedPieces;
+
+		uint64_t checkers = 0, blockingSquares = 0, attackedPieces = 0;
+		if (turn == WHITE) {
+			getAttackers<WHITE, KING>(attackedPieces, checkers, blockingSquares);
+		} else if (turn == BLACK) {
+			getAttackers<BLACK, KING>(attackedPieces, checkers, blockingSquares);
+		}
+		currentState->checkers = checkers;
+		currentState->blockingSquares = blockingSquares;
+		currentState->doubleCheck = countOnes(checkers) > 1;
 	}
 
 	void Board::undoMove() {
