@@ -14,6 +14,7 @@
 		setPlayerTurn(readToken(fenString));
 		setCastling(readToken(fenString));
 		setEnPassantTarget(readToken(fenString));
+		Board::augmentCurrentState();
 		readHalfMoveClock(readToken(fenString));
 		// board->fullMoveClock = boost::lexical_cast<int>(readToken(fenString));
 	}

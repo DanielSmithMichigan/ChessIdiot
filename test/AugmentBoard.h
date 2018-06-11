@@ -1,0 +1,17 @@
+	#include "../src/MoveGenerationController.h"
+	#include "../src/Fen.h"
+	#include "../src/Init.h"
+	#include "TestUtility.h"
+	#include "gtest/gtest.h"
+	#include "gmock/gmock.h"
+	#include <algorithm>
+
+	using namespace std;
+
+	class AugmentBoardTest : public ::testing::Test{
+		private:
+		public:
+			virtual void SetUp();
+			AugmentBoardTest();
+			~AugmentBoardTest();
+	};

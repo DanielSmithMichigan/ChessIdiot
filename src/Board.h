@@ -69,12 +69,12 @@
 					uint64_t opposingQueens = pieces[QUEEN] & opposingPieces;
 					uint64_t attacks, firstXRay;
 					if (ATTACK_TYPE == BISHOP) {
-						attacks = BitBoard::getBishopMovesWithoutCollision(pieceLocation, Board::occupiedSquares);
+						attacks = BitBoard::getBishopMovesWithoutCollision(pieceLocation, occupiedSquares);
 					} else if (ATTACK_TYPE == ROOK) {
-						attacks = BitBoard::getRookMovesWithoutCollision(pieceLocation, Board::occupiedSquares);
+						attacks = BitBoard::getRookMovesWithoutCollision(pieceLocation, occupiedSquares);
 					}
 					uint64_t firstBlockers = attacks & occupiedSquares;
-					uint64_t occupiedWithoutFirstBlockers = occupiedSquares ^ firstBlockers;
+					uint64_t occupiedWithoutFirstBlockers = occupiedSquares & ~firstBlockers;
 					if (ATTACK_TYPE == BISHOP) {
 						firstXRay = BitBoard::getBishopMovesWithoutCollision(pieceLocation, occupiedWithoutFirstBlockers);
 					} else if (ATTACK_TYPE == ROOK) {
@@ -90,10 +90,8 @@
 						uint32_t sniper = popBit(snipers);
 						uint64_t line = BitBoard::betweenLines[sniper][pieceLocation];
 						uint64_t pinnedPieces = line & firstBlockers & colors[COLOR];
-						if (pinnedPieces) {
-							pinned |= pinnedPieces;
-							firstXRayAttacks |= getPieceBoard(sniper);
-						}
+						pinned |= pinnedPieces;
+						firstXRayAttacks |= getPieceBoard(sniper);
 					}
 				}
 			}
@@ -104,7 +102,7 @@
 				while(attackedPiecesBoard) {
 					uint64_t currentAttackers = 0;
 					uint32_t pieceLocation = popBit(attackedPiecesBoard);
-					uint32_t attackedPieceBoard = getPieceBoard(pieceLocation);
+					uint64_t attackedPieceBoard = getPieceBoard(pieceLocation);
 					uint64_t opposingPieces = colors[OPPOSING_COLOR(COLOR)];
 					uint64_t opposingRooks = pieces[ROOK] & opposingPieces;
 					uint64_t opposingBishops = pieces[BISHOP] & opposingPieces;
@@ -114,10 +112,9 @@
 					uint64_t slideAttackers = attackingBishops | attackingRooks;
 					while(slideAttackers) {
 						uint32_t slideAttacker = popBit(slideAttackers);
-						currentAttackers |= slideAttacker;
-						blockingSquares |= BitBoard::betweenLines[slideAttacker][pieceLocation];
+						currentAttackers |= getPieceBoard(slideAttacker);
+						blockingSquares |= (BitBoard::betweenLines[slideAttacker][pieceLocation] & ~attackedPieceBoard);
 					}
-
 					uint64_t opposingPawns = pieces[PAWN] & colors[OPPOSING_COLOR(COLOR)];
 					uint64_t pawnAttackSquareLeft = attackedPieceBoard;
 					uint64_t pawnAttackSquareRight = attackedPieceBoard;

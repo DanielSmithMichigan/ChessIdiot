@@ -103,6 +103,7 @@
 
 		Board::turn = OPPOSING_COLOR(Board::turn);
 		currentState->zobrist ^= Zobrist::BlackToMove;
+		augmentCurrentState();
 	}
 
 	void Board::augmentCurrentState() {
@@ -110,11 +111,13 @@
 		getPinnedPieces<BLACK, KING, ROOK>(blackPinnedPieces, blackPinners);
 		getPinnedPieces<BLACK, KING, BISHOP>(blackPinnedPieces, blackPinners);
 		currentState->pinnedToKing[BLACK] = blackPinnedPieces;
+		currentState->pinners[BLACK] = blackPinners;
 
 		uint64_t whitePinnedPieces = 0, whitePinners = 0;
 		getPinnedPieces<WHITE, KING, ROOK>(whitePinnedPieces, whitePinners);
 		getPinnedPieces<WHITE, KING, BISHOP>(whitePinnedPieces, whitePinners);
 		currentState->pinnedToKing[WHITE] = whitePinnedPieces;
+		currentState->pinners[WHITE] = whitePinners;
 
 		uint64_t checkers = 0, blockingSquares = 0, attackedPieces = 0;
 		if (turn == WHITE) {
