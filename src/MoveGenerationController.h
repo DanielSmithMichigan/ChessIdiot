@@ -2,6 +2,7 @@
 #define MoveGenerationController_h
 	#include <stdint.h>
 	#include <iomanip>
+
 	#include "Fen.h"
 	#include "Board.h"
 	#include "MoveStack.h"
@@ -14,7 +15,6 @@
 	#include "KingMoveGeneration.h"
 	#include "TranspositionTable.h"
 	
-
 	using namespace std;
 
 	class MoveGenerationController {
@@ -50,4 +50,5 @@
 				MoveStack::instance->scoreSpecialMoves(TranspositionTable::instance->searchMove());
 			}
 	};
+
 #endif

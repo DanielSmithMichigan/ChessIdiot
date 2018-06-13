@@ -41,6 +41,10 @@
 		uint64_t counter = 0;
 		while(uint32_t currentMove = MoveStack::instance->pop()) {
 			Board::doMove(currentMove);
+			if (canTakeKing()) {
+				Board::undoMove();
+				continue;
+			}
 			MoveStack::instance->increaseDepth();
 			counter += countMovesAtDepth(depth - 1);
 			MoveStack::instance->decreaseDepth();

@@ -81,6 +81,19 @@
 		depthLimits[currentDepth] = top;
 	}
 
+	void MoveStack::checkAndPushMove(uint32_t color, SpecialMove moveType, const uint8_t &from, const uint8_t &to) {
+		uint64_t kingBoard = Board::pieces[KING] & Board::colors[color];
+		uint64_t fromBoard = getPieceBoard(from);
+		uint64_t pinned = fromBoard & Board::currentState->pinnedToKing[color];
+		if (pinned
+			&& !BitBoard::aligned(from, to, kingBoard)) {
+			return;
+		}
+		if (moveType == CLASSIC) {
+			MoveStack::instance->push(quietMove(from, to));
+		}
+	}
+
 	uint32_t MoveStack::pop() {
 		uint32_t bottom = getDepthBottom();
 		if (top <= bottom) {

@@ -90,8 +90,10 @@
 						uint32_t sniper = popBit(snipers);
 						uint64_t line = BitBoard::betweenLines[sniper][pieceLocation];
 						uint64_t pinnedPieces = line & firstBlockers & colors[COLOR];
-						pinned |= pinnedPieces;
-						firstXRayAttacks |= getPieceBoard(sniper);
+						if (pinnedPieces) {
+							pinned |= pinnedPieces;
+							firstXRayAttacks |= getPieceBoard(sniper);
+						}
 					}
 				}
 			}
@@ -127,7 +129,7 @@
 					blockingSquares |= attackingPawns;
 
 					uint64_t opposingKnights = pieces[KNIGHT] & colors[OPPOSING_COLOR(COLOR)];
-					uint64_t attackingKnightSquares = BitBoard::getKnightMoves<OPPOSING_COLOR(COLOR)>(attackedPieceBoard, 0);
+					uint64_t attackingKnightSquares = BitBoard::getKnightMoves<OPPOSING_COLOR(COLOR)>(pieceLocation, 0);
 					uint64_t attackingKnights = opposingKnights & attackingKnightSquares;
 					currentAttackers |= attackingKnights;
 					blockingSquares |= attackingKnights;

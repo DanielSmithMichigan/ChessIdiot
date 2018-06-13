@@ -40,11 +40,10 @@
 			void scoreSpecialMoves(uint32_t move);
 			void markKiller(uint32_t move);
 			void markHistory(uint32_t move);
+			void checkAndPushMove(uint32_t color, SpecialMove moveType, const uint8_t &from, const uint8_t &to);
 			static MoveStack *instance;
 			MoveStack();
 			~MoveStack();
 	};
-
-
 
 #endif
