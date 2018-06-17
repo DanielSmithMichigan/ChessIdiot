@@ -36,7 +36,7 @@
 				if (squareAttacked<OPPOSING_COLOR(COLOR)>(captureMove)) {
 					continue;
 				}
-				MoveStack::instance->push(quietMove(kingLocation, captureMove));
+				MoveStack::instance->checkAndPushMove(COLOR, CLASSIC, kingLocation, captureMove);
 			}
 			if (!QUIESCENCE) {
 				uint64_t nonCaptureMoves = ~Board::colors[OPPOSING_COLOR(COLOR)] & allKingMoves;
@@ -45,7 +45,7 @@
 					if (squareAttacked<OPPOSING_COLOR(COLOR)>(nonCaptureMove)) {
 						continue;
 					}
-					MoveStack::instance->push(quietMove(kingLocation, nonCaptureMove));
+					MoveStack::instance->checkAndPushMove(COLOR, CLASSIC, kingLocation, nonCaptureMove);
 				}
 			}
 		}
@@ -64,21 +64,21 @@
 			&& !(Board::occupiedSquares & CASTLE_RIGHT_OCCUPIED & row<7>())
 			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(61)
 			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(62)) {
-			MoveStack::instance->push(move<CASTLE>(kingLocation, 62));
+			MoveStack::instance->checkAndPushMove(COLOR, CASTLE, kingLocation, 62);
 		}
 		if (COLOR == WHITE
 			&& (Board::currentState->castlingRights & WHITE_CAN_CASTLE_LEFT)
 			&& !(Board::occupiedSquares & CASTLE_LEFT_OCCUPIED & row<7>())
 			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(58)
 			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(59)) {
-			MoveStack::instance->push(move<CASTLE>(kingLocation, 58));
+			MoveStack::instance->checkAndPushMove(COLOR, CASTLE, kingLocation, 58);
 		}
 		if (COLOR == BLACK
 			&& (Board::currentState->castlingRights & BLACK_CAN_CASTLE_RIGHT)
 			&& !(Board::occupiedSquares & CASTLE_RIGHT_OCCUPIED & row<0>())
 			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(5)
 			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(6)) {
-			MoveStack::instance->push(move<CASTLE>(kingLocation, 6));
+			MoveStack::instance->checkAndPushMove(COLOR, CASTLE, kingLocation, 6);
 		}
 
 		if (COLOR == BLACK
@@ -86,7 +86,7 @@
 			&& !(Board::occupiedSquares & CASTLE_LEFT_OCCUPIED & row<0>())
 			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(2)
 			&& !squareAttacked<OPPOSING_COLOR(COLOR)>(3)) {
-			MoveStack::instance->push(move<CASTLE>(kingLocation, 2));
+			MoveStack::instance->checkAndPushMove(COLOR, CASTLE, kingLocation, 2);
 		}
 	}
 #endif

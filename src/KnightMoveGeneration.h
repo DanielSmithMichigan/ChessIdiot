@@ -16,20 +16,15 @@
 		uint64_t knights = Board::pieces[KNIGHT] & Board::colors[COLOR];
 		while(knights) {
 			uint32_t knightLocation = popBit(knights);
-			uint64_t knightBoard = getPieceBoard(knightLocation);
-			uint64_t pinned = knightBoard & Board::currentState->pinnedToKing[COLOR];
-			if (pinned) {
-				continue;
-			}
 			uint64_t allKnightMoves = BitBoard::getKnightMoves<COLOR>(knightLocation, Board::colors[COLOR]);
 			uint64_t captureMoves = Board::colors[OPPOSING_COLOR(COLOR)] & allKnightMoves;
 			while(captureMoves) {
-				MoveStack::instance->push(quietMove(knightLocation, popBit(captureMoves)));
+				MoveStack::instance->checkAndPushMove(COLOR, CLASSIC, knightLocation, popBit(captureMoves));
 			}
 			if (!QUIESCENCE) {
 				uint64_t nonCaptureMoves = ~Board::colors[OPPOSING_COLOR(COLOR)] & allKnightMoves;
 				while(nonCaptureMoves) {
-					MoveStack::instance->push(quietMove(knightLocation, popBit(nonCaptureMoves)));
+					MoveStack::instance->checkAndPushMove(COLOR, CLASSIC, knightLocation, popBit(nonCaptureMoves));
 				}
 			}
 		}

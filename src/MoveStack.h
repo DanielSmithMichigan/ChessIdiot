@@ -2,6 +2,7 @@
 #define MoveStack_h
 	#include "Globals.h"
 	#include "Board.h"
+	#include "SquareAttacked.h"
 	#include <stdint.h>
 	#include <iostream>
 	#include <memory>
@@ -40,7 +41,7 @@
 			void scoreSpecialMoves(uint32_t move);
 			void markKiller(uint32_t move);
 			void markHistory(uint32_t move);
-			void checkAndPushMove(uint32_t color, SpecialMove moveType, const uint8_t &from, const uint8_t &to);
+			void checkAndPushMove(uint32_t color, SpecialMove moveType, const uint8_t &from, const uint8_t &to, PieceType pieceType);
 			static MoveStack *instance;
 			MoveStack();
 			~MoveStack();

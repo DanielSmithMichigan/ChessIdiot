@@ -50,23 +50,19 @@
 		pawnBoard &= enPassantBoard;
 
 		uint32_t moveIndex;
-		uint32_t move_32;
+		uint32_t from;
 		if (pawnBoard) {
 			moveIndex = popBit(pawnBoard);
 			if (COLOR == WHITE && DIRECTION == LEFT) {
-				move_32 = move<EN_PASSANT>(moveIndex + ROW + 1, moveIndex);
+				from = moveIndex + ROW + 1;
 			} else if (COLOR == WHITE && DIRECTION == RIGHT) {
-				move_32 = move<EN_PASSANT>(moveIndex + ROW - 1, moveIndex);
+				from = moveIndex + ROW - 1;
 			} else if (COLOR == BLACK && DIRECTION == LEFT) {
-				move_32 = move<EN_PASSANT>(moveIndex - ROW + 1, moveIndex);
+				from = moveIndex - ROW + 1;
 			} else if (COLOR == BLACK && DIRECTION == RIGHT) {
-				move_32 = move<EN_PASSANT>(moveIndex - ROW - 1, moveIndex);
+				from = moveIndex - ROW - 1;
 			}
-			Board::doMove(move_32);
-			if (!canTakeKing()) {
-				MoveStack::instance->push(move_32);
-			}
-			Board::undoMove();
+			MoveStack::instance->checkAndPushMove(COLOR, EN_PASSANT, from, moveIndex);
 		}
 
 	}
@@ -85,7 +81,7 @@
 
 		uint64_t nonPromotionMoves = pawnBoard & ~PROMOTION_ROWS;
 		uint64_t nonPromotionMove;
-		uint32_t to, from, fromBoard, pinned;
+		uint32_t to, from, fromBoard;
 		while (nonPromotionMoves) {
 			to = popBit(nonPromotionMoves);
 			if (COLOR == WHITE && DIRECTION == LEFT) {
@@ -98,12 +94,7 @@
 				from = to - ROW - 1;
 			}
 			fromBoard = getPieceBoard(from);
-			pinned = fromBoard & Board::currentState->pinnedToKing[COLOR];
-			if (pinned
-				&& !BitBoard::aligned(kingLocation, to, fromBoard)) {
-				continue;
-			} 
-			MoveStack::instance->push(quietMove(from, to));
+			MoveStack::instance->checkAndPushMove(COLOR, CLASSIC, from, to);
 		}
 
 		uint64_t promotionMoves = pawnBoard & PROMOTION_ROWS; 
@@ -118,15 +109,10 @@
 			} else if (COLOR == BLACK && DIRECTION == RIGHT) {
 				from = to - ROW - 1;
 			}
-			fromBoard = getPieceBoard(from);
-			pinned = fromBoard & Board::currentState->pinnedToKing[COLOR];
-			if (pinned) {
-				continue;
-			}
-			MoveStack::instance->push(move<PROMOTION>(from, to, QUEEN));
-			MoveStack::instance->push(move<PROMOTION>(from, to, ROOK));
-			MoveStack::instance->push(move<PROMOTION>(from, to, BISHOP));
-			MoveStack::instance->push(move<PROMOTION>(from, to, KNIGHT));
+			MoveStack::instance->checkAndPushMove(COLOR, PROMOTION, from, to, QUEEN);
+			MoveStack::instance->checkAndPushMove(COLOR, PROMOTION, from, to, ROOK);
+			MoveStack::instance->checkAndPushMove(COLOR, PROMOTION, from, to, BISHOP);
+			MoveStack::instance->checkAndPushMove(COLOR, PROMOTION, from, to, KNIGHT);
 		}
 
 	}
@@ -143,35 +129,29 @@
 
 		uint64_t nonPromotionMoves = pawnBoard & ~PROMOTION_ROWS;
 
-		uint32_t moveIndex;
+		uint32_t to, from;
 		while (nonPromotionMoves) {
-			moveIndex = popBit(nonPromotionMoves);
+			to = popBit(nonPromotionMoves);
 			if (COLOR == WHITE) {
-				MoveStack::instance->push(quietMove(moveIndex + ROW, moveIndex));
+				from = to + ROW;
 			} else if (COLOR == BLACK) {
-				MoveStack::instance->push(quietMove(moveIndex - ROW, moveIndex));
+				from = to - ROW;
 			}
+			MoveStack::instance->checkAndPushMove(COLOR, CLASSIC, from, to);
 		}
 
 		uint64_t promotionMoves = pawnBoard & PROMOTION_ROWS; 
-		uint32_t from;
-		uint64_t pinned;
 		while (promotionMoves) {
-			moveIndex = popBit(promotionMoves);
+			to = popBit(promotionMoves);
 			if (COLOR == WHITE) {
-				from = moveIndex + ROW;
+				from = to + ROW;
 			} else if (COLOR == BLACK) {
-				from = moveIndex - ROW;
+				from = to - ROW;
 			}
-			pinned = getPieceBoard(from) & Board::currentState->pinnedToKing[COLOR];
-			if (pinned
-				&& !BitBoard::aligned(kingLocation, moveIndex, getPieceBoard(from))) {
-				continue;
-			}
-			MoveStack::instance->push(move<PROMOTION>(from, moveIndex, QUEEN));
-			MoveStack::instance->push(move<PROMOTION>(from, moveIndex, ROOK));
-			MoveStack::instance->push(move<PROMOTION>(from, moveIndex, BISHOP));
-			MoveStack::instance->push(move<PROMOTION>(from, moveIndex, KNIGHT));
+			MoveStack::instance->checkAndPushMove(COLOR, PROMOTION, from, to, QUEEN);
+			MoveStack::instance->checkAndPushMove(COLOR, PROMOTION, from, to, ROOK);
+			MoveStack::instance->checkAndPushMove(COLOR, PROMOTION, from, to, BISHOP);
+			MoveStack::instance->checkAndPushMove(COLOR, PROMOTION, from, to, KNIGHT);
 		}
 	}
 
@@ -198,7 +178,6 @@
 		pawnBoard &= ~Board::occupiedSquares;
 
 		uint32_t from, to;
-		uint64_t pinned;
 		while (pawnBoard) {
 			to = popBit(pawnBoard);
 			if (COLOR == WHITE) {
@@ -206,12 +185,7 @@
 			} else if (COLOR == BLACK) {
 				from = to - rows<2>();
 			}
-			pinned = getPieceBoard(from) & Board::currentState->pinnedToKing[COLOR];
-			if (pinned
-				&& !BitBoard::aligned(kingLocation, to, getPieceBoard(from))) {
-				continue;
-			}
-			MoveStack::instance->push(move<PAWN_DOUBLE>(from, to));
+			MoveStack::instance->checkAndPushMove(COLOR, PAWN_DOUBLE, from, to);
 		}
 	}
 #endif
