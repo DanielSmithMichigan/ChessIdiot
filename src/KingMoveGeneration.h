@@ -56,7 +56,7 @@
 		uint64_t rooks = Board::pieces[ROOK] & Board::colors[COLOR];
 		uint64_t kings = Board::pieces[KING] & Board::colors[COLOR];
 		uint32_t kingLocation = popBit(kings);
-		if (squareAttacked<OPPOSING_COLOR(COLOR)>(kingLocation)) {
+		if (Board::currentState->checkers) {
 			return;
 		}
 		if (COLOR == WHITE

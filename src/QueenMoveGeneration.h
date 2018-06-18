@@ -18,27 +18,17 @@
 		uint32_t kingLocation = popBit(kingBoard);
 		while(queens) {
 			uint32_t queenLocation = popBit(queens);
-			uint64_t queenBoard = getPieceBoard(queenLocation);
-			uint64_t pinned = queenBoard & Board::currentState->pinnedToKing[COLOR];
 			uint64_t allQueenMoves = BitBoard::getBishopMoves<COLOR>(queenLocation, Board::occupiedSquares, Board::colors[COLOR]) | BitBoard::getRookMoves<COLOR>(queenLocation, Board::occupiedSquares, Board::colors[COLOR]);
 			uint64_t captureMoves = Board::colors[OPPOSING_COLOR(COLOR)] & allQueenMoves;
 			while(captureMoves) {
 				uint32_t captureMove = popBit(captureMoves);
-				if (pinned
-					&& !BitBoard::aligned(kingLocation, captureMove, queenBoard)) {
-					continue;
-				}
-				MoveStack::instance->push(quietMove(queenLocation, captureMove));
+				MoveStack::instance->checkAndPushMove(COLOR, CLASSIC, queenLocation, captureMove);
 			}
 			if (!QUIESCENCE) {
 				uint64_t nonCaptureMoves = ~Board::colors[OPPOSING_COLOR(COLOR)] & allQueenMoves;
 				while(nonCaptureMoves) {
 					uint32_t nonCaptureMove = popBit(nonCaptureMoves);
-					if (pinned
-						&& !BitBoard::aligned(kingLocation, nonCaptureMove, queenBoard)) {
-						continue;
-					}
-					MoveStack::instance->push(quietMove(queenLocation, nonCaptureMove));
+					MoveStack::instance->checkAndPushMove(COLOR, CLASSIC, queenLocation, nonCaptureMove);
 				}
 			}
 		}

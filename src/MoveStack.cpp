@@ -81,13 +81,24 @@
 		depthLimits[currentDepth] = top;
 	}
 
-	void MoveStack::checkAndPushMove(uint32_t color, SpecialMove moveType, const uint8_t &from, const uint8_t &to, PieceType pieceType = PAWN) {
+	void MoveStack::checkAndPushMove(uint32_t color, SpecialMove moveType, const uint8_t &from, const uint8_t &to, PieceType pieceType) {
 		uint64_t kingBoard = Board::pieces[KING] & Board::colors[color];
 		uint64_t fromBoard = getPieceBoard(from);
+		uint64_t toBoard = getPieceBoard(to);
 
 		uint64_t pinned = fromBoard & Board::currentState->pinnedToKing[color];
 		if (pinned
 			&& !BitBoard::aligned(from, to, kingBoard)) {
+			return;
+		}
+
+		if (Board::currentState->checkers
+			&& !(fromBoard & kingBoard)
+			&& (
+				!(toBoard & Board::currentState->blockingSquares)
+				|| Board::currentState->doubleCheck
+			)
+		) {
 			return;
 		}
 
@@ -104,6 +115,8 @@
 			Board::undoMove();
 		} else if (moveType == PROMOTION) {
 			MoveStack::instance->push(move<PROMOTION>(from, to, pieceType));
+		} else if (moveType == PAWN_DOUBLE) {
+			MoveStack::instance->push(move<PAWN_DOUBLE>(from, to));
 		}
 	}
 
