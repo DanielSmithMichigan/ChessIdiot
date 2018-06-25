@@ -27,13 +27,14 @@
 	template <uint32_t COLOR, bool QUIESCENCE>
 	inline void generateAdjacentKingMoves() {
 		uint64_t kings = Board::pieces[KING] & Board::colors[COLOR];
+		uint64_t kingsMask = Board::pieces[KING] & Board::colors[COLOR];
 		if (kings) {
 			uint32_t kingLocation = popBit(kings);
 			uint64_t allKingMoves = BitBoard::getAdjacentKingMoves<COLOR>(kingLocation, Board::colors[COLOR]);
 			uint64_t captureMoves = Board::colors[OPPOSING_COLOR(COLOR)] & allKingMoves;
 			while(captureMoves) {
 				uint32_t captureMove = popBit(captureMoves);
-				if (squareAttacked<OPPOSING_COLOR(COLOR)>(captureMove)) {
+				if (squareAttacked<OPPOSING_COLOR(COLOR)>(captureMove, kingsMask)) {
 					continue;
 				}
 				MoveStack::instance->checkAndPushMove(COLOR, CLASSIC, kingLocation, captureMove);
@@ -42,7 +43,7 @@
 				uint64_t nonCaptureMoves = ~Board::colors[OPPOSING_COLOR(COLOR)] & allKingMoves;
 				while(nonCaptureMoves) {
 					uint32_t nonCaptureMove = popBit(nonCaptureMoves);
-					if (squareAttacked<OPPOSING_COLOR(COLOR)>(nonCaptureMove)) {
+					if (squareAttacked<OPPOSING_COLOR(COLOR)>(nonCaptureMove, kingsMask)) {
 						continue;
 					}
 					MoveStack::instance->checkAndPushMove(COLOR, CLASSIC, kingLocation, nonCaptureMove);

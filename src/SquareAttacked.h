@@ -13,9 +13,9 @@
 	bool canTakeKing();
 	bool kingInCheck();
 
-	template <uint32_t COLOR> inline bool squareAttacked(uint32_t location);
+	template <uint32_t COLOR> inline bool squareAttacked(uint32_t location, uint64_t ignoreOccupied = 0);
 	template <uint32_t COLOR>
-	inline bool squareAttacked(uint32_t location) {
+	inline bool squareAttacked(uint32_t location, uint64_t ignoreOccupied) {
 		uint64_t pieceBoard = getPieceBoard(location);
 		uint64_t rooks = Board::pieces[ROOK] & Board::colors[COLOR];
 		uint64_t bishops = Board::pieces[BISHOP] & Board::colors[COLOR];
@@ -23,11 +23,11 @@
 		uint64_t kings = Board::pieces[KING] & Board::colors[COLOR];
 		uint64_t pawns = Board::pieces[PAWN] & Board::colors[COLOR];
 		uint64_t knights = Board::pieces[KNIGHT] & Board::colors[COLOR];
-		if (BitBoard::getBishopMoves<OPPOSING_COLOR(COLOR)>(location, Board::occupiedSquares, Board::colors[OPPOSING_COLOR(COLOR)])
+		if (BitBoard::getBishopMoves<OPPOSING_COLOR(COLOR)>(location, Board::occupiedSquares & ~ignoreOccupied, Board::colors[OPPOSING_COLOR(COLOR)])
 			& (bishops | queens)) {
 			return true;
 		}
-		if (BitBoard::getRookMoves<OPPOSING_COLOR(COLOR)>(location, Board::occupiedSquares, Board::colors[OPPOSING_COLOR(COLOR)])
+		if (BitBoard::getRookMoves<OPPOSING_COLOR(COLOR)>(location, Board::occupiedSquares & ~ignoreOccupied, Board::colors[OPPOSING_COLOR(COLOR)])
 			& (rooks | queens)) {
 			return true;
 		} 

@@ -82,6 +82,15 @@
 	}
 
 	void MoveStack::checkAndPushMove(uint32_t color, SpecialMove moveType, const uint8_t &from, const uint8_t &to, PieceType pieceType) {
+		if (moveType == EN_PASSANT) {
+			uint32_t move_32 = move<EN_PASSANT>(from, to);
+			Board::doMove(move_32);
+			if (!canTakeKing()) {
+				MoveStack::instance->push(move_32);
+			}
+			Board::undoMove();
+			return;
+		}
 		uint64_t kingBoard = Board::pieces[KING] & Board::colors[color];
 		uint64_t fromBoard = getPieceBoard(from);
 		uint64_t toBoard = getPieceBoard(to);
@@ -106,13 +115,6 @@
 			MoveStack::instance->push(quietMove(from, to));
 		} else if (moveType == CASTLE) {
 			MoveStack::instance->push(move<CASTLE>(from, to));
-		} else if (moveType == EN_PASSANT) {
-			uint32_t move_32 = move<EN_PASSANT>(from, to);
-			Board::doMove(move_32);
-			if (!canTakeKing()) {
-				MoveStack::instance->push(move_32);
-			}
-			Board::undoMove();
 		} else if (moveType == PROMOTION) {
 			MoveStack::instance->push(move<PROMOTION>(from, to, pieceType));
 		} else if (moveType == PAWN_DOUBLE) {
